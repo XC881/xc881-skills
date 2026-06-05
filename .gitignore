@@ -1,0 +1,8 @@
+.DS_Store
+Thumbs.db
+*.tmp
+*.log
+*.zip
+*.skill
+__pycache__/
+.pytest_cache/
