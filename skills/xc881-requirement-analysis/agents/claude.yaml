@@ -1,6 +1,6 @@
 interface:
   display_name: "xc881需求分析"
-  short_description: "Product and project requirement understanding with implicit requirement inference"
-  default_prompt: "Apply the xc881-requirement-analysis skill: do not write code or start with folder structure. Use English Spec First normalization when the request is rough, multilingual, ambiguous, scattered, or mixed Chinese-English. Classify the request as new project or existing project feature/change. Capture explicit requirements, infer hidden prerequisite, dependency, consequence, state, permission, data, failure, observability, migration, and non-functional requirements. Mark inferred items as inferred with confidence, define acceptance criteria, risks, unknowns, and produce a reliable engineering implementation plan for xc881-coding-skills."
+  short_description: "Compact requirement analysis with implicit dependency and consequence inference"
+  default_prompt: "Apply xc881-requirement-analysis: do not write code. Normalize rough or mixed-language requests when needed, classify new project vs existing feature, separate explicit/inferred/assumed requirements, infer dependencies and consequences, define scope, acceptance criteria, risks, and a concise engineering handoff."
 policy:
   allow_implicit_invocation: true

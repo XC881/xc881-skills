@@ -1,15 +1,17 @@
-# xc881 Skills — 通用自定义指令
+# xc881 Skills
 
-Use `xc881-requirement-analysis` for:
-- English Spec First normalization for rough, multilingual, ambiguous, scattered, or mixed Chinese-English requests
-- new project requirement analysis
-- existing project new feature analysis
-- implicit/dependency/consequence requirement inference
-- PRD, MVP, user roles, acceptance criteria, risks, engineering plan
+Use `xc881-requirement-analysis` for requirement understanding before coding:
+- rough/mixed-language request normalization
+- new project requirements
+- existing project feature requirements
+- hidden dependency/consequence requirements
+- acceptance criteria, risks, engineering handoff
 
-Use `xc881-coding-skills` for:
-- implementation after requirements are clear
-- refactor, code splitting, decoupling
-- low-quality code prevention
+Use `xc881-coding-skills` for engineering execution after requirements are clear:
+- implementation, refactor, review, optimization
+- code splitting and decoupling
 - no-code-comments by default
-- verification and explicit-only git checkpoint/push
+- verification
+- explicit-only git checkpoint/push
+
+Default to compact outputs. Expand only when asked or when risk requires it.

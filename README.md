@@ -1,100 +1,62 @@
 # xc881-skills
 
-Agent skill repository for the xc881 workflow.
+Token-efficient Agent Skills for requirement analysis and engineering execution.
 
 ## Skills
 
-| Skill | Purpose |
+| Skill | Use for |
 | --- | --- |
-| `xc881-requirement-analysis` | Normalize rough or mixed-language requests with English Spec First, analyze new project requirements or existing project feature requirements, infer hidden dependency/consequence requirements, define acceptance criteria, risks, and engineering implementation plan. |
-| `xc881-coding-skills` | Execute safe engineering work after requirements are clear: coding, refactor, code splitting, decoupling, verification, no-code-comments, and explicit-only git checkpoint/push. |
+| `xc881-requirement-analysis` | Before coding: normalize rough requests, analyze new projects or existing-feature requirements, infer hidden dependency/consequence requirements, define acceptance criteria, risks, and engineering handoff. |
+| `xc881-coding-skills` | After requirements are clear: implement, refactor, review, optimize, split code, decouple, verify, keep code comment-free by default, and checkpoint/push only when requested. |
 
-## Recommended workflow
+## Recommended flow
 
 ```text
 $xc881-requirement-analysis
-Normalize the rough request first if needed, then analyze this existing project feature or new project idea. Identify explicit requirements, inferred requirements, acceptance criteria, risks, and an engineering plan.
+Analyze requirements, infer hidden needs, define acceptance criteria and implementation handoff.
 
 $xc881-coding-skills
-Use the requirement analysis above as the source of truth. Produce the xc881 design gate and implement Phase 1 only.
+Use the analysis as source of truth. Read code, run compact design gate, implement Phase 1.
 ```
+
+## Token policy
+
+- `SKILL.md` files are compact fast paths.
+- Detailed behavior lives in `references/`.
+- Agents should read references only when needed.
+- Default outputs are compact; detailed reports are opt-in or risk-triggered.
+
+## Runtime references vs repository docs
+
+Per-skill `references/` directories contain only files that an agent may need during task execution.
+
+Repository-level docs live in `docs/`:
+
+| File | Purpose |
+| --- | --- |
+| `docs/skill-indexing-troubleshooting.md` | Human-facing install/indexing troubleshooting, including `skills_list` issues and symlink notes. |
+| `docs/requirement-analysis-research-basis.md` | Design rationale and research basis for requirement analysis; not needed during normal execution. |
+
+Do not duplicate compatibility, install, indexing, or research-background files inside every skill's `references/`.
 
 ## Compatibility
 
-This repository centralizes compatibility guidance here instead of duplicating `real-compatibility.md` inside each skill.
-
-### Reliable entry points
-
-#### OpenAI / Codex
-
-Use:
+Use the skill folders through whichever loader your agent supports:
 
 ```text
-SKILL.md
-.agents/skills/<skill-name>/SKILL.md
-AGENTS.md
-```
-
-Optional extension in this repository:
-
-```text
-skills/<skill-name>/agents/openai.yaml
-```
-
-For Codex, the recommended global install path is:
-
-```text
+.agents/skills/<skill-name>
 ~/.agents/skills/<skill-name>
+.claude/skills/<skill-name>
+~/.claude/skills/<skill-name>
+.codex/skills/<skill-name>
+~/.codex/skills/<skill-name>
+.cursor/skills/<skill-name>
+~/.cursor/skills/<skill-name>
 ```
 
-Project-level install path:
+`agents/openai.yaml` and `agents/claude.yaml` are optional platform metadata.
 
-```text
-<project>/.agents/skills/<skill-name>
-```
-
-#### Claude / Claude Code
-
-Use:
-
-```text
-SKILL.md
-.claude/skills/<skill-name>/SKILL.md
-CLAUDE.md
-```
-
-Optional extension in this repository:
-
-```text
-skills/<skill-name>/agents/claude.yaml
-```
-
-#### Cursor and compatible agents
-
-Use whichever entry the wrapper supports:
-
-```text
-SKILL.md
-.cursor/skills/<skill-name>/SKILL.md
-.agents/skills/<skill-name>/SKILL.md
-AGENTS.md
-```
-
-#### DeepSeek / GLM / Mimo
-
-These do not share one reliable public YAML Skill standard.
-
-Use:
-
-```text
-AGENTS.md
-SKILL.md
-platform-prompts/*.md
-```
-
-depending on what the wrapper or IDE actually reads.
-
-Do not add `deepseek.yaml`, `glm.yaml`, or `mimo.yaml` unless a real loader for those files is documented.
+For DeepSeek, GLM, Mimo, or wrappers without Skill loading, use `platform-prompts/*.md`.
 
 ## Install
 
@@ -109,3 +71,8 @@ cp -r skills/xc881-coding-skills ~/.codex/skills/
 cp -r skills/xc881-requirement-analysis ~/.cursor/skills/
 cp -r skills/xc881-coding-skills ~/.cursor/skills/
 ```
+
+
+## Skill indexing / skills_list troubleshooting
+
+See `docs/skill-indexing-troubleshooting.md`.

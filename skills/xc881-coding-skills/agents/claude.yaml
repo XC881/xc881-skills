@@ -1,6 +1,6 @@
 interface:
   display_name: "xc881代码工程规范"
-  short_description: "Boundaries-first engineering execution skill for safe, verified code changes"
-  default_prompt: "Apply the xc881-coding-skills skill: if product requirements, MVP, roles, hidden dependencies, consequence requirements, or acceptance criteria are unclear, use or request xc881-requirement-analysis first. Before writing code, read the relevant files, bound the task, and run the xc881 design gate. Make the smallest correct maintainable change, preserve local style, keep generated and edited code comment-free unless an exception applies, avoid speculative abstractions, and verify before reporting success."
+  short_description: "Boundaries-first engineering execution with compact outputs"
+  default_prompt: "Apply xc881-coding-skills: if requirements are unclear, request xc881-requirement-analysis first. Read relevant files before writing, bound the task, use a compact design gate for non-trivial work, make the smallest maintainable change, preserve local style, avoid comments by default, verify before reporting success, and commit/push only when explicitly requested."
 policy:
   allow_implicit_invocation: true

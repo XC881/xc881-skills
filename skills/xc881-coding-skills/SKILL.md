@@ -1,195 +1,149 @@
 ---
+
 name: xc881-coding-skills
-description: 'Use for serious coding tasks, bug fixes, refactors, code review, production changes, architecture decisions after requirements are understood, existing project implementation, legacy project optimization, code splitting, decoupling, maintainability, testability, low-quality-code prevention, minimal diff requests, comment-free code output, or explicit git checkpoint/push. Trigger on xc881, xc881代码工程规范, xc881工程优化, 代码分割, 解耦, 可维护性, 低质量代码, 老项目优化, 高质量代码, 最小改动, 先读代码, 不要乱改, 不要注释, 提交代码, 保存进度, 推送到 GitHub.'
-when_to_use: 'Use when the user asks to write, edit, fix, refactor, review, scaffold, or optimize code; when generated or edited code should stay comment-free by default; when the user explicitly asks to create a git checkpoint, commit, save progress, push to GitHub, or write a Conventional Commit message; and whenever xc881 engineering quality, decoupling, maintainability, code splitting, or legacy/new project engineering is requested. If product/project requirements are unclear, or hidden/dependency/consequence requirements must be inferred, use xc881-requirement-analysis before this skill.'
+description: 'Use for serious coding after requirements are clear: implementation, bug fixes, refactors, code review, production changes, existing project optimization, architecture decisions, code splitting, decoupling, maintainability, testability, low-quality-code prevention, minimal diffs, no-code-comments by default, verification, or explicit git checkpoint/push. Trigger on xc881, xc881代码工程规范, xc881工程优化, 代码分割, 解耦, 可维护性, 低质量代码, 老项目优化, 高质量代码, 最小改动, 先读代码, 不要乱改, 不要注释, 提交代码, 保存进度, 推送到 GitHub.'
+when_to_use: 'Use when the user asks to write, edit, fix, refactor, review, scaffold, or optimize code; when generated/edited code should stay comment-free by default; when explicit checkpoint/commit/push is requested; or when engineering quality, decoupling, testability, and maintainability matter. If requirements are unclear or implicit dependency/consequence requirements need analysis, use xc881-requirement-analysis first.'
+display_name: "xc881代码工程规范"
+version: "1.0.0"
+category: "coding"
+tags:
+  - coding
+  - refactor
+  - code-review
+  - decoupling
+  - maintainability
+  - testability
+  - no-comments
+  - git-checkpoint
+  - xc881
+aliases:
+  - xc881
+  - xc881-coding
+  - xc881-engineering
+  - xc881代码工程规范
+  - xc881工程优化
 ---
 
-# xc881代码工程规范
+# xc881 Coding Skills
 
-## What this skill is
+## Role
 
-xc881-coding-skills is the engineering execution layer.
+Engineering execution layer for safe, maintainable code changes.
 
-Use it after requirements are clear enough to support engineering decisions. If the request is mainly about product/project requirement analysis, MVP, user roles, acceptance criteria, hidden dependencies, or implied requirements, use `$xc881-requirement-analysis` first.
+Use after requirements are clear. If the task is still about PRD, MVP, user roles, hidden requirements, or acceptance criteria, use `$xc881-requirement-analysis` first.
 
-This skill focuses on:
+## Load policy
 
-- High-Constraint Coding
-- No Code Comments
-- Git Checkpoint Push
-- xc881 Engineering Optimization
+`SKILL.md` is the fast path. Read references only when needed:
 
-## Primary goals
+- `references/high-constraint-coding-policy.md`: risky edits, bug fixes, refactors, production changes, minimal diff work.
+- `references/no-code-comments-policy.md`: before generating or editing code.
+- `references/git-checkpoint-policy.md`: only when user explicitly asks to commit/checkpoint/push.
+- `references/engineering-quality-rubric.md`: quality review, low-quality code, or weak verification.
+- `references/project-optimization.md`: new project engineering after requirements are clear, or legacy optimization.
 
-- Do not code from guesses.
-- Do not create low-quality code that only works today.
-- Keep changes small, readable, and safe.
-- Split code by responsibility and reason to change.
-- Keep business logic away from framework, database, SDK, HTTP, UI, filesystem, environment variables, real time, randomness, and global mutable state.
-- Avoid unnecessary abstraction while still protecting real change points.
-- Generate code without comments by default; make the code itself clear.
-- Verify before claiming completion.
-- Commit or push only when the user explicitly asks.
+## Default output mode
 
-## Requirement readiness rule
+Default to compact output.
+
+- Small tasks: apply rules silently, then summarize changes and verification.
+- Non-trivial tasks: show a short design gate.
+- Detailed reports only when user asks, project risk is high, or legacy optimization is requested.
+
+## Requirement readiness gate
 
 Before coding, check whether the requirement is implementation-ready.
 
-If the task depends on unclear product behavior, missing user roles, hidden dependencies, permission rules, data lifecycle, acceptance criteria, or migration consequences, do not guess silently.
-
-Use or request:
+If unclear product behavior, missing permissions, hidden dependencies, state lifecycle, data migration, or acceptance criteria would materially change implementation, use or request:
 
 ```text
 $xc881-requirement-analysis
 ```
 
-Then use the requirement analysis as the source of truth.
+## Core workflow
 
-## Reference Index
+1. Bound task:
+   - behavior to add/fix/preserve
+   - affected files/modules/contracts
+   - assumptions
+   - verification target
 
-- [high-constraint-coding-policy.md](./references/high-constraint-coding-policy.md): read for serious implementation, bug fixes, refactors, reviews, minimal-diff work, or regression-sensitive edits.
-- [no-code-comments-policy.md](./references/no-code-comments-policy.md): read before generating, editing, patching, scaffolding, regenerating, or showing code when comment policy matters.
-- [git-checkpoint-policy.md](./references/git-checkpoint-policy.md): read only when the user explicitly asks to commit, checkpoint, save progress, stage files, or push.
-- [quality-bar.md](./references/quality-bar.md): read when deciding whether a patch is good enough to ship or when verification evidence is weak.
-- [low-quality-code-rubric.md](./references/low-quality-code-rubric.md): read for reviews, legacy risk ranking, maintainability audits, and low-quality code findings.
-- [project-optimization.md](./references/project-optimization.md): read for new project engineering plans, legacy cleanup, staged refactors, and xc881工程优化 reports.
+2. Read before writing:
+   - entry point
+   - call chain
+   - data flow
+   - adjacent tests/types/config
+   - local style
 
-## High-Constraint Coding
-
-Use for:
-
-- bug fixes
-- refactors
-- code review
-- implementation
-- production changes
-- regression-sensitive edits
-- minimal diff requests
-
-Rules:
-
-- bound the task before editing
-- read the real implementation path before writing
-- state what the relevant current code does before patching
-- choose the narrowest maintainable solution
-- preserve local style
-- avoid speculative abstraction
-- verify before reporting success
-- if two attempted fixes fail, stop patching and diagnose root cause
-
-## No Code Comments
-
-Use whenever code is generated, edited, patched, scaffolded, regenerated, or shown.
-
-Do not add inline comments, block comments, banner comments, docstrings, JSDoc, XML docs, TODO/FIXME placeholders, or explanatory annotations unless an allowed exception applies.
-
-Allowed exceptions:
-
-- user explicitly asks for comments
-- tooling requires directive comments
-- repository requires legal headers or generated-file markers
-- public API, schema, or framework convention truly depends on documentation comments
-- preserving existing comments avoids unrelated churn
-
-## Git Checkpoint Push
-
-Use only when the user explicitly asks to commit, push, save progress, create a checkpoint, stage relevant files, write a Conventional Commit message, or push to GitHub.
-
-Do not commit or push just because a repository exists.
-
-## xc881 engineering workflow
-
-### 1. Bound the task
-
-Before coding, identify:
-
-- exact behavior to add, fix, preserve, review, or optimize
-- files/modules likely involved
-- affected data flow and public contracts
-- assumptions that affect behavior, interfaces, data shape, persistence, security, or user-visible output
-- validation target
-
-### 2. Read before writing
-
-For existing code, this is mandatory.
-
-Inspect the real implementation path:
-
-- entry point
-- call chain
-- affected data flow
-- shared helpers and contracts
-- adjacent tests
-- types, interfaces, schemas, configuration
-- local style and naming patterns
-
-### 3. Run the xc881 design gate
-
-For non-trivial coding tasks, output:
+3. Design gate for non-trivial work:
 
 ```text
 xc881 设计门禁：
-1. 变化轴：
-- ...
-
-2. 职责拆分：
-- ...
-
-3. 模块/文件边界：
-- ...
-
-4. 依赖方向：
-- ...
-
-5. 低质量代码风险：
-- ...
-
-6. 避免方式：
-- ...
-
-7. 测试策略：
-- ...
+变化轴:
+职责拆分:
+边界/文件:
+依赖方向:
+低质量风险:
+避免方式:
+测试策略:
 ```
 
-For small tasks, compress it, but still cover boundary, risk, and verification.
+4. Implement smallest maintainable change:
+   - no unrelated refactor
+   - no speculative abstraction
+   - preserve local style
+   - keep contracts stable unless required
+   - avoid circular dependencies
+   - push side effects to edges
 
-### 4. Enforce boundaries
-
-Default dependency direction:
+5. Enforce dependency direction:
 
 ```text
-UI / Controller / Route / Framework
-        ↓
-Application / Use Case
-        ↓
-Domain / Core Business Logic
-        ↓
-Ports / Interfaces
-
-Infrastructure / Adapters implement ports.
-Core business logic does not directly depend on infrastructure.
+UI/Controller/Framework
+→ Application/Use Case
+→ Domain/Core
+→ Ports/Interfaces
+Infrastructure implements ports.
 ```
 
-Keep business/domain logic independent from framework APIs, ORM/database clients, HTTP request/response objects, third-party SDK objects, UI components, filesystem, environment variables, real clock, randomness, and global mutable state.
+6. No code comments by default:
+   - no inline/block/doc/TODO/FIXME comments unless user, tooling, legal header, generated marker, or public API convention requires it.
 
-### 5. Verify before claiming success
+7. Verify:
+   - targeted tests
+   - adjacent regression tests
+   - typecheck/build/lint
+   - manual steps only when automation is unavailable
 
-Preferred evidence order:
+8. Git checkpoint only when explicitly requested:
+   - inspect status/branch/remotes
+   - stage relevant files only
+   - Conventional Commit
+   - no secrets
+   - no force push unless explicitly requested
 
-1. targeted tests proving the changed behavior
-2. adjacent regression tests
-3. typecheck, build, lint, or static analysis
-4. manual reproduction steps when automated checks are unavailable
-
-## Final response shape
+## Compact final response
 
 ```text
-完成内容：
-- ...
-
-验证：
-- ...
-
-假设 / 风险：
-- ...
+完成内容:
+验证:
+风险/假设:
 ```
+
+If checkpoint was requested:
+
+```text
+Commit:
+Branch:
+Push:
+Remaining changes:
+```
+
+## Rules
+
+- Do not code from guessed paths.
+- Do not claim success beyond evidence.
+- Do not leak framework/database/SDK objects into domain logic.
+- Do not hide business rules in UI, SQL, SDK callbacks, or framework handlers.
+- Do not add comments by default.
+- Do not commit/push unless explicitly requested.

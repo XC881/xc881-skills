@@ -1,32 +1,37 @@
 [
   {
-    "query": "$xc881-requirement-analysis 帮我分析这个项目需求，先别写代码",
+    "query": "$xc881-requirement-analysis 分析这个新项目需求，先别写代码",
     "should_trigger": true,
-    "workflow": "requirement analysis"
+    "workflow": "new project"
   },
   {
-    "query": "这个需求中英混合又有点乱，先整理成标准英文规格，再做需求分析",
+    "query": "这个需求中英混合又有点乱，先整理成标准英文规格再分析",
     "should_trigger": true,
     "workflow": "english spec first"
   },
   {
-    "query": "已有项目上新增团队邀请功能，分析需求和隐含依赖",
+    "query": "已有项目新增团队邀请功能，分析显式需求和隐含依赖",
     "should_trigger": true,
     "workflow": "existing project feature"
   },
   {
-    "query": "A 和 B 需求提到了，帮我推理依赖的 C 需求",
+    "query": "A 和 B 提到了，帮我推理依赖的 C 需求和后果需求",
     "should_trigger": true,
     "workflow": "implicit requirements"
   },
   {
     "query": "把这个想法变成 PRD、MVP、验收标准和工程实施方案",
     "should_trigger": true,
-    "workflow": "new project"
+    "workflow": "prd"
   },
   {
     "query": "修复登录 bug",
     "should_trigger": false,
     "workflow": "coding"
+  },
+  {
+    "query": "skills_list 里为什么没有 xc881-requirement-analysis",
+    "should_trigger": true,
+    "workflow": "indexing"
   }
 ]

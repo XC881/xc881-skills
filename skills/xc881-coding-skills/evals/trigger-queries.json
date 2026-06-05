@@ -1,27 +1,32 @@
 [
   {
-    "query": "按 xc881代码工程规范写这个功能",
+    "query": "$xc881-coding-skills 优化 user service，先读代码，不要乱改",
     "should_trigger": true,
-    "workflow": "xc881"
+    "workflow": "coding"
   },
   {
-    "query": "fix this bug with minimal diff, don't refactor unrelated code",
+    "query": "fix this bug with minimal diff",
     "should_trigger": true,
     "workflow": "high constraint coding"
   },
   {
-    "query": "帮我写代码，代码里不要注释",
+    "query": "写代码，不要注释",
     "should_trigger": true,
     "workflow": "no code comments"
   },
   {
-    "query": "保存进度，提交代码并推送到 GitHub",
+    "query": "保存进度，提交并推送到 GitHub",
     "should_trigger": true,
     "workflow": "git checkpoint push"
   },
   {
-    "query": "帮我分析这个产品需求，先别写代码",
+    "query": "分析这个新项目需求，先别写代码",
     "should_trigger": false,
     "workflow": "requirement analysis"
+  },
+  {
+    "query": "skills_list 里为什么没有 xc881-coding-skills",
+    "should_trigger": true,
+    "workflow": "indexing"
   }
 ]

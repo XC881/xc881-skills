@@ -1,13 +1,22 @@
 # AGENTS.md
 
-This repository contains portable Agent Skills.
+This repository contains portable, token-efficient Agent Skills.
 
 Rules:
-
 - Keep requirement analysis separate from coding execution.
-- Use `xc881-requirement-analysis` for new project requirements, existing project feature requirements, and hidden dependency/consequence requirements.
-- Use `xc881-coding-skills` for implementation after requirements are clear.
+- Keep `SKILL.md` compact; move detailed rules to references.
+- Default outputs should be compact.
 - Do not re-add English Spec First to `xc881-coding-skills`.
+- Keep compatibility guidance in root README.md.
 - Keep `agents/openai.yaml` and `agents/claude.yaml` in sync for each skill.
-- Keep compatibility guidance centralized in root README.md.
-- Do not re-add per-skill `references/real-compatibility.md` files.
+- Do not add platform YAML files without a documented loader.
+- Validate before publishing:
+  - `python skills/xc881-requirement-analysis/scripts/validate_skill.py`
+  - `python skills/xc881-coding-skills/scripts/validate_skill.py`
+
+- Keep frontmatter tags non-empty so skill indexers and skills_list can discover the skill.
+- Prefer real copied skill directories over symlink-only installs when a launcher does not follow symlinks reliably.
+
+- Keep per-skill `references/` limited to runtime task-execution rules.
+- Put install, compatibility, indexing, and research-background documents in root `README.md` or `docs/`.
+- Do not add `skill-indexing-troubleshooting.md`, `real-compatibility.md`, or `research-basis.md` to per-skill `references/`.
