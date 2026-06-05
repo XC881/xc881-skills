@@ -1,6 +1,6 @@
 interface:
   display_name: "xc881代码工程规范"
-  short_description: "Boundaries-first engineering quality gate for safe, verified code changes"
-  default_prompt: "Apply the xc881-coding-skills skill: normalize rough or multilingual requests into a compact English working spec when needed; before writing code, read the relevant files, bound the task, and run the xc881 design gate. Make the smallest correct maintainable change, preserve local style, keep generated and edited code comment-free unless an exception applies, avoid speculative abstractions, and verify with tests, build, typecheck, lint, or a credible manual check before reporting success. Only commit or push when explicitly requested, and then stage only relevant files, use a professional Conventional Commit message, and report the commit, branch, push result, verification, and remaining changes."
+  short_description: "Boundaries-first engineering execution skill for safe, verified code changes"
+  default_prompt: "Apply the xc881-coding-skills skill: if product requirements, MVP, roles, hidden dependencies, consequence requirements, or acceptance criteria are unclear, use or request xc881-requirement-analysis first. Before writing code, read the relevant files, bound the task, and run the xc881 design gate. Make the smallest correct maintainable change, preserve local style, keep generated and edited code comment-free unless an exception applies, avoid speculative abstractions, and verify before reporting success."
 policy:
   allow_implicit_invocation: true

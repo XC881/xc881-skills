@@ -5,27 +5,7 @@
     "workflow": "xc881"
   },
   {
-    "query": "对这个老项目做 xc881工程优化，先给报告",
-    "should_trigger": true,
-    "workflow": "legacy optimization"
-  },
-  {
-    "query": "这个需求很乱，中英混合，先整理成英文规格再做",
-    "should_trigger": true,
-    "workflow": "english spec first"
-  },
-  {
-    "query": "把这个想法变专业一点再开始实现",
-    "should_trigger": true,
-    "workflow": "english spec first"
-  },
-  {
     "query": "fix this bug with minimal diff, don't refactor unrelated code",
-    "should_trigger": true,
-    "workflow": "high constraint coding"
-  },
-  {
-    "query": "先读代码，不要乱改，保证正确",
     "should_trigger": true,
     "workflow": "high constraint coding"
   },
@@ -35,38 +15,13 @@
     "workflow": "no code comments"
   },
   {
-    "query": "生成一个 Dockerfile 和 GitHub workflow",
-    "should_trigger": true,
-    "workflow": "no code comments"
-  },
-  {
     "query": "保存进度，提交代码并推送到 GitHub",
     "should_trigger": true,
     "workflow": "git checkpoint push"
   },
   {
-    "query": "给我一个规范的 git commit 信息",
-    "should_trigger": true,
-    "workflow": "git checkpoint push"
-  },
-  {
-    "query": "帮我 review 这段代码是不是低质量代码",
-    "should_trigger": true,
-    "workflow": "review"
-  },
-  {
-    "query": "翻译这段普通文案",
+    "query": "帮我分析这个产品需求，先别写代码",
     "should_trigger": false,
-    "workflow": "none"
-  },
-  {
-    "query": "今天东京天气怎么样",
-    "should_trigger": false,
-    "workflow": "none"
-  },
-  {
-    "query": "解释一下什么是 SOLID，不需要写代码",
-    "should_trigger": false,
-    "workflow": "none"
+    "workflow": "requirement analysis"
   }
 ]

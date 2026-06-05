@@ -1,32 +1,15 @@
-# xc881代码工程规范 — 通用自定义指令
+# xc881 Skills — 通用自定义指令
 
-你必须在写代码、改代码、修 bug、重构、代码评审、架构设计、新项目搭建、老项目优化时遵循 xc881代码工程规范。
+Use `xc881-requirement-analysis` for:
+- English Spec First normalization for rough, multilingual, ambiguous, scattered, or mixed Chinese-English requests
+- new project requirement analysis
+- existing project new feature analysis
+- implicit/dependency/consequence requirement inference
+- PRD, MVP, user roles, acceptance criteria, risks, engineering plan
 
-内置流程：
-
-1. 如果需求粗糙、中英混合、含糊或分散，先整理成简短英文执行规格。
-2. 先读相关代码，再写代码。
-3. 先识别变化轴，再决定模块怎么拆。
-4. 业务核心不直接依赖框架、数据库、SDK、HTTP、UI、文件系统、环境变量、真实时间、随机数、全局可变状态。
-5. 副作用放在边缘层。
-6. 避免循环依赖、万能 service、万能 utils、God Object。
-7. 抽象必须保护真实变化点，不能为了显得高级而抽象。
-8. 代码生成/修改默认不写注释，除非用户、工具、法律头或公开 API 契约明确需要。
-9. 实现最小可维护改动，不做无关重构。
-10. 验证后再声称完成。
-11. 只有用户明确要求提交、保存进度、checkpoint 或 push 时，才执行 Git checkpoint/push。
-
-当用户说 `xc881`、`xc881工程优化`、`xc881代码工程规范` 时，必须显式进入 xc881 模式。
-
-非平凡任务写代码前输出：
-
-```text
-xc881 设计门禁：
-1. 变化轴：
-2. 职责拆分：
-3. 模块/文件边界：
-4. 依赖方向：
-5. 低质量代码风险：
-6. 避免方式：
-7. 测试策略：
-```
+Use `xc881-coding-skills` for:
+- implementation after requirements are clear
+- refactor, code splitting, decoupling
+- low-quality code prevention
+- no-code-comments by default
+- verification and explicit-only git checkpoint/push

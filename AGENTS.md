@@ -2,12 +2,12 @@
 
 This repository contains portable Agent Skills.
 
-When editing this repository:
+Rules:
 
-- Keep the root layout compatible with `skills/<skill-name>/SKILL.md`.
-- Keep `SKILL.md` as the primary source of behavior.
-- Put platform-specific defaults in `skills/<skill-name>/agents/`.
-- Keep `agents/openai.yaml` and `agents/claude.yaml` in sync.
-- Do not add `deepseek.yaml`, `glm.yaml`, or `mimo.yaml` unless a real loader for those files is documented.
-- Put non-standard model instructions in `platform-prompts/`.
-- Run `python skills/xc881-coding-skills/scripts/validate_skill.py` before publishing.
+- Keep requirement analysis separate from coding execution.
+- Use `xc881-requirement-analysis` for new project requirements, existing project feature requirements, and hidden dependency/consequence requirements.
+- Use `xc881-coding-skills` for implementation after requirements are clear.
+- Do not re-add English Spec First to `xc881-coding-skills`.
+- Keep `agents/openai.yaml` and `agents/claude.yaml` in sync for each skill.
+- Keep compatibility guidance centralized in root README.md.
+- Do not re-add per-skill `references/real-compatibility.md` files.

@@ -1,80 +1,111 @@
 # xc881-coding-skills
 
-Agent skill repository for `xc881-coding-skills`, the xc881代码工程规范 skill set.
+Agent skill repository for the xc881 workflow.
 
 ## Skills
 
 | Skill | Purpose |
 | --- | --- |
-| `xc881-coding-skills` | Apply xc881 engineering discipline: English spec first, high-constraint coding, code splitting, decoupling, no-code-comments by default, safe verification, and explicit-only git checkpoint/push. |
+| `xc881-requirement-analysis` | Normalize rough or mixed-language requests with English Spec First, analyze new project requirements or existing project feature requirements, infer hidden dependency/consequence requirements, define acceptance criteria, risks, and engineering implementation plan. |
+| `xc881-coding-skills` | Execute safe engineering work after requirements are clear: coding, refactor, code splitting, decoupling, verification, no-code-comments, and explicit-only git checkpoint/push. |
 
-## Layout
+## Recommended workflow
 
-```txt
-skills/
-  <skill-name>/
-    SKILL.md
-    references/
-    scripts/
-    evals/
-    agents/
+```text
+$xc881-requirement-analysis
+Normalize the rough request first if needed, then analyze this existing project feature or new project idea. Identify explicit requirements, inferred requirements, acceptance criteria, risks, and an engineering plan.
+
+$xc881-coding-skills
+Use the requirement analysis above as the source of truth. Produce the xc881 design gate and implement Phase 1 only.
 ```
 
-Only `SKILL.md` is required. Other folders are included when the skill needs extra references, helper scripts, evaluation files, or agent-specific configuration.
+## Compatibility
 
-The `agents/` directory contains per-platform YAML files (`claude.yaml`, `openai.yaml`) with display names, short descriptions, default prompts, and invocation policy. These are non-standard extensions on top of the Agent Skills open standard.
+This repository centralizes compatibility guidance here instead of duplicating `real-compatibility.md` inside each skill.
+
+### Reliable entry points
+
+#### OpenAI / Codex
+
+Use:
+
+```text
+SKILL.md
+.agents/skills/<skill-name>/SKILL.md
+AGENTS.md
+```
+
+Optional extension in this repository:
+
+```text
+skills/<skill-name>/agents/openai.yaml
+```
+
+For Codex, the recommended global install path is:
+
+```text
+~/.agents/skills/<skill-name>
+```
+
+Project-level install path:
+
+```text
+<project>/.agents/skills/<skill-name>
+```
+
+#### Claude / Claude Code
+
+Use:
+
+```text
+SKILL.md
+.claude/skills/<skill-name>/SKILL.md
+CLAUDE.md
+```
+
+Optional extension in this repository:
+
+```text
+skills/<skill-name>/agents/claude.yaml
+```
+
+#### Cursor and compatible agents
+
+Use whichever entry the wrapper supports:
+
+```text
+SKILL.md
+.cursor/skills/<skill-name>/SKILL.md
+.agents/skills/<skill-name>/SKILL.md
+AGENTS.md
+```
+
+#### DeepSeek / GLM / Mimo
+
+These do not share one reliable public YAML Skill standard.
+
+Use:
+
+```text
+AGENTS.md
+SKILL.md
+platform-prompts/*.md
+```
+
+depending on what the wrapper or IDE actually reads.
+
+Do not add `deepseek.yaml`, `glm.yaml`, or `mimo.yaml` unless a real loader for those files is documented.
 
 ## Install
 
-Agent Skills are commonly discovered from these directories:
-
-| Path | Scope |
-| --- | --- |
-| `.agents/skills/` | Project-level |
-| `.cursor/skills/` | Project-level (Cursor) |
-| `.claude/skills/` | Project-level (Claude Code) |
-| `.codex/skills/` | Project-level (Codex CLI) |
-| `~/.agents/skills/` | User-level (global) |
-| `~/.cursor/skills/` | User-level (Cursor) |
-| `~/.claude/skills/` | User-level (Claude Code) |
-| `~/.codex/skills/` | User-level (Codex CLI) |
-
-Copy the skill folder into whichever directory matches your agent.
-
-PowerShell:
-
-```powershell
-Copy-Item -Recurse .\skills\xc881-coding-skills $env:USERPROFILE\.agents\skills\
-Copy-Item -Recurse .\skills\xc881-coding-skills $env:USERPROFILE\.claude\skills\
-Copy-Item -Recurse .\skills\xc881-coding-skills $env:USERPROFILE\.codex\skills\
-Copy-Item -Recurse .\skills\xc881-coding-skills $env:USERPROFILE\.cursor\skills\
-```
-
-macOS / Linux:
-
 ```bash
+mkdir -p ~/.agents/skills ~/.claude/skills ~/.codex/skills ~/.cursor/skills
+cp -r skills/xc881-requirement-analysis ~/.agents/skills/
 cp -r skills/xc881-coding-skills ~/.agents/skills/
+cp -r skills/xc881-requirement-analysis ~/.claude/skills/
 cp -r skills/xc881-coding-skills ~/.claude/skills/
+cp -r skills/xc881-requirement-analysis ~/.codex/skills/
 cp -r skills/xc881-coding-skills ~/.codex/skills/
+cp -r skills/xc881-requirement-analysis ~/.cursor/skills/
 cp -r skills/xc881-coding-skills ~/.cursor/skills/
 ```
-
-## Use
-
-```text
-按 xc881代码工程规范写这个功能。
-```
-
-```text
-对这个老项目做 xc881工程优化，先给报告，不要直接大改。
-```
-
-```text
-Use $xc881-coding-skills before implementing this.
-```
-
-## Notes
-
-This repository is intentionally plain and focused on repeatable behavior rather than presentation.
-
-For DeepSeek, GLM, Mimo, or other wrappers without reliable Skill loading, use `platform-prompts/*.md` as custom instructions.

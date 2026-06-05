@@ -1,6 +1,6 @@
 interface:
   display_name: "xc881代码工程规范"
-  short_description: "Engineering-quality gate with English spec first, high-constraint coding, no-code-comments, and safe git checkpoints"
-  default_prompt: "Use $xc881-coding-skills. Normalize rough requirements when needed, read before writing, run the xc881 design gate, keep diffs small, output comment-free code by default, verify before completion, and commit/push only when explicitly requested."
+  short_description: "Engineering execution skill for safe, decoupled, comment-free, verified code changes"
+  default_prompt: "Use $xc881-coding-skills. If requirements are unclear or implied dependencies must be inferred, use $xc881-requirement-analysis first. Otherwise read before writing, run the xc881 design gate, keep diffs small, output comment-free code by default, verify before completion, and commit/push only when explicitly requested."
 policy:
   allow_implicit_invocation: true

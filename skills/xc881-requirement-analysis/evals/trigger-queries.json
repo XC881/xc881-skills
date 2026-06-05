@@ -1,0 +1,32 @@
+[
+  {
+    "query": "$xc881-requirement-analysis 帮我分析这个项目需求，先别写代码",
+    "should_trigger": true,
+    "workflow": "requirement analysis"
+  },
+  {
+    "query": "这个需求中英混合又有点乱，先整理成标准英文规格，再做需求分析",
+    "should_trigger": true,
+    "workflow": "english spec first"
+  },
+  {
+    "query": "已有项目上新增团队邀请功能，分析需求和隐含依赖",
+    "should_trigger": true,
+    "workflow": "existing project feature"
+  },
+  {
+    "query": "A 和 B 需求提到了，帮我推理依赖的 C 需求",
+    "should_trigger": true,
+    "workflow": "implicit requirements"
+  },
+  {
+    "query": "把这个想法变成 PRD、MVP、验收标准和工程实施方案",
+    "should_trigger": true,
+    "workflow": "new project"
+  },
+  {
+    "query": "修复登录 bug",
+    "should_trigger": false,
+    "workflow": "coding"
+  }
+]
