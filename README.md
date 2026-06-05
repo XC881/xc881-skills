@@ -1,4 +1,4 @@
-# xc881-coding-skills
+# xc881-skills
 
 Agent skill repository for the xc881 workflow.
 
