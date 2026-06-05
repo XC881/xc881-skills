@@ -49,6 +49,19 @@ architecture / decoupling / maintainability / xc881工程优化
 - Verify before claiming completion.
 - Commit or push only when the user explicitly asks.
 
+## Reference Index
+
+`SKILL.md` is the primary behavior contract. Use these references only when the task needs a stricter checklist, deeper rubric, or platform-specific compatibility detail.
+
+- [english-spec-first-policy.md](./references/english-spec-first-policy.md): read when a request is rough, multilingual, ambiguous, scattered, or needs a compact English working spec.
+- [high-constraint-coding-policy.md](./references/high-constraint-coding-policy.md): read for serious implementation, bug fixes, refactors, reviews, minimal-diff work, or regression-sensitive edits.
+- [no-code-comments-policy.md](./references/no-code-comments-policy.md): read before generating, editing, patching, scaffolding, regenerating, or showing code when comment policy matters.
+- [git-checkpoint-policy.md](./references/git-checkpoint-policy.md): read only when the user explicitly asks to commit, checkpoint, save progress, stage files, or push.
+- [quality-bar.md](./references/quality-bar.md): read when deciding whether a patch is good enough to ship or when verification evidence is weak.
+- [low-quality-code-rubric.md](./references/low-quality-code-rubric.md): read for reviews, legacy risk ranking, maintainability audits, and low-quality code findings.
+- [project-optimization.md](./references/project-optimization.md): read for new project engineering plans, legacy cleanup, staged refactors, and xc881工程优化 reports.
+- [real-compatibility.md](./references/real-compatibility.md): read when publishing, installing, or adapting the skill across Codex, Claude, Cursor, or custom wrappers.
+
 ## Priority order
 
 When tradeoffs appear:
