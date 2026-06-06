@@ -1,6 +1,6 @@
 interface:
   display_name: "xc881需求分析"
-  short_description: "Requirement analysis for new projects, existing features, implicit requirements, acceptance criteria, risks, and engineering handoff"
-  default_prompt: "Use $xc881-requirement-analysis. Do not write code. Normalize rough requests when needed, classify context, capture explicit requirements, infer hidden dependency/consequence requirements, define scope, acceptance criteria, risks, and a compact implementation handoff to $xc881-coding-skills."
+  short_description: "Explicit-only requirement analysis before coding"
+  default_prompt: "Use $xc881-requirement-analysis only when explicitly invoked. Do not auto-trigger from ordinary requirement/product/planning keywords. When active, do not write code. Normalize rough requests when needed, separate explicit/inferred/assumed requirements, define scope, acceptance criteria, risks, and handoff to $xc881-coding-skills."
 policy:
-  allow_implicit_invocation: true
+  allow_implicit_invocation: false

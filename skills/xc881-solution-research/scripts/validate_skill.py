@@ -12,10 +12,10 @@ for token in ["description:", "when_to_use:", "display_name:", "version:", "cate
         raise SystemExit(f"missing {token}")
 if not re.search(r"^tags:\n(?:  - .+\n)+", fm, re.M):
     raise SystemExit("tags must be a non-empty YAML list")
-for required in ["Explicit-only", "Do not auto-trigger", "Explicit invocation only"]:
+for required in ["Explicit-only", "Do not auto-trigger", "Explicit invocation only", "Do not implement code"]:
     if required not in text:
-        raise SystemExit(f"missing explicit-only rule: {required}")
-for ref in ["english-spec-first-policy.md","implicit-requirement-inference.md","existing-project-feature-analysis.md","requirement-output-contract.md","requirement-quality-rubric.md"]:
+        raise SystemExit(f"missing explicit-only or analysis-only rule: {required}")
+for ref in ["english-spec-and-research-questions.md","source-priority-policy.md","paper-first-policy.md","tech-stack-feasibility-policy.md","solution-output-contract.md"]:
     if not (root / "references" / ref).exists():
         raise SystemExit(f"missing {ref}")
 for agent in ["openai.yaml", "claude.yaml"]:
@@ -28,4 +28,4 @@ if not any(e["should_trigger"] for e in ev) or not any(not e["should_trigger"] f
     raise SystemExit("evals need positive and negative examples")
 if not all("explicit" in e["workflow"] for e in ev if e["should_trigger"]):
     raise SystemExit("positive evals must be explicit invocation cases")
-print("xc881-requirement-analysis explicit-only structure looks OK")
+print("xc881-solution-research explicit-only structure looks OK")

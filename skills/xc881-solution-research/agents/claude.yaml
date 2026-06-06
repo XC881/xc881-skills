@@ -1,0 +1,6 @@
+interface:
+  display_name: "xc881技术方案联网调研"
+  short_description: "Explicit-only solution research and feasibility analysis before requirements or coding"
+  default_prompt: "Apply xc881-solution-research only when explicitly invoked. Do not auto-trigger from normal research, GitHub, paper, 技术选型, or 联网调研 mentions. Normalize the idea, derive explicit/inferred research questions, search authoritative sources, use papers first for principle-level knowledge, compare feasible technical options, state risks and unknowns, cite sources, and hand off to requirement-analysis or coding-skills. Do not write implementation code."
+policy:
+  allow_implicit_invocation: false

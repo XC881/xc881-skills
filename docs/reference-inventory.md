@@ -23,3 +23,10 @@ Only runtime task-execution references should appear below.
 - `implicit-requirement-inference.md`
 - `requirement-output-contract.md`
 - `requirement-quality-rubric.md`
+
+## xc881-solution-research
+- `english-spec-and-research-questions.md`
+- `paper-first-policy.md`
+- `solution-output-contract.md`
+- `source-priority-policy.md`
+- `tech-stack-feasibility-policy.md`

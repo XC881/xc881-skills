@@ -1,0 +1,6 @@
+interface:
+  display_name: "xc881技术方案联网调研"
+  short_description: "Explicit-only web research for technology feasibility, source-backed options, and handoff"
+  default_prompt: "Use $xc881-solution-research only when explicitly invoked. Do not auto-trigger from ordinary research/technology-selection keywords. Normalize rough ideas, derive explicit and inferred research questions, use paper-first research for principle knowledge, use official docs/standards/GitHub/advisories/forums as appropriate, compare feasible options compactly, cite sources, and hand off to $xc881-requirement-analysis or $xc881-coding-skills. Do not implement code."
+policy:
+  allow_implicit_invocation: false
