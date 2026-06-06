@@ -76,3 +76,18 @@ cp -r skills/xc881-coding-skills ~/.cursor/skills/
 ## Skill indexing / skills_list troubleshooting
 
 See `docs/skill-indexing-troubleshooting.md`.
+## Skill authoring standard
+
+All future skill additions and reference updates must follow `docs/skill-authoring-standard.md`.
+
+First principle:
+
+```text
+accurate, low-token, effective agent reading
+```
+
+## Code quality standard
+
+`xc881-coding-skills` includes `references/xc881-code-quality-standard.md`.
+
+It formalizes correctness, stability, logical modularity, testability, edge isolation, core-difficulty-only comments, and performance mode trade-offs.

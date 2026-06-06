@@ -1,6 +1,6 @@
 interface:
   display_name: "xc881代码工程规范"
-  short_description: "Engineering execution skill for safe, decoupled, comment-free, verified code changes"
-  default_prompt: "Use $xc881-coding-skills. If requirements are unclear, use $xc881-requirement-analysis first. Otherwise read before writing, run the compact xc881 design gate when non-trivial, keep diffs small, output comment-free code, verify, and commit/push only when explicitly requested."
+  short_description: "Engineering execution skill for safe, modular, high-quality, verified code changes"
+  default_prompt: "Use $xc881-coding-skills. If requirements are unclear, use $xc881-requirement-analysis first. Otherwise read before writing, apply the xc881 code quality standard, run a compact design gate when non-trivial, keep diffs small, comment only core difficulty, verify, and commit/push only when explicitly requested. In performance mode, state objective and trade-off."
 policy:
   allow_implicit_invocation: true

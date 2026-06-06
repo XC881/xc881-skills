@@ -5,14 +5,24 @@
     "workflow": "coding"
   },
   {
+    "query": "按 xc881 代码规范写准确稳定、可维护、逻辑模块化的非屎山代码",
+    "should_trigger": true,
+    "workflow": "code quality"
+  },
+  {
+    "query": "这段代码要高性能高效率，可以接受局部复杂但必须可验证",
+    "should_trigger": true,
+    "workflow": "performance mode"
+  },
+  {
     "query": "fix this bug with minimal diff",
     "should_trigger": true,
     "workflow": "high constraint coding"
   },
   {
-    "query": "写代码，不要注释",
+    "query": "写代码，只对核心难点加注释",
     "should_trigger": true,
-    "workflow": "no code comments"
+    "workflow": "comments policy"
   },
   {
     "query": "保存进度，提交并推送到 GitHub",
@@ -23,10 +33,5 @@
     "query": "分析这个新项目需求，先别写代码",
     "should_trigger": false,
     "workflow": "requirement analysis"
-  },
-  {
-    "query": "skills_list 里为什么没有 xc881-coding-skills",
-    "should_trigger": true,
-    "workflow": "indexing"
   }
 ]

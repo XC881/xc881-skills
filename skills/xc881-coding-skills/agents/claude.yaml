@@ -1,6 +1,6 @@
 interface:
   display_name: "xc881代码工程规范"
-  short_description: "Boundaries-first engineering execution with compact outputs"
-  default_prompt: "Apply xc881-coding-skills: if requirements are unclear, request xc881-requirement-analysis first. Read relevant files before writing, bound the task, use a compact design gate for non-trivial work, make the smallest maintainable change, preserve local style, avoid comments by default, verify before reporting success, and commit/push only when explicitly requested."
+  short_description: "Boundaries-first engineering execution with xc881 code quality standard"
+  default_prompt: "Apply xc881-coding-skills: if requirements are unclear, request xc881-requirement-analysis first. Read relevant files before writing, bound the task, apply the xc881 code quality standard, use a compact design gate for non-trivial work, make the smallest stable maintainable change, preserve local style, comment only core difficulty, verify before reporting success, and commit/push only when explicitly requested. In performance mode, preserve correctness and report trade-offs."
 policy:
   allow_implicit_invocation: true

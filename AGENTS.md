@@ -20,3 +20,7 @@ Rules:
 - Keep per-skill `references/` limited to runtime task-execution rules.
 - Put install, compatibility, indexing, and research-background documents in root `README.md` or `docs/`.
 - Do not add `skill-indexing-troubleshooting.md`, `real-compatibility.md`, or `research-basis.md` to per-skill `references/`.
+- First principle for all skill updates: accurate, low-token, effective agent reading.
+- Follow `docs/skill-authoring-standard.md` for new skills and reference updates.
+- Keep `xc881-code-quality-standard.md` in `xc881-coding-skills/references/`; it is runtime execution policy.
+- Comments policy is not "never comment"; it is "comment only core difficulty".

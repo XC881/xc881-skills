@@ -1,12 +1,20 @@
-# No Code Comments Policy
+# Comments Policy
 
-Generated or edited code should be comment-free by default.
+Default: no routine explanatory comments in generated or edited code.
 
-Do not add inline comments, block comments, docstrings, JSDoc, XML docs, TODO/FIXME, or explanatory annotations.
+Use names, structure, types, and small helpers first.
 
-Allowed exceptions:
-- user asks for comments
-- tooling directive is required
-- legal/generated header is required
-- public API convention requires docs
-- preserving existing comments avoids unrelated churn
+Allowed comments are minimal and only for core difficulty:
+
+- non-obvious algorithm
+- concurrency or memory invariant
+- security assumption
+- performance trade-off
+- protocol/external-system quirk
+- migration hazard
+- intentionally unusual code
+- tooling directive
+- required legal/generated header
+- required public API docs
+
+Rule: comment why or invariant, not obvious operation.

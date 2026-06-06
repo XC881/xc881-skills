@@ -15,3 +15,4 @@ Only runtime task-execution references should appear below.
 - `high-constraint-coding-policy.md`
 - `no-code-comments-policy.md`
 - `project-optimization.md`
+- `xc881-code-quality-standard.md`
