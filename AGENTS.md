@@ -24,3 +24,9 @@ Rules:
 - Follow `docs/skill-authoring-standard.md` for new skills and reference updates.
 - Keep `xc881-code-quality-standard.md` in `xc881-coding-skills/references/`; it is runtime execution policy.
 - Comments policy is not "never comment"; it is "comment only core difficulty".
+- Keep `xc881-bugfix-research` explicit-only and analysis-only.
+- Do not let ordinary bug/error/security keywords implicitly trigger `xc881-bugfix-research`.
+- It must produce diagnosis, repair plan, verification plan, and handoff; it must not edit code or claim tests were run.
+- Implementation, testing, validation, and checkpointing belong to `xc881-coding-skills`.
+- Web research must prefer official docs, advisories, changelogs, CVE/GHSA/OSV/NVD, CWE/OWASP, and maintainer issues before forums/blogs.
+- Do not provide weaponized exploit instructions in the bugfix skill.

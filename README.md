@@ -91,3 +91,28 @@ accurate, low-token, effective agent reading
 `xc881-coding-skills` includes `references/xc881-code-quality-standard.md`.
 
 It formalizes correctness, stability, logical modularity, testability, edge isolation, core-difficulty-only comments, and performance mode trade-offs.
+## xc881-bugfix-research
+
+Independent explicit-only, analysis-only skill:
+
+```text
+$xc881-bugfix-research
+```
+
+Use only when explicitly invoked.
+
+It does not auto-trigger from ordinary bug/error/vulnerability keywords.
+
+Use for bug/vulnerability diagnosis before implementation:
+
+- user-described bug inference
+- stack trace/log triage
+- root-cause analysis
+- web research across docs/advisories/issues/forums
+- CVE/CWE/GHSA/OSV/OWASP vulnerability analysis
+- reproducer plan
+- repair plan
+- verification plan
+- handoff to `$xc881-coding-skills`
+
+It does not edit code or claim verification. Implementation and validation belong to `$xc881-coding-skills`.
