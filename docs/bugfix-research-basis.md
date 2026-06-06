@@ -2,9 +2,13 @@
 
 Repository-level background, not runtime reference.
 
-This skill is explicit-only and analysis-only.
+`xc881-bugfix-research` is explicit-only and analysis-only.
 
-It should not be auto-selected from generic bug/security keywords because normal debugging tasks may be better handled directly by `xc881-coding-skills`, and explicit activation prevents unwanted web-heavy reasoning.
+Reason:
+
+- ordinary bug/error/security words are too common and would cause noisy auto-triggering;
+- bug/vulnerability diagnosis can require web research and longer reasoning, so it should be user-controlled;
+- implementation and verification should remain in `xc881-coding-skills`.
 
 Flow:
 

@@ -1,28 +1,67 @@
 # xc881-skills
 
-Token-efficient Agent Skills for requirement analysis and engineering execution.
+Token-efficient Agent Skills for requirement analysis, explicit bug/vulnerability diagnosis, and engineering execution.
 
 ## Skills
 
-| Skill | Use for |
-| --- | --- |
-| `xc881-requirement-analysis` | Before coding: normalize rough requests, analyze new projects or existing-feature requirements, infer hidden dependency/consequence requirements, define acceptance criteria, risks, and engineering handoff. |
-| `xc881-coding-skills` | After requirements are clear: implement, refactor, review, optimize, split code, decouple, verify, keep code comment-free by default, and checkpoint/push only when requested. |
+| Skill | Use for | Trigger |
+| --- | --- | --- |
+| `xc881-requirement-analysis` | Requirement understanding, English Spec First, MVP/scope, explicit/inferred requirements, acceptance criteria, engineering handoff. | Explicit or clear requirement-analysis request |
+| `xc881-bugfix-research` | Bug/vulnerability diagnosis, web research, root-cause hypothesis, repair plan, verification plan, handoff to coding. | Explicit only: `$xc881-bugfix-research` |
+| `xc881-coding-skills` | Implementation, refactor, code quality, decoupling, tests/verification, performance mode, checkpoint/push. | Explicit or clear coding/engineering request |
 
-## Recommended flow
+## Recommended flows
+
+### New feature / project
 
 ```text
 $xc881-requirement-analysis
-Analyze requirements, infer hidden needs, define acceptance criteria and implementation handoff.
+Analyze requirements and produce handoff.
 
 $xc881-coding-skills
-Use the analysis as source of truth. Read code, run compact design gate, implement Phase 1.
+Implement from the requirement handoff.
+```
+
+### Bug / vulnerability diagnosis
+
+```text
+$xc881-bugfix-research
+Analyze evidence, research if needed, produce repair and verification plan.
+
+$xc881-coding-skills
+Implement the repair plan and run verification.
+```
+
+## Trigger policy
+
+`xc881-bugfix-research` is explicit-only.
+
+These should trigger it:
+
+```text
+$xc881-bugfix-research ...
+使用 xc881-bugfix-research ...
+启用 xc881漏洞与Bug诊断 Skill ...
+```
+
+These should not trigger it by themselves:
+
+```text
+bug
+报错
+异常
+CVE
+漏洞
+stack trace
+500
+regression
 ```
 
 ## Token policy
 
 - `SKILL.md` files are compact fast paths.
-- Detailed behavior lives in `references/`.
+- Detailed behavior lives in per-skill `references/`.
+- Repository-level guidance lives in `docs/`.
 - Agents should read references only when needed.
 - Default outputs are compact; detailed reports are opt-in or risk-triggered.
 
@@ -34,8 +73,12 @@ Repository-level docs live in `docs/`:
 
 | File | Purpose |
 | --- | --- |
-| `docs/skill-indexing-troubleshooting.md` | Human-facing install/indexing troubleshooting, including `skills_list` issues and symlink notes. |
-| `docs/requirement-analysis-research-basis.md` | Design rationale and research basis for requirement analysis; not needed during normal execution. |
+| `docs/skills-overview.md` | Human-facing overview of all xc881 skills and layering. |
+| `docs/skill-authoring-standard.md` | Authoring standard: accurate, low-token, effective agent reading. |
+| `docs/skill-indexing-troubleshooting.md` | Human-facing install/indexing troubleshooting. |
+| `docs/requirement-analysis-research-basis.md` | Requirement-analysis design background. |
+| `docs/bugfix-research-basis.md` | Bugfix research design background. |
+| `docs/reference-inventory.md` | Generated inventory of runtime references. |
 
 Do not duplicate compatibility, install, indexing, or research-background files inside every skill's `references/`.
 
@@ -63,56 +106,20 @@ For DeepSeek, GLM, Mimo, or wrappers without Skill loading, use `platform-prompt
 ```bash
 mkdir -p ~/.agents/skills ~/.claude/skills ~/.codex/skills ~/.cursor/skills
 cp -r skills/xc881-requirement-analysis ~/.agents/skills/
+cp -r skills/xc881-bugfix-research ~/.agents/skills/
 cp -r skills/xc881-coding-skills ~/.agents/skills/
 cp -r skills/xc881-requirement-analysis ~/.claude/skills/
+cp -r skills/xc881-bugfix-research ~/.claude/skills/
 cp -r skills/xc881-coding-skills ~/.claude/skills/
 cp -r skills/xc881-requirement-analysis ~/.codex/skills/
+cp -r skills/xc881-bugfix-research ~/.codex/skills/
 cp -r skills/xc881-coding-skills ~/.codex/skills/
 cp -r skills/xc881-requirement-analysis ~/.cursor/skills/
+cp -r skills/xc881-bugfix-research ~/.cursor/skills/
 cp -r skills/xc881-coding-skills ~/.cursor/skills/
 ```
-
 
 ## Skill indexing / skills_list troubleshooting
 
 See `docs/skill-indexing-troubleshooting.md`.
-## Skill authoring standard
 
-All future skill additions and reference updates must follow `docs/skill-authoring-standard.md`.
-
-First principle:
-
-```text
-accurate, low-token, effective agent reading
-```
-
-## Code quality standard
-
-`xc881-coding-skills` includes `references/xc881-code-quality-standard.md`.
-
-It formalizes correctness, stability, logical modularity, testability, edge isolation, core-difficulty-only comments, and performance mode trade-offs.
-## xc881-bugfix-research
-
-Independent explicit-only, analysis-only skill:
-
-```text
-$xc881-bugfix-research
-```
-
-Use only when explicitly invoked.
-
-It does not auto-trigger from ordinary bug/error/vulnerability keywords.
-
-Use for bug/vulnerability diagnosis before implementation:
-
-- user-described bug inference
-- stack trace/log triage
-- root-cause analysis
-- web research across docs/advisories/issues/forums
-- CVE/CWE/GHSA/OSV/OWASP vulnerability analysis
-- reproducer plan
-- repair plan
-- verification plan
-- handoff to `$xc881-coding-skills`
-
-It does not edit code or claim verification. Implementation and validation belong to `$xc881-coding-skills`.
