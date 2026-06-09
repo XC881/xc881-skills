@@ -1,31 +1,15 @@
-# Tech Stack Feasibility Policy
-
-Compare dimensions:
-
-- correctness fit
-- maturity
-- ecosystem
-- maintenance cost
-- complexity
-- performance
-- security/privacy
-- deployment/ops
-- integration cost
-- observability
-- testing strategy
-- vendor lock-in
-- team/project fit
-
-Option format:
+# Feasibility
 
 ```text
 Option:
-Best for:
+Best:
 Pros:
 Cons:
-Risks:
+Risk:
 Evidence:
 Decision:
 ```
 
-Recommend one default only when evidence is strong enough. Otherwise state decision blocker and next research step.
+Compare: fit, maturity, ecosystem, complexity, cost, performance, security, ops, integration, observability, tests, lock-in.
+
+No winner → blocker + next research.

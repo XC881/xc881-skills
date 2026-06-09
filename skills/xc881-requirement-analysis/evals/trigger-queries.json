@@ -1,22 +1,22 @@
 [
   {
-    "query": "$xc881-requirement-analysis 分析这个新项目需求，先别写代码",
+    "query": "$xc881-requirement-analysis 分析新项目需求",
     "should_trigger": true,
-    "workflow": "explicit new project"
+    "workflow": "explicit req"
   },
   {
-    "query": "使用 xc881-requirement-analysis，把这个需求整理成 PRD、MVP 和验收标准",
+    "query": "使用 xc881-requirement-analysis 输出 MVP 和 AC",
     "should_trigger": true,
     "workflow": "explicit prd"
   },
   {
-    "query": "帮我分析这个新项目需求，先别写代码",
+    "query": "帮我分析需求",
     "should_trigger": false,
-    "workflow": "ordinary requirement mention"
+    "workflow": "ordinary req"
   },
   {
-    "query": "把这个想法变成 PRD、MVP、验收标准和工程实施方案",
+    "query": "写代码实现登录",
     "should_trigger": false,
-    "workflow": "ordinary prd mention"
+    "workflow": "coding"
   }
 ]

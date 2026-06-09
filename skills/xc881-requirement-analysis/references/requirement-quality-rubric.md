@@ -1,13 +1,5 @@
-# Requirement Quality Rubric
+# Rubric
 
-Good requirements are necessary, feasible, unambiguous, consistent, bounded, testable, traceable, and explicit about assumptions.
+Good: explicit, scoped, testable, traceable, minimal, honest.
 
-Bad signals:
-- vague verbs without observable criteria
-- hidden roles or permissions
-- no MVP/in-scope boundary
-- no out-of-scope boundary
-- no inferred requirement analysis
-- no acceptance criteria
-- no risks
-- architecture chosen before product intent is understood
+Bad: inferred as fact, vague AC, hidden dependency, scope creep, many questions, code before requirement.

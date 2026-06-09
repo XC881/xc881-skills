@@ -1,30 +1,26 @@
-# Solution Research Output Contract
-
-Default compact output:
+# Output
 
 ```text
-xc881 Solution Research:
+xc881 Solution:
 Spec:
-Research questions:
-Inferred questions:
-Source plan:
-Findings:
+RQ:
+Evidence:
 Options:
-Recommendation:
-Risks:
+Pick:
+Risk:
 Handoff:
 ```
 
-Handoff examples:
+Handoff:
 
 ```text
 $xc881-requirement-analysis
-Use the solution research above as technical context. Produce explicit/inferred requirements and acceptance criteria.
+Use this as technical context.
 ```
+
+or
 
 ```text
 $xc881-coding-skills
-Use the selected technical option above as source of truth. Produce design gate and implement Phase 1.
+Implement selected option Phase 1.
 ```
-
-Rules: compact, cited when web used, separate facts/inference/recommendation.

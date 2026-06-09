@@ -1,8 +1,6 @@
-# English Spec and Research Questions
+# Spec + RQ
 
-Use after explicit invocation when the idea is rough, multilingual, scattered, or ambiguous.
-
-## Standard English Research Spec
+Spec:
 
 ```text
 Goal:
@@ -12,19 +10,15 @@ Unknowns:
 Output:
 ```
 
-Rules:
-- Preserve names, APIs, technologies, metrics, deadlines, platforms.
-- Do not invent requirements.
-- Keep it compact.
-- Ask one blocking question only when the research direction would materially change.
-
-## Research question mapping
+RQ:
 
 ```text
-RQ-001:
-Source: explicit | inferred
-Why it matters:
-Search target:
+RQ-*:
+type: explicit|inferred
+why:
+search:
 ```
 
-Inference lenses: technical dependency, architecture consequence, data/storage, integration/protocol, performance/scale, security/privacy/compliance, deployment/ops, maintainability/ecosystem, cost/lock-in.
+Infer: dependency, architecture, data, protocol, scale, security, compliance, deploy, ops, maintenance, ecosystem, cost, lock-in.
+
+Ask one blocking question only if direction changes.

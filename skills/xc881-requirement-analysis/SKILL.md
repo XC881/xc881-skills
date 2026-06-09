@@ -1,92 +1,66 @@
 ---
 name: xc881-requirement-analysis
-description: 'Explicit-only skill. Use only when the user explicitly invokes $xc881-requirement-analysis, says 使用 xc881-requirement-analysis, or clearly asks to enable the xc881需求分析 Skill. It performs requirement understanding before coding: English Spec First normalization, new/existing project requirements, implicit prerequisite/dependency/consequence requirement inference, PRD/MVP scope, user roles, acceptance criteria, risks, and engineering handoff. Do not auto-trigger from ordinary requirement/product/planning keywords.'
-when_to_use: 'Use only on explicit invocation of this skill. Do not use implicitly for ordinary mentions of 需求分析, PRD, MVP, 产品需求, 用户故事, or 验收标准. Once explicitly invoked, normalize rough requests when needed, separate explicit/inferred/assumed requirements, define scope, acceptance criteria, risks, and handoff to xc881-coding-skills.'
+description: 'Explicit-only. Use only with $xc881-requirement-analysis. Analyze requirements before coding: normalize, split explicit/inferred/assumed, define scope, FR/NFR/AC, risks, handoff. No auto-trigger. No code.'
+when_to_use: 'Only explicit invocation. Use for PRD/MVP/scope/user flow/acceptance criteria/new project/existing feature analysis.'
 display_name: "xc881需求分析"
-version: "1.1.0"
+version: "2.1.0"
 category: "requirements"
 tags:
   - explicit-only
   - requirements
-  - requirement-analysis
   - prd
   - mvp
   - acceptance-criteria
-  - implicit-requirements
   - xc881
 aliases:
   - xc881-requirement-analysis
-  - xc881-requirement
   - xc881需求分析
   - 需求分析
 ---
 
-# xc881 Requirement Analysis
+# xc881 Requirement
 
-## Role
+Explicit only. No code.
 
-Explicit-only requirement understanding and engineering-handoff layer.
-
-Activate only when the user explicitly invokes:
+Goal:
 
 ```text
-$xc881-requirement-analysis
+request → spec → ER/IR → scope → AC → risk → handoff
 ```
 
-or clearly says to use/enable `xc881-requirement-analysis`.
+Refs only when needed:
 
-Do not auto-trigger from ordinary requirement, PRD, MVP, user story, product planning, or 需求分析 keywords.
+- `english-spec-first-policy.md`: rough/mixed request.
+- `implicit-requirement-inference.md`: hidden needs.
+- `existing-project-feature-analysis.md`: existing change.
+- `requirement-output-contract.md`: output.
+- `requirement-quality-rubric.md`: strict check.
 
-Do not write implementation code. Use `$xc881-coding-skills` after this skill when implementation begins.
+Steps:
 
-## Load policy
+1. Confirm explicit call.
+2. Spec: `Goal / Inputs / Constraints / Output / Notes`.
+3. Classify: new / existing / review.
+4. List `ER-*`.
+5. Infer `IR-*` with confidence.
+6. Scope: in / later / out / affected / must-not-regress.
+7. Produce `FR-*`, `NFR-*`, `AC-*`.
+8. Risks P0-P3; one blocking question max.
+9. Hand off.
 
-`SKILL.md` is the fast path. Read references only when needed:
-
-- `references/english-spec-first-policy.md`: rough, multilingual, ambiguous, scattered, or mixed Chinese-English requests.
-- `references/implicit-requirement-inference.md`: hidden prerequisite, dependency, consequence, state, permission, data, failure, audit, migration, NFR, or abuse-case needs.
-- `references/existing-project-feature-analysis.md`: adding/changing features in an existing product/codebase.
-- `references/requirement-output-contract.md`: exact compact and detailed output contracts.
-- `references/requirement-quality-rubric.md`: quality review or strict validation.
-
-## Default output
-
-Compact by default. Ask at most one blocking question. Expand only when user asks, risk is high, or implementation would be unsafe without detail.
-
-## Workflow
-
-1. Confirm explicit invocation.
-2. Normalize when needed: `Standard English Spec: Goal / Inputs / Constraints / Output / Process Notes`.
-3. Classify context: new project, existing project feature/change, or review only.
-4. Capture explicit requirements: `ER-*`.
-5. Infer hidden requirements: `IR-*`, with confidence and confirmation need.
-6. Define scope: MVP/in-scope, later, out-of-scope, affected areas, must-not-regress.
-7. Produce `FR-*`, `NFR-*`, and `AC-*`.
-8. Identify P0/P1/P2/P3 risks and unknowns.
-9. Create handoff: phases, dependency order, validation targets, minimal safe first milestone.
-
-## Compact output contract
+Output:
 
 ```text
-xc881 需求分析：
-Context:
+xc881 Req:
 Spec:
-Explicit:
-Inferred:
+ER:
+IR:
 Scope:
-Flows:
-Requirements:
-Acceptance:
-Risks:
-Questions:
-Handoff to xc881-coding-skills:
+FR/NFR:
+AC:
+Risk:
+Q:
+Handoff:
 ```
 
-## Rules
-
-- Explicit invocation only.
-- Separate explicit, inferred, and assumed requirements.
-- Do not present inferred requirements as confirmed.
-- Do not hide dependencies or consequences.
-- Do not output code.
-- Make acceptance criteria testable.
+Rules: explicit only; no code; inferred ≠ confirmed; AC must be testable.

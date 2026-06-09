@@ -1,37 +1,37 @@
 [
   {
-    "query": "$xc881-coding-skills 优化 user service，先读代码，不要乱改",
+    "query": "$xc881-coding-skills 修改登录校验，先读代码再改",
     "should_trigger": true,
     "workflow": "coding"
   },
   {
-    "query": "按 xc881 代码规范写准确稳定、可维护、逻辑模块化的非屎山代码",
+    "query": "修这个 bug，根因明确，最小 diff",
     "should_trigger": true,
-    "workflow": "code quality"
+    "workflow": "high constraint"
   },
   {
-    "query": "这段代码要高性能高效率，可以接受局部复杂但必须可验证",
+    "query": "按 xc881 代码规范重构 service",
     "should_trigger": true,
-    "workflow": "performance mode"
+    "workflow": "quality"
   },
   {
-    "query": "fix this bug with minimal diff",
+    "query": "做 surgical change，不要顺手重构",
     "should_trigger": true,
-    "workflow": "high constraint coding"
+    "workflow": "karpathy guardrail"
   },
   {
-    "query": "写代码，只对核心难点加注释",
+    "query": "提交并推送",
     "should_trigger": true,
-    "workflow": "comments policy"
+    "workflow": "git checkpoint"
   },
   {
-    "query": "保存进度，提交并推送到 GitHub",
-    "should_trigger": true,
-    "workflow": "git checkpoint push"
-  },
-  {
-    "query": "分析这个新项目需求，先别写代码",
+    "query": "$xc881-requirement-analysis 分析需求",
     "should_trigger": false,
-    "workflow": "requirement analysis"
+    "workflow": "explicit req"
+  },
+  {
+    "query": "$xc881-bugfix-research 分析根因",
+    "should_trigger": false,
+    "workflow": "explicit bug"
   }
 ]

@@ -1,0 +1,36 @@
+{
+  "principle": "accurate, low-token, effective agent reading",
+  "skills": [
+    {
+      "name": "xc881-solution-research",
+      "trigger": "explicit-only",
+      "mode": "analysis",
+      "handoff": [
+        "xc881-requirement-analysis",
+        "xc881-coding-skills"
+      ]
+    },
+    {
+      "name": "xc881-requirement-analysis",
+      "trigger": "explicit-only",
+      "mode": "analysis",
+      "handoff": [
+        "xc881-coding-skills"
+      ]
+    },
+    {
+      "name": "xc881-bugfix-research",
+      "trigger": "explicit-only",
+      "mode": "analysis",
+      "handoff": [
+        "xc881-coding-skills"
+      ]
+    },
+    {
+      "name": "xc881-coding-skills",
+      "trigger": "implicit-allowed",
+      "mode": "execution",
+      "handoff": []
+    }
+  ]
+}

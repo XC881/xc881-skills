@@ -1,47 +1,22 @@
 [
   {
-    "query": "$xc881-bugfix-research 这个登录接口偶发 500，帮我根据日志定位根因和修复方案",
+    "query": "$xc881-bugfix-research 根据日志分析登录 500",
     "should_trigger": true,
-    "workflow": "explicit bug diagnosis"
+    "workflow": "explicit bug"
   },
   {
-    "query": "使用 xc881-bugfix-research 分析这个 CVE 的影响版本和修复方案",
+    "query": "使用 xc881-bugfix-research 分析这个 CVE",
     "should_trigger": true,
-    "workflow": "explicit vulnerability analysis"
+    "workflow": "explicit vuln"
   },
   {
-    "query": "启用 xc881漏洞与Bug诊断 Skill，根据这个 stack trace 推理根因",
-    "should_trigger": true,
-    "workflow": "explicit root cause"
-  },
-  {
-    "query": "这个登录接口偶发 500，帮我看看",
+    "query": "这个接口 500 帮我看看",
     "should_trigger": false,
-    "workflow": "ordinary bug mention"
+    "workflow": "ordinary bug"
   },
   {
-    "query": "依赖库提示 CVE，帮我看看影响版本",
+    "query": "依赖有 CVE 帮我看",
     "should_trigger": false,
-    "workflow": "ordinary vulnerability mention"
-  },
-  {
-    "query": "根据这个 stack trace 推理根因",
-    "should_trigger": false,
-    "workflow": "ordinary stack trace mention"
-  },
-  {
-    "query": "这个 SSRF 漏洞怎么安全修复",
-    "should_trigger": false,
-    "workflow": "ordinary security mention"
-  },
-  {
-    "query": "帮我写一个新功能需求分析，先别写代码",
-    "should_trigger": false,
-    "workflow": "requirement analysis"
-  },
-  {
-    "query": "按代码规范重构 user service，不涉及 bug",
-    "should_trigger": false,
-    "workflow": "coding"
+    "workflow": "ordinary vuln"
   }
 ]

@@ -1,6 +1,6 @@
 interface:
   display_name: "xc881需求分析"
-  short_description: "Explicit-only requirement analysis before coding"
-  default_prompt: "Use $xc881-requirement-analysis only when explicitly invoked. Do not auto-trigger from ordinary requirement/product/planning keywords. When active, do not write code. Normalize rough requests when needed, separate explicit/inferred/assumed requirements, define scope, acceptance criteria, risks, and handoff to $xc881-coding-skills."
+  short_description: "Explicit-only compact requirement analysis"
+  default_prompt: "Use $xc881-requirement-analysis only when explicit. No code. Spec→ER/IR→scope→FR/NFR/AC→risk→handoff. One blocking question max."
 policy:
   allow_implicit_invocation: false

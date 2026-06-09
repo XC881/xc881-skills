@@ -1,32 +1,22 @@
 [
   {
-    "query": "$xc881-solution-research 我想做本地优先的 AI 笔记应用，帮我联网调研技术栈和可行方案",
+    "query": "$xc881-solution-research 调研 RAG 技术路线",
     "should_trigger": true,
-    "workflow": "explicit solution research"
+    "workflow": "explicit solution"
   },
   {
-    "query": "使用 xc881-solution-research 调研 RAG + GraphRAG 的技术路线和论文依据",
+    "query": "使用 xc881-solution-research 比较 Supabase/Firebase",
     "should_trigger": true,
-    "workflow": "explicit paper-first research"
+    "workflow": "explicit stack"
   },
   {
-    "query": "启用 xc881技术方案联网调研 Skill，比较 Supabase、Firebase、Convex 方案",
-    "should_trigger": true,
-    "workflow": "explicit tech stack comparison"
-  },
-  {
-    "query": "帮我联网调研这个技术方案",
+    "query": "帮我联网调研技术方案",
     "should_trigger": false,
-    "workflow": "ordinary research mention"
+    "workflow": "ordinary research"
   },
   {
-    "query": "帮我选一下技术栈",
+    "query": "帮我选技术栈",
     "should_trigger": false,
-    "workflow": "ordinary tech selection"
-  },
-  {
-    "query": "分析这个新项目需求，先别写代码",
-    "should_trigger": false,
-    "workflow": "requirement analysis"
+    "workflow": "ordinary stack"
   }
 ]

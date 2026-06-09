@@ -1,29 +1,14 @@
-# Requirement Output Contract
-
-Default compact output:
+# Output
 
 ```text
-xc881 需求分析：
-Context:
+xc881 Req:
 Spec:
-Explicit:
-Inferred:
+ER:
+IR:
 Scope:
-Flows:
-Requirements:
-Acceptance:
-Risks:
-Questions:
+FR/NFR:
+AC:
+Risk:
+Q:
 Handoff:
 ```
-
-Existing project additions:
-
-```text
-Affected:
-Must not regress:
-Migration / rollout:
-Regression tests:
-```
-
-Detailed output may expand each section with ER/IR/FR/NFR/AC IDs.

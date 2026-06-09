@@ -1,13 +1,17 @@
-# High-Constraint Coding Policy
+# High Constraint
 
-Use for serious coding, bug fixes, refactors, reviews, production edits, and minimal-diff requests.
+Use for risky/minimal-diff/prod edits.
 
 Rules:
-1. Bound the task.
-2. Read the real implementation path.
-3. State current behavior before editing when useful.
-4. Choose the smallest maintainable change.
-5. Preserve local style.
-6. Avoid speculative abstractions.
-7. Verify before success claims.
-8. If two fixes fail, stop and diagnose root cause.
+
+1. Bound task.
+2. Read real path.
+3. Define success check.
+4. Smallest maintainable diff.
+5. Every line traceable.
+6. Preserve local style.
+7. No adjacent cleanup.
+8. Clean only new orphans.
+9. No speculative/single-use abstraction.
+10. Verify before success.
+11. Two failed fixes → stop and diagnose.

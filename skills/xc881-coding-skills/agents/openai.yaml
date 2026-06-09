@@ -1,6 +1,6 @@
 interface:
   display_name: "xc881代码工程规范"
-  short_description: "Engineering execution skill for safe, modular, high-quality, verified code changes"
-  default_prompt: "Use $xc881-coding-skills. If requirements are unclear, use $xc881-requirement-analysis first. Otherwise read before writing, apply the xc881 code quality standard, run a compact design gate when non-trivial, keep diffs small, comment only core difficulty, verify, and commit/push only when explicitly requested. In performance mode, state objective and trade-off."
+  short_description: "Compact coding with Karpathy guardrail + xc881 quality"
+  default_prompt: "Use $xc881-coding-skills for clear coding. If feasibility/requirement/root cause unclear, request explicit analysis. Read path, define success check, keep diff surgical, no unrelated cleanup, no single-use abstraction, apply quality, verify, no implicit commit."
 policy:
   allow_implicit_invocation: true
