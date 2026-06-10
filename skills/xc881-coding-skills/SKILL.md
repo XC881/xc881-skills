@@ -36,14 +36,21 @@ Use after requirements are clear. If the task is about PRD, MVP, users, hidden r
 
 ## Load policy
 
-`SKILL.md` is the fast path. Read references only when needed:
+`SKILL.md` is the fast path.
 
-- `references/xc881-code-quality-standard.md`: non-trivial coding, review, refactor, performance mode, or code-quality/代码规范/非屎山代码 requests.
-- `references/high-constraint-coding-policy.md`: risky edits, bug fixes, production changes, surgical changes, minimal diff work, or anti-overengineering risk.
-- `references/no-code-comments-policy.md`: before generating or editing code.
-- `references/git-checkpoint-policy.md`: only when user explicitly asks to commit/checkpoint/push.
-- `references/engineering-quality-rubric.md`: low-quality code review or weak verification.
-- `references/project-optimization.md`: legacy optimization or new project engineering after requirements are clear.
+Reference files live under `./references/`.
+
+Reference Index:
+
+- `./references/xc881-code-quality-standard.md`: non-trivial coding, review, refactor, performance mode, or code-quality/代码规范/非屎山代码 requests.
+- `./references/high-constraint-coding-policy.md`: risky edits, bug fixes, production changes, surgical changes, minimal diff work, or anti-overengineering risk.
+- `./references/no-code-comments-policy.md`: before generating or editing code.
+- `./references/git-checkpoint-policy.md`: only when user explicitly asks to commit/checkpoint/push.
+- `./references/engineering-quality-rubric.md`: low-quality code review or weak verification.
+- `./references/project-optimization.md`: legacy optimization or new project engineering after requirements are clear.
+
+When opening reference files, always use the exact relative path shown above.
+Do not assume reference files are located beside `SKILL.md`.
 
 ## Default output
 

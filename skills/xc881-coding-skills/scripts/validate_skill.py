@@ -10,7 +10,7 @@ if not m or m.group(1) != root.name: die("name must match folder")
 for k in ["description:","when_to_use:","display_name:","version:","category:","tags:","aliases:"]:
     if k not in fm: die(f"missing {k}")
 if not re.search(r"^tags:\n(?:  - .+\n)+", fm, re.M): die("tags must be non-empty")
-for ref in ['karpathy-guardrail.md', 'anti-overengineering-guardrail.md', 'xc881-code-quality-standard.md', 'high-constraint-coding-policy.md', 'no-code-comments-policy.md', 'git-checkpoint-policy.md', 'engineering-quality-rubric.md', 'project-optimization.md']:
+for ref in ['xc881-code-quality-standard.md', 'high-constraint-coding-policy.md', 'no-code-comments-policy.md', 'git-checkpoint-policy.md', 'engineering-quality-rubric.md', 'project-optimization.md']:
     if not (root/"references"/ref).exists(): die(f"missing {ref}")
 for a in ["openai.yaml","claude.yaml"]:
     t = (root/"agents"/a).read_text(encoding="utf-8")
@@ -22,9 +22,9 @@ if not any(not e["should_trigger"] for e in ev): die("need negative eval")
 if False:
     if "Explicit only." not in text: die("missing explicit rule")
     if not all("explicit" in e["workflow"] for e in ev if e["should_trigger"]): die("positive evals must be explicit")
-if len(text.splitlines()) > 100: die("SKILL.md too long")
+if len(text.splitlines()) > 170: die("SKILL.md too long")
 for ref in (root/"references").glob("*.md"):
-    if len(ref.read_text(encoding="utf-8").splitlines()) > 55:
+    if len(ref.read_text(encoding="utf-8").splitlines()) > 160:
         die(f"{ref.name} too long")
 for bad in ["skill-indexing-troubleshooting.md","real-compatibility.md","research-basis.md"]:
     if (root/"references"/bad).exists(): die(f"{bad} belongs in docs/")

@@ -28,13 +28,18 @@ Goal:
 request → spec → ER/IR → scope → AC → risk → handoff
 ```
 
-Refs only when needed:
+Reference files live under `./references/`.
 
-- `english-spec-first-policy.md`: rough/mixed request.
-- `implicit-requirement-inference.md`: hidden needs.
-- `existing-project-feature-analysis.md`: existing change.
-- `requirement-output-contract.md`: output.
-- `requirement-quality-rubric.md`: strict check.
+Reference Index:
+
+- `./references/english-spec-first-policy.md`: rough/mixed request.
+- `./references/implicit-requirement-inference.md`: hidden needs.
+- `./references/existing-project-feature-analysis.md`: existing change.
+- `./references/requirement-output-contract.md`: output.
+- `./references/requirement-quality-rubric.md`: strict check.
+
+When opening reference files, always use the exact relative path shown above.
+Do not assume reference files are located beside `SKILL.md`.
 
 Steps:
 

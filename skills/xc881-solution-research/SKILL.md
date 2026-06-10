@@ -29,13 +29,18 @@ Goal:
 idea → spec → RQ → evidence → options → pick → handoff
 ```
 
-Refs only when needed:
+Reference files live under `./references/`.
 
-- `english-spec-and-research-questions.md`: rough idea/RQ.
-- `source-priority-policy.md`: source trust/conflict.
-- `paper-first-policy.md`: principles.
-- `tech-stack-feasibility-policy.md`: option compare.
-- `solution-output-contract.md`: output.
+Reference Index:
+
+- `./references/english-spec-and-research-questions.md`: rough idea/RQ.
+- `./references/source-priority-policy.md`: source trust/conflict.
+- `./references/paper-first-policy.md`: principles.
+- `./references/tech-stack-feasibility-policy.md`: option compare.
+- `./references/solution-output-contract.md`: output.
+
+When opening reference files, always use the exact relative path shown above.
+Do not assume reference files are located beside `SKILL.md`.
 
 Steps:
 

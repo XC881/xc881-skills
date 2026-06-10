@@ -28,13 +28,18 @@ Goal:
 symptom → evidence → cause → fix plan → verify plan → handoff
 ```
 
-Refs only when needed:
+Reference files live under `./references/`.
 
-- `web-research-policy.md`: docs/advisory/forum.
-- `bugfix-forensics-workflow.md`: cause.
-- `vulnerability-triage-policy.md`: security.
-- `reproducer-verification-plan.md`: repro/verify.
-- `bugfix-output-contract.md`: output.
+Reference Index:
+
+- `./references/web-research-policy.md`: docs/advisory/forum.
+- `./references/bugfix-forensics-workflow.md`: cause.
+- `./references/vulnerability-triage-policy.md`: security.
+- `./references/reproducer-verification-plan.md`: repro/verify.
+- `./references/bugfix-output-contract.md`: output.
+
+When opening reference files, always use the exact relative path shown above.
+Do not assume reference files are located beside `SKILL.md`.
 
 Steps:
 
