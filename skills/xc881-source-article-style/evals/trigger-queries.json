@@ -20,6 +20,11 @@
     "workflow": "explicit call-chain article"
   },
   {
+    "query": "$xc881-source-article-style 分析 Oilpan 在这段源码中的作用，前文没有介绍过这个概念",
+    "should_trigger": true,
+    "workflow": "explicit source article with automatic solution research"
+  },
+  {
     "query": "按我的文章风格写一篇 BrowserWindow 创建流程的函数级分析",
     "should_trigger": false,
     "workflow": "missing explicit trigger"

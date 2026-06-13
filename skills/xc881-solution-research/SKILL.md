@@ -1,7 +1,7 @@
 ---
 name: xc881-solution-research
-description: 'Explicit-only. Use only with $xc881-solution-research. Research technical feasibility before requirements/coding: normalize idea, infer research questions, search authoritative sources, compare options, recommend, hand off. No auto-trigger. No code.'
-when_to_use: 'Only explicit invocation. Use for idea-to-solution research, tech stack choice, paper-first principle research, GitHub/docs/standards/advisory exploration, feasibility/trade-off analysis.'
+description: 'Explicit-only. Use with $xc881-solution-research, or as bounded delegated research from an explicitly invoked $xc881-source-article-style run. Research technical feasibility before requirements/coding: normalize idea, infer research questions, search authoritative sources, compare options, recommend, hand off. No broad auto-trigger. No code.'
+when_to_use: 'Only explicit invocation or bounded delegation from $xc881-source-article-style for unexplained specialized terms. Use for idea-to-solution research, tech stack choice, paper-first principle research, GitHub/docs/standards/advisory exploration, feasibility/trade-off analysis.'
 display_name: "xc881技术方案联网调研"
 version: "2.1.0"
 category: "solution-research"
@@ -22,6 +22,8 @@ aliases:
 # xc881 Solution Research
 
 Explicit only. No code.
+
+Delegated explicit: an active `$xc881-source-article-style` run may use this skill automatically for one bounded unexplained term/concept that affects article understanding.
 
 Goal:
 

@@ -37,6 +37,7 @@
       "trigger": "explicit-only",
       "mode": "writing",
       "handoff": [
+        "xc881-solution-research",
         "xc881-coding-skills"
       ]
     }

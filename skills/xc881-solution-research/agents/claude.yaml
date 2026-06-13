@@ -1,6 +1,6 @@
 interface:
   display_name: "xc881技术方案联网调研"
   short_description: "Explicit-only compact solution research"
-  default_prompt: "Apply only when explicit. No code. Spec, RQ, sources, options, pick, risk, handoff. Prefer primary sources."
+  default_prompt: "Apply only when explicit, or as bounded delegated research from an explicitly invoked $xc881-source-article-style run. No code. Spec, RQ, sources, options, pick, risk, handoff. Prefer primary sources."
 policy:
   allow_implicit_invocation: false
