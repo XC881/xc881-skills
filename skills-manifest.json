@@ -31,6 +31,14 @@
       "trigger": "implicit-allowed",
       "mode": "execution",
       "handoff": []
+    },
+    {
+      "name": "xc881-source-article-style",
+      "trigger": "explicit-only",
+      "mode": "writing",
+      "handoff": [
+        "xc881-coding-skills"
+      ]
     }
   ]
 }

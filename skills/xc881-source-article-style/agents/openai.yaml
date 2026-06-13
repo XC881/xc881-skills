@@ -1,0 +1,5 @@
+interface:
+  display_name: "xc881源码文章风格"
+  short_description: "Chinese function-level source article style"
+policy:
+  allow_implicit_invocation: false

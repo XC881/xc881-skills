@@ -1,0 +1,37 @@
+[
+  {
+    "query": "$xc881-source-article-style 写一篇 BrowserWindow 创建流程的函数级分析",
+    "should_trigger": true,
+    "workflow": "explicit source article"
+  },
+  {
+    "query": "xc811文章规范 继续《深入electron底层》，这章讲 NodeBindings::CreateEnvironment",
+    "should_trigger": true,
+    "workflow": "explicit function-level source article"
+  },
+  {
+    "query": "$xc881-source-article-style 把这段源码分析改成我的源码导读风格",
+    "should_trigger": true,
+    "workflow": "explicit rewrite source article"
+  },
+  {
+    "query": "xc811文章规范 画一下 ElectronMainDelegate 到 ElectronBrowserMainParts 的调用链文章大纲",
+    "should_trigger": true,
+    "workflow": "explicit call-chain article"
+  },
+  {
+    "query": "按我的文章风格写一篇 BrowserWindow 创建流程的函数级分析",
+    "should_trigger": false,
+    "workflow": "missing explicit trigger"
+  },
+  {
+    "query": "$xc881-coding-skills 修改 BrowserWindow 实现",
+    "should_trigger": false,
+    "workflow": "coding"
+  },
+  {
+    "query": "$xc881-requirement-analysis 分析新功能范围",
+    "should_trigger": false,
+    "workflow": "requirements"
+  }
+]
