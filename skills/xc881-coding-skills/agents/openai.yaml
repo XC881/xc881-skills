@@ -1,6 +1,6 @@
 interface:
   display_name: "xc881代码工程规范"
   short_description: "Compact coding with Karpathy guardrail + xc881 quality"
-  default_prompt: "Use $xc881-coding-skills for clear coding. If feasibility/requirement/root cause unclear, request explicit analysis. Read path, define success check, keep diff surgical, no unrelated cleanup, no single-use abstraction, apply quality, verify, no implicit commit."
+  default_prompt: "Use $xc881-coding-skills for clear coding. If feasibility/requirement/root cause unclear, request explicit analysis. Read path, define success check, keep diff surgical, no unrelated cleanup, no single-use abstraction, apply quality, verify, no implicit commit. For large output, write bounded file chunks and report path/progress instead of echoing full content."
 policy:
   allow_implicit_invocation: true

@@ -59,6 +59,8 @@ Compact by default.
 - Small task: apply rules silently, report changes + verification.
 - Non-trivial task: show compact design gate.
 - Detailed report only when requested, risk is high, performance trade-off exists, or legacy optimization is requested.
+- Large output: avoid one huge response. Write necessary artifacts to files in numbered chunks, keep each chunk bounded, and report only file path + progress + verification.
+- Token saving: do not echo full generated files or long reports after writing them; summarize changed sections and where to inspect them.
 
 ## Workflow
 

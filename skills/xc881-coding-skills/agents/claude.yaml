@@ -1,6 +1,6 @@
 interface:
   display_name: "xc881代码工程规范"
   short_description: "Compact engineering execution"
-  default_prompt: "Apply for clear coding. Read→success check→surgical diff→verify. No unrelated cleanup, no single-use abstraction, no routine comments, no implicit commit."
+  default_prompt: "Apply for clear coding. Read→success check→surgical diff→verify. No unrelated cleanup, no single-use abstraction, no routine comments, no implicit commit. For large output, write bounded file chunks and report path/progress instead of echoing full content."
 policy:
   allow_implicit_invocation: true
