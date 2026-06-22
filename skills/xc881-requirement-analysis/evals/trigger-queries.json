@@ -5,6 +5,11 @@
     "workflow": "explicit req"
   },
   {
+    "query": "用xc881分析这个功能的范围和验收标准",
+    "should_trigger": true,
+    "workflow": "explicit requirement intent"
+  },
+  {
     "query": "使用 xc881-requirement-analysis 输出 MVP 和 AC",
     "should_trigger": true,
     "workflow": "explicit prd"

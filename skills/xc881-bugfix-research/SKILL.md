@@ -1,7 +1,7 @@
 ---
 name: xc881-bugfix-research
-description: 'Explicit-only. Use only with $xc881-bugfix-research. Analyze bug/vulnerability before coding: evidence, research, cause, reproducer plan, repair plan, verification plan, handoff. No auto-trigger. No code/test/commit.'
-when_to_use: 'Only explicit invocation. Use for logs/stack traces/user-described bugs/CVE/GHSA/OSV/CWE/OWASP/security advisories/regressions.'
+description: 'Explicit-only. Use with $xc881-bugfix-research or any explicit xc881-scoped bug-fix intent such as 用xc881修复. Analyze bug/vulnerability before coding: evidence, research, cause, reproducer plan, repair plan, verification plan, handoff. No broad auto-trigger. No code/test/commit.'
+when_to_use: 'Use only when the user explicitly asks xc881 to diagnose or repair a bug, regression, or vulnerability. Use for logs/stack traces/user-described bugs/CVE/GHSA/OSV/CWE/OWASP/security advisories/regressions.'
 display_name: "xc881漏洞与Bug诊断"
 version: "2.1.0"
 category: "debugging-security"
@@ -20,7 +20,7 @@ aliases:
 
 # xc881 BugFix
 
-Explicit only. No code/test/commit.
+Explicit xc881-scoped intent only. No code/test/commit.
 
 Goal:
 
@@ -43,7 +43,7 @@ Do not assume reference files are located beside `SKILL.md`.
 
 Steps:
 
-1. Confirm explicit call.
+1. Confirm explicit xc881 bug/vulnerability intent.
 2. Classify: bug / regression / stack / dependency vuln / code vuln / perf.
 3. Gather expected, actual, env/version, input, logs, affected path.
 4. Research if useful; match version/context.
@@ -76,4 +76,4 @@ Exploitability:
 Mitigation:
 ```
 
-Rules: explicit only; no exploit steps; fact ≠ hypothesis; weak evidence ≠ certainty.
+Rules: explicit xc881-scoped intent only; no exploit steps; fact ≠ hypothesis; weak evidence ≠ certainty.

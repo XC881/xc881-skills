@@ -20,7 +20,12 @@ ev = json.loads((root/"evals/trigger-queries.json").read_text(encoding="utf-8"))
 if not any(e["should_trigger"] for e in ev): die("need positive eval")
 if not any(not e["should_trigger"] for e in ev): die("need negative eval")
 if True:
-    if "Explicit only." not in text: die("missing explicit rule")
+    if (
+        "Explicit only." not in text
+        and "Explicit xc881-prefixed intent only." not in text
+        and "Explicit xc881-scoped intent only." not in text
+    ):
+        die("missing explicit rule")
     if not all("explicit" in e["workflow"] for e in ev if e["should_trigger"]): die("positive evals must be explicit")
 if len(text.splitlines()) > 90: die("SKILL.md too long")
 for ref in (root/"references").glob("*.md"):

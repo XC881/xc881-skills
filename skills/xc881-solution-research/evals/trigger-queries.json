@@ -5,9 +5,19 @@
     "workflow": "explicit solution"
   },
   {
+    "query": "用xc881调研 Supabase 和 Firebase 的技术方案差异",
+    "should_trigger": true,
+    "workflow": "explicit technical research intent"
+  },
+  {
     "query": "使用 xc881-solution-research 比较 Supabase/Firebase",
     "should_trigger": true,
     "workflow": "explicit stack"
+  },
+  {
+    "query": "用xc881调研并分析需求，一起整理技术方案和需求边界",
+    "should_trigger": true,
+    "workflow": "explicit solution plus requirement intent"
   },
   {
     "query": "帮我联网调研技术方案",

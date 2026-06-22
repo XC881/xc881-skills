@@ -1,6 +1,6 @@
 interface:
   display_name: "xc881源码文章风格"
   short_description: "Chinese function-level source article style"
-  default_prompt: "Use only when explicitly invoked. Write compact Chinese source-reading articles from code evidence. If an important specialized term/concept is not introduced in the available article context, automatically use $xc881-solution-research for that bounded term research; do not ask the user to invoke it."
+  default_prompt: "Use only for direct $xc881-source-article-style invocation or explicit xc881-scoped writing intent, such as 用xc881写作. Write compact Chinese source-reading articles from code evidence. If an important specialized term/concept is not introduced in the available article context, automatically use $xc881-solution-research for that bounded term research; do not ask the user to invoke it."
 policy:
   allow_implicit_invocation: false

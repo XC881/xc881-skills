@@ -1,6 +1,6 @@
 interface:
   display_name: "xc881需求分析"
   short_description: "Explicit-only requirement handoff"
-  default_prompt: "Apply only when explicit. No code. Compact spec, ER/IR, scope, AC, risk, handoff."
+  default_prompt: "Apply only for explicit xc881-scoped requirement intent, such as 用xc881分析需求. No code. Compact spec, ER/IR, scope, AC, risk, handoff. If technical uncertainty blocks requirement judgment, automatically use bounded $xc881-solution-research, then continue the same requirement-analysis run without asking the user to re-invoke requirement."
 policy:
   allow_implicit_invocation: false

@@ -1,6 +1,6 @@
 interface:
   display_name: "xc881需求分析"
   short_description: "Explicit-only compact requirement analysis"
-  default_prompt: "Use $xc881-requirement-analysis only when explicit. No code. Spec→ER/IR→scope→FR/NFR/AC→risk→handoff. One blocking question max."
+  default_prompt: "Use $xc881-requirement-analysis only for explicit xc881-scoped requirement intent, such as 用xc881分析需求. No code. Spec→ER/IR→scope→FR/NFR/AC→risk→handoff. If technical uncertainty blocks requirement judgment, automatically use bounded $xc881-solution-research, then continue the same requirement-analysis run without asking the user to re-invoke requirement. One blocking question max."
 policy:
   allow_implicit_invocation: false

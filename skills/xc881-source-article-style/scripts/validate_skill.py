@@ -57,7 +57,11 @@ if not any(e["should_trigger"] for e in evals):
     die("need positive eval")
 if not any(not e["should_trigger"] for e in evals):
     die("need negative eval")
-if "Explicit only." not in text:
+if (
+    "Explicit only." not in text
+    and "Explicit xc881-prefixed intent only." not in text
+    and "Explicit xc881-scoped intent only." not in text
+):
     die("missing explicit rule")
 if not all("explicit" in e["workflow"] for e in evals if e["should_trigger"]):
     die("positive evals must be explicit")

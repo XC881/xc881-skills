@@ -5,7 +5,7 @@
     "workflow": "explicit source article"
   },
   {
-    "query": "xc811文章规范 继续《深入electron底层》，这章讲 NodeBindings::CreateEnvironment",
+    "query": "用xc881写作，继续《深入electron底层》，这章讲 NodeBindings::CreateEnvironment",
     "should_trigger": true,
     "workflow": "explicit function-level source article"
   },
@@ -15,7 +15,7 @@
     "workflow": "explicit rewrite source article"
   },
   {
-    "query": "xc811文章规范 画一下 ElectronMainDelegate 到 ElectronBrowserMainParts 的调用链文章大纲",
+    "query": "用xc881写作，画一下 ElectronMainDelegate 到 ElectronBrowserMainParts 的调用链文章大纲",
     "should_trigger": true,
     "workflow": "explicit call-chain article"
   },

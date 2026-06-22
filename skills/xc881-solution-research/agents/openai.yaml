@@ -1,6 +1,6 @@
 interface:
   display_name: "xc881技术方案联网调研"
   short_description: "Explicit-only compact technical research"
-  default_prompt: "Use $xc881-solution-research only when explicit, or as bounded delegated research from an explicitly invoked $xc881-source-article-style run. No code. Spec→RQ→evidence→2-4 options→pick/risk→handoff. Papers first for principles; cite only useful sources."
+  default_prompt: "Use $xc881-solution-research only for explicit xc881-scoped technical-research intent, such as 用xc881调研, or as bounded delegated research from an explicitly invoked $xc881-source-article-style or $xc881-requirement-analysis run. No code. Spec→RQ→evidence→2-4 options→pick/risk→handoff. This skill is for web-backed technical research only, not default requirement analysis. If delegated by requirement-analysis, return to that same requirement run automatically. Papers first for principles; cite only useful sources."
 policy:
   allow_implicit_invocation: false

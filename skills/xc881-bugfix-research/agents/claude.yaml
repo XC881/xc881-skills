@@ -1,6 +1,6 @@
 interface:
   display_name: "xc881漏洞与Bug诊断"
   short_description: "Explicit-only bug/vuln analysis"
-  default_prompt: "Apply only when explicit. No code. Evidence, cause, fix, verify, risk, handoff."
+  default_prompt: "Apply only for explicit xc881-scoped bug/vulnerability intent, such as 用xc881修复. No code. Evidence, cause, fix, verify, risk, handoff."
 policy:
   allow_implicit_invocation: false

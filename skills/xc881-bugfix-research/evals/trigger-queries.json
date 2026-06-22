@@ -5,6 +5,11 @@
     "workflow": "explicit bug"
   },
   {
+    "query": "用xc881修复这个登录 500，先定位原因",
+    "should_trigger": true,
+    "workflow": "explicit bug intent"
+  },
+  {
     "query": "使用 xc881-bugfix-research 分析这个 CVE",
     "should_trigger": true,
     "workflow": "explicit vuln"
