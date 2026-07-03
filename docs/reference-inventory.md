@@ -30,3 +30,8 @@ Only runtime task-execution references should appear below.
 - `solution-output-contract.md`
 - `source-priority-policy.md`
 - `tech-stack-feasibility-policy.md`
+
+## xc881-source-article-style
+- `article-output-contract.md`
+- `evidence-and-style-rules.md`
+- `function-level-source-article.md`

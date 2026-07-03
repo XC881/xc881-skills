@@ -6,4 +6,4 @@ Keep only what strengthens coding execution:
 think → simplify → surgical diff → verify
 ```
 
-Integrated as `xc881-coding-skills/references/karpathy-guardrail.md`, not a separate skill.
+Integrated into existing `xc881-coding-skills` runtime files, not a separate skill or standalone runtime reference.
