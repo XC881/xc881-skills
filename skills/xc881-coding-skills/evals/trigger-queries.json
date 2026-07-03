@@ -5,6 +5,11 @@
     "workflow": "coding"
   },
   {
+    "query": "用xc881移植这个 Go 服务到 Rust",
+    "should_trigger": false,
+    "workflow": "porting orchestration"
+  },
+  {
     "query": "修这个 bug，根因明确，最小 diff",
     "should_trigger": true,
     "workflow": "high constraint"

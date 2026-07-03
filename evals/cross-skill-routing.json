@@ -20,6 +20,10 @@
     "expected_skills": ["xc881-source-article-style"]
   },
   {
+    "query": "用xc881移植这个 Go 服务到 Rust",
+    "expected_skills": ["xc881-porting-orchestration"]
+  },
+  {
     "query": "帮我调研技术方案",
     "expected_skills": []
   },

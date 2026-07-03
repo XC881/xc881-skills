@@ -40,6 +40,16 @@
         "xc881-solution-research",
         "xc881-coding-skills"
       ]
+    },
+    {
+      "name": "xc881-porting-orchestration",
+      "trigger": "explicit-only",
+      "mode": "orchestration",
+      "handoff": [
+        "xc881-requirement-analysis",
+        "xc881-solution-research",
+        "xc881-coding-skills"
+      ]
     }
   ]
 }

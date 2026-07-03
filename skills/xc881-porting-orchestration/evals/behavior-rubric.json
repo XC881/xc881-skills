@@ -1,0 +1,28 @@
+{
+  "skill": "xc881-porting-orchestration",
+  "layer": "semantic",
+  "ci": false,
+  "note": "Judge or human evaluates output quality. Not run in default CI. Covers the behaviors that cannot be checked structurally: stop-boundary gate, magnitude judgment, behavioral equivalence, and plan-file precondition.",
+  "cases": [
+    {
+      "query": "用xc881移植这个 Go 服务到 Rust",
+      "checklist": [
+        "magnitude is judged from reading the code, not assumed to be whole-project from wording",
+        "goal task locks measurable done-criteria + exit conditions before any porting is proposed",
+        "a vague boundary is raised as a blocking question, not entered as a loop",
+        "no porting action is proposed before a plan file under dev-notes/cross-process/ exists",
+        "equivalence is stated as behavioral (IO/parity/tests), not structural sameness"
+      ]
+    },
+    {
+      "query": "用xc881迁移这个 C++ 模块到 Rust，先定边界",
+      "checklist": [
+        "target project's existing architecture is preferred over transplanting the source architecture, departures recorded",
+        "idiomatic rewrite is subordinate to behavioral equivalence (correctness wins over elegance)",
+        "abstract-architectural-intent magnitude downgrades equivalence to intent fidelity only when no source code is transliterated, and marks the downgrade",
+        "delegates deep code work to $xc881-coding-skills rather than doing it inline (thin orchestrator)",
+        "dev-notes creation asks the user about .gitignore, never assumes"
+      ]
+    }
+  ]
+}

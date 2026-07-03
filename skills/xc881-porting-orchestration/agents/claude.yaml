@@ -1,0 +1,6 @@
+interface:
+  display_name: "xc881移植编排"
+  short_description: "Explicit-only cross-language/project porting orchestration"
+  default_prompt: "Use $xc881-porting-orchestration only for explicit xc881-scoped porting/migration intent, such as 用xc881移植. Thin orchestrator, no code. Classify goal vs non-goal; goal needs a locked stop boundary before porting. Delegate to requirement/coding/solution skills. Equivalence is behavioral; prefer target-language idioms without breaking it."
+policy:
+  allow_implicit_invocation: false

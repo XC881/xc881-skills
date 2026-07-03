@@ -6,4 +6,5 @@ $xc881-requirement-analysis  request → ER/IR/AC → handoff
 $xc881-bugfix-research       symptom → cause/fix/verify → handoff
 $xc881-coding-skills         clear scope → patch → verify
 $xc881-source-article-style  source evidence → article outline/prose
+$xc881-porting-orchestration classify goal → lock boundary → port → verify equivalence
 ```

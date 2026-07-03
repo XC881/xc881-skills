@@ -9,5 +9,6 @@ Use:
 - `xc881-bugfix-research`: evidence, root cause, fix plan, verification plan; no code/test/commit.
 - `xc881-coding-skills`: implementation, refactor, review, optimization, verification.
 - `xc881-source-article-style`: source-reading article outlines/prose from code evidence.
+- `xc881-porting-orchestration`: cross-language/cross-project porting; classifies goal vs non-goal, locks a stop boundary, verifies behavioral equivalence; delegates to the other skills.
 
 Default to compact outputs. Expand only when asked or when risk requires it.

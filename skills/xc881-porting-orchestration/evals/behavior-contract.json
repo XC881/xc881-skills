@@ -1,0 +1,7 @@
+{
+  "skill": "xc881-porting-orchestration",
+  "layer": "structural",
+  "forbid_impl_code": true,
+  "required_sections": ["Task class", "Magnitude", "Stop boundary", "Understanding", "Risks", "Equivalence", "Handoff"],
+  "pass_sample": "Task class: goal, whole-project Go to Rust, iterative\nMagnitude: whole-project, read confirms all modules in scope; target repo has existing axum architecture\nStop boundary: done when all modules pass parity suite; exit on success or 3 failed escalations; out of scope, new features\nUnderstanding: ownership vs GC, error model differs; map net/http to axum; move into target's existing layering\nRisks: P1 concurrency model mismatch; P2 missing library equivalent\nEquivalence: behavioral, ported test suite plus golden comparison, consistent so far with evidence\nHandoff: to coding, port module one behind locked boundary"
+}

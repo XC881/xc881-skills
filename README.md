@@ -12,6 +12,7 @@ $xc881-requirement-analysis  requirement analysis / scope / acceptance; no code
 $xc881-bugfix-research       bug or vulnerability diagnosis; no code
 $xc881-coding-skills         implementation / refactor / verify
 $xc881-source-article-style  source-reading article writing
+$xc881-porting-orchestration cross-language / cross-project porting; delegates
 ```
 
 ## Recommended flow
@@ -33,6 +34,12 @@ bug / vuln / regression
 source analysis article
   → $xc881-source-article-style
   → auto bounded term research via $xc881-solution-research when needed
+
+cross-language / cross-project porting
+  → $xc881-porting-orchestration
+  → goal task: lock stop boundary via $xc881-requirement-analysis first
+  → $xc881-coding-skills for the port + equivalence check
+  → $xc881-solution-research for language-pair pitfalls
 ```
 
 ## Rules

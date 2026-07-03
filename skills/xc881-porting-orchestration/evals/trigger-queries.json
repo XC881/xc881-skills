@@ -1,0 +1,67 @@
+[
+  {
+    "query": "$xc881-porting-orchestration 把这个 Go 服务移植到 Rust",
+    "should_trigger": true,
+    "workflow": "explicit porting"
+  },
+  {
+    "query": "用xc881移植这个 Python 项目到 Go",
+    "should_trigger": true,
+    "workflow": "explicit porting intent"
+  },
+  {
+    "query": "用xc881移植这个 Go 服务到 Rust",
+    "should_trigger": true,
+    "workflow": "explicit porting intent"
+  },
+  {
+    "query": "用xc881迁移这个 C++ 模块到 Rust，先定边界",
+    "should_trigger": true,
+    "workflow": "explicit migration with boundary"
+  },
+  {
+    "query": "用xc881写代码实现登录",
+    "should_trigger": false,
+    "workflow": "coding"
+  },
+  {
+    "query": "用xc881调研 Supabase 和 Firebase 的技术方案差异",
+    "should_trigger": false,
+    "workflow": "solution research"
+  },
+  {
+    "query": "用xc881分析这个功能验收标准",
+    "should_trigger": false,
+    "workflow": "requirements"
+  },
+  {
+    "query": "用xc881修复登录 500，先定位原因",
+    "should_trigger": false,
+    "workflow": "bugfix"
+  },
+  {
+    "query": "用xc881写作 BrowserWindow 创建流程",
+    "should_trigger": false,
+    "workflow": "source article"
+  },
+  {
+    "query": "帮我把这个项目改写成另一种语言",
+    "should_trigger": false,
+    "workflow": "ordinary porting, missing explicit trigger"
+  },
+  {
+    "query": "帮我调研技术方案",
+    "should_trigger": false,
+    "workflow": "ordinary research"
+  },
+  {
+    "query": "帮我分析需求",
+    "should_trigger": false,
+    "workflow": "ordinary req"
+  },
+  {
+    "query": "这个接口 500 帮我看看",
+    "should_trigger": false,
+    "workflow": "ordinary bug"
+  }
+]
