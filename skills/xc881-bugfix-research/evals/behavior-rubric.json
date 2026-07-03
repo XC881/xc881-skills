@@ -1,0 +1,16 @@
+{
+  "skill": "xc881-bugfix-research",
+  "layer": "semantic",
+  "ci": false,
+  "note": "Judge or human evaluates output quality. Not run in default CI.",
+  "cases": [
+    {
+      "query": "用xc881修复登录 500，先定位原因",
+      "checklist": [
+        "root cause is stated with a confidence level, not as certainty",
+        "fact and hypothesis are distinguished",
+        "no exploit steps are included for security issues"
+      ]
+    }
+  ]
+}

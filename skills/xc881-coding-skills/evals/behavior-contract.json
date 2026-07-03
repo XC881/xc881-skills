@@ -1,0 +1,7 @@
+{
+  "skill": "xc881-coding-skills",
+  "layer": "structural",
+  "forbid_impl_code": false,
+  "required_sections": ["完成内容", "验证", "风险/假设"],
+  "pass_sample": "完成内容: 扩展校验器,新增结构层断言与自检\n验证: python scripts/validate_all.py 全绿,删除任一契约段落必红\n风险/假设: 语义质量仍需人工或 judge,结构层只消除形式虚假绿灯"
+}

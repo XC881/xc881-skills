@@ -1,0 +1,7 @@
+{
+  "skill": "xc881-solution-research",
+  "layer": "structural",
+  "forbid_impl_code": true,
+  "required_sections": ["Spec", "RQ", "Evidence", "Options", "Pick", "Risk", "Handoff"],
+  "pass_sample": "Spec: goal inputs constraints unknowns output\nRQ: RQ-1 feasibility of vector search on Postgres\nEvidence: official docs confirm pgvector supports HNSW index\nOptions: pgvector vs dedicated vector db, compared on maturity and ops cost\nPick: choose pgvector, evidence sufficient for current scale\nRisk: index rebuild cost at high write volume, medium\nHandoff: to coding, implement pgvector option phase 1"
+}

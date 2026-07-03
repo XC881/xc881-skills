@@ -1,0 +1,16 @@
+{
+  "skill": "xc881-requirement-analysis",
+  "layer": "semantic",
+  "ci": false,
+  "note": "Judge or human evaluates output quality. Not run in default CI.",
+  "cases": [
+    {
+      "query": "用xc881分析这个功能验收标准",
+      "checklist": [
+        "each AC is testable with a decidable pass or fail condition",
+        "inferred requirements are marked and not presented as confirmed",
+        "at most one blocking question is raised"
+      ]
+    }
+  ]
+}

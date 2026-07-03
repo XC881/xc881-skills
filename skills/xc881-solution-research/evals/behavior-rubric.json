@@ -1,0 +1,16 @@
+{
+  "skill": "xc881-solution-research",
+  "layer": "semantic",
+  "ci": false,
+  "note": "Judge or human evaluates output quality. Not run in default CI.",
+  "cases": [
+    {
+      "query": "用xc881调研 Supabase 和 Firebase 的技术方案差异",
+      "checklist": [
+        "fact, inference and recommendation are clearly separated",
+        "each cited source is actually used in the reasoning",
+        "Pick is only made when Evidence is sufficient, else stated as blocker"
+      ]
+    }
+  ]
+}

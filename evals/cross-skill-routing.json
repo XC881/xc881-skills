@@ -1,0 +1,34 @@
+[
+  {
+    "query": "用xc881调研 Supabase 和 Firebase 的技术方案差异",
+    "expected_skills": ["xc881-solution-research"]
+  },
+  {
+    "query": "用xc881分析这个功能验收标准",
+    "expected_skills": ["xc881-requirement-analysis"]
+  },
+  {
+    "query": "用xc881修复登录 500，先定位原因",
+    "expected_skills": ["xc881-bugfix-research"]
+  },
+  {
+    "query": "用xc881写代码实现登录",
+    "expected_skills": ["xc881-coding-skills"]
+  },
+  {
+    "query": "用xc881写作 BrowserWindow 创建流程",
+    "expected_skills": ["xc881-source-article-style"]
+  },
+  {
+    "query": "帮我调研技术方案",
+    "expected_skills": []
+  },
+  {
+    "query": "帮我分析需求",
+    "expected_skills": []
+  },
+  {
+    "query": "这个接口 500 帮我看看",
+    "expected_skills": []
+  }
+]

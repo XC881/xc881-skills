@@ -1,0 +1,16 @@
+{
+  "skill": "xc881-coding-skills",
+  "layer": "semantic",
+  "ci": false,
+  "note": "Judge or human evaluates output quality. Not run in default CI.",
+  "cases": [
+    {
+      "query": "用xc881写代码实现登录",
+      "checklist": [
+        "every changed line traces to the request, evidence or verification",
+        "no unrelated refactor or single-use abstraction is introduced",
+        "success is claimed only with verification evidence"
+      ]
+    }
+  ]
+}

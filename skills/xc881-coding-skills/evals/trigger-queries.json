@@ -15,6 +15,11 @@
     "workflow": "quality"
   },
   {
+    "query": "用xc881写代码实现登录",
+    "should_trigger": true,
+    "workflow": "coding"
+  },
+  {
     "query": "做 surgical change，不要顺手重构",
     "should_trigger": true,
     "workflow": "karpathy guardrail"
@@ -33,5 +38,45 @@
     "query": "$xc881-bugfix-research 分析根因",
     "should_trigger": false,
     "workflow": "explicit bug"
+  },
+  {
+    "query": "用xc881调研 RAG 技术路线",
+    "should_trigger": false,
+    "workflow": "explicit solution"
+  },
+  {
+    "query": "用xc881写作 BrowserWindow 创建流程",
+    "should_trigger": false,
+    "workflow": "source article"
+  },
+  {
+    "query": "用xc881调研 Supabase 和 Firebase 的技术方案差异",
+    "should_trigger": false,
+    "workflow": "explicit solution"
+  },
+  {
+    "query": "用xc881分析这个功能验收标准",
+    "should_trigger": false,
+    "workflow": "explicit req"
+  },
+  {
+    "query": "用xc881修复登录 500，先定位原因",
+    "should_trigger": false,
+    "workflow": "explicit bug"
+  },
+  {
+    "query": "帮我调研技术方案",
+    "should_trigger": false,
+    "workflow": "ordinary research"
+  },
+  {
+    "query": "帮我分析需求",
+    "should_trigger": false,
+    "workflow": "ordinary req"
+  },
+  {
+    "query": "这个接口 500 帮我看看",
+    "should_trigger": false,
+    "workflow": "ordinary bug"
   }
 ]

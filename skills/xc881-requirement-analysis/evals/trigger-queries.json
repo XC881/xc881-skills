@@ -10,6 +10,11 @@
     "workflow": "explicit requirement intent"
   },
   {
+    "query": "用xc881分析这个功能验收标准",
+    "should_trigger": true,
+    "workflow": "explicit requirement intent"
+  },
+  {
     "query": "使用 xc881-requirement-analysis 输出 MVP 和 AC",
     "should_trigger": true,
     "workflow": "explicit prd"
@@ -23,5 +28,40 @@
     "query": "写代码实现登录",
     "should_trigger": false,
     "workflow": "coding"
+  },
+  {
+    "query": "用xc881写代码实现登录",
+    "should_trigger": false,
+    "workflow": "coding"
+  },
+  {
+    "query": "用xc881调研 RAG 技术路线",
+    "should_trigger": false,
+    "workflow": "solution research"
+  },
+  {
+    "query": "用xc881调研 Supabase 和 Firebase 的技术方案差异",
+    "should_trigger": false,
+    "workflow": "solution research"
+  },
+  {
+    "query": "用xc881修复登录 500，先定位原因",
+    "should_trigger": false,
+    "workflow": "bugfix"
+  },
+  {
+    "query": "用xc881写作 BrowserWindow 创建流程",
+    "should_trigger": false,
+    "workflow": "source article"
+  },
+  {
+    "query": "帮我调研技术方案",
+    "should_trigger": false,
+    "workflow": "ordinary research"
+  },
+  {
+    "query": "这个接口 500 帮我看看",
+    "should_trigger": false,
+    "workflow": "ordinary bug"
   }
 ]

@@ -1,0 +1,16 @@
+{
+  "skill": "xc881-source-article-style",
+  "layer": "semantic",
+  "ci": false,
+  "note": "Judge or human evaluates output quality. Not run in default CI.",
+  "cases": [
+    {
+      "query": "用xc881写作 BrowserWindow 创建流程",
+      "checklist": [
+        "conclusion has 3 to 5 bullets, each backed by a path or function anchor",
+        "call order is evidence-backed, not presented as guessed fact",
+        "common programming concepts are not over-explained"
+      ]
+    }
+  ]
+}
