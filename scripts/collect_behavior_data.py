@@ -45,6 +45,7 @@ INJECTION_PREFIXES = (
 # with non-outputs. Skip a message whose first non-empty line is such a recap.
 CONTINUATION_MARKERS = (
     "handoff summary",
+    "summary",
     "goal/current objective",
     "current objective:",
     "continue working toward",
@@ -59,6 +60,11 @@ def is_continuation_artifact(text):
         stripped = line.strip().lower()
         if not stripped:
             continue
+        # Recap first-lines arrive markdown-wrapped (## Handoff Summary,
+        # **Summary**, - summary:). Strip the same wrappers _norm_header does
+        # before matching, or bold/heading recaps slip through and inflate the
+        # empty-section failure count with non-outputs.
+        stripped = stripped.lstrip("#->*` \t").rstrip("*` ")
         return stripped.startswith(CONTINUATION_MARKERS)
     return False
 
