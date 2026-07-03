@@ -6,3 +6,5 @@ Thumbs.db
 *.skill
 __pycache__/
 .pytest_cache/
+dev-notes/
+data/
