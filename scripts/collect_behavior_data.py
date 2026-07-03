@@ -39,6 +39,29 @@ INJECTION_PREFIXES = (
     "<", "# AGENTS.md", "# codebase", "@/home", "<!--",
 )
 
+# A genuine skill product leads with its own contract. Session
+# continuation/compaction turns instead lead with a handoff/objective recap that
+# merely quotes contract section names; counting those inflates the denominator
+# with non-outputs. Skip a message whose first non-empty line is such a recap.
+CONTINUATION_MARKERS = (
+    "handoff summary",
+    "goal/current objective",
+    "current objective:",
+    "continue working toward",
+    "continue the active",
+    "continue the long-running",
+    "continue long-running",
+)
+
+
+def is_continuation_artifact(text):
+    for line in text.splitlines():
+        stripped = line.strip().lower()
+        if not stripped:
+            continue
+        return stripped.startswith(CONTINUATION_MARKERS)
+    return False
+
 
 def load_contracts():
     contracts = {}
@@ -148,6 +171,8 @@ def main():
                     pending_query = q
                 continue
             # assistant
+            if is_continuation_artifact(text):
+                continue
             skill, violations = classify(text, contracts)
             if skill is None:
                 continue
