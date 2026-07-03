@@ -21,13 +21,16 @@ OUT_DIR = ROOT / "data"
 
 # Distinctive first-line anchor that marks an assistant message as an attempt to
 # emit a given skill's output contract. Analysis anchors are highly distinctive;
-# coding uses its final-response header.
+# coding uses its final-response header. Article anchors on its FIRST section
+# (现象/问题), not its last (本章结论): anchoring on the terminal section would
+# only ever see articles that already wrote their conclusion, structurally hiding
+# every tail-truncated article and biasing the denominator toward completions.
 ANCHORS = {
     "xc881-solution-research": "xc881 Solution:",
     "xc881-requirement-analysis": "xc881 Req:",
     "xc881-bugfix-research": "xc881 BugFix:",
     "xc881-coding-skills": "完成内容",
-    "xc881-source-article-style": "本章结论",
+    "xc881-source-article-style": "现象/问题",
 }
 
 # A message must show at least this many required sections to count as an output

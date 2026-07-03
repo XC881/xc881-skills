@@ -1,6 +1,6 @@
 ---
 name: xc881-source-article-style
-description: 'Explicit-only. Use when the user explicitly invokes $xc881-source-article-style or gives explicit xc881-scoped writing intent such as 用xc881写作. Provides the user''s Chinese source-code article style for Electron/Chromium/Node/V8 internals, function-level analysis, call-chain walkthroughs, build/debug/source-reading notes, article chapter drafts, diagrams, tables, conclusions, and reader-facing explanations. Automatically uses $xc881-solution-research for unexplained specialized terms when needed.'
+description: 'Explicit-only. Use when the user explicitly invokes $xc881-source-article-style or gives explicit xc881-scoped writing intent such as 用xc881写作. Provides the user''s Chinese source-code article style for internals of any language or stack (e.g. Electron/Chromium, Rust, Go, Python, JVM), function-level analysis, call-chain walkthroughs, build/debug/source-reading notes, article chapter drafts, diagrams, tables, conclusions, and reader-facing explanations. Automatically uses $xc881-solution-research for unexplained specialized terms or possibly-stale authoritative facts when needed.'
 when_to_use: 'Use when producing article prose or outlines from source-code evidence, especially function-level internals analysis. Do not use for code changes unless combined with xc881-coding-skills.'
 display_name: "xc881源码文章风格"
 version: "1.1.0"
@@ -9,7 +9,7 @@ tags:
   - writing
   - source-analysis
   - function-level
-  - electron
+  - internals
   - article-style
   - xc881
 aliases:
@@ -25,6 +25,8 @@ Explicit xc881-scoped intent only.
 
 Write compact Chinese source-reading articles: problem -> evidence -> flow -> function -> conclusion.
 
+Genre is explanation: show *why* the code behaves this way from source evidence. Not reference docs, not a tutorial, not API usage.
+
 Reference files live under `./references/`.
 
 Reference Index:
@@ -38,23 +40,26 @@ Do not assume reference files are located beside `SKILL.md`.
 
 ## Fast Path
 
-1. Verify only needed evidence: version/path/function/callers/callees/debug note.
-2. Check unexplained specialized terms in the available article context.
-   - If a proprietary term, architecture concept, internal mechanism, acronym, or domain term affects understanding and has not been introduced, automatically use `$xc881-solution-research`.
-   - Research only that term with code path/function/context; do not ask the user to invoke the research skill.
+1. Ecosystem recon (one line, every article): name the language, build system, package manager, debugger/trace tool, and authoritative doc source for this project. Keep it minimal; only expand when the stack is unfamiliar or a fact is uncertain.
+2. Verify only needed evidence: version/path/function/callers/callees/debug note.
+3. Think hard before locating: entry-point and call-chain claims must carry a derivation path, never an assertion. Explain why each key branch exists.
+4. Evidence tier: when a debugger/tracer is available, back entry/flow claims with breakpoint/call-stack/runtime output; when it is not, mark the claim as static inference and give the static basis (symbol, reference, build artifact).
+5. Check unexplained terms or possibly-stale authoritative facts in the available context.
+   - If a proprietary term, architecture concept, internal mechanism, acronym, domain term, or a version/API fact that may be outdated affects understanding, automatically use `$xc881-solution-research` against official docs / authoritative sources.
+   - Research only that point with code path/function/context; do not ask the user to invoke the research skill.
    - Treat researched facts as cited context, and mark remaining inference.
-3. Use the function-level spine unless the user asks otherwise:
+6. Use the function-level spine unless the user asks otherwise:
 
 ```text
 现象/问题 -> 入口 -> 调用链 -> 关键源码 -> 调试验证 -> 本章结论
 ```
 
-4. Strengthen article shape:
+7. Strengthen article shape:
    - every section ends with one takeaway
    - big lifecycle diagrams split into small diagrams
    - conclusion is 3-5 evidence-backed bullets
-5. Style: practical source guide, `笔者/读者/本章` allowed, no official-manual tone.
-6. Mark inference when evidence is partial.
+8. Style: practical source guide, `笔者/读者/本章` allowed, no official-manual tone.
+9. Mark inference when evidence is partial.
 
 ## Token Policy
 

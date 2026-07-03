@@ -10,7 +10,9 @@
 ## Evidence
 
 - Prefer local source, build files, debug output, and runtime behavior.
-- Cite exact names: file, function, GN target, build arg, env var, process type.
+- Cite exact names: file, function/symbol, plus the stack's own identifiers — e.g. GN target/build arg/process type for Chromium, crate/feature/cfg for Rust, package/build tag for Go, module/venv for Python. Instantiate per project, do not force one stack's vocabulary onto another.
+- Evidence tier: debugger/tracer runtime evidence (breakpoint, call stack, log) outranks static inference. When you cannot run tooling, mark the claim as static inference and give the static basis (symbol, reference, build artifact).
+- Doc supplementation: when a version/API/mechanism fact may be outdated or uncertain, back it with official docs or an authoritative source (via `$xc881-solution-research`) and mark it as cited, not recalled.
 - Mark inference: "从这里可以推断..." / "更准确地说...".
 - If evidence conflicts with old prose, correct the prose.
 

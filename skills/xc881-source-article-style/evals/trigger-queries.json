@@ -30,6 +30,11 @@
     "workflow": "explicit source article with automatic solution research"
   },
   {
+    "query": "用xc881写作，分析 tokio 这个 Rust runtime 的任务调度入口",
+    "should_trigger": true,
+    "workflow": "explicit source article, non-Chromium stack"
+  },
+  {
     "query": "按我的文章风格写一篇 BrowserWindow 创建流程的函数级分析",
     "should_trigger": false,
     "workflow": "missing explicit trigger"

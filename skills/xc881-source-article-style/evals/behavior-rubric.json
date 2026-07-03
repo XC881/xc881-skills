@@ -11,6 +11,15 @@
         "call order is evidence-backed, not presented as guessed fact",
         "common programming concepts are not over-explained"
       ]
+    },
+    {
+      "query": "用xc881写作，分析 tokio 这个 Rust runtime 的任务调度入口",
+      "checklist": [
+        "evidence categories are instantiated for the target stack (crate/module/build), not forced into Chromium terms like GN target",
+        "entry and call-chain claims carry a derivation path, not a bare assertion",
+        "each claim is either backed by debugger/runtime output or explicitly marked as static inference with its static basis",
+        "possibly-stale API or version facts are cited from official docs, not asserted from memory"
+      ]
     }
   ]
 }
