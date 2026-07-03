@@ -1,7 +1,7 @@
 ---
 name: xc881-source-article-style
 description: 'Explicit-only. Use when the user explicitly invokes $xc881-source-article-style or gives explicit xc881-scoped writing intent such as 用xc881写作. Provides the user''s Chinese source-code article style for Electron/Chromium/Node/V8 internals, function-level analysis, call-chain walkthroughs, build/debug/source-reading notes, article chapter drafts, diagrams, tables, conclusions, and reader-facing explanations. Automatically uses $xc881-solution-research for unexplained specialized terms when needed.'
-when_to_use: 'Only explicit xc881-scoped writing invocation: direct $xc881-source-article-style or wording such as 用xc881写作. Use when producing article prose or outlines from source-code evidence, especially for function-level internals analysis. Automatically research unexplained specialized terms through $xc881-solution-research. Do not use for code changes unless combined with xc881-coding-skills.'
+when_to_use: 'Use when producing article prose or outlines from source-code evidence, especially function-level internals analysis. Do not use for code changes unless combined with xc881-coding-skills.'
 display_name: "xc881源码文章风格"
 version: "1.1.0"
 category: "writing"

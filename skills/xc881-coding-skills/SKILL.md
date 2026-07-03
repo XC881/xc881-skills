@@ -56,7 +56,7 @@ Do not assume reference files are located beside `SKILL.md`.
 
 Compact by default.
 
-- Small task: apply rules silently, report changes + verification.
+- Small task: apply rules silently, still close with the three-line final response; write `风险/假设: 无` when none.
 - Non-trivial task: show compact design gate.
 - Detailed report only when requested, risk is high, performance trade-off exists, or legacy optimization is requested.
 - Large output: avoid one huge response. Write necessary artifacts to files in numbered chunks, keep each chunk bounded, and report only file path + progress + verification.
@@ -73,7 +73,7 @@ Compact by default.
    - every changed line traces to request, evidence, verification, or direct cleanup caused by this change
    - clean only new orphans; mention old dead code, do not delete
 5. Apply code quality standard: correctness, stability, modularity, testability, edge isolation, core-difficulty-only comments.
-6. Compact design gate for non-trivial work:
+6. For non-trivial work, weigh two designs before picking, then show the compact design gate:
 
 ```text
 xc881 设计门禁：
@@ -118,6 +118,8 @@ Infrastructure implements ports.
 11. Verify before success. Commit/push only when explicitly requested.
 
 ## Final response
+
+Always close every coding turn with this exact three-line template, even late in a long session. Do not drop `风险/假设`; write `无` when none.
 
 ```text
 完成内容:

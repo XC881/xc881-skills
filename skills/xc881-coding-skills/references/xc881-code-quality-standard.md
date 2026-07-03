@@ -65,6 +65,8 @@ Create boundaries only when they reduce coupling, protect volatility, or improve
 
 Do not add abstraction for one known use case unless it removes real coupling, protects a confirmed change axis, or makes core logic testable.
 
+Prefer deep modules: keep interfaces small and obvious while implementation hides the complexity. Reject shallow modules whose interface is as complex as what they hide.
+
 ### Boundaries
 
 - Keep domain logic independent from framework, DB/ORM, SDK, HTTP, UI, filesystem, env, real time, randomness, and global mutable state.
