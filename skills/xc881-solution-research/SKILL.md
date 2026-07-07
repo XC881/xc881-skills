@@ -1,12 +1,12 @@
 ---
 name: xc881-solution-research
-description: 'Explicit-only. Use with $xc881-solution-research or any explicit xc881-scoped technical-research intent such as 用xc881调研, or as bounded delegated research from an explicitly invoked $xc881-source-article-style or $xc881-requirement-analysis run. Research technical feasibility and external technical facts before coding: normalize idea, infer research questions, search authoritative sources, compare options, recommend, hand off. No broad auto-trigger. No code.'
-when_to_use: 'Use for web-backed technical research only when the user explicitly asks xc881 to research feasibility, compare options, inspect docs/standards/advisories, or judge a technical route. Enter requirement analysis only when the user asks for both in one request, invokes requirement after solution output, or the current run was delegated by requirement-analysis.'
+description: 'Intent-routed. Use with $xc881-solution-research or clear technical-research intent such as 调研技术方案, 选技术栈, 比较方案, 查官方资料, or bounded delegated research from $xc881-source-article-style or $xc881-requirement-analysis. Research technical feasibility and external technical facts before coding: normalize idea, infer research questions, search authoritative sources, compare options, recommend, hand off. No code.'
+when_to_use: 'Use for web-backed technical research when the user intent is feasibility research, option comparison, docs/standards/advisory inspection, stale external fact checking, or technical-route judgment. Enter requirement analysis only when the user asks for both in one request, invokes requirement after solution output, or the current run was delegated by requirement-analysis.'
 display_name: "xc881技术方案联网调研"
 version: "2.1.0"
 category: "solution-research"
 tags:
-  - explicit-only
+  - intent-routing
   - web-research
   - solution-research
   - feasibility
@@ -21,9 +21,9 @@ aliases:
 
 # xc881 Solution Research
 
-Explicit xc881-scoped intent only. No code.
+Intent-routed technical research. Direct `$xc881-solution-research` calls and clear research intent both trigger. No code.
 
-Delegated explicit: an active `$xc881-source-article-style` run may use this skill automatically for one bounded unexplained term/concept that affects article understanding. An active `$xc881-requirement-analysis` run may use this skill automatically for bounded technical uncertainty that affects requirement judgment, and the result should return to that same requirement run automatically.
+Delegated use: an active `$xc881-source-article-style` run may use this skill automatically for one bounded unexplained term/concept that affects article understanding. An active `$xc881-requirement-analysis` run may use this skill automatically for bounded technical uncertainty that affects requirement judgment, and the result should return to that same requirement run automatically.
 
 Goal:
 
@@ -46,7 +46,7 @@ Do not assume reference files are located beside `SKILL.md`.
 
 Steps:
 
-1. Confirm explicit xc881 technical-research intent.
+1. Confirm technical-research intent from direct invocation, wording, or delegated context.
 2. Spec: `Goal / Inputs / Constraints / Unknowns / Output`.
 3. Make explicit + inferred `RQ-*`.
 4. Infer stack candidates.
@@ -68,4 +68,4 @@ Risk:
 Handoff:
 ```
 
-Rules: explicit xc881-scoped intent only; no code; papers first for principles; cite only useful sources; fact ≠ inference ≠ recommendation; do not default into requirement analysis unless the user asks for both in one request or invokes requirement after solution output; requirement-delegated research may return to the same requirement run automatically.
+Rules: route only on technical-research intent; no code; papers first for principles; cite only useful sources; fact ≠ inference ≠ recommendation; do not default into requirement analysis unless the user asks for both in one request or invokes requirement after solution output; requirement-delegated research may return to the same requirement run automatically.

@@ -1,7 +1,7 @@
 ---
 name: xc881-porting-orchestration
-description: 'Explicit-only. Use when the user explicitly invokes $xc881-porting-orchestration or gives explicit xc881-scoped porting/migration intent such as 用xc881移植/用xc881迁移. Orchestrates cross-language and cross-project porting: classify goal vs non-goal task, lock a stop boundary before work (anti-infinite-loop), understand target-language traits and project architecture, derive pre/post porting risks, and verify behavioral equivalence. Thin orchestrator: delegates to $xc881-requirement-analysis, $xc881-coding-skills, and $xc881-solution-research; does not re-implement them. Trigger on xc881, 移植, 迁移, 跨语言, 跨项目, port, migrate, 语言迁移, 项目迁移.'
-when_to_use: 'Use to orchestrate porting code across languages or projects after the user explicitly asks. For goal (long-horizon) porting, lock an explicit stop boundary first. Delegate requirement analysis, coding, and research to their skills; do not do their work here.'
+description: 'Intent-routed. Use when the user invokes $xc881-porting-orchestration or gives clear porting/migration intent such as 移植, 迁移, 跨语言, 跨项目, port, migrate, 改写成另一种语言. Orchestrates cross-language and cross-project porting: classify goal vs non-goal task, lock a stop boundary before work (anti-infinite-loop), understand target-language traits and project architecture, derive pre/post porting risks, and verify behavioral equivalence. Thin orchestrator: delegates to $xc881-requirement-analysis, $xc881-coding-skills, and $xc881-solution-research; does not re-implement them.'
+when_to_use: 'Use to orchestrate code porting across languages or projects when user intent is migration/porting. For goal (long-horizon) porting, lock an explicit stop boundary first. Delegate requirement analysis, coding, and research to their skills; do not do their work here.'
 display_name: "xc881移植编排"
 version: "1.0.0"
 category: "orchestration"
@@ -22,7 +22,7 @@ aliases:
 
 # xc881 Porting Orchestration
 
-Explicit xc881-scoped intent only. Thin orchestrator. Delegate; do not re-implement.
+Intent-routed porting orchestration. Direct `$xc881-porting-orchestration` calls and clear porting/migration intent both trigger. Thin orchestrator. Delegate; do not re-implement.
 
 Reference files live under `./references/`.
 

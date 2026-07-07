@@ -24,15 +24,35 @@
     "expected_skills": ["xc881-porting-orchestration"]
   },
   {
+    "query": "用xc881分诊 GitHub issue #42",
+    "expected_skills": ["xc881-requirement-analysis"]
+  },
+  {
+    "query": "用xc881把这个 PRD 拆成 tracker issues",
+    "expected_skills": ["xc881-requirement-analysis"]
+  },
+  {
     "query": "帮我调研技术方案",
-    "expected_skills": []
+    "expected_skills": ["xc881-solution-research"]
   },
   {
     "query": "帮我分析需求",
-    "expected_skills": []
+    "expected_skills": ["xc881-requirement-analysis"]
   },
   {
     "query": "这个接口 500 帮我看看",
-    "expected_skills": []
+    "expected_skills": ["xc881-bugfix-research"]
+  },
+  {
+    "query": "写代码实现登录",
+    "expected_skills": ["xc881-coding-skills"]
+  },
+  {
+    "query": "按我的文章风格写一篇 BrowserWindow 创建流程的函数级分析",
+    "expected_skills": ["xc881-source-article-style"]
+  },
+  {
+    "query": "帮我把这个项目改写成另一种语言",
+    "expected_skills": ["xc881-porting-orchestration"]
   }
 ]

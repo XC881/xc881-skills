@@ -1,12 +1,12 @@
 ---
 name: xc881-bugfix-research
-description: 'Explicit-only. Use with $xc881-bugfix-research or any explicit xc881-scoped bug-fix intent such as 用xc881修复. Analyze bug/vulnerability before coding: evidence, research, cause, reproducer plan, repair plan, verification plan, handoff. No broad auto-trigger. No code/test/commit.'
-when_to_use: 'Use only when the user explicitly asks xc881 to diagnose or repair a bug, regression, or vulnerability. Use for logs/stack traces/user-described bugs/CVE/GHSA/OSV/CWE/OWASP/security advisories/regressions.'
+description: 'Intent-routed. Use with $xc881-bugfix-research or clear bug/vulnerability diagnosis intent such as 接口 500, 回归, 依赖 CVE, 漏洞影响, 日志报错, or 先定位原因. Analyze bug/vulnerability before coding: evidence, research, cause, reproducer plan, repair plan, verification plan, handoff. No code/test/commit.'
+when_to_use: 'Use when the user intent is diagnosing or planning repair for a bug, regression, stack trace, runtime error, vulnerability, CVE/GHSA/OSV/CWE/OWASP item, security advisory, or performance symptom before coding.'
 display_name: "xc881漏洞与Bug诊断"
 version: "2.1.0"
 category: "debugging-security"
 tags:
-  - explicit-only
+  - intent-routing
   - bugfix
   - vulnerability
   - security
@@ -20,7 +20,7 @@ aliases:
 
 # xc881 BugFix
 
-Explicit xc881-scoped intent only. No code/test/commit.
+Intent-routed bug/vulnerability diagnosis. Direct `$xc881-bugfix-research` calls and clear bug/security diagnostic intent both trigger. No code/test/commit.
 
 Goal:
 
@@ -43,7 +43,7 @@ Do not assume reference files are located beside `SKILL.md`.
 
 Steps:
 
-1. Confirm explicit xc881 bug/vulnerability intent.
+1. Confirm bug/vulnerability diagnosis intent from direct invocation or wording.
 2. Classify: bug / regression / stack / dependency vuln / code vuln / perf.
 3. Gather expected, actual, env/version, input, logs, affected path.
 4. Research if useful; match version/context.
@@ -76,4 +76,4 @@ Exploitability:
 Mitigation:
 ```
 
-Rules: explicit xc881-scoped intent only; no exploit steps; fact ≠ hypothesis; weak evidence ≠ certainty.
+Rules: route only on bug/vulnerability diagnosis intent; no exploit steps; fact ≠ hypothesis; weak evidence ≠ certainty.

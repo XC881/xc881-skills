@@ -24,3 +24,11 @@ or
 $xc881-coding-skills
 Implement selected option Phase 1.
 ```
+
+Large research:
+
+```text
+Artifact: <path>
+Claims: <count/types>
+Use: <which RQ/decision it supports>
+```

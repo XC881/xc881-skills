@@ -1,7 +1,7 @@
 ---
 name: xc881-coding-skills
 description: 'Use for serious coding after requirements are clear: implementation, bug fixes, refactors, review, production changes, architecture decisions, code quality standards, modular structure, code splitting, decoupling, maintainability, testability, low-quality-code prevention, surgical/minimal diffs, anti-overengineering, core-difficulty-only comments, verification, high-performance/high-efficiency optimization, or explicit git checkpoint/push. Trigger on xc881, xc881代码工程规范, xc881工程优化, 代码规范, 非屎山代码, 稳定代码, 可维护代码, 哲学结构, 逻辑模块化, 代码分割, 解耦, 低质量代码, 高性能, 高效率, 高优化, 最小改动, 先读代码, 不要乱改, 核心难点注释, 提交代码, 保存进度, 推送到 GitHub.'
-when_to_use: 'Use for coding execution after requirements are clear. Apply the xc881 code quality standard for non-trivial implementation, refactor, review, optimization, or code-quality requests. Apply high-constraint policy for risky edits, bug fixes, production changes, surgical changes, minimal diffs, and anti-overengineering. In performance mode, optimize only with explicit requirement, measured bottleneck, or clear hot path. If requirements are unclear or hidden dependencies need analysis, use explicit xc881-requirement-analysis first.'
+when_to_use: 'Use for coding execution after requirements are clear. Apply the xc881 code quality standard for non-trivial implementation, refactor, review, optimization, or code-quality requests. Apply high-constraint policy for risky edits, bug fixes, production changes, surgical changes, minimal diffs, and anti-overengineering. In performance mode, optimize only with explicit requirement, measured bottleneck, or clear hot path. If requirements are unclear or hidden dependencies need analysis, use xc881-requirement-analysis by intent first.'
 display_name: "xc881代码工程规范"
 version: "1.2.0"
 category: "coding"
@@ -32,7 +32,7 @@ aliases:
 
 Engineering execution layer for safe, stable, maintainable code changes.
 
-Use after requirements are clear. If the task is about PRD, MVP, users, hidden requirements, or acceptance criteria, use explicit `$xc881-requirement-analysis` first.
+Use after requirements are clear. If the task is about PRD, MVP, users, hidden requirements, or acceptance criteria, use `$xc881-requirement-analysis` by intent first.
 
 ## Load policy
 
@@ -64,7 +64,7 @@ Compact by default.
 
 ## Workflow
 
-1. Requirement gate: use explicit `$xc881-requirement-analysis` if behavior, permissions, hidden dependencies, lifecycle, migration, or acceptance criteria are unclear.
+1. Requirement gate: use `$xc881-requirement-analysis` by intent if behavior, permissions, hidden dependencies, lifecycle, migration, or acceptance criteria are unclear.
 2. Read before writing: entry point, call chain, data flow, tests/types/config, local style.
 3. Bound task: behavior, files/contracts, assumptions, one verifiable success target.
 4. Apply surgical-change guard:

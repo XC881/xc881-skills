@@ -1,6 +1,6 @@
 interface:
   display_name: "xc881移植编排"
-  short_description: "Explicit-only porting orchestration"
-  default_prompt: "Apply only for explicit xc881-scoped porting/migration intent, such as 用xc881移植. No code. Classify goal vs non-goal; goal task locks a stop boundary before any porting to avoid infinite loops. Delegate requirement analysis, coding, and research. Behavioral equivalence is the hard invariant; idiomatic target-language rewrite is preferred but must not break it."
+  short_description: "Intent-routed porting orchestration"
+  default_prompt: "Apply for direct invocation or clear porting/migration intent: cross-language, cross-project, port, migrate, rewrite in another language, or move a module/service between stacks. No code. Classify goal vs non-goal; goal task locks a stop boundary before any porting to avoid infinite loops. Delegate requirement analysis, coding, and research. Behavioral equivalence is the hard invariant; idiomatic target-language rewrite is preferred but must not break it."
 policy:
-  allow_implicit_invocation: false
+  allow_implicit_invocation: true

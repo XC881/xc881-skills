@@ -14,19 +14,13 @@ for ref in ['english-spec-and-research-questions.md', 'source-priority-policy.md
     if not (root/"references"/ref).exists(): die(f"missing {ref}")
 for a in ["openai.yaml","claude.yaml"]:
     t = (root/"agents"/a).read_text(encoding="utf-8")
-    for k in ["interface:","display_name:","short_description:","default_prompt:","policy:",'allow_implicit_invocation: false']:
+    for k in ["interface:","display_name:","short_description:","default_prompt:","policy:",'allow_implicit_invocation: true']:
         if k not in t: die(f"{a} missing {k}")
 ev = json.loads((root/"evals/trigger-queries.json").read_text(encoding="utf-8"))
 if not any(e["should_trigger"] for e in ev): die("need positive eval")
 if not any(not e["should_trigger"] for e in ev): die("need negative eval")
-if True:
-    if (
-        "Explicit only." not in text
-        and "Explicit xc881-prefixed intent only." not in text
-        and "Explicit xc881-scoped intent only." not in text
-    ):
-        die("missing explicit rule")
-    if not all("explicit" in e["workflow"] for e in ev if e["should_trigger"]): die("positive evals must be explicit")
+if "Intent-routed" not in text:
+    die("missing intent-routing rule")
 if len(text.splitlines()) > 90: die("SKILL.md too long")
 for ref in (root/"references").glob("*.md"):
     if len(ref.read_text(encoding="utf-8").splitlines()) > 50:

@@ -2,7 +2,32 @@
   {
     "query": "$xc881-bugfix-research 根据日志分析登录 500",
     "should_trigger": true,
-    "workflow": "explicit bug"
+    "workflow": "direct bug diagnosis"
+  },
+  {
+    "query": "用xc881修复这个登录 500，先定位原因",
+    "should_trigger": true,
+    "workflow": "bug diagnosis intent"
+  },
+  {
+    "query": "用xc881修复登录 500，先定位原因",
+    "should_trigger": true,
+    "workflow": "bug diagnosis intent"
+  },
+  {
+    "query": "使用 xc881-bugfix-research 分析这个 CVE",
+    "should_trigger": true,
+    "workflow": "direct vulnerability diagnosis"
+  },
+  {
+    "query": "这个接口 500 帮我看看",
+    "should_trigger": true,
+    "workflow": "bug diagnosis intent"
+  },
+  {
+    "query": "依赖有 CVE 帮我看",
+    "should_trigger": true,
+    "workflow": "vulnerability diagnosis intent"
   },
   {
     "query": "用xc881移植这个 Go 服务到 Rust",
@@ -10,29 +35,24 @@
     "workflow": "porting orchestration"
   },
   {
-    "query": "用xc881修复这个登录 500，先定位原因",
-    "should_trigger": true,
-    "workflow": "explicit bug intent"
-  },
-  {
-    "query": "用xc881修复登录 500，先定位原因",
-    "should_trigger": true,
-    "workflow": "explicit bug intent"
-  },
-  {
-    "query": "使用 xc881-bugfix-research 分析这个 CVE",
-    "should_trigger": true,
-    "workflow": "explicit vuln"
-  },
-  {
-    "query": "这个接口 500 帮我看看",
+    "query": "帮我把这个项目改写成另一种语言",
     "should_trigger": false,
-    "workflow": "ordinary bug"
+    "workflow": "porting orchestration"
   },
   {
-    "query": "依赖有 CVE 帮我看",
+    "query": "用xc881分诊 GitHub issue #42",
     "should_trigger": false,
-    "workflow": "ordinary vuln"
+    "workflow": "issue triage"
+  },
+  {
+    "query": "用xc881把这个 PRD 拆成 tracker issues",
+    "should_trigger": false,
+    "workflow": "issue triage"
+  },
+  {
+    "query": "写代码实现登录",
+    "should_trigger": false,
+    "workflow": "coding"
   },
   {
     "query": "用xc881写代码实现登录",
@@ -50,7 +70,17 @@
     "workflow": "solution research"
   },
   {
+    "query": "帮我调研技术方案",
+    "should_trigger": false,
+    "workflow": "solution research"
+  },
+  {
     "query": "用xc881分析这个功能验收标准",
+    "should_trigger": false,
+    "workflow": "requirements"
+  },
+  {
+    "query": "帮我分析需求",
     "should_trigger": false,
     "workflow": "requirements"
   },
@@ -60,13 +90,8 @@
     "workflow": "source article"
   },
   {
-    "query": "帮我调研技术方案",
+    "query": "按我的文章风格写一篇 BrowserWindow 创建流程的函数级分析",
     "should_trigger": false,
-    "workflow": "ordinary research"
-  },
-  {
-    "query": "帮我分析需求",
-    "should_trigger": false,
-    "workflow": "ordinary req"
+    "workflow": "source article"
   }
 ]

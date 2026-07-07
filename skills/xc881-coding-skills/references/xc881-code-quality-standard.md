@@ -67,6 +67,10 @@ Do not add abstraction for one known use case unless it removes real coupling, p
 
 Prefer deep modules: keep interfaces small and obvious while implementation hides the complexity. Reject shallow modules whose interface is as complex as what they hide.
 
+Vocabulary: module = interface + implementation; interface = everything callers must know, not only type signature; seam = where behavior can vary; adapter = concrete implementation at a seam; depth = leverage behind a small interface; locality = changes concentrate in one place.
+
+Seam tests: one adapter is a hypothetical seam; two adapters make it real. The interface is the test surface. Do not expose internal seams only because tests want them.
+
 ### Boundaries
 
 - Keep domain logic independent from framework, DB/ORM, SDK, HTTP, UI, filesystem, env, real time, randomness, and global mutable state.
@@ -96,6 +100,9 @@ Avoid God objects, 万能 service, 万能 utils, and catch-all managers.
 - Test behavior, edge cases, permissions, state transitions, and failure paths.
 - Add regression tests before risky refactors when practical.
 - Report what remains unverified.
+- Confirm important seams before adding broad test coverage.
+- Avoid tautological tests whose expected value repeats implementation logic.
+- Mock at system boundaries; do not mock internal collaborators you control unless there is a real external seam.
 
 ### Comments
 

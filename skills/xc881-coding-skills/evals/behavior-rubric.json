@@ -9,6 +9,10 @@
       "checklist": [
         "every changed line traces to the request, evidence or verification",
         "no unrelated refactor or single-use abstraction is introduced",
+        "module/interface/seam choices improve depth or testability instead of adding pass-through layers",
+        "tests target public seams and observable behavior, avoiding tautological assertions and internal mocks",
+        "reviews separate Standards findings from Spec/AC findings",
+        "Agent Brief or issue AC is treated as the implementation contract when present",
         "success is claimed only with verification evidence"
       ]
     }

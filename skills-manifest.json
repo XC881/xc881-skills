@@ -3,7 +3,7 @@
   "skills": [
     {
       "name": "xc881-solution-research",
-      "trigger": "explicit-only",
+      "trigger": "implicit-allowed",
       "mode": "analysis",
       "handoff": [
         "xc881-coding-skills"
@@ -11,7 +11,7 @@
     },
     {
       "name": "xc881-requirement-analysis",
-      "trigger": "explicit-only",
+      "trigger": "implicit-allowed",
       "mode": "analysis",
       "handoff": [
         "xc881-solution-research",
@@ -20,7 +20,7 @@
     },
     {
       "name": "xc881-bugfix-research",
-      "trigger": "explicit-only",
+      "trigger": "implicit-allowed",
       "mode": "analysis",
       "handoff": [
         "xc881-coding-skills"
@@ -34,7 +34,7 @@
     },
     {
       "name": "xc881-source-article-style",
-      "trigger": "explicit-only",
+      "trigger": "implicit-allowed",
       "mode": "writing",
       "handoff": [
         "xc881-solution-research",
@@ -43,7 +43,7 @@
     },
     {
       "name": "xc881-porting-orchestration",
-      "trigger": "explicit-only",
+      "trigger": "implicit-allowed",
       "mode": "orchestration",
       "handoff": [
         "xc881-requirement-analysis",

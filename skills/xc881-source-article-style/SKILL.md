@@ -1,6 +1,6 @@
 ---
 name: xc881-source-article-style
-description: 'Explicit-only. Use when the user explicitly invokes $xc881-source-article-style or gives explicit xc881-scoped writing intent such as 用xc881写作. Provides the user''s Chinese source-code article style for internals of any language or stack (e.g. Electron/Chromium, Rust, Go, Python, JVM), function-level analysis, call-chain walkthroughs, build/debug/source-reading notes, article chapter drafts, diagrams, tables, conclusions, and reader-facing explanations. Automatically uses $xc881-solution-research for unexplained specialized terms or possibly-stale authoritative facts when needed.'
+description: 'Intent-routed. Use when the user invokes $xc881-source-article-style or gives clear source-reading/article writing intent such as 写源码导读, 函数级分析文章, 调用链文章, or 按我的文章风格写. Provides the user''s Chinese source-code article style for internals of any language or stack (e.g. Electron/Chromium, Rust, Go, Python, JVM), function-level analysis, call-chain walkthroughs, build/debug/source-reading notes, article chapter drafts, diagrams, tables, conclusions, and reader-facing explanations. Automatically uses $xc881-solution-research for unexplained specialized terms or possibly-stale authoritative facts when needed.'
 when_to_use: 'Use when producing article prose or outlines from source-code evidence, especially function-level internals analysis. Do not use for code changes unless combined with xc881-coding-skills.'
 display_name: "xc881源码文章风格"
 version: "1.1.0"
@@ -21,7 +21,7 @@ aliases:
 
 # xc881 Source Article Style
 
-Explicit xc881-scoped intent only.
+Intent-routed source-article writing. Direct `$xc881-source-article-style` calls and clear source-reading/article intent both trigger.
 
 Write compact Chinese source-reading articles: problem -> evidence -> flow -> function -> conclusion.
 

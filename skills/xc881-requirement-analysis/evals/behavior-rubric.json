@@ -9,7 +9,20 @@
       "checklist": [
         "each AC is testable with a decidable pass or fail condition",
         "inferred requirements are marked and not presented as confirmed",
+        "discoverable repo or technical facts are researched instead of asked as user questions",
+        "user decisions are separated from facts/inference and include a recommended answer when blocking",
+        "feature breakdowns prefer independently verifiable vertical slices over implementation checklists",
         "at most one blocking question is raised"
+      ]
+    },
+    {
+      "query": "用xc881分诊 GitHub issue #42，判断是否 ready-for-agent",
+      "checklist": [
+        "canonical tracker state transition is justified from issue evidence",
+        "Agent Brief is behavior-oriented with testable AC and out-of-scope boundaries",
+        "AI public comments include an AI-assistance disclosure when planned",
+        "executed tracker mutations are separated from planned/skipped commands",
+        "bug diagnosis is handed to $xc881-bugfix-research instead of guessed inline"
       ]
     }
   ]

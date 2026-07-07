@@ -2,7 +2,42 @@
   {
     "query": "$xc881-source-article-style 写一篇 BrowserWindow 创建流程的函数级分析",
     "should_trigger": true,
-    "workflow": "explicit source article"
+    "workflow": "direct source article"
+  },
+  {
+    "query": "用xc881写作，继续《深入electron底层》，这章讲 NodeBindings::CreateEnvironment",
+    "should_trigger": true,
+    "workflow": "function-level source article"
+  },
+  {
+    "query": "用xc881写作 BrowserWindow 创建流程",
+    "should_trigger": true,
+    "workflow": "source article"
+  },
+  {
+    "query": "$xc881-source-article-style 把这段源码分析改成我的源码导读风格",
+    "should_trigger": true,
+    "workflow": "direct rewrite source article"
+  },
+  {
+    "query": "用xc881写作，画一下 ElectronMainDelegate 到 ElectronBrowserMainParts 的调用链文章大纲",
+    "should_trigger": true,
+    "workflow": "call-chain article"
+  },
+  {
+    "query": "$xc881-source-article-style 分析 Oilpan 在这段源码中的作用，前文没有介绍过这个概念",
+    "should_trigger": true,
+    "workflow": "source article with automatic solution research"
+  },
+  {
+    "query": "用xc881写作，分析 tokio 这个 Rust runtime 的任务调度入口",
+    "should_trigger": true,
+    "workflow": "source article, non-Chromium stack"
+  },
+  {
+    "query": "按我的文章风格写一篇 BrowserWindow 创建流程的函数级分析",
+    "should_trigger": true,
+    "workflow": "source article intent"
   },
   {
     "query": "用xc881移植这个 Go 服务到 Rust",
@@ -10,39 +45,19 @@
     "workflow": "porting orchestration"
   },
   {
-    "query": "用xc881写作，继续《深入electron底层》，这章讲 NodeBindings::CreateEnvironment",
-    "should_trigger": true,
-    "workflow": "explicit function-level source article"
-  },
-  {
-    "query": "用xc881写作 BrowserWindow 创建流程",
-    "should_trigger": true,
-    "workflow": "explicit source article"
-  },
-  {
-    "query": "$xc881-source-article-style 把这段源码分析改成我的源码导读风格",
-    "should_trigger": true,
-    "workflow": "explicit rewrite source article"
-  },
-  {
-    "query": "用xc881写作，画一下 ElectronMainDelegate 到 ElectronBrowserMainParts 的调用链文章大纲",
-    "should_trigger": true,
-    "workflow": "explicit call-chain article"
-  },
-  {
-    "query": "$xc881-source-article-style 分析 Oilpan 在这段源码中的作用，前文没有介绍过这个概念",
-    "should_trigger": true,
-    "workflow": "explicit source article with automatic solution research"
-  },
-  {
-    "query": "用xc881写作，分析 tokio 这个 Rust runtime 的任务调度入口",
-    "should_trigger": true,
-    "workflow": "explicit source article, non-Chromium stack"
-  },
-  {
-    "query": "按我的文章风格写一篇 BrowserWindow 创建流程的函数级分析",
+    "query": "帮我把这个项目改写成另一种语言",
     "should_trigger": false,
-    "workflow": "missing explicit trigger"
+    "workflow": "porting orchestration"
+  },
+  {
+    "query": "用xc881分诊 GitHub issue #42",
+    "should_trigger": false,
+    "workflow": "issue triage"
+  },
+  {
+    "query": "用xc881把这个 PRD 拆成 tracker issues",
+    "should_trigger": false,
+    "workflow": "issue triage"
   },
   {
     "query": "$xc881-coding-skills 修改 BrowserWindow 实现",
@@ -53,6 +68,11 @@
     "query": "$xc881-requirement-analysis 分析新功能范围",
     "should_trigger": false,
     "workflow": "requirements"
+  },
+  {
+    "query": "写代码实现登录",
+    "should_trigger": false,
+    "workflow": "coding"
   },
   {
     "query": "用xc881写代码实现登录",
@@ -70,7 +90,17 @@
     "workflow": "solution research"
   },
   {
+    "query": "帮我调研技术方案",
+    "should_trigger": false,
+    "workflow": "solution research"
+  },
+  {
     "query": "用xc881分析这个功能验收标准",
+    "should_trigger": false,
+    "workflow": "requirements"
+  },
+  {
+    "query": "帮我分析需求",
     "should_trigger": false,
     "workflow": "requirements"
   },
@@ -80,18 +110,8 @@
     "workflow": "bugfix"
   },
   {
-    "query": "帮我调研技术方案",
-    "should_trigger": false,
-    "workflow": "ordinary research"
-  },
-  {
-    "query": "帮我分析需求",
-    "should_trigger": false,
-    "workflow": "ordinary req"
-  },
-  {
     "query": "这个接口 500 帮我看看",
     "should_trigger": false,
-    "workflow": "ordinary bug"
+    "workflow": "bugfix"
   }
 ]

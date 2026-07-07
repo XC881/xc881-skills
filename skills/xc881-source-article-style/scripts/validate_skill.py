@@ -46,8 +46,9 @@ for agent in ["openai.yaml", "claude.yaml"]:
         "interface:",
         "display_name:",
         "short_description:",
+        "default_prompt:",
         "policy:",
-        "allow_implicit_invocation: false",
+        "allow_implicit_invocation: true",
     ]:
         if key not in content:
             die(f"{agent} missing {key}")
@@ -57,14 +58,8 @@ if not any(e["should_trigger"] for e in evals):
     die("need positive eval")
 if not any(not e["should_trigger"] for e in evals):
     die("need negative eval")
-if (
-    "Explicit only." not in text
-    and "Explicit xc881-prefixed intent only." not in text
-    and "Explicit xc881-scoped intent only." not in text
-):
-    die("missing explicit rule")
-if not all("explicit" in e["workflow"] for e in evals if e["should_trigger"]):
-    die("positive evals must be explicit")
+if "Intent-routed" not in text:
+    die("missing intent-routing rule")
 
 if len(text.splitlines()) > 110:
     die("SKILL.md too long")

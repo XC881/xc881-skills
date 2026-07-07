@@ -2,22 +2,22 @@
   {
     "query": "$xc881-coding-skills 修改登录校验，先读代码再改",
     "should_trigger": true,
-    "workflow": "coding"
-  },
-  {
-    "query": "用xc881移植这个 Go 服务到 Rust",
-    "should_trigger": false,
-    "workflow": "porting orchestration"
+    "workflow": "direct coding"
   },
   {
     "query": "修这个 bug，根因明确，最小 diff",
     "should_trigger": true,
-    "workflow": "high constraint"
+    "workflow": "high constraint coding"
   },
   {
     "query": "按 xc881 代码规范重构 service",
     "should_trigger": true,
-    "workflow": "quality"
+    "workflow": "quality coding"
+  },
+  {
+    "query": "写代码实现登录",
+    "should_trigger": true,
+    "workflow": "coding"
   },
   {
     "query": "用xc881写代码实现登录",
@@ -27,7 +27,7 @@
   {
     "query": "做 surgical change，不要顺手重构",
     "should_trigger": true,
-    "workflow": "karpathy guardrail"
+    "workflow": "surgical guardrail"
   },
   {
     "query": "提交并推送",
@@ -37,17 +37,37 @@
   {
     "query": "$xc881-requirement-analysis 分析需求",
     "should_trigger": false,
-    "workflow": "explicit req"
+    "workflow": "requirements"
   },
   {
     "query": "$xc881-bugfix-research 分析根因",
     "should_trigger": false,
-    "workflow": "explicit bug"
+    "workflow": "bugfix"
+  },
+  {
+    "query": "用xc881移植这个 Go 服务到 Rust",
+    "should_trigger": false,
+    "workflow": "porting orchestration"
+  },
+  {
+    "query": "帮我把这个项目改写成另一种语言",
+    "should_trigger": false,
+    "workflow": "porting orchestration"
+  },
+  {
+    "query": "用xc881分诊 GitHub issue #42",
+    "should_trigger": false,
+    "workflow": "issue triage"
+  },
+  {
+    "query": "用xc881把这个 PRD 拆成 tracker issues",
+    "should_trigger": false,
+    "workflow": "issue triage"
   },
   {
     "query": "用xc881调研 RAG 技术路线",
     "should_trigger": false,
-    "workflow": "explicit solution"
+    "workflow": "solution research"
   },
   {
     "query": "用xc881写作 BrowserWindow 创建流程",
@@ -55,33 +75,38 @@
     "workflow": "source article"
   },
   {
+    "query": "按我的文章风格写一篇 BrowserWindow 创建流程的函数级分析",
+    "should_trigger": false,
+    "workflow": "source article"
+  },
+  {
     "query": "用xc881调研 Supabase 和 Firebase 的技术方案差异",
     "should_trigger": false,
-    "workflow": "explicit solution"
+    "workflow": "solution research"
   },
   {
     "query": "用xc881分析这个功能验收标准",
     "should_trigger": false,
-    "workflow": "explicit req"
+    "workflow": "requirements"
   },
   {
     "query": "用xc881修复登录 500，先定位原因",
     "should_trigger": false,
-    "workflow": "explicit bug"
+    "workflow": "bugfix"
   },
   {
     "query": "帮我调研技术方案",
     "should_trigger": false,
-    "workflow": "ordinary research"
+    "workflow": "solution research"
   },
   {
     "query": "帮我分析需求",
     "should_trigger": false,
-    "workflow": "ordinary req"
+    "workflow": "requirements"
   },
   {
     "query": "这个接口 500 帮我看看",
     "should_trigger": false,
-    "workflow": "ordinary bug"
+    "workflow": "bugfix"
   }
 ]

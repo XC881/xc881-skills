@@ -1,15 +1,15 @@
 # xc881 Bugfix Research custom instruction
 
-`xc881-bugfix-research` is explicit-only.
+`xc881-bugfix-research` is intent-routed.
 
-Use it when the user explicitly writes:
+Use it when the user writes:
 
 ```text
 $xc881-bugfix-research
 ```
 
-or explicitly asks `xc881` to diagnose, repair, or research a bug, regression, or vulnerability.
+or clearly asks to diagnose, repair-plan, or research a bug, regression, runtime error, crash, CVE, security advisory, or vulnerability.
 
-Do not auto-trigger it from ordinary bug, error, CVE, vulnerability, crash, stack trace, or regression mentions that do not mention `xc881` or the direct skill name.
+Do not trigger it from a bare word such as bug, error, CVE, vulnerability, crash, stack trace, or regression without a diagnostic or repair-planning intent.
 
 When active, it should diagnose, research, plan repair, plan verification, and hand off to xc881-coding-skills. It should not edit code or claim verification.

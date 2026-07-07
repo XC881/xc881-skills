@@ -29,6 +29,7 @@ parity to intent/design fidelity. Guardrails:
 - Applies ONLY to the abstract-intent magnitude, and ONLY when no source code is transliterated.
 - State the downgrade explicitly with the reason; never use it to skip a check that is actually feasible.
 - Any concrete logic that IS ported still holds the hard behavioral invariant.
+- For skill/process porting, intent fidelity means: each adopted source capability has a target file, each rejected capability has a reason, and target invariants are still true. Record this as an adopt/adapt/reject map before claiming equivalence.
 
 ## Idiomatic decision record
 

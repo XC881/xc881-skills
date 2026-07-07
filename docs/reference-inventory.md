@@ -21,6 +21,7 @@ Only runtime task-execution references should appear below.
 - `english-spec-first-policy.md`
 - `existing-project-feature-analysis.md`
 - `implicit-requirement-inference.md`
+- `issue-tracker-triage.md`
 - `requirement-output-contract.md`
 - `requirement-quality-rubric.md`
 
@@ -35,3 +36,10 @@ Only runtime task-execution references should appear below.
 - `article-output-contract.md`
 - `evidence-and-style-rules.md`
 - `function-level-source-article.md`
+
+## xc881-porting-orchestration
+- `cross-language-understanding.md`
+- `cross-process-plan.md`
+- `equivalence-and-idiomatic-porting.md`
+- `goal-boundary-contract.md`
+- `porting-output-contract.md`

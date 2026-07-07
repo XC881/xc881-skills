@@ -9,6 +9,7 @@
       "checklist": [
         "fact, inference and recommendation are clearly separated",
         "each cited source is actually used in the reasoning",
+        "large research is written to a bounded artifact and chat output reports path plus decision impact",
         "Pick is only made when Evidence is sufficient, else stated as blocker"
       ]
     }

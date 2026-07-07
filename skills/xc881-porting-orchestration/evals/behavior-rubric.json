@@ -20,6 +20,7 @@
         "target project's existing architecture is preferred over transplanting the source architecture, departures recorded",
         "idiomatic rewrite is subordinate to behavioral equivalence (correctness wins over elegance)",
         "abstract-architectural-intent magnitude downgrades equivalence to intent fidelity only when no source code is transliterated, and marks the downgrade",
+        "skill/process porting records adopt/adapt/reject mapping before claiming intent-fidelity equivalence",
         "delegates deep code work to $xc881-coding-skills rather than doing it inline (thin orchestrator)",
         "dev-notes creation asks the user about .gitignore, never assumes"
       ]

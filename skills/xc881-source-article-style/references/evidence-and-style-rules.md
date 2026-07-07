@@ -20,6 +20,8 @@
 
 - Use tables for directory/file/variable meaning.
 - Use Mermaid only for lifecycle/process/call chain; split large diagrams.
+- Ground specialized concepts before later sections depend on them. If the target reader is assumed to know one, name it as a prerequisite; otherwise introduce it before use.
+- Grow long articles one block at a time from verified evidence. Re-read the target file before rewriting/appending so user edits are preserved.
 - Use question blocks for traps:
 
 ```text
@@ -36,6 +38,7 @@
 - Do not restate obvious API behavior.
 - Prefer numbered flow over paragraphs for call order.
 - Full prose only when requested.
+- If raw notes/fragments are supplied, treat them as a quarry, not a script; preserve the source file unless the user asks to edit it.
 
 ## Avoid
 

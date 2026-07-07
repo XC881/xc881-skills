@@ -17,6 +17,8 @@ Check:
 - errors handled intentionally
 - permission/security visible
 - one main reason to change per module
+- deep module shape: small interface, meaningful hidden behavior, clean seam
+- tests exercise public seams and observable behavior, not internals
 - infrastructure kept at edges
 - core logic testable without real infrastructure
 - comments limited to core difficulty
@@ -27,6 +29,8 @@ Low-quality signals:
 - circular dependencies
 - hidden side effects or global mutable state
 - God object / 万能 service / 万能 utils
+- shallow pass-through module with interface as complex as implementation
+- tautological tests or mocks of internal collaborators
 - unstable public contracts
 - weak validation or swallowed errors
 - speculative abstraction
@@ -42,3 +46,15 @@ Performance-mode checks:
 - complexity localized
 - trade-off reported
 - tests/benchmarks/profiling provided when practical
+
+Review mode:
+
+- Standards axis: repo rules + xc881 quality smells.
+- Spec axis: requested behavior / AC / issue / PRD.
+- Keep axes separate; a standards-clean change can still implement the wrong thing.
+
+Tracker/PR mode:
+
+- Treat Agent Brief, issue AC, and out-of-scope as the implementation contract.
+- For PR finish work, review the existing diff first; preserve correct contributor intent.
+- Do not change labels/comments/close tracker items unless explicitly asked; report planned tracker ops separately.

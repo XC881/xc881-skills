@@ -2,7 +2,42 @@
   {
     "query": "$xc881-requirement-analysis 分析新项目需求",
     "should_trigger": true,
-    "workflow": "explicit req"
+    "workflow": "direct requirement analysis"
+  },
+  {
+    "query": "用xc881分诊 GitHub issue #42",
+    "should_trigger": true,
+    "workflow": "tracker triage"
+  },
+  {
+    "query": "用xc881把这个 PRD 拆成 tracker issues",
+    "should_trigger": true,
+    "workflow": "prd issue splitting"
+  },
+  {
+    "query": "用xc881分析这个功能的范围和验收标准",
+    "should_trigger": true,
+    "workflow": "requirement analysis intent"
+  },
+  {
+    "query": "用xc881分析这个功能验收标准",
+    "should_trigger": true,
+    "workflow": "requirement analysis intent"
+  },
+  {
+    "query": "使用 xc881-requirement-analysis 输出 MVP 和 AC",
+    "should_trigger": true,
+    "workflow": "direct prd"
+  },
+  {
+    "query": "帮我分析需求",
+    "should_trigger": true,
+    "workflow": "requirement analysis intent"
+  },
+  {
+    "query": "用xc881调研并分析需求，一起整理技术方案和需求边界",
+    "should_trigger": true,
+    "workflow": "solution plus requirement intent"
   },
   {
     "query": "用xc881移植这个 Go 服务到 Rust",
@@ -10,24 +45,9 @@
     "workflow": "porting orchestration"
   },
   {
-    "query": "用xc881分析这个功能的范围和验收标准",
-    "should_trigger": true,
-    "workflow": "explicit requirement intent"
-  },
-  {
-    "query": "用xc881分析这个功能验收标准",
-    "should_trigger": true,
-    "workflow": "explicit requirement intent"
-  },
-  {
-    "query": "使用 xc881-requirement-analysis 输出 MVP 和 AC",
-    "should_trigger": true,
-    "workflow": "explicit prd"
-  },
-  {
-    "query": "帮我分析需求",
+    "query": "帮我把这个项目改写成另一种语言",
     "should_trigger": false,
-    "workflow": "ordinary req"
+    "workflow": "porting orchestration"
   },
   {
     "query": "写代码实现登录",
@@ -50,7 +70,17 @@
     "workflow": "solution research"
   },
   {
+    "query": "帮我调研技术方案",
+    "should_trigger": false,
+    "workflow": "solution research"
+  },
+  {
     "query": "用xc881修复登录 500，先定位原因",
+    "should_trigger": false,
+    "workflow": "bugfix"
+  },
+  {
+    "query": "这个接口 500 帮我看看",
     "should_trigger": false,
     "workflow": "bugfix"
   },
@@ -60,13 +90,8 @@
     "workflow": "source article"
   },
   {
-    "query": "帮我调研技术方案",
+    "query": "按我的文章风格写一篇 BrowserWindow 创建流程的函数级分析",
     "should_trigger": false,
-    "workflow": "ordinary research"
-  },
-  {
-    "query": "这个接口 500 帮我看看",
-    "should_trigger": false,
-    "workflow": "ordinary bug"
+    "workflow": "source article"
   }
 ]

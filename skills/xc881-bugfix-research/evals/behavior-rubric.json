@@ -7,8 +7,12 @@
     {
       "query": "用xc881修复登录 500，先定位原因",
       "checklist": [
+        "a tight red-capable repro loop is planned before confident cause claims",
+        "the repro is minimized or the remaining non-minimized parts are justified",
+        "3-5 falsifiable hypotheses are ranked before instrumentation",
         "root cause is stated with a confidence level, not as certainty",
         "fact and hypothesis are distinguished",
+        "bug tracker handoff includes repro/verify fields when the source is an issue",
         "no exploit steps are included for security issues"
       ]
     }

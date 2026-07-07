@@ -15,7 +15,9 @@ for s in m:
     p = root/"skills"/s["name"]
     validate_skill_frontmatter(p)
     subprocess.run([sys.executable, str(p/"scripts/validate_skill.py")], cwd=root, check=True)
-    need = "false" if s["trigger"] == "explicit-only" else "true"
+    if s["trigger"] != "implicit-allowed":
+        raise SystemExit(f"{s['name']}: trigger must be implicit-allowed")
+    need = "true"
     for a in ["openai.yaml","claude.yaml"]:
         t = (p/"agents"/a).read_text(encoding="utf-8")
         if f"allow_implicit_invocation: {need}" not in t:

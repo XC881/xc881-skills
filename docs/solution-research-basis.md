@@ -2,7 +2,7 @@
 
 Repository-level background, not runtime reference.
 
-`xc881-solution-research` is explicit-only because web research can be expensive and broad.
+`xc881-solution-research` is intent-routed, but should trigger only for real technical-research intent because web research can be expensive and broad.
 
 Design rationale:
 - normalize rough ideas before search;

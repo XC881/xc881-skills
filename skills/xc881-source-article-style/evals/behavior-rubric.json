@@ -9,6 +9,7 @@
       "checklist": [
         "conclusion has 3 to 5 bullets, each backed by a path or function anchor",
         "call order is evidence-backed, not presented as guessed fact",
+        "specialized concepts are grounded before later sections rely on them",
         "common programming concepts are not over-explained"
       ]
     },
