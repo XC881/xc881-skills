@@ -21,6 +21,24 @@
         "each claim is either backed by debugger/runtime output or explicitly marked as static inference with its static basis",
         "possibly-stale API or version facts are cited from official docs, not asserted from memory"
       ]
+    },
+    {
+      "query": "先读仓库里的 BrowserWindow 实现，再按我的风格写源码文章",
+      "checklist": [
+        "simple exact/local/low-risk evidence may be read directly while complex/tracked source inspection is delegated to Coding",
+        "Coding returns bounded path/function/call-chain evidence without taking article ownership",
+        "the article skill resumes from evidence and owns prose structure and style",
+        "provided evidence is not redundantly reread"
+      ]
+    },
+    {
+      "query": "源码文章委派 Coding 读调用链时发生自动上下文压缩",
+      "checklist": [
+        "preserves article ownership, active section and prose style across context compaction",
+        "resumes the bounded Coding evidence request without expanding into unrelated code",
+        "returns path/function/call-chain evidence to the same article run",
+        "continues writing automatically without asking the user to re-invoke a skill"
+      ]
     }
   ]
 }

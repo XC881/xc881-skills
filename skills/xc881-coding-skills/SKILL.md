@@ -1,12 +1,13 @@
 ---
 name: xc881-coding-skills
-description: 'Use for serious coding after requirements are clear: implementation, bug fixes, refactors, review, production changes, architecture decisions, code quality standards, modular structure, code splitting, decoupling, maintainability, testability, low-quality-code prevention, surgical/minimal diffs, anti-overengineering, core-difficulty-only comments, verification, high-performance/high-efficiency optimization, or explicit git checkpoint/push. Trigger on xc881, xc881代码工程规范, xc881工程优化, 代码规范, 非屎山代码, 稳定代码, 可维护代码, 哲学结构, 逻辑模块化, 代码分割, 解耦, 低质量代码, 高性能, 高效率, 高优化, 最小改动, 先读代码, 不要乱改, 核心难点注释, 提交代码, 保存进度, 推送到 GitHub.'
-when_to_use: 'Use for coding execution after requirements are clear. Apply the xc881 code quality standard for non-trivial implementation, refactor, review, optimization, or code-quality requests. Apply high-constraint policy for risky edits, bug fixes, production changes, surgical changes, minimal diffs, and anti-overengineering. In performance mode, optimize only with explicit requirement, measured bottleneck, or clear hot path. If requirements are unclear or hidden dependencies need analysis, use xc881-requirement-analysis by intent first.'
+description: 'Intent-routed engineering execution. Use for all project writes and reads made complex by task/project coupling: unknown paths, multi-module flows, runtime evidence, architecture, security, performance, concurrency, generated/framework code, or tracked work. Simple exact local low-risk reads may run directly.'
+when_to_use: 'Use when explicitly invoked, for every project write, or when the adaptive read gate selects Coding. Classify instant|queue before read|change. Analysis skills may perform simple bounded reads directly or delegate complex reads and resume.'
 display_name: "xc881代码工程规范"
-version: "1.2.0"
+version: "2.1.0"
 category: "coding"
 tags:
   - coding
+  - code-reading
   - code-quality
   - refactor
   - decoupling
@@ -30,96 +31,41 @@ aliases:
 
 ## Role
 
-Engineering execution layer for safe, stable, maintainable code changes.
+Own all project writes and complex engineering reads: inspect real evidence or
+make the smallest maintainable verified change.
 
-Use after requirements are clear. If the task is about PRD, MVP, users, hidden requirements, or acceptance criteria, use `$xc881-requirement-analysis` by intent first.
+## References
 
-## Load policy
+- `./references/xc881-code-quality-standard.md`: non-trivial change/review/refactor/performance.
+- `./references/high-constraint-coding-policy.md`: risky/minimal changes and design gate.
+- `./references/no-code-comments-policy.md`: before editing code.
+- `./references/git-checkpoint-policy.md`: explicit commit/checkpoint/push only.
+- `./references/engineering-quality-rubric.md`: quality review/verification.
+- `./references/project-optimization.md`: legacy/project optimization.
+- `./references/adaptive-read-routing.md`: decide direct read vs Coding read.
+- `./references/requirement-artifact-execution.md`: task mode and queue checkpoint.
+- `./references/execution-checkpoint-and-tool-policy.md`: queue recovery and tool budget.
 
-`SKILL.md` is the fast path.
-
-Reference files live under `./references/`.
-
-Reference Index:
-
-- `./references/xc881-code-quality-standard.md`: non-trivial coding, review, refactor, performance mode, or code-quality/代码规范/非屎山代码 requests.
-- `./references/high-constraint-coding-policy.md`: risky edits, bug fixes, production changes, surgical changes, minimal diff work, or anti-overengineering risk.
-- `./references/no-code-comments-policy.md`: before generating or editing code.
-- `./references/git-checkpoint-policy.md`: only when user explicitly asks to commit/checkpoint/push.
-- `./references/engineering-quality-rubric.md`: low-quality code review or weak verification.
-- `./references/project-optimization.md`: legacy optimization or new project engineering after requirements are clear.
-
-When opening reference files, always use the exact relative path shown above.
-Do not assume reference files are located beside `SKILL.md`.
-
-## Default output
-
-Compact by default.
-
-- Small task: apply rules silently, still close with the three-line final response; write `风险/假设: 无` when none.
-- Non-trivial task: show compact design gate.
-- Detailed report only when requested, risk is high, performance trade-off exists, or legacy optimization is requested.
-- Large output: avoid one huge response. Write necessary artifacts to files in numbered chunks, keep each chunk bounded, and report only file path + progress + verification.
-- Token saving: do not echo full generated files or long reports after writing them; summarize changed sections and where to inspect them.
+Open references only by the exact relative paths above and only for the active branch.
 
 ## Workflow
 
-1. Requirement gate: use `$xc881-requirement-analysis` by intent if behavior, permissions, hidden dependencies, lifecycle, migration, or acceptance criteria are unclear.
-2. Read before writing: entry point, call chain, data flow, tests/types/config, local style.
-3. Bound task: behavior, files/contracts, assumptions, one verifiable success target.
-4. Apply surgical-change guard:
-   - do not assume; surface behavior-changing ambiguity
-   - no requested-unrelated feature/flexibility/abstraction
-   - every changed line traces to request, evidence, verification, or direct cleanup caused by this change
-   - clean only new orphans; mention old dead code, do not delete
-5. Apply code quality standard: correctness, stability, modularity, testability, edge isolation, core-difficulty-only comments.
-6. For non-trivial work, weigh two designs before picking, then show the compact design gate:
+1. Read gate: explicit Coding invocation, every write, tracked work, or any task/project complexity trigger -> Coding. An ordinary read may stay direct only when every simple condition in `adaptive-read-routing.md` holds. Analysis may perform that simple read or delegate a complex read and resume.
+2. Once Coding is selected, before opening project files or execution artifacts classify persistence: `instant` works directly; `queue` needs an exact handoff or one unambiguous active task. Multiple candidates -> one blocking question. Do not scan `dev-notes` or choose latest.
+3. Queue: validate, then load `current.md` and the current queue item only. Previous needs an explicit evidence/dependency link; next waits until advancement. Do not read `index.md` by default.
+4. Classify action independently as `read` or `change`. Inspect real entry points, call/data flow, tests/types/config, and local style in both modes.
+5. Read: report evidence without editing. Change: define one success target, then load quality/high-constraint/comment references as applicable.
+6. For non-trivial/risky changes, use the design gate in high-constraint policy; keep every changed line traceable and avoid unrelated cleanup, speculative flexibility, or one-use abstraction.
+7. Implement the smallest maintainable change; verify observable behavior. Performance mode requires request/measurement/hot path and reports trade-offs.
+8. A delegated `read` returns bounded evidence; it does not silently become a change.
+9. Queue loop: verify current, checkpoint status/history/current, advance, then load the new current item and continue until task terminal. After context compaction, reload the same current window and continue automatically. Never ask the user to say continue at item boundaries. Stop only for explicit stepwise/pause intent or a real blocker/approval/safety/contract-change/no-runnable boundary.
+10. Report verification in chat. Commit/push only on explicit request using the git reference.
 
-```text
-xc881 设计门禁：
-变化轴:
-成功标准:
-职责拆分:
-边界/文件:
-依赖方向:
-代码质量风险:
-过度设计风险:
-性能模式: yes/no
-测试策略:
-```
-
-7. Implement smallest maintainable change:
-   - no unrelated refactor
-   - no speculative or single-use abstraction
-   - preserve local style
-   - avoid circular dependencies
-   - make invalid states difficult to represent
-   - keep side effects at edges
-8. Dependency direction:
-
-```text
-UI/Controller/Framework
-→ Application/Use Case
-→ Domain/Core
-→ Ports/Interfaces
-Infrastructure implements ports.
-```
-
-9. Comments:
-   - no routine comments
-   - comment only core difficulty: algorithm, concurrency/memory invariant, security assumption, performance trade-off, protocol quirk, migration hazard, intentionally unusual code
-10. Performance mode:
-   - activate only when requested/measured/hot-path
-   - preserve correctness and safety
-   - prefer algorithm/data-structure gains before micro-optimization
-   - localize complexity
-   - test/benchmark when practical
-   - report trade-off
-11. Verify before success. Commit/push only when explicitly requested.
+Large output goes to bounded files; chat reports path, progress, and verification.
 
 ## Final response
 
-Always close every coding turn with this exact three-line template, even late in a long session. Do not drop `风险/假设`; write `无` when none.
+Always close with exactly:
 
 ```text
 完成内容:
@@ -127,28 +73,17 @@ Always close every coding turn with this exact three-line template, even late in
 风险/假设:
 ```
 
-If performance mode was used:
-
-```text
-性能取舍:
-验证/基准:
-```
-
-If checkpoint was requested:
-
-```text
-Commit:
-Branch:
-Push:
-Remaining changes:
-```
+Append performance trade-off/benchmark or commit/branch/push/remaining fields only
+when those modes were used.
 
 ## Hard rules
 
 - Do not code from guessed paths.
-- Do not claim success beyond evidence.
-- Do not leak framework/database/SDK/UI objects into domain logic.
-- Do not hide business rules in UI, SQL, SDK callbacks, or framework handlers.
-- Do not sacrifice correctness, security, or bounded complexity for performance.
-- Do not improve adjacent code unless required.
+- Do not force simple bounded reads through Coding or bypass Coding for writes/complex reads.
+- Do not scan `dev-notes` to infer an active task.
+- Do not load previous/next queue files by default.
+- Do not read `index.md` by default; contract gaps stop and return to Requirement.
+- Do not claim success beyond evidence or improve adjacent code unless required.
+- Keep business/domain rules out of UI, SQL, SDK callbacks, and framework objects.
+- Never trade correctness/security/bounded complexity for performance.
 - Do not commit/push unless explicitly requested.

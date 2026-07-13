@@ -2,6 +2,6 @@
   "skill": "xc881-porting-orchestration",
   "layer": "structural",
   "forbid_impl_code": true,
-  "required_sections": ["Task class", "Magnitude", "Stop boundary", "Understanding", "Risks", "Equivalence", "Handoff"],
-  "pass_sample": "Task class: goal, whole-project Go to Rust, iterative\nMagnitude: whole-project, read confirms all modules in scope; target repo has existing axum architecture\nStop boundary: done when all modules pass parity suite; exit on success or 3 failed escalations; out of scope, new features\nUnderstanding: ownership vs GC, error model differs; map net/http to axum; move into target's existing layering\nRisks: P1 concurrency model mismatch; P2 missing library equivalent\nEquivalence: behavioral, ported test suite plus golden comparison, consistent so far with evidence\nHandoff: to coding, port module one behind locked boundary"
+  "required_sections": ["迁移结论", "本次迁移", "如何确认成功", "当前进度", "下一步", "开发记录"],
+  "pass_sample": "迁移结论: 这是长期迁移任务，边界已锁定，可以开始第一阶段\n本次迁移: 将已确认范围内的 Go 服务迁入现有 Rust axum 架构，不增加新功能\n如何确认成功: 所有迁移模块通过原有行为测试和 golden 对比\n需要注意: 并发模型和错误处理差异可能造成行为偏差\n当前进度: 边界和验证方法已确定，代码迁移尚未开始\n下一步: 交给 Coding 迁移第一个模块并执行等价性检查\n开发记录: 需求边界见 req-process，迁移进度见对应 cross-process 文件"
 }

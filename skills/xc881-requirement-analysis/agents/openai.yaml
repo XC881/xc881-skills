@@ -1,6 +1,6 @@
 interface:
   display_name: "xc881需求分析"
   short_description: "Intent-routed compact requirement analysis"
-  default_prompt: "Use $xc881-requirement-analysis for direct invocation or clear requirement/tracker intent: analyze requirements, scope, MVP, user flow, AC, issue/PR triage, Agent Brief, or PRD-to-issues splitting. No code. Spec→ER/IR→scope→FR/NFR/AC→risk→handoff. For issue/PR/PRD triage, classify tracker state, write Agent Brief/issues/out-of-scope/map plan, and separate executed vs planned tracker ops. If technical uncertainty blocks judgment, use bounded $xc881-solution-research and continue. One blocking question max."
+  default_prompt: "Route requirement/tracker work here. SKILL.md owns workflow. No code. Reuse before create; persist non-trivial queues; delegate bounded research/complex reads; hand exact current to Coding."
 policy:
   allow_implicit_invocation: true

@@ -32,3 +32,11 @@ Artifact: <path>
 Claims: <count/types>
 Use: <which RQ/decision it supports>
 ```
+
+Requirement-delegated evidence:
+
+```text
+Artifact: dev-notes/req-process/<task>/evidence/RQ-NNN-<slug>.md
+Return: same requirement run
+Use: <RQ / scope / AC / decision affected>
+```

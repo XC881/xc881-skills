@@ -15,6 +15,24 @@
         "bug tracker handoff includes repro/verify fields when the source is an issue",
         "no exploit steps are included for security issues"
       ]
+    },
+    {
+      "query": "先定位接口 500 根因，明确后直接读取并修复代码",
+      "checklist": [
+        "Bugfix owns hypotheses, cause confidence, repair plan and verification plan",
+        "simple exact/local/low-risk inspection may stay in Bugfix while complex/tracked inspection is delegated to Coding and returns evidence",
+        "the delegated read does not grant change permission",
+        "confirmed repair work is automatically handed back to Coding without requiring another user invocation"
+      ]
+    },
+    {
+      "query": "Bugfix 委派 Coding 读日志和调用链时发生自动上下文压缩",
+      "checklist": [
+        "preserves Bugfix as owner of hypotheses, cause confidence and repair scope",
+        "context compaction resumes the bounded Coding read without granting change permission",
+        "returned evidence continues the same diagnosis instead of restarting or asking the user",
+        "confirmed changes are handed to Coding only after cause and scope are clear"
+      ]
     }
   ]
 }

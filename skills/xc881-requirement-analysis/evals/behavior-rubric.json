@@ -12,6 +12,9 @@
         "discoverable repo or technical facts are researched instead of asked as user questions",
         "user decisions are separated from facts/inference and include a recommended answer when blocking",
         "feature breakdowns prefer independently verifiable vertical slices over implementation checklists",
+        "user-facing output uses plain Chinese conclusions instead of raw Spec/ER/IR/FR/NFR/AC labels",
+        "a persisted response summarizes included work, observable completion, next action and development-record path without repeating the plan",
+        "a chat-only response remains self-contained and explains why no document was created",
         "at most one blocking question is raised"
       ]
     },
@@ -23,6 +26,71 @@
         "AI public comments include an AI-assistance disclosure when planned",
         "executed tracker mutations are separated from planned/skipped commands",
         "bug diagnosis is handed to $xc881-bugfix-research instead of guessed inline"
+      ]
+    },
+    {
+      "query": "分析这个跨模块迁移需求并持续跟进实现进度",
+      "checklist": [
+        "creates a task under dev-notes/req-process because hard document triggers apply",
+        "index owns stable scope and AC while current owns the sole active pointer",
+        "Requirement reads index.md by default for requirement resume, scope/AC changes, audit or state repair",
+        "queue items are independently verifiable vertical slices with dependencies",
+        "each non-terminal queue item includes goal, relevant scope/AC, targets, constraints and verification",
+        "Coding resume instructions load current.md plus the current item only and do not load index/previous/next by default",
+        "current.md provides non-empty last-completed and next-action summaries without validation results",
+        "instant Coding tasks skip artifact reads while explicit or unambiguous queue tasks use the bounded window",
+        "progress stores queue/current/blockers only and keeps verification results in chat",
+        "chat output translates artifact path, current, next and blockers into a compact human-readable development-record summary instead of repeating the full plan"
+      ]
+    },
+    {
+      "query": "继续修改之前的 req-process 协议需求，并把新增工作交给 Coding",
+      "checklist": [
+        "resolves an explicit or conversational artifact before applying the document gate",
+        "when context is insufficient, runs a bounded mechanical search that returns candidate paths only and semantically compares plausible candidates",
+        "does not select by newest directory or keywords alone",
+        "reuses one semantic match, asks one blocking selection question for multiple plausible matches, and creates only when no match survives the normal gate",
+        "reopened work preserves completed history, appends IDs after the old tail and sets task state ready",
+        "hands Coding the exact artifact path, current item, next item and blockers without asking Coding to search"
+      ]
+    },
+    {
+      "query": "先分析登录需求，必要时读现有实现，明确后直接实现",
+      "checklist": [
+        "Requirement retains scope and AC ownership",
+        "simple exact/local/low-risk repository reads may stay in Requirement while complex/tracked reads are delegated to Coding",
+        "returned code evidence resumes the same requirement run",
+        "the confirmed read/write execution is automatically handed to Coding without another user invocation",
+        "Requirement artifact maintenance does not recursively trigger Coding"
+      ]
+    },
+    {
+      "query": "把这个需求拆成三个队列项并开始实现，不要每项都问我",
+      "checklist": [
+        "Requirement hands Coding one exact current window and declares continuous execution",
+        "queue boundaries are recovery checkpoints rather than default user-confirmation points",
+        "Coding is expected to advance and continue until all items are terminal",
+        "only explicit stepwise intent or a genuine blocker permits an intermediate stop"
+      ]
+    },
+    {
+      "query": "这个需求会跨很多轮执行，压缩上下文后也要能继续",
+      "checklist": [
+        "keeps stable scope and AC in index while current.md remains the bounded execution pointer",
+        "treats context compaction as transparent rather than a user-confirmation or handoff boundary",
+        "keeps accepted contract changes, blockers and exact evidence paths durable",
+        "does not store raw tool output or compaction summaries as requirement authority",
+        "hands Coding a self-contained current item so recovery does not require full history",
+        "continues to task terminal without asking the user to say continue after compaction"
+      ]
+    },
+    {
+      "query": "需求分析委派 Solution 调研时自动压缩了上下文，调研完成后继续实现",
+      "checklist": [
+        "preserves Requirement as the active owner across context compaction",
+        "Solution resumes only its bounded RQ and returns evidence to the same Requirement run",
+        "Requirement completes scope and AC before handing the exact current window to Coding",
+        "Coding continues the queue without a second skill invocation or user continuation prompt"
       ]
     }
   ]

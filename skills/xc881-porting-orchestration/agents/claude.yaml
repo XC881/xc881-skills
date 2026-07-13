@@ -1,6 +1,6 @@
 interface:
   display_name: "xc881移植编排"
   short_description: "Intent-routed cross-language/project porting orchestration"
-  default_prompt: "Use $xc881-porting-orchestration for direct invocation or clear porting/migration intent: cross-language, cross-project, port, migrate, rewrite in another language, or move a module/service between stacks. Thin orchestrator, no code. Classify goal vs non-goal; goal needs a locked stop boundary before porting. Delegate to requirement/coding/solution skills. Equivalence is behavioral; prefer target-language idioms without breaking it."
+  default_prompt: "Route cross-language/project porting here. SKILL.md owns workflow. Thin orchestrator, no code. Require linked state and stop boundary; preserve behavioral equivalence; delegate specialists."
 policy:
   allow_implicit_invocation: true

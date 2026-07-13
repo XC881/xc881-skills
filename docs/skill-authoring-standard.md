@@ -9,12 +9,22 @@ Principle: accurate, low-token, effective agent reading.
 - `docs/` are maintenance-only. Do not rely on docs for runtime behavior.
 - Keep each meaning in one authoritative place; link to it instead of repeating it.
 - Compact output by default; write large artifacts to files and report path + verification.
+- `dev-notes/` is the preferred durable task-note root; requirement state uses `req-process/` and porting-specific state uses `cross-process/`.
 
 ## Invocation
 
 - All skills are intent-routed. Direct `$skill-name` calls remain valid, but clear user intent without `xc881` may trigger the matching skill.
-- Coding executes after scope is clear. If scope, AC, lifecycle, migration, or root cause is unclear, route to the matching analysis skill first.
+- Route reads from both requested-read complexity and relevant project coupling. Simple exact/local/low-risk reads may stay direct; complex/tracked reads and all writes enter Coding. Project size alone is insufficient.
+- Selected Coding classifies `instant | queue` before opening project/execution-artifact files, then `read | change`.
+- If scope/AC/lifecycle/root cause is unclear, the matching analysis skill retains ownership. It may perform a simple read, delegate a complex Coding read, resume from evidence, and hand confirmed writes back automatically.
+- Requirement artifact maintenance is not project execution and does not recursively trigger Coding.
 - A description is a trigger surface. Use intent words the user actually says; avoid synonym piles.
+- Agent prompts are compatibility shims, not a second workflow authority. Keep
+  provider variants behaviorally identical and point execution to `SKILL.md`.
+- Provider custom instructions preserve only global routing/safety boundaries;
+  branch workflow belongs to the selected skill and reference.
+- Skills define recovery state only; environment context management is outside
+  this repository.
 - Split a skill only when it earns a trigger boundary, reduces runtime context, or prevents rushing a fuzzy step.
 
 ## Instruction quality
@@ -24,6 +34,37 @@ Principle: accurate, low-token, effective agent reading.
 - Separate facts, inference, decisions, and recommendations.
 - Use strong leading terms consistently: scope, AC, handoff, seam, equivalence, evidence.
 - State positive target behavior. Use prohibitions only for hard guardrails and pair with the desired action.
+
+## User-facing output
+
+- Durable artifacts keep structured agent fields; user chat translates them into plain conclusions, impact, completion criteria, decisions, next action, and record paths.
+- Persisted work must not dump internal labels or repeat the full plan in chat.
+- Chat-only work remains self-contained because no artifact carries omitted detail.
+- Omit irrelevant optional headings; a blocking decision always includes a recommendation and safe fallback/stop behavior.
+- Human-readable presentation must not weaken traceability, acceptance criteria, stop boundaries, equivalence evidence, or machine validation.
+
+## Durable artifacts
+
+- Keep one authority per field: req-process owns scope/AC; cross-process owns porting magnitude/equivalence/progress.
+- Before the document gate, Requirement resolves explicit/context identity, then uses bounded path-only candidate search plus semantic comparison. Reuse one match, ask once for multiple matches, and create only when none match.
+- Reopened work appends queue IDs after the old tail and hands Coding exact artifact/current/next/blockers. Coding never searches directories or chooses latest.
+- Separate stable contract (`index.md`) from mutable checkpoint (`current.md`).
+- Coding classifies `instant | queue` before project/artifact reads and `read | change` independently.
+- Analysis/writing-delegated Coding reads return only bounded evidence; they never infer change permission or take analysis/prose ownership.
+- Queue checkpoints are recovery points, not confirmation points. After verification, advance current and continue through runnable items to task terminal without asking for “continue”.
+- Context compaction is not a confirmation point: preserve the active owner and
+  exact current window, then resume the same skill chain automatically.
+- Stop between items only for explicit stepwise/pause intent or a real blocker, approval/input, safety, contract/scope change, or no runnable item.
+- Instant Coding never scans task-note directories. Queue Coding requires an explicit path/handoff or one unambiguous active context.
+- Normal Coding continuation reads `current.md` plus its current queue item only; previous requires an explicit evidence/dependency link and next waits until advancement. `index.md` is for requirement creation/audit.
+- Non-terminal queue items must be self-contained with goal, relevant scope/AC, targets, constraints, and verification.
+- Context hard limits: req current 1,200 chars, non-terminal queue item 3,500, index 10,000, cross-process ledger 3,000.
+- Move only bounded requirement research to linked evidence; verification output, pass/fail details, and logs remain in chat.
+- Defer unused tools when supported; otherwise expose only the next action's tool
+  class, cap results, and keep decision impact instead of raw output.
+- Significant accepted decisions are append-only and superseded rather than rewritten.
+- Progress stores queue/current/blockers, not subjective percentages or validation results. Keep verification plans in artifacts and report actual results/logs in chat.
+- Provide a validator for any artifact state machine or linked-file contract.
 
 ## Pruning
 

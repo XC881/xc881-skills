@@ -10,11 +10,14 @@ Only runtime task-execution references should appear below.
 - `web-research-policy.md`
 
 ## xc881-coding-skills
+- `adaptive-read-routing.md`
+- `execution-checkpoint-and-tool-policy.md`
 - `engineering-quality-rubric.md`
 - `git-checkpoint-policy.md`
 - `high-constraint-coding-policy.md`
 - `no-code-comments-policy.md`
 - `project-optimization.md`
+- `requirement-artifact-execution.md`
 - `xc881-code-quality-standard.md`
 
 ## xc881-requirement-analysis
@@ -22,6 +25,7 @@ Only runtime task-execution references should appear below.
 - `existing-project-feature-analysis.md`
 - `implicit-requirement-inference.md`
 - `issue-tracker-triage.md`
+- `requirement-process-artifact.md`
 - `requirement-output-contract.md`
 - `requirement-quality-rubric.md`
 

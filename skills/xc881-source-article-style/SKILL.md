@@ -1,9 +1,9 @@
 ---
 name: xc881-source-article-style
-description: 'Intent-routed. Use when the user invokes $xc881-source-article-style or gives clear source-reading/article writing intent such as 写源码导读, 函数级分析文章, 调用链文章, or 按我的文章风格写. Provides the user''s Chinese source-code article style for internals of any language or stack (e.g. Electron/Chromium, Rust, Go, Python, JVM), function-level analysis, call-chain walkthroughs, build/debug/source-reading notes, article chapter drafts, diagrams, tables, conclusions, and reader-facing explanations. Automatically uses $xc881-solution-research for unexplained specialized terms or possibly-stale authoritative facts when needed.'
+description: 'Intent-routed Chinese source-code article writing. Use for 源码导读, 函数级分析, 调用链文章, or 按我的文章风格写. Own prose and evidence-backed explanation; read simple local evidence directly, delegate complex/tracked inspection to Coding, and bounded term research to solution-research.'
 when_to_use: 'Use when producing article prose or outlines from source-code evidence, especially function-level internals analysis. Do not use for code changes unless combined with xc881-coding-skills.'
 display_name: "xc881源码文章风格"
-version: "1.1.0"
+version: "1.3.0"
 category: "writing"
 tags:
   - writing
@@ -41,7 +41,7 @@ Do not assume reference files are located beside `SKILL.md`.
 ## Fast Path
 
 1. Ecosystem recon (one line, every article): name the language, build system, package manager, debugger/trace tool, and authoritative doc source for this project. Keep it minimal; only expand when the stack is unfamiliar or a fact is uncertain.
-2. Verify only needed evidence: version/path/function/callers/callees/debug note.
+2. Verify only needed evidence. Apply task+project read complexity: inspect simple exact/local/low-risk evidence directly; delegate complex/tracked evidence to `$xc881-coding-skills`; resume and do not reread provided evidence.
 3. Think hard before locating: entry-point and call-chain claims must carry a derivation path, never an assertion. Explain why each key branch exists.
 4. Evidence tier: when a debugger/tracer is available, back entry/flow claims with breakpoint/call-stack/runtime output; when it is not, mark the claim as static inference and give the static basis (symbol, reference, build artifact).
 5. Check unexplained terms or possibly-stale authoritative facts in the available context.
@@ -84,4 +84,6 @@ Do not assume reference files are located beside `SKILL.md`.
 - Do not over-explain common programming concepts.
 - Do not turn the article into API usage docs.
 - Do not ask the user to manually invoke `$xc881-solution-research` for missing term context.
+- Do not bypass Coding for complex/tracked source inspection; retain article ownership.
+- After context compaction, preserve prose ownership, evidence paths, active section, and bounded delegation; resume automatically.
 - Do not add decorative prose; keep the article source-reading oriented.

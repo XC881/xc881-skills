@@ -32,6 +32,9 @@ Before any porting action, lock a stop-boundary contract via `$xc881-requirement
 - Exit conditions: what state ends the loop (success end, and give-up/escalate end).
 - Out-of-scope: explicitly listed, so scope creep cannot re-open the loop.
 
+Persist this contract in `dev-notes/req-process/<task>/index.md`. The linked
+cross-process file references it and must not copy scope, AC, or done-criteria.
+
 Rules:
 
 - No locked boundary -> do not start porting.

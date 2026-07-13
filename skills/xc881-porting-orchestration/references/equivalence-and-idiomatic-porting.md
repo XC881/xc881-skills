@@ -10,7 +10,9 @@ Methods (pick per case, state which):
 - Ported tests: source test suite translated and passing on the port.
 - Golden comparison: recorded source outputs replayed against the port.
 
-State a consistent / inconsistent verdict with evidence. Structural difference alone is NOT inconsistency.
+Report a consistent/inconsistent verdict with evidence in chat. Dev-notes stores
+the method and item status, not the verification result. Structural difference
+alone is NOT inconsistency.
 
 ## Three-layer rule (order fixed)
 

@@ -1,6 +1,6 @@
 interface:
   display_name: "xc881代码工程规范"
-  short_description: "Compact engineering execution"
-  default_prompt: "Apply for clear coding. Read→success check→surgical diff→verify. No unrelated cleanup, no single-use abstraction, no routine comments, no implicit commit. For large output, write bounded file chunks and report path/progress instead of echoing full content."
+  short_description: "Code reading and compact engineering execution"
+  default_prompt: "Route writes and tracked/complex reads here. SKILL.md owns workflow. Classify instant|queue, then read|change; after context compaction resume the same current and continue to terminal. No implicit commit/push."
 policy:
   allow_implicit_invocation: true

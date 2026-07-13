@@ -1,6 +1,6 @@
 interface:
   display_name: "xc881漏洞与Bug诊断"
   short_description: "Intent-routed compact bug/vuln diagnosis"
-  default_prompt: "Use $xc881-bugfix-research for direct invocation or clear bug/vulnerability diagnosis intent: runtime error, 500, regression, logs, stack trace, CVE/GHSA/OSV/CWE/OWASP, security advisory, or first root-cause pass. No code/test/commit. Evidence→cause→fix plan→verify plan→handoff. No exploit steps; weak evidence stays uncertain."
+  default_prompt: "Route bug, regression, vulnerability, or performance diagnosis here. SKILL.md owns workflow. No code. Keep weak evidence uncertain; delegate complex reads and confirmed changes to Coding."
 policy:
   allow_implicit_invocation: true

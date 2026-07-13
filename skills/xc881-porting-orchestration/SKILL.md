@@ -1,9 +1,9 @@
 ---
 name: xc881-porting-orchestration
-description: 'Intent-routed. Use when the user invokes $xc881-porting-orchestration or gives clear porting/migration intent such as 移植, 迁移, 跨语言, 跨项目, port, migrate, 改写成另一种语言. Orchestrates cross-language and cross-project porting: classify goal vs non-goal task, lock a stop boundary before work (anti-infinite-loop), understand target-language traits and project architecture, derive pre/post porting risks, and verify behavioral equivalence. Thin orchestrator: delegates to $xc881-requirement-analysis, $xc881-coding-skills, and $xc881-solution-research; does not re-implement them.'
-when_to_use: 'Use to orchestrate code porting across languages or projects when user intent is migration/porting. For goal (long-horizon) porting, lock an explicit stop boundary first. Delegate requirement analysis, coding, and research to their skills; do not do their work here.'
+description: 'Intent-routed porting orchestration for 移植, 迁移, 跨语言, 跨项目, port, migrate, or 改写成另一种语言. Classifies magnitude and goal/non-goal, locks long-task boundaries, derives language/architecture risks, delegates implementation, and verifies behavioral equivalence.'
+when_to_use: 'Use for cross-language/project porting. Goal tasks require a persisted stop boundary and linked progress ledger before work. Delegate requirement, research, and code work to specialist skills.'
 display_name: "xc881移植编排"
-version: "1.0.0"
+version: "1.6.0"
 category: "orchestration"
 tags:
   - porting
@@ -22,78 +22,51 @@ aliases:
 
 # xc881 Porting Orchestration
 
-Intent-routed porting orchestration. Direct `$xc881-porting-orchestration` calls and clear porting/migration intent both trigger. Thin orchestrator. Delegate; do not re-implement.
+Intent-routed thin orchestrator. Delegate; do not re-implement specialists.
 
-Reference files live under `./references/`.
+## References
 
-Reference Index:
+- `./references/goal-boundary-contract.md`: magnitude, goal class, hard stop gate.
+- `./references/cross-language-understanding.md`: language, architecture, library risks.
+- `./references/equivalence-and-idiomatic-porting.md`: equivalence and idiomatic rule.
+- `./references/cross-process-plan.md`: persistent porting ledger.
+- `./references/porting-output-contract.md`: user-facing output.
 
-- `./references/goal-boundary-contract.md`: goal vs non-goal classification and the hard stop-boundary gate.
-- `./references/cross-language-understanding.md`: target-language traits, architecture, library mapping, risk derivation.
-- `./references/equivalence-and-idiomatic-porting.md`: behavioral-equivalence check and idiomatic-first rule.
-- `./references/cross-process-plan.md`: the persistent plan file that anchors progress across context loss.
-- `./references/porting-output-contract.md`: output format.
-
-When opening reference files, always use the exact relative path shown above.
-Do not assume reference files are located beside `SKILL.md`.
+Open only the exact relative path for the active branch.
 
 ## Delegation
 
-This skill coordinates; it does not replace the specialists.
-
-- Boundary + risk derivation → `$xc881-requirement-analysis`.
-- Deep code understanding + equivalence analysis + the actual port → `$xc881-coding-skills`.
-- Language-pair conventions and pitfalls → `$xc881-solution-research` (broad web search).
+- Boundary/risk/req-process -> `$xc881-requirement-analysis`.
+- Deep reading, port, equivalence check -> `$xc881-coding-skills`.
+- Language-pair conventions/pitfalls -> `$xc881-solution-research`.
 
 ## Workflow
 
-1. Read & judge magnitude first: read the actual code, do not infer "whole project" from wording. Classify into whole-project / module / feature / logic-slice / abstract-architectural-intent, with evidence. Then classify goal vs non-goal. State both + why. Deep reading delegates to `$xc881-coding-skills`; this skill only consumes and classifies.
-2. Hard gate (goal only): before ANY porting action, lock a stop-boundary contract via `$xc881-requirement-analysis`:
-   - measurable done-criteria
-   - explicit exit conditions
-   - out-of-scope list
-   If the boundary is vague, STOP and ask one blocking question. Do not start porting.
-3. Plan file (hard precondition): write the locked magnitude + boundary + item checklist to `dev-notes/cross-process/<task>.md` in the TARGET project workspace. If `dev-notes/` is absent, create it and ask one blocking question: add to .gitignore or not (user decides; never assume). No current plan file → do not port. See `./references/cross-process-plan.md`.
-4. Understand (cross-language): target-language traits, source/target differences, architecture, key libraries + their target-side mapping.
-5. Derive risks with requirement-analysis reasoning: behavior, concurrency model, memory model, error handling, ecosystem/library gaps, pre/post porting problems.
-6. Research pitfalls: delegate broad web search to `$xc881-solution-research` for the specific language pair / domain.
-7. Before any port/reference action: read the plan file and state progress vs plan. It is the single source of truth, not session memory.
-8. Port: delegate implementation to `$xc881-coding-skills`. Prefer target-language idioms and strong features over literal transliteration.
-9. Verify equivalence via `$xc881-coding-skills`: behavioral equivalence (IO/behavior parity, ported tests, golden comparison), not structural sameness. State consistent / inconsistent + evidence.
-10. Iterate (goal): update the plan file (item done/not-done + reason), then re-check the boundary and report progress vs done-criteria + explicit done / not-done.
+1. Delegate code reading, then classify magnitude and goal/non-goal with evidence using the boundary reference.
+2. Goal gate: Requirement persists measurable done criteria, exit conditions, and out-of-scope. Vague/missing boundary -> one blocking question; no porting.
+3. Create the <=3,000-char cross-process ledger linked to req-process; never copy scope/AC/boundary. Ask before changing `.gitignore`.
+4. Use the understanding reference for language/architecture/library risks; delegate authoritative web research when needed.
+5. Continue only an explicit/unambiguous task: read cross-process plus linked req `current.md + current item`; previous needs an explicit evidence link and next waits until advancement. Never scan or read req index by default.
+6. Delegate the port and verification to Coding. Behavioral equivalence is hard; target architecture and idioms are subordinate. Use intent fidelity only for true abstract-intent work.
+7. After each item, update status/checkpoints and re-check the stop boundary. After context compaction, preserve Porting ownership and equivalence state. If another runnable current item exists, delegate it automatically and continue to task terminal without asking for “continue”. Stop only for explicit stepwise/pause intent or a real blocker/boundary. Report verification/equivalence in chat only.
 
-## Equivalence rule (three layers, order fixed)
-
-1. Hard invariant: behavioral equivalence. Never relaxed.
-2. Soft: when the target project already has an architecture, port into it; record departures.
-3. Soft: within the above, prefer target-language idioms / strong features over source paradigms.
-
-Idiomatic and architecture give way to correctness. Record each choice: source paradigm -> target feature/architecture -> why better -> evidence it stays equivalent.
-
-Abstract-architectural-intent magnitude only: when no source code is transliterated, equivalence downgrades from IO parity to intent/design fidelity. Mark the downgrade + reason explicitly.
-
-## Output
+## User-facing output
 
 ```text
-xc881 Porting:
-Magnitude: whole-project / module / feature / logic-slice / abstract-intent + evidence
-Task class: goal / non-goal + why
-Stop boundary: done-criteria / exit / out-of-scope
-Understanding: language diff / architecture / library map
-Risks: pre/post porting problems, prioritized
-Equivalence: method + consistent/inconsistent + evidence
-Progress: vs done-criteria + done/not-done
-Handoff:
+迁移结论:
+本次迁移:
+如何确认成功:
+需要注意:        # only when relevant
+需要确认:        # only when blocked; include recommendation + fallback
+当前进度:
+下一步:
+开发记录:
 ```
 
 ## Hard rules
 
-- Thin orchestrator: delegate to the specialist skills; do not duplicate their logic here.
 - Goal task without a locked stop boundary: do not start porting.
-- Vague boundary: ask, do not loop.
-- Equivalence means behavior, not structure.
-- Idiomatic rewrite must not break behavioral equivalence.
-- No idiomatic over-engineering: use target features for real correctness/readability/performance gains, not to show off.
-- No code in this skill's own output; code work happens in the delegated coding run.
-- Plan file is the single source of truth: read before acting, update after each iteration. A stale plan is worse than none.
-- No current plan file: do not port. dev-notes/.gitignore choice is the user's; never assume.
+- Equivalence means behavior, not structure; idiom never overrides correctness.
+- No code in this skill output; delegated Coding performs implementation.
+- Req-process owns scope/AC; cross-process owns magnitude/equivalence/progress.
+- Missing/stale linked state: do not port. Never assume `.gitignore` choice.

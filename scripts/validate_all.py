@@ -11,6 +11,8 @@ m = json.loads((root/"skills-manifest.json").read_text(encoding="utf-8"))["skill
 folders = {p.name for p in (root/"skills").iterdir() if p.is_dir()}
 names = {s["name"] for s in m}
 if names != folders: raise SystemExit(f"manifest mismatch: {names} != {folders}")
+subprocess.run([sys.executable, str(root/"scripts/validate_context_budgets.py")], cwd=root, check=True)
+subprocess.run([sys.executable, str(root/"scripts/validate_skill_surfaces.py")], cwd=root, check=True)
 for s in m:
     p = root/"skills"/s["name"]
     validate_skill_frontmatter(p)

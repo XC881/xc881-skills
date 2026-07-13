@@ -3,7 +3,7 @@ name: xc881-bugfix-research
 description: 'Intent-routed. Use with $xc881-bugfix-research or clear bug/vulnerability diagnosis intent such as 接口 500, 回归, 依赖 CVE, 漏洞影响, 日志报错, or 先定位原因. Analyze bug/vulnerability before coding: evidence, research, cause, reproducer plan, repair plan, verification plan, handoff. No code/test/commit.'
 when_to_use: 'Use when the user intent is diagnosing or planning repair for a bug, regression, stack trace, runtime error, vulnerability, CVE/GHSA/OSV/CWE/OWASP item, security advisory, or performance symptom before coding.'
 display_name: "xc881漏洞与Bug诊断"
-version: "2.1.0"
+version: "2.3.0"
 category: "debugging-security"
 tags:
   - intent-routing
@@ -48,10 +48,10 @@ Steps:
 3. Gather expected, actual, env/version, input, logs, affected path.
 4. Research if useful; match version/context.
 5. Plan repro.
-6. Localize entry/call/data/state/boundary/API.
+6. For repository evidence, combine read complexity with project coupling: perform a simple exact/local/low-risk read here, or delegate a complex/tracked `read` to `$xc881-coding-skills`, then resume diagnosis. Bugfix retains cause ownership.
 7. State smallest cause + confidence.
 8. Plan minimal fix + risk + verification.
-9. Hand off.
+9. Automatically hand the repair read/write stage to `$xc881-coding-skills`; no second user invocation is needed.
 
 Output:
 
@@ -76,4 +76,4 @@ Exploitability:
 Mitigation:
 ```
 
-Rules: route only on bug/vulnerability diagnosis intent; no exploit steps; fact ≠ hypothesis; weak evidence ≠ certainty.
+Rules: route only on bug/vulnerability diagnosis intent; no exploit steps; fact ≠ hypothesis; weak evidence ≠ certainty; delegated Coding reads do not grant change permission before cause/scope is clear. After context compaction, resume the same diagnosis owner and evidence/cause loop automatically.

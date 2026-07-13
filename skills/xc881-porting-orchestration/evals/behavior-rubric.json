@@ -10,8 +10,17 @@
         "magnitude is judged from reading the code, not assumed to be whole-project from wording",
         "goal task locks measurable done-criteria + exit conditions before any porting is proposed",
         "a vague boundary is raised as a blocking question, not entered as a loop",
-        "no porting action is proposed before a plan file under dev-notes/cross-process/ exists",
-        "equivalence is stated as behavioral (IO/parity/tests), not structural sameness"
+        "no porting action is proposed before linked req-process and cross-process artifacts exist",
+        "req-process owns scope and AC while cross-process owns only port-specific magnitude, equivalence and progress",
+        "scope, AC and done-criteria are referenced rather than duplicated across artifacts",
+        "continuation requires an explicit or unambiguous selected artifact and never scans dev-notes to guess",
+        "reads the cross-process ledger plus linked req-process current.md and current item without loading index/previous/next by default",
+        "equivalence is stated as behavioral (IO/parity/tests), not structural sameness",
+        "user-facing output explains the migration, success proof, current progress, next action and record paths in plain language",
+        "after each runnable item it checkpoints, advances and continues automatically instead of asking for continue",
+        "only explicit stepwise intent or a genuine blocker/boundary stops the run before task terminal",
+        "raw Task class/Magnitude/Stop boundary/Understanding/Equivalence headings stay in artifacts rather than the user summary"
+        ,"cross-process stores equivalence method and item status, while verdict/evidence stays in chat"
       ]
     },
     {
@@ -22,7 +31,26 @@
         "abstract-architectural-intent magnitude downgrades equivalence to intent fidelity only when no source code is transliterated, and marks the downgrade",
         "skill/process porting records adopt/adapt/reject mapping before claiming intent-fidelity equivalence",
         "delegates deep code work to $xc881-coding-skills rather than doing it inline (thin orchestrator)",
+        "a blocking decision is phrased plainly with a recommended choice and fallback or stop behavior",
         "dev-notes creation asks the user about .gitignore, never assumes"
+      ]
+    },
+    {
+      "query": "迁移边界已锁定，连续完成三个迁移队列项",
+      "checklist": [
+        "delegates each current item to Coding and waits for checkpoint advancement before loading next",
+        "continues automatically through runnable items without per-item user prompts",
+        "stops only for explicit pause/stepwise control or a real equivalence, permission, safety or contract blocker",
+        "marks terminal only when linked requirement and porting items are complete"
+      ]
+    },
+    {
+      "query": "迁移中途切换模型并压缩上下文，继续保持行为等价",
+      "checklist": [
+        "treats compaction as an environment event and preserves Porting as the active owner",
+        "keeps linked req current, porting item state, equivalence method, open risks and exact next action durable",
+        "reloads only the selected cross-process ledger plus linked current window",
+        "continues delegated implementation without weakening the equivalence gate or asking the user to continue"
       ]
     }
   ]

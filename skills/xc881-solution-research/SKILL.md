@@ -3,7 +3,7 @@ name: xc881-solution-research
 description: 'Intent-routed. Use with $xc881-solution-research or clear technical-research intent such as 调研技术方案, 选技术栈, 比较方案, 查官方资料, or bounded delegated research from $xc881-source-article-style or $xc881-requirement-analysis. Research technical feasibility and external technical facts before coding: normalize idea, infer research questions, search authoritative sources, compare options, recommend, hand off. No code.'
 when_to_use: 'Use for web-backed technical research when the user intent is feasibility research, option comparison, docs/standards/advisory inspection, stale external fact checking, or technical-route judgment. Enter requirement analysis only when the user asks for both in one request, invokes requirement after solution output, or the current run was delegated by requirement-analysis.'
 display_name: "xc881技术方案联网调研"
-version: "2.1.0"
+version: "2.2.0"
 category: "solution-research"
 tags:
   - intent-routing
@@ -23,7 +23,7 @@ aliases:
 
 Intent-routed technical research. Direct `$xc881-solution-research` calls and clear research intent both trigger. No code.
 
-Delegated use: an active `$xc881-source-article-style` run may use this skill automatically for one bounded unexplained term/concept that affects article understanding. An active `$xc881-requirement-analysis` run may use this skill automatically for bounded technical uncertainty that affects requirement judgment, and the result should return to that same requirement run automatically.
+Delegated use: an active `$xc881-source-article-style` run may use this skill automatically for one bounded unexplained term/concept that affects article understanding. An active `$xc881-requirement-analysis` run may use this skill automatically for bounded technical uncertainty that affects requirement judgment, and the result returns to that same owner automatically, including after context compaction.
 
 Goal:
 
@@ -51,9 +51,9 @@ Steps:
 3. Make explicit + inferred `RQ-*`.
 4. Infer stack candidates.
 5. Search targeted primary sources.
-6. Compare 2-4 options.
-7. Pick only if evidence is enough.
-8. Hand off.
+6. If delegated from a req-process Artifact, write bounded evidence under its `evidence/` directory.
+7. Compare 2-4 options.
+8. Pick only if evidence is enough, then hand off.
 
 Output:
 

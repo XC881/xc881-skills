@@ -15,6 +15,143 @@
         "Agent Brief or issue AC is treated as the implementation contract when present",
         "success is claimed only with verification evidence"
       ]
+    },
+    {
+      "query": "帮我读一下这个模块的入口、调用链和数据流，不要改代码",
+      "checklist": [
+        "classifies the request as instant plus read when no queue context is supplied",
+        "does not scan or load dev-notes to look for an active task",
+        "inspects actual source, tests, types or config needed to support the explanation",
+        "distinguishes observed code evidence from inference",
+        "does not edit code merely because the Coding skill is active"
+      ]
+    },
+    {
+      "query": "修复这个明确的小 bug，没有长期任务文档",
+      "checklist": [
+        "classifies the request as instant plus change",
+        "does not create, discover or update a req-process queue",
+        "reads the relevant code before changing it",
+        "keeps the patch scoped and verifies observable behavior"
+      ]
+    },
+    {
+      "query": "按 dev-notes/req-process/20260713-login/current.md 继续实现",
+      "checklist": [
+        "classifies the request as queue plus change from the explicit artifact path",
+        "validates the req-process artifact before coding",
+        "reads current.md and the named current queue item only",
+        "does not read previous or next queue files by default",
+        "reads a previous item only when the current item explicitly links required evidence and reads next only after advancement",
+        "does not read index.md by default",
+        "returns to Requirement when the local contract is incomplete, conflicts with code, changes scope/AC, or requires replanning",
+        "does not change requirement scope or AC inside coding",
+        "runs declared verification before marking done and reports results in chat only",
+        "updates queue status, transition history and current pointer without persisting verification results",
+        "revalidates the artifact before reporting progress"
+      ]
+    },
+    {
+      "query": "当前任务明确引用了前一项的基准测试证据，继续执行",
+      "checklist": [
+        "reads current.md and the current item first",
+        "loads only the explicitly linked previous evidence or item needed by the current contract",
+        "does not broaden the read to unrelated previous, next, index or history files"
+      ]
+    },
+    {
+      "query": "继续之前的任务",
+      "checklist": [
+        "uses queue mode only when the current conversation unambiguously identifies one active artifact",
+        "asks one blocking selection question when multiple req-process or cross-process tasks are plausible",
+        "does not scan dev-notes and guess the most recent task"
+      ]
+    },
+    {
+      "query": "需求分析已复用 dev-notes/req-process/login，并交接 Current Q-070、Next Q-080，继续写代码",
+      "checklist": [
+        "uses the exact reopened artifact and current/next handoff after mechanical validation",
+        "does not scan req-process, compare candidates, or select a newer artifact",
+        "reads only current.md and the handed-off current item before coding"
+      ]
+    },
+    {
+      "query": "按 dev-notes/req-process/login/current.md 只读检查当前实现，不要改代码",
+      "checklist": [
+        "enters Coding even though the requested action is read-only",
+        "classifies queue before opening project or execution-artifact files, then classifies read",
+        "validates the exact artifact and reads current.md plus the current item only",
+        "returns evidence without modifying files or inferring change permission"
+      ]
+    },
+    {
+      "query": "先分析登录需求，明确后直接读取代码并实现",
+      "checklist": [
+        "Requirement owns unclear scope and automatically hands actual code reading/writing to Coding",
+        "the user is not asked to invoke Coding a second time",
+        "Coding classifies instant or queue before opening project or execution-artifact files",
+        "Coding independently classifies read or change after persistence mode",
+        "a bounded delegated read returns evidence to Requirement before any unconfirmed change"
+      ]
+    },
+    {
+      "query": "先定位接口 500 根因，明确后直接读取并修复代码",
+      "checklist": [
+        "Bugfix owns diagnosis and delegates bounded repository inspection to Coding read mode",
+        "Coding returns evidence to the same Bugfix run without silently changing code",
+        "after cause and repair scope are clear, Bugfix automatically hands the change back to Coding",
+        "each Coding entry classifies instant or queue before read or change execution"
+      ]
+    },
+    {
+      "query": "读取小项目 src/version.ts 里的 VERSION 常量，不做其它分析",
+      "checklist": [
+        "AI combines requested-read and project complexity before routing",
+        "the exact local low-risk read stays direct without activating Coding",
+        "no dev-notes scan, engineering reference load, or queue creation occurs"
+      ]
+    },
+    {
+      "query": "在多语言 monorepo 中读取版本常量，并确认它如何影响各包发布",
+      "checklist": [
+        "AI considers both cross-package impact and multi-language project coupling",
+        "the read activates Coding because evidence and release impact cross module boundaries",
+        "Coding classifies instant or queue before reading and returns evidence without unrelated changes"
+      ]
+    },
+    {
+      "query": "当前需求有三个可运行队列项，开始实现",
+      "checklist": [
+        "validates and reads only the initial current window",
+        "after each item verifies, checkpoints and advances before reading the new current",
+        "continues through all runnable items without asking the user to say continue",
+        "ends normally only when every queue item is done or skipped and task state is terminal"
+      ]
+    },
+    {
+      "query": "每完成一个队列项先停下来等我确认",
+      "checklist": [
+        "recognizes explicit stepwise control as an override",
+        "finishes verification and writes a valid checkpoint before stopping",
+        "does not read or execute the next item before user confirmation"
+      ]
+    },
+    {
+      "query": "连续执行队列，第二项需要生产环境权限",
+      "checklist": [
+        "continues the first runnable item without a continuation prompt",
+        "checkpoints before stopping at the permission boundary",
+        "asks one precise approval or credential question and does not skip ahead"
+      ]
+    },
+    {
+      "query": "连续执行二十轮队列，上下文接近限制但不要中断任务",
+      "checklist": [
+        "treats context compaction as an environment event rather than a queue boundary",
+        "keeps the exact current contract, blockers, evidence paths, changed paths and next action recoverable",
+        "removes stale tool results only after their decision impact or evidence path is durable",
+        "reloads only the selected fast path and exact current window, revalidates, and continues without a continuation prompt"
+      ]
     }
   ]
 }

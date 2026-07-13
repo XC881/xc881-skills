@@ -1,14 +1,8 @@
-# xc881 Skills
+# xc881 Provider Compatibility Shim
 
-Analysis/writing skills trigger only on direct `$skill-name` or explicit `xc881` + task intent. Ordinary wording without `xc881` does not trigger them. `xc881-coding-skills` may run for clear coding execution.
-
-Use:
-
-- `xc881-solution-research`: web-backed technical research, feasibility, option comparison; no code.
-- `xc881-requirement-analysis`: scope, ER/IR, FR/NFR, AC, risk, handoff; no code.
-- `xc881-bugfix-research`: evidence, root cause, fix plan, verification plan; no code/test/commit.
-- `xc881-coding-skills`: implementation, refactor, review, optimization, verification.
-- `xc881-source-article-style`: source-reading article outlines/prose from code evidence.
-- `xc881-porting-orchestration`: cross-language/cross-project porting; classifies goal vs non-goal, locks a stop boundary, verifies behavioral equivalence; delegates to the other skills.
-
-Default to compact outputs. Expand only when asked or when risk requires it.
+Intent-route to one matching xc881 skill and load its `SKILL.md`; open references
+only for the active branch. Coding owns writes and complex/tracked reads; analysis
+skills do not code. Queue execution resumes from exact current state and continues
+to terminal unless stepwise intent or a real blocker applies. Keep output compact,
+resume the same owner/current automatically after context compaction, and
+never commit/push implicitly.

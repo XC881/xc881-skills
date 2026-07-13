@@ -20,3 +20,22 @@ Use for serious coding, bug fixes, refactors, reviews, production edits, surgica
 14. If the solution grows larger than the problem, simplify before patching.
 15. Verify before success claims.
 16. If two fixes fail, stop and diagnose root cause.
+
+## Non-trivial design gate
+
+Weigh two plausible designs, then report compactly:
+
+```text
+xc881 设计门禁:
+变化轴 / 成功标准 / 职责拆分 / 边界与文件
+依赖方向 / 代码质量风险 / 过度设计风险
+性能模式: yes/no
+测试策略:
+```
+
+Dependency direction:
+
+```text
+UI/Controller/Framework -> Application/Use Case -> Domain/Core -> Ports
+Infrastructure implements ports.
+```

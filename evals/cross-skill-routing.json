@@ -48,11 +48,35 @@
     "expected_skills": ["xc881-coding-skills"]
   },
   {
+    "query": "帮我读一下这个模块的入口和调用链，不要改代码",
+    "expected_skills": ["xc881-coding-skills"]
+  },
+  {
     "query": "按我的文章风格写一篇 BrowserWindow 创建流程的函数级分析",
     "expected_skills": ["xc881-source-article-style"]
   },
   {
     "query": "帮我把这个项目改写成另一种语言",
     "expected_skills": ["xc881-porting-orchestration"]
+  },
+  {
+    "query": "先分析登录需求，明确后直接读取代码并实现",
+    "expected_skills": ["xc881-requirement-analysis", "xc881-coding-skills"]
+  },
+  {
+    "query": "先定位接口 500 根因，明确后直接读取并修复代码",
+    "expected_skills": ["xc881-bugfix-research", "xc881-coding-skills"]
+  },
+  {
+    "query": "先读仓库里的 BrowserWindow 实现，再按我的风格写源码文章",
+    "expected_skills": ["xc881-source-article-style", "xc881-coding-skills"]
+  },
+  {
+    "query": "读取小项目 src/version.ts 里的 VERSION 常量，不做其它分析",
+    "expected_skills": []
+  },
+  {
+    "query": "在多语言 monorepo 中读取版本常量，并确认它如何影响各包发布",
+    "expected_skills": ["xc881-coding-skills"]
   }
 ]

@@ -12,6 +12,24 @@
         "large research is written to a bounded artifact and chat output reports path plus decision impact",
         "Pick is only made when Evidence is sufficient, else stated as blocker"
       ]
+    },
+    {
+      "query": "需求分析委派：调研 checkpoint 方案，Artifact 是 dev-notes/req-process/20260713-checkpoint/",
+      "checklist": [
+        "writes bounded findings under the provided artifact evidence directory",
+        "returns evidence path and affected RQ/decision to the same requirement run",
+        "does not create a second unrelated artifact or repeat the full evidence in chat",
+        "keeps fact, inference and recommendation distinct"
+      ]
+    },
+    {
+      "query": "Requirement 委派的技术调研中途发生自动上下文压缩",
+      "checklist": [
+        "treats compaction as an environment event rather than a Solution action",
+        "retains the bounded RQ, source/evidence paths and Requirement as active owner",
+        "does not restart research broadly or ask the user to invoke Requirement again",
+        "returns the result to the same Requirement run automatically"
+      ]
     }
   ]
 }

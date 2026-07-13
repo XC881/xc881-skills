@@ -60,6 +60,9 @@ if not any(not e["should_trigger"] for e in evals):
     die("need negative eval")
 if "Intent-routed" not in text:
     die("missing intent-routing rule")
+for rule in ["inspect simple exact/local/low-risk evidence directly", "delegate complex/tracked evidence to `$xc881-coding-skills`", "Do not bypass Coding for complex/tracked source inspection"]:
+    if rule not in text:
+        die(f"missing Coding read delegation: {rule}")
 
 if len(text.splitlines()) > 110:
     die("SKILL.md too long")

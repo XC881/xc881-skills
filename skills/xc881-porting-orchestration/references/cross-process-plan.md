@@ -1,7 +1,10 @@
 # Cross-Process Plan File
 
-The single source of truth for porting progress. It survives context
-compaction: when the session forgets, re-read this file, not the chat history.
+The source of truth for porting-specific execution state. Requirement scope/AC
+remain authoritative in the linked req-process Artifact.
+
+Keep the active ledger at or below 3,000 characters. Link long logs/reports rather
+than embedding them. Validate with `scripts/validate_cross_process.py <ledger>`.
 
 ## Location
 
@@ -13,31 +16,40 @@ to `.gitignore`. The user decides; never assume. Do not port until answered.
 
 ## Hard precondition
 
-- After magnitude + boundary are locked, generate the plan file.
-- Before ANY porting or reference action, read the plan and state "progress vs plan".
-- No current plan file (missing or stale) -> do not port. Same gate as the boundary.
+- After the req-process boundary is locked, generate this file and link it.
+- Before ANY porting action, require an explicit path/handoff or one unambiguous
+  active porting context. Never scan `cross-process/` to guess a task.
+- Read this current ledger plus linked req-process `current.md` and its current
+  queue item only. Previous requires an explicit current-item evidence link; next
+  waits until advancement. Do not read req-process `index.md` by default.
+- Missing or stale linked state -> do not port.
 - After every iteration, update the plan. Read first, update after. The plan, not
   the conversation, is authoritative. A stale checkpoint is worse than none.
+- A checkpoint is a recovery point, not a default confirmation point. After
+  advancement, load the new current window and continue automatically until task
+  terminal. Stop only for explicit stepwise/pause intent or a real blocker.
+- Context compaction preserves Porting ownership. Keep the linked req current,
+  porting item state, equivalence method, open risks, and exact next action durable,
+  then resume automatically.
 
 ## Template
 
 ```text
 # Porting plan: <source> -> <target>
 
+Requirement artifact: dev-notes/req-process/<task>/
 Magnitude: whole-project / module / feature / logic-slice / abstract-intent
-Stop boundary:
-  done-criteria: <measurable, checkable per iteration>
-  exit: <success end / give-up-escalate end>
-  out-of-scope: <listed>
 Equivalence method: IO parity / ported tests / golden / intent-fidelity
 Items:
-  - <module/feature>: not-started / in-progress / done  (+ note/evidence)
+  - <module/feature>: not-started / in-progress / done
 Progress: <done N of M> — <last calibrated at>
 Open risks: <P0-P3, carried across sessions>
 ```
 
 ## Rules
 
-- Keep it a ledger, not prose. Update item status + evidence, not narrative.
+- Keep it a ledger, not prose. Update item status, not verification results/logs.
+- Store equivalence method, not its result; report verdict/evidence in chat.
 - One file per porting task; `cross-process/` holds many tasks.
-- Must be self-sufficient: resumable from this file alone, no chat memory.
+- Scope/AC/boundary are never copied here; they are read from Requirement artifact.
+- The linked req-process + cross-process pair must be resumable without chat memory.

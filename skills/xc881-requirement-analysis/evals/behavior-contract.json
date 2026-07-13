@@ -2,6 +2,6 @@
   "skill": "xc881-requirement-analysis",
   "layer": "structural",
   "forbid_impl_code": true,
-  "required_sections": ["Spec", "ER", "IR", "Scope", "FR/NFR", "AC", "Risk", "Handoff"],
-  "pass_sample": "Spec: goal inputs constraints output notes\nER: user asks to define behavior-level eval acceptance standard\nIR: infer layered eval model, high confidence\nScope: in structural layer, out routing change\nFR/NFR: functional contract sections present; non-functional offline reproducible\nAC: given a complete output every assertion passes and a deleted section fails\nRisk: semantic quality not mechanically checkable, P1\nQ: which MVP tier, A B or C\nHandoff: to coding, implement structural layer first"
+  "required_sections": ["需求结论", "这次会做", "完成标准", "下一步", "开发记录"],
+  "pass_sample": "需求结论: 需要建立可重复验证的输出标准\n这次会做: 明确结构检查和语义检查的边界，不调整路由规则\n完成标准: 完整输出通过，删除任一必填部分后校验失败\n需要注意: 语义质量仍需要人工或模型评审\n下一步: 交给 Coding 先实现结构检查\n开发记录: 未创建，当前是一轮内可完成的单目标分析"
 }

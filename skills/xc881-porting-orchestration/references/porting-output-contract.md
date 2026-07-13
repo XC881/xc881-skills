@@ -1,23 +1,32 @@
 # Porting Output Contract
 
-Compact by default. Emit the sections that apply; goal tasks require the boundary before any porting.
+Keep task class, magnitude, stop boundary, language/library mapping, risk priority,
+equivalence evidence, and execution ledger in req-process/cross-process. Chat
+translates those decisions for the user.
 
 ```text
-xc881 Porting:
-Task class: goal / non-goal + why
-Magnitude: whole-project / module / feature / logic-fragment / abstract-intent + evidence
-Stop boundary: done-criteria / exit / out-of-scope
-Understanding: language diff / architecture / library map
-Risks: pre/post porting problems, prioritized (P0-P3)
-Equivalence: method + consistent/inconsistent + evidence
-Progress: vs done-criteria + done/not-done
-Handoff:
+迁移结论: <plain decision and whether work may proceed>
+本次迁移: <source, target, bounded scope>
+如何确认成功: <observable parity/equivalence proof>
+需要注意: <material user-relevant risk; omit when none>
+需要确认: <blocking decision; omit when none>
+当前进度: <status-based completed/current/remaining state>
+下一步: <who does what next>
+开发记录: <req-process + cross-process paths, or why absent>
 ```
 
 Rules:
 
-- Task class always first, then Magnitude (read and judge before locking the boundary).
-- Stop boundary is required before porting on goal tasks; on non-goal tasks it may be a single line.
-- Progress line appears on goal iterations.
+- Goal tasks still require linked req-process and cross-process artifacts before
+  porting; human wording does not bypass the boundary gate.
+- `如何确认成功` translates the equivalence method and stop criteria without
+  copying the complete contracts into chat.
+- `当前进度` uses status-based counts/state, never subjective percentages.
+- `下一步` names the agent's automatic continuation; do not ask the user to say
+  “continue” between runnable items unless stepwise control was requested.
+- Chat-only/non-goal work must include enough scope, proof method, assumptions,
+  and next action to stand alone.
+- Blocking questions include a recommendation and safe fallback/stop behavior.
+- Omit irrelevant optional headings and do not repeat the full plan.
 - No code here; delegate implementation and equivalence checks to `$xc881-coding-skills`.
 - Keep each section evidence-backed; mark inference as inference.
