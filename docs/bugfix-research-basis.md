@@ -8,7 +8,8 @@ Reason:
 
 - ordinary bug/error/security words need symptom/diagnosis context to avoid noisy auto-triggering;
 - bug/vulnerability diagnosis can require web research and longer reasoning, so it should only trigger on clear diagnostic intent;
-- implementation and verification should remain in `xc881-coding-skills`.
+- implementation and verification remain in `xc881-coding-skills` only when the
+  user or delegating owner requested a change.
 
 Flow:
 
@@ -18,5 +19,5 @@ bug/vulnerability diagnosis intent
 → root-cause hypothesis
 → repair plan
 → verification plan
-→ handoff to xc881-coding-skills
+→ optional handoff to xc881-coding-skills when implementation was requested
 ```

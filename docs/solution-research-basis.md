@@ -10,4 +10,7 @@ Design rationale:
 - use papers first for principle-level knowledge;
 - use official docs, standards/RFCs, release notes, maintainer GitHub issues/PRs, advisories, and high-quality developer discussions for implementation evidence;
 - keep output compact and cite only sources that affect conclusions;
-- hand off to requirement analysis or coding instead of implementing directly.
+- use a compact evidence path for one fact and compare options only for a real
+  decision;
+- return bounded delegated evidence to its owner, or hand a selected option to
+  requirement analysis/coding instead of implementing directly.

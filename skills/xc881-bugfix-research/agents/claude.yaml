@@ -1,6 +1,6 @@
 interface:
   display_name: "xc881漏洞与Bug诊断"
-  short_description: "Intent-routed bug/vuln analysis"
-  default_prompt: "Route bug, regression, vulnerability, or performance diagnosis here. SKILL.md owns workflow. No code. Keep weak evidence uncertain; delegate complex reads and confirmed changes to Coding."
+  short_description: "Bug and vulnerability diagnosis owner"
+  default_prompt: "Use only for diagnosis outcomes. SKILL.md owns workflow. Stop after diagnosis unless implementation intent is explicit or delegated; never co-own incidental errors."
 policy:
   allow_implicit_invocation: true

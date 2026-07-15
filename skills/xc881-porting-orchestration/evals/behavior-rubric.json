@@ -36,6 +36,15 @@
       ]
     },
     {
+      "query": "将这个 Go 服务迁移到 Rust；先只判断迁移边界，不写代码",
+      "checklist": [
+        "Porting remains the only active owner for the boundary outcome",
+        "classifies from supplied or cheap evidence and delegates code reading only for a blocking gap",
+        "does not create cross-process state for a small chat-only non-goal analysis",
+        "does not delegate implementation to Coding because the user explicitly requested no code"
+      ]
+    },
+    {
       "query": "迁移边界已锁定，连续完成三个迁移队列项",
       "checklist": [
         "delegates each current item to Coding and waits for checkpoint advancement before loading next",

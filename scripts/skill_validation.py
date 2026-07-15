@@ -197,6 +197,13 @@ def validate_behavior_contracts(root, skills):
             isinstance(s, str) and s.strip() for s in required
         ):
             die("xc881-skills", f"{name} required_sections must be non-empty strings")
+        optional = contract.get("optional_sections", [])
+        if not isinstance(optional, list) or not all(
+            isinstance(s, str) and s.strip() for s in optional
+        ):
+            die("xc881-skills", f"{name} optional_sections must be strings")
+        if set(required) & set(optional):
+            die("xc881-skills", f"{name} required/optional sections overlap")
         forbid = contract.get("forbid_impl_code", False)
         if not isinstance(forbid, bool):
             die("xc881-skills", f"{name} forbid_impl_code must be boolean")

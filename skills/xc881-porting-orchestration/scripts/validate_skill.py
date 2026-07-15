@@ -28,6 +28,10 @@ for rule in ["Never scan `cross-process/`", "req-process `current.md`", "Do not 
     if rule not in cross_text: die(f"missing current-window rule: {rule}")
 for rule in ["continue automatically", "task terminal", "explicit stepwise/pause intent"]:
     if rule not in text + cross_text: die(f"missing continuous-run rule: {rule}")
+for rule in ["supplied or cheap evidence", "Small non-goal planning stays", "Planning/boundary-only intent stops"]:
+    if rule not in text: die(f"missing minimum porting branch: {rule}")
+if not any(e["should_trigger"] and "porting boundary only" in e["workflow"] for e in ev):
+    die("need positive boundary-only eval")
 output_text = (root/"references/porting-output-contract.md").read_text(encoding="utf-8")
 human_sections = ["迁移结论", "本次迁移", "如何确认成功", "当前进度", "下一步", "开发记录"]
 for heading in human_sections:

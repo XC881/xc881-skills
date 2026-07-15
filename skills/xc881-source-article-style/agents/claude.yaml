@@ -1,6 +1,6 @@
 interface:
   display_name: "xc881源码文章风格"
-  short_description: "Function-level source article writing"
-  default_prompt: "Route source-reading article work here. SKILL.md owns workflow and prose. Delegate complex code reads to Coding and unexplained technical terms to bounded Solution research. No code changes."
+  short_description: "Chinese source-code article owner"
+  default_prompt: "Use only for source-article prose. SKILL.md owns workflow. Reuse supplied evidence and delegate only blocking code or external-term gaps."
 policy:
   allow_implicit_invocation: true

@@ -19,11 +19,13 @@ for a in ["openai.yaml","claude.yaml"]:
 ev = json.loads((root/"evals/trigger-queries.json").read_text(encoding="utf-8"))
 if not any(e["should_trigger"] for e in ev): die("need positive eval")
 if not any(not e["should_trigger"] for e in ev): die("need negative eval")
-for rule in ["Read gate: explicit Coding invocation", "every write", "task/project complexity trigger", "every simple condition", "before opening project files or execution artifacts", "`read` or `change`", "Queue loop:", "After context compaction", "Never ask the user to say continue", "task terminal", "explicit stepwise/pause intent", "Do not scan `dev-notes`", "Do not read `index.md` by default", "current queue item only", "Do not load previous/next", "stop and return to Requirement"]:
+for rule in ["Read gate: explicit Coding invocation", "every write", "task/project complexity trigger", "Ordinary simple reads stay direct", "before opening project files or execution artifacts", "`read` or `change`", "Queue loop:", "After context compaction", "Never ask the user to say continue", "task terminal", "explicit stepwise/pause intent", "Do not scan `dev-notes`", "Do not read `index.md` by default", "current queue item only", "Do not load previous/next", "stop and return to Requirement", "Run only the needed branch"]:
     if rule not in text: die(f"missing task-mode rule: {rule}")
 for workflow in ["instant read-only", "queue read-only", "instant change", "requirements then coding", "bugfix then coding"]:
     if not any(e["should_trigger"] and workflow in e["workflow"] for e in ev):
         die(f"need positive coding eval: {workflow}")
+if not any(e["should_trigger"] and "known-cause coding" in e["workflow"] for e in ev):
+    die("need positive known-cause coding eval")
 if not any(not e["should_trigger"] and "simple direct read" in e["workflow"] for e in ev):
     die("need negative simple direct read eval")
 if not any(e["should_trigger"] and "complex project read" in e["workflow"] for e in ev):

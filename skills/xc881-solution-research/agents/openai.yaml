@@ -1,6 +1,6 @@
 interface:
   display_name: "xc881技术方案联网调研"
-  short_description: "Intent-routed compact technical research"
-  default_prompt: "Route technical research here. SKILL.md owns workflow. No code. Prefer primary sources; compare bounded options. Requirement-delegated evidence stays under the exact req-process artifact."
+  short_description: "External technical evidence owner"
+  default_prompt: "Use only for external technical evidence. SKILL.md owns workflow. Fact checks stay compact; compare options only for a real decision; return bounded delegates."
 policy:
   allow_implicit_invocation: true

@@ -1,9 +1,9 @@
 ---
 name: xc881-solution-research
-description: 'Intent-routed. Use with $xc881-solution-research or clear technical-research intent such as 调研技术方案, 选技术栈, 比较方案, 查官方资料, or bounded delegated research from $xc881-source-article-style or $xc881-requirement-analysis. Research technical feasibility and external technical facts before coding: normalize idea, infer research questions, search authoritative sources, compare options, recommend, hand off. No code.'
-when_to_use: 'Use for web-backed technical research when the user intent is feasibility research, option comparison, docs/standards/advisory inspection, stale external fact checking, or technical-route judgment. Enter requirement analysis only when the user asks for both in one request, invokes requirement after solution output, or the current run was delegated by requirement-analysis.'
+description: 'Primary owner for web-backed technical research: feasibility, option decisions, standards/advisories, and stale external facts. Use when external evidence is the outcome or a bounded delegate is blocked; ordinary explanations and incidental terms stay with the current owner.'
+when_to_use: 'Use for external technical evidence or decisions. Single-fact checks skip option comparison; delegated research returns to its owner.'
 display_name: "xc881技术方案联网调研"
-version: "2.2.0"
+version: "2.3.0"
 category: "solution-research"
 tags:
   - intent-routing
@@ -21,7 +21,9 @@ aliases:
 
 # xc881 Solution Research
 
-Intent-routed technical research. Direct `$xc881-solution-research` calls and clear research intent both trigger. No code.
+Intent-routed external-evidence owner. Direct calls select it; implicit use
+requires the primary outcome in the description. Incidental terms stay with the
+base/current owner. Run only the needed branch. No code.
 
 Delegated use: an active `$xc881-source-article-style` run may use this skill automatically for one bounded unexplained term/concept that affects article understanding. An active `$xc881-requirement-analysis` run may use this skill automatically for bounded technical uncertainty that affects requirement judgment, and the result returns to that same owner automatically, including after context compaction.
 
@@ -48,12 +50,12 @@ Steps:
 
 1. Confirm technical-research intent from direct invocation, wording, or delegated context.
 2. Spec: `Goal / Inputs / Constraints / Unknowns / Output`.
-3. Make explicit + inferred `RQ-*`.
+3. Make only the explicit/inferred `RQ-*` needed for the decision.
 4. Infer stack candidates.
-5. Search targeted primary sources.
+5. Search the smallest useful set of primary sources.
 6. If delegated from a req-process Artifact, write bounded evidence under its `evidence/` directory.
-7. Compare 2-4 options.
-8. Pick only if evidence is enough, then hand off.
+7. Fact check: report evidence, impact, risk, and handoff; do not invent options.
+8. Decision: compare 2-4 real options and pick only when evidence is enough.
 
 Output:
 
@@ -68,4 +70,9 @@ Risk:
 Handoff:
 ```
 
-Rules: route only on technical-research intent; no code; papers first for principles; cite only useful sources; fact ≠ inference ≠ recommendation; do not default into requirement analysis unless the user asks for both in one request or invokes requirement after solution output; requirement-delegated research may return to the same requirement run automatically.
+`Options` and `Pick` are decision-only; omit them for a single-fact check.
+
+Rules: route only on external technical evidence/decision intent; no code; papers
+first for principles; cite only used sources; fact ≠ inference ≠ recommendation;
+do not default into Requirement unless requested or delegated. Delegated research
+returns to the same owner automatically.

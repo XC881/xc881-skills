@@ -19,6 +19,15 @@
       ]
     },
     {
+      "query": "分析一个明确的单目标需求，只在本轮给出范围和完成标准",
+      "checklist": [
+        "uses a compact chat-only contract because persistence and handoff are not needed",
+        "checks explicit or conversational artifact identity but does not scan req-process",
+        "does not create queue files merely to preserve context",
+        "keeps scope and completion criteria self-contained in the response"
+      ]
+    },
+    {
       "query": "用xc881分诊 GitHub issue #42，判断是否 ready-for-agent",
       "checklist": [
         "canonical tracker state transition is justified from issue evidence",
@@ -47,7 +56,7 @@
       "query": "继续修改之前的 req-process 协议需求，并把新增工作交给 Coding",
       "checklist": [
         "resolves an explicit or conversational artifact before applying the document gate",
-        "when context is insufficient, runs a bounded mechanical search that returns candidate paths only and semantically compares plausible candidates",
+        "when persistence or implementation handoff is likely and context is insufficient, runs a bounded mechanical search that returns candidate paths only and semantically compares plausible candidates",
         "does not select by newest directory or keywords alone",
         "reuses one semantic match, asks one blocking selection question for multiple plausible matches, and creates only when no match survives the normal gate",
         "reopened work preserves completed history, appends IDs after the old tail and sets task state ready",

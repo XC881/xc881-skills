@@ -32,6 +32,15 @@
       ]
     },
     {
+      "query": "把现有源码证据整理成一篇函数级文章，不再读仓库",
+      "checklist": [
+        "Source remains the only active owner and reuses the supplied evidence",
+        "does not invoke Coding merely because the article discusses code",
+        "does not run ecosystem recon when the supplied evidence already identifies the stack",
+        "uses bounded Solution research only if one external term fact blocks a reliable claim"
+      ]
+    },
+    {
       "query": "源码文章委派 Coding 读调用链时发生自动上下文压缩",
       "checklist": [
         "preserves article ownership, active section and prose style across context compaction",

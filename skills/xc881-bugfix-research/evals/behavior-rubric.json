@@ -26,6 +26,15 @@
       ]
     },
     {
+      "query": "只分析这个接口 500 的根因和修复方案，不改代码",
+      "checklist": [
+        "Bugfix remains the only active owner and gathers only evidence needed for diagnosis",
+        "the output distinguishes observed evidence, ranked hypotheses and cause confidence",
+        "Handoff is none or names missing evidence rather than starting a Coding change",
+        "the explicit no-code boundary is preserved even when a plausible fix is known"
+      ]
+    },
+    {
       "query": "Bugfix 委派 Coding 读日志和调用链时发生自动上下文压缩",
       "checklist": [
         "preserves Bugfix as owner of hypotheses, cause confidence and repair scope",

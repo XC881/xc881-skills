@@ -2,10 +2,10 @@
 
 Use `dev-notes/` as the preferred xc881 note root; Requirement artifacts live at `dev-notes/req-process/<YYYYMMDD>-<task-slug>/`.
 ## Reuse Before Gate
-
 - Prefer an explicit artifact path or one unambiguous artifact in conversation.
-- Otherwise run `scripts/find_req_process_candidates.py <root> <identity terms>`;
-  it returns at most five paths and does not add index contents to model context.
+- If persistence or implementation handoff is likely, run
+  `scripts/find_req_process_candidates.py <root> <identity terms>`; it returns
+  paths only. Clearly chat-only lightweight analysis does not scan the directory.
 - Read only plausible candidates and compare the request to their goal and
   authority surface. Keywords or newest-directory order never decide identity.
 - Reuse one semantic match, ask one blocking selection question for multiple

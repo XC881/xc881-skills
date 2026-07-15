@@ -14,6 +14,15 @@
       ]
     },
     {
+      "query": "查官方资料确认这个 API 在当前版本是否已弃用",
+      "checklist": [
+        "uses the smallest useful set of version-matched primary sources",
+        "reports the fact, evidence, decision impact and residual risk",
+        "does not create artificial alternatives or empty Options/Pick sections",
+        "does not activate Requirement or Coding without a separate requested outcome"
+      ]
+    },
+    {
       "query": "需求分析委派：调研 checkpoint 方案，Artifact 是 dev-notes/req-process/20260713-checkpoint/",
       "checklist": [
         "writes bounded findings under the provided artifact evidence directory",

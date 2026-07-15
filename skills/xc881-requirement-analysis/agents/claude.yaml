@@ -1,6 +1,6 @@
 interface:
   display_name: "xc881需求分析"
-  short_description: "Intent-routed requirement handoff"
-  default_prompt: "Route requirement/tracker work here. SKILL.md owns workflow. No code. Reuse before create; persist non-trivial queues; delegate bounded research/complex reads; hand exact current to Coding."
+  short_description: "Requirement, scope, AC, and tracker owner"
+  default_prompt: "Use only for scope/AC/tracker outcomes. SKILL.md owns workflow. Persist by gate, keep one owner, and delegate only blocking research or reads."
 policy:
   allow_implicit_invocation: true

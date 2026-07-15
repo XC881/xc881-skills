@@ -21,6 +21,10 @@ if not any(e["should_trigger"] for e in ev): die("need positive eval")
 if not any(not e["should_trigger"] for e in ev): die("need negative eval")
 if "Intent-routed" not in text:
     die("missing intent-routing rule")
+for rule in ["Fact check:", "do not invent options", "decision-only; omit them for a single-fact check"]:
+    if rule not in text: die(f"missing minimum research branch: {rule}")
+if not any(e["should_trigger"] and "single-fact solution research" in e["workflow"] for e in ev):
+    die("need positive single-fact research eval")
 if len(text.splitlines()) > 90: die("SKILL.md too long")
 for ref in (root/"references").glob("*.md"):
     if len(ref.read_text(encoding="utf-8").splitlines()) > 50:

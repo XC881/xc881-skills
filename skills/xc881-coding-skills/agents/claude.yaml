@@ -1,6 +1,6 @@
 interface:
   display_name: "xc881代码工程规范"
-  short_description: "Code reading and compact engineering execution"
-  default_prompt: "Route writes and tracked/complex reads here. SKILL.md owns workflow. Classify instant|queue, then read|change; after context compaction resume the same current and continue to terminal. No implicit commit/push."
+  short_description: "Project writes and complex code reads"
+  default_prompt: "Use for writes or complex/tracked reads. SKILL.md owns workflow. Run the minimum branch, honor bounded delegation, and never infer commit/push."
 policy:
   allow_implicit_invocation: true

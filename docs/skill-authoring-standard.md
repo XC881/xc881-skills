@@ -14,6 +14,13 @@ Principle: accurate, low-token, effective agent reading.
 ## Invocation
 
 - All skills are intent-routed. Direct `$skill-name` calls remain valid, but clear user intent without `xc881` may trigger the matching skill.
+- Implicit routing chooses the minimum sufficient skill set. A skill earns
+  activation only when its unique final outcome or reusable contract changes the
+  result; ordinary model capability is not a reason to wrap the task in a skill.
+- Front-load descriptions with the primary outcome and boundaries. Do not spend
+  discovery metadata on `Intent-routed`, invocation boilerplate, or synonym piles.
+- One skill owns the active phase. Incidental subtask words never create a second
+  owner; bounded delegation returns to the original owner.
 - Route reads from both requested-read complexity and relevant project coupling. Simple exact/local/low-risk reads may stay direct; complex/tracked reads and all writes enter Coding. Project size alone is insufficient.
 - Selected Coding classifies `instant | queue` before opening project/execution-artifact files, then `read | change`.
 - If scope/AC/lifecycle/root cause is unclear, the matching analysis skill retains ownership. It may perform a simple read, delegate a complex Coding read, resume from evidence, and hand confirmed writes back automatically.
@@ -29,6 +36,11 @@ Principle: accurate, low-token, effective agent reading.
 
 ## Instruction quality
 
+- Assume the model already knows general software engineering. Keep only xc881
+  contracts, project-specific policy, or failure-preventing behavior.
+- Make expensive branches conditional. A fact check need not compare products; a
+  diagnosis-only request need not change code; supplied evidence need not be read
+  again; small non-goal work need not create durable state.
 - Prefer checkable completion criteria over vague advice.
 - Ask only blocking questions; look up facts from repo/docs/research before asking.
 - Separate facts, inference, decisions, and recommendations.

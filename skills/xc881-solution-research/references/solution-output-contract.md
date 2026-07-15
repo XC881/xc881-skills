@@ -5,11 +5,19 @@ xc881 Solution:
 Spec:
 RQ:
 Evidence:
-Options:
-Pick:
 Risk:
 Handoff:
 ```
+
+For an actual option decision, add:
+
+```text
+Options:
+Pick:
+```
+
+Do not add empty `Options`/`Pick` sections to fact checks, standards lookups, or
+single API/version verification.
 
 Handoff:
 

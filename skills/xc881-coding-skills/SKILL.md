@@ -1,9 +1,9 @@
 ---
 name: xc881-coding-skills
-description: 'Intent-routed engineering execution. Use for all project writes and reads made complex by task/project coupling: unknown paths, multi-module flows, runtime evidence, architecture, security, performance, concurrency, generated/framework code, or tracked work. Simple exact local low-risk reads may run directly.'
-when_to_use: 'Use when explicitly invoked, for every project write, or when the adaptive read gate selects Coding. Classify instant|queue before read|change. Analysis skills may perform simple bounded reads directly or delegate complex reads and resume.'
+description: 'Primary owner for project writes and complex/tracked code reads. Use for implementation, review, verification, git work, or evidence spanning paths/modules/runtime/architecture/security/performance/concurrency. Simple exact local reads need no skill; bounded delegates do only their contract.'
+when_to_use: 'Use for project writes and complex/tracked reads. Classify instant|queue, then read|change; bounded delegates do only their contract.'
 display_name: "xc881代码工程规范"
-version: "2.1.0"
+version: "2.2.0"
 category: "coding"
 tags:
   - coding
@@ -18,7 +18,6 @@ tags:
   - git-checkpoint
   - xc881
 aliases:
-  - xc881
   - xc881-coding
   - xc881-engineering
   - xc881代码工程规范
@@ -33,6 +32,10 @@ aliases:
 
 Own all project writes and complex engineering reads: inspect real evidence or
 make the smallest maintainable verified change.
+
+Intent-routed execution owner. Direct calls and writes select it; implicit reads
+must pass the complexity gate. Bounded delegates execute only their contract.
+Run only the needed branch and references.
 
 ## References
 
@@ -50,11 +53,14 @@ Open references only by the exact relative paths above and only for the active b
 
 ## Workflow
 
-1. Read gate: explicit Coding invocation, every write, tracked work, or any task/project complexity trigger -> Coding. An ordinary read may stay direct only when every simple condition in `adaptive-read-routing.md` holds. Analysis may perform that simple read or delegate a complex read and resume.
+1. Read gate: explicit Coding invocation, every write, tracked work, or a relevant
+   task/project complexity trigger -> Coding. Ordinary simple reads stay direct;
+   analysis owners delegate only the complex evidence they need.
 2. Once Coding is selected, before opening project files or execution artifacts classify persistence: `instant` works directly; `queue` needs an exact handoff or one unambiguous active task. Multiple candidates -> one blocking question. Do not scan `dev-notes` or choose latest.
 3. Queue: validate, then load `current.md` and the current queue item only. Previous needs an explicit evidence/dependency link; next waits until advancement. Do not read `index.md` by default.
 4. Classify action independently as `read` or `change`. Inspect real entry points, call/data flow, tests/types/config, and local style in both modes.
-5. Read: report evidence without editing. Change: define one success target, then load quality/high-constraint/comment references as applicable.
+5. Read: report evidence without editing. Change: define one success target, then
+   load only the quality/high-constraint/comment references the risk requires.
 6. For non-trivial/risky changes, use the design gate in high-constraint policy; keep every changed line traceable and avoid unrelated cleanup, speculative flexibility, or one-use abstraction.
 7. Implement the smallest maintainable change; verify observable behavior. Performance mode requires request/measurement/hot path and reports trade-offs.
 8. A delegated `read` returns bounded evidence; it does not silently become a change.

@@ -36,6 +36,15 @@
       ]
     },
     {
+      "query": "根因已经明确，按给定补丁修复并验证",
+      "checklist": [
+        "Coding is the only active owner because diagnosis is already complete",
+        "uses instant plus change unless an exact queue handoff exists",
+        "does not invoke Bugfix or Requirement merely because the patch fixes a bug",
+        "loads only references justified by the patch risk and verifies observable behavior"
+      ]
+    },
+    {
       "query": "按 dev-notes/req-process/20260713-login/current.md 继续实现",
       "checklist": [
         "classifies the request as queue plus change from the explicit artifact path",

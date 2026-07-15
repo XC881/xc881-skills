@@ -18,15 +18,19 @@ Progressive disclosure is the primary context strategy: metadata discovers,
 
 ```text
 SKILL.md                5,000 chars
-agent default_prompt      260 chars
+skill description        320 chars each
+all descriptions       1,650 chars total
+agent default_prompt      180 chars
 req-process/current.md  1,200 chars
 active queue item       3,500 chars
 req-process/index.md   10,000 chars
 cross-process ledger    3,000 chars
 ```
 
-These limits prevent repository instruction and artifact bloat. They are not
-token, cost, latency, or context-window estimates.
+Descriptions are the always-discoverable routing surface; their aggregate limit
+reduces accidental crowding and forces unique ownership to appear first. Other
+limits prevent repository instruction and artifact bloat. They are not token,
+cost, latency, or context-window estimates.
 
 ## Checks
 

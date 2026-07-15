@@ -6,6 +6,7 @@
       "trigger": "implicit-allowed",
       "mode": "analysis",
       "handoff": [
+        "xc881-requirement-analysis",
         "xc881-coding-skills"
       ]
     },

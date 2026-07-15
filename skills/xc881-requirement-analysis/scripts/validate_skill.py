@@ -38,6 +38,8 @@ if "Coding does not read `index.md`" not in artifact_text:
     die("artifact contract must keep index.md out of normal Coding continuation")
 for rule in ["Reuse Before Gate", "one semantic match", "Coding never"]:
     if rule not in artifact_text: die(f"artifact contract missing reuse rule: {rule}")
+if "chat-only lightweight analysis does not scan" not in artifact_text:
+    die("artifact contract must keep lightweight chat-only work out of candidate search")
 output_text = (root/"references/requirement-output-contract.md").read_text(encoding="utf-8")
 for heading in ["需求结论", "这次会做", "完成标准", "下一步", "开发记录"]:
     if heading not in output_text: die(f"human output missing {heading}")

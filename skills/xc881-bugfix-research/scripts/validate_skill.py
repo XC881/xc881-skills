@@ -21,8 +21,12 @@ if not any(e["should_trigger"] for e in ev): die("need positive eval")
 if not any(not e["should_trigger"] for e in ev): die("need negative eval")
 if "Intent-routed" not in text:
     die("missing intent-routing rule")
-for rule in ["perform a simple exact/local/low-risk read here", "delegate a complex/tracked `read` to `$xc881-coding-skills`", "Automatically hand the repair read/write stage", "no second user invocation"]:
+for rule in ["perform a simple exact/local/low-risk read here", "delegate a complex/tracked `read` to `$xc881-coding-skills`", "implementation intent is", "Diagnosis-only stops", "second user invocation"]:
     if rule not in text: die(f"missing Coding handoff rule: {rule}")
+if not any(e["should_trigger"] and "diagnosis only" in e["workflow"] for e in ev):
+    die("need positive diagnosis-only eval")
+if not any(not e["should_trigger"] and "known-cause coding" in e["workflow"] for e in ev):
+    die("need negative known-cause coding eval")
 if len(text.splitlines()) > 95: die("SKILL.md too long")
 for ref in (root/"references").glob("*.md"):
     if len(ref.read_text(encoding="utf-8").splitlines()) > 45:

@@ -22,8 +22,8 @@ Rules:
 - `如何确认成功` translates the equivalence method and stop criteria without
   copying the complete contracts into chat.
 - `当前进度` uses status-based counts/state, never subjective percentages.
-- `下一步` names the agent's automatic continuation; do not ask the user to say
-  “continue” between runnable items unless stepwise control was requested.
+- `下一步` names automatic continuation only when implementation/queue execution
+  was requested. Planning-only work names the bounded next decision or handoff.
 - Chat-only/non-goal work must include enough scope, proof method, assumptions,
   and next action to stand alone.
 - Blocking questions include a recommendation and safe fallback/stop behavior.

@@ -78,5 +78,33 @@
   {
     "query": "在多语言 monorepo 中读取版本常量，并确认它如何影响各包发布",
     "expected_skills": ["xc881-coding-skills"]
+  },
+  {
+    "query": "简单解释一下 Git rebase 是什么",
+    "expected_skills": []
+  },
+  {
+    "query": "把这段中文润色得更自然",
+    "expected_skills": []
+  },
+  {
+    "query": "根因已经明确，按给定补丁修复并验证",
+    "expected_skills": ["xc881-coding-skills"]
+  },
+  {
+    "query": "只分析这个接口 500 的根因和修复方案，不改代码",
+    "expected_skills": ["xc881-bugfix-research"]
+  },
+  {
+    "query": "查官方资料确认这个 API 在当前版本是否已弃用",
+    "expected_skills": ["xc881-solution-research"]
+  },
+  {
+    "query": "把现有源码证据整理成一篇函数级文章，不再读仓库",
+    "expected_skills": ["xc881-source-article-style"]
+  },
+  {
+    "query": "将这个 Go 服务迁移到 Rust；先只判断迁移边界，不写代码",
+    "expected_skills": ["xc881-porting-orchestration"]
   }
 ]

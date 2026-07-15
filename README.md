@@ -8,6 +8,8 @@
 - `SKILL.md` 是 fast path，只放运行时必须读的内容。
 - `references/` 是运行时按需读取的细节规则。
 - `docs/` 是维护文档，不作为默认运行时上下文。
+- 隐式路由只选择最终目标所需的最小 skill 集；普通任务可以不启用任何 xc881 skill。
+- 同一阶段只有一个主责 skill，其他 skill 只接受有界委派并把结果交回。
 - 默认输出紧凑；大输出写文件，只在聊天里报告路径、进度和验证。
 - `dev-notes/` 是首选开发笔记根目录；复杂需求使用 `dev-notes/req-process/` 持久化。
 - 不隐式提交、不隐式推送。
@@ -18,18 +20,20 @@
 
 | Skill | 触发 | 类型 | 用来做什么 | 不做什么 |
 | --- | --- | --- | --- | --- |
-| `$xc881-solution-research` | 意图隐式 / 直接调用 | 分析 | 联网技术调研、方案比较、可行性判断、权威资料查证 | 不写代码，不默认进入需求分析 |
+| `$xc881-solution-research` | 意图隐式 / 直接调用 | 分析 | 联网技术调研、单事实查证、方案比较、可行性判断 | 不写代码，不为单事实强造方案对比 |
 | `$xc881-requirement-analysis` | 意图隐式 / 直接调用 | 分析 | 需求分析、范围、AC、PRD、issue/PR 分诊、PRD 拆 issue、Agent Brief | 不写代码，不做 bug 根因诊断 |
-| `$xc881-bugfix-research` | 意图隐式 / 直接调用 | 分析 | bug、回归、漏洞、性能问题的证据、复现、根因、修复计划、验证计划 | 不直接修代码，不输出 exploit 步骤 |
+| `$xc881-bugfix-research` | 意图隐式 / 直接调用 | 分析 | bug、回归、漏洞、性能问题的证据、复现、根因、修复计划、验证计划 | 仅诊断时不自动改代码，不输出 exploit 步骤 |
 | `$xc881-coding-skills` | 意图隐式 / 直接调用 | 读码/执行 | 读代码、入口/调用链/数据流分析、解释、review、实现、重构、修复、验证、提交/推送前检查 | 范围不清时不硬写代码 |
 | `$xc881-source-article-style` | 意图隐式 / 直接调用 | 写作 | 源码导读、函数级分析、调用链文章、调试证据型中文技术文章 | 不改代码，不写泛泛教程 |
-| `$xc881-porting-orchestration` | 意图隐式 / 直接调用 | 编排 | 跨语言/跨项目迁移，锁边界、写计划、识别风险、验证等价性 | 不直接编码，不替代 specialist skills |
+| `$xc881-porting-orchestration` | 意图隐式 / 直接调用 | 编排 | 跨语言/跨项目迁移，锁边界、写计划、识别风险、验证等价性 | 边界/规划请求不自动编码，不替代 specialist skills |
 
 ## 触发规则
 
 所有 skills 都支持意图隐式触发，也支持直接 `$skill-name` 调用。
 
 路由由用户意图决定，不再要求必须出现 `xc881`。`xc881` 仍然是有效的命名空间/风格信号，适合在用户想明确指定本技能库时使用。
+
+隐式路由看用户最后要拿到什么，不会把提示词里的每个中间动作都各自匹配成一个 skill。源码文章里出现“代码”不会同时让 Coding 成为主责，迁移任务里出现“需求”也不会并行启动 Requirement；只有主责缺少关键证据或用户明确要求连续执行时，才做有界委派。
 
 直接调用示例：
 
@@ -46,6 +50,7 @@ $xc881-solution-research 调研这个技术方案
 这个接口 500 帮我看看 -> $xc881-bugfix-research
 写代码实现登录 -> $xc881-coding-skills
 读取 src/version.ts 的 VERSION 常量 -> 简单读取，可不启用 skill
+简单解释 Git rebase / 润色普通中文 -> 可不启用 xc881 skill
 帮我读一下这个模块的入口和调用链，不要改代码 -> $xc881-coding-skills
 先分析登录需求，明确后直接读取代码并实现 -> $xc881-requirement-analysis + $xc881-coding-skills
 先定位接口 500 根因，明确后直接修复 -> $xc881-bugfix-research + $xc881-coding-skills
@@ -66,6 +71,14 @@ $xc881-solution-research 调研这个技术方案
 用xc881移植
 ```
 
+直接调用始终有效；隐式触发遵守：
+
+```text
+最终产物 -> 一个主责 skill -> 必要时一个有界委派 -> 返回主责
+```
+
+普通模型能力足以完成、且没有 xc881 特有合同的任务，不包装进 skill。模糊本身也不等于需求分析意图；只有范围、AC 或分诊确实是下一产物时才进入 Requirement。
+
 `$xc881-coding-skills` 负责所有项目写入和复杂工程读取。AI 会同时判断用户要读什么、需要多少证据，以及项目相关部分的耦合复杂度。只有目标明确、局部、低风险、无需调用链/运行时重建且不属于任务队列的读取，才可直接完成；路径未知、跨模块、调用/数据/状态流、架构生命周期、安全、性能、并发、生成代码、框架魔法、跨语言或后续可能改代码时，使用 Coding。项目大本身不是唯一理由，相关耦合才是。
 
 ## 能力取舍
@@ -77,17 +90,18 @@ $xc881-solution-research 调研这个技术方案
 - issue/PR/PRD 分诊能力并入 `$xc881-requirement-analysis`，减少入口数量，保留 tracker 状态机、Agent Brief、PRD 拆 issue、out-of-scope 和 map/child tickets。
 - eval、routing matrix 和 validator 会一起约束触发行为，降低文档和实际路由不一致的风险。
 - 大输出默认写文件或分段 artifact，聊天里只报告路径、进度和验证，符合低 token 策略。
+- 单事实、仅诊断、聊天内小需求、已有证据写作和仅迁移边界都有轻量分支，不会为形式完整跑满工作流。
 
 主要代价：
 
-- 隐式路由依赖意图判断，模糊请求可能误入分析、调研或 bugfix 流程。
+- 隐式路由仍依赖意图判断；因此 description、routing eval 和单主责边界需要持续维护。
 - 维护新增意图时必须同步 `skills-manifest.json`、`README.md`、`evals/cross-skill-routing.json`、skill 自身 trigger eval、agent prompts 和 validator。
-- 更严格的分析/执行分离会让部分请求先进入 requirement 或 bugfix，再交给 coding，链路更稳但不一定最短。
+- 分析/执行分离会让确实需要范围或根因的任务先分析再执行，但仅诊断或仅规划不会自动进入 Coding。
 - 直接 `$skill-name` 仍然是兼容入口；当用户想绕开意图判断时，推荐显式指定。
 
 ## 开发笔记与 Req Process
 
-需求分析不再默认只存在于聊天。每次准备持久化前，Requirement 先判断这是不是已有需求的改动：优先使用用户给出的路径或当前对话唯一明确的任务；上下文不足时，用机械脚本最多返回 5 个候选路径，再只读取可能相关的 `index.md` 做目标和权责范围的语义比较。唯一匹配就复用，多项匹配只问一个选择问题，不能按最新目录或关键词直接决定。
+需求分析不再默认只存在于聊天。Requirement 先判断这是不是已有需求的改动：优先使用用户给出的路径或当前对话唯一明确的任务；只有可能持久化或交给 Coding 执行、且上下文不足时，才用机械脚本返回最多 5 个候选路径，再只读取可能相关的 `index.md` 做语义比较。明确的一轮聊天分析不扫描 `req-process`。唯一匹配就复用，多项匹配只问一个选择问题，不能按最新目录或关键词直接决定。
 
 只有确认没有匹配后才进入文档 gate。用户未指定时，AI 在跨会话、3 个以上可验证任务、跨模块契约、迁移/数据/权限/安全风险、外部调研或长期实现等情况下，自动创建：
 
@@ -128,11 +142,19 @@ Requirement、Bugfix 或源码文章保留自己的分析/写作职责：简单�
 
 ### Skill 上下文边界
 
-本仓库只优化自己能够控制的内容：skill 元数据、被选中的 `SKILL.md`、按需 reference/script、agent prompt，以及 req-process/cross-process 的当前窗口。核心方法是 progressive disclosure，而不是把所有说明一次性加载。
+安装多个 Skills 不等于每轮加载全部正文。Codex 官方说明：初始上下文只放每个 skill 的名称、description 和路径，完整 `SKILL.md` 只在被选中后读取；初始 skill 列表还有 2% 上下文或未知窗口时 8,000 字符的上限。Anthropic Agent Skills 同样采用 metadata -> `SKILL.md` -> references/scripts 的逐级按需加载。
+
+因此，“每轮都加载所有 Skills 逻辑”不适用于这些官方 progressive disclosure 机制；但误调用、指令冲突和过度流程风险确实存在。真正要控制的是：常驻 description 是否过宽、一次是否选了过多主责、被选中的 `SKILL.md` 是否强迫小任务跑完整链路、以及是否发生无必要委派。
+
+xc881 的约束是：每个 description 最多 320 字符、六个合计最多 1,650 字符；只选一个阶段主责；允许零 skill；references 按分支读取；Bugfix、Solution、Requirement、Source、Porting 都有轻量分支；不存在“只要 1% 可能适用就必须调用”的全局启动器。
+
+本仓库只优化自己能够控制的内容：skill 元数据、被选中的 `SKILL.md`、按需 reference/script、agent prompt，以及 req-process/cross-process 的当前窗口。核心方法是 progressive disclosure 和最小充分激活，而不是把所有说明一次性加载。
 
 字符和行数预算只是防止仓库文件膨胀，不代表真实 token 或模型上下文。运行客户端内部机制不属于 xc881-skills，也不在本仓库中模拟或验证。
 
 具体静态预算和审计方式见 `docs/skill-context-budget.md`。
+
+官方依据：[OpenAI Build skills](https://learn.chatgpt.com/docs/build-skills)、[Anthropic Agent Skills](https://platform.claude.com/docs/en/agents-and-tools/agent-skills/overview)、[Anthropic Skill authoring best practices](https://platform.claude.com/docs/en/agents-and-tools/agent-skills/best-practices)。
 
 连续队列只规定恢复行为：如果运行环境压缩了上下文，从同一 active owner、`current.md` 和当前 queue item 恢复，然后自动继续，不要求用户说“继续”。
 
@@ -210,7 +232,7 @@ issue / PR / PRD tracker workflow
 ```text
 bug / vuln / regression
   -> $xc881-bugfix-research
-  -> $xc881-coding-skills
+  -> $xc881-coding-skills 仅当用户要求修复/实现
 ```
 
 示例：
@@ -219,6 +241,7 @@ bug / vuln / regression
 用xc881修复登录 500，先定位原因
 $xc881-bugfix-research 根据这段日志分析根因和验证计划
 用xc881分析这个依赖 CVE 是否影响当前版本
+只分析这个接口 500 的根因和修复方案，不改代码
 ```
 
 ### 5. 代码实现、重构、验证
@@ -261,9 +284,9 @@ $xc881-source-article-style 写一篇 NodeBindings::CreateEnvironment 的函数�
 cross-language / cross-project porting
   -> $xc881-porting-orchestration
   -> goal task 先锁 stop boundary
-  -> $xc881-requirement-analysis 定义边界和风险
-  -> $xc881-solution-research 调研语言/框架迁移坑
-  -> $xc881-coding-skills 执行 port + equivalence check
+  -> 必要时委派 $xc881-requirement-analysis 定义边界和风险
+  -> 必要时委派 $xc881-solution-research 调研语言/框架迁移坑
+  -> 要求实现时委派 $xc881-coding-skills 执行 port + equivalence check
 ```
 
 示例：
@@ -293,16 +316,22 @@ xc881 Solution:
 Spec:
 RQ:
 Evidence:
-Options:
-Pick:
 Risk:
 Handoff:
+```
+
+只有真实方案决策才附加：
+
+```text
+Options:
+Pick:
 ```
 
 规则：
 
 - 事实、推断、推荐必须分开。
 - 优先一手资料：官方文档、标准、论文、维护者 issue/PR、vendor advisory。
+- 单事实、标准或版本查证只输出证据、影响、风险和 handoff，不制造空的 Options/Pick。
 - 证据不足时不强行 Pick，输出 blocker 和下一步 research。
 - 大调研写成 Markdown artifact，聊天里只报告路径和决策影响。
 - requirement 委派且提供 req-process Artifact 时，bounded 调研写入其 `evidence/`，并返回同一次需求分析。
@@ -348,7 +377,7 @@ tracker 场景补充：
 - 只问一个阻塞问题。
 - 能从仓库、文档、当前技术调研获得的事实，不问用户。
 - tracker 写操作必须区分已经执行、计划执行、因为权限/工具缺失而跳过。
-- 文档 gate 前先解析已有任务；唯一语义匹配就复用，多项匹配只问一次，没有匹配才考虑新建。
+- 文档 gate 前先解析显式/对话中的已有任务；只有可能持久化或执行且身份不足时才搜索候选，聊天内小分析不扫描目录。
 - 复用终态任务时追加 queue ID 并精确交接 artifact/current/next/blockers，Coding 不搜索任务目录。
 - 复杂需求先通过 artifact gate；持久化后必须生成可验证 queue 并运行 req-process validator。
 - req-process 只保存验证计划和 queue/current/blocker 状态，实际验证结果只在聊天报告。
@@ -396,6 +425,7 @@ Mitigation:
 - 最小化复现后再给根因。
 - 假设要可证伪。
 - 不输出 exploit 步骤。
+- 仅诊断请求以 `Handoff: none` 或下一项所需证据结束，不自动进入 Coding change。
 - bug issue 的 tracker brief 由 requirement-analysis 承接，bugfix 提供 evidence/cause/fix/verify。
 
 ### `$xc881-coding-skills`
@@ -431,6 +461,7 @@ Mitigation:
 - 避免 tautological tests。
 - mock 只放系统边界。
 - 没有显式要求时不 commit、不 push。
+- Coding 只在当前阶段是实现/复杂读取主责或收到有界委派时启用，不因别的 skill 顺带提到代码而并行抢占。
 - AI 结合读取任务和相关项目耦合决定是否启用 Coding；简单精确局部读取可直接完成，复杂/任务读取和所有写入进入 Coding。
 - Coding 被选中后，打开项目或 execution artifact 前先判定 `instant | queue`，再判定 `read | change`。
 - 队列项完成后自动 checkpoint、推进并继续到任务终态；除非用户明确要求逐项确认或出现真实阻塞，不询问“是否继续”。
@@ -461,7 +492,7 @@ Mitigation:
 - 静态推断必须标明依据。
 - 专有术语先介绍，再在后文依赖。
 - 可能过期的 API/版本事实自动用 `$xc881-solution-research` 查官方来源。
-- 简单精确局部源码证据可直接读取；复杂或任务化源码检查委派 Coding，返回证据后继续写作。
+- 已提供的源码证据直接复用；只补缺失的简单局部证据，复杂或任务化检查才委派 Coding，返回证据后继续写作。
 
 ### `$xc881-porting-orchestration`
 
@@ -490,12 +521,13 @@ Mitigation:
 规则：
 
 - goal 任务必须先锁 stop boundary。
-- 必须同时链接 `dev-notes/req-process/<task>/` 和 `dev-notes/cross-process/<task>.md`。
+- goal/queue 任务必须同时链接 `dev-notes/req-process/<task>/` 和 `dev-notes/cross-process/<task>.md`；小型 non-goal 边界分析可只在聊天完成。
 - req-process 保存 Scope/AC/边界；cross-process 只保存移植专有执行状态。
 - goal/non-goal、规模、停止边界、技术差异、等价性证据保存在关联文档中，聊天不原样倾倒这些字段。
 - 等价性看行为，不看结构相同。
 - 目标项目已有架构时，迁入目标架构，不照搬源架构。
 - 抽象意图移植时，用 intent fidelity，并记录 adopt/adapt/reject。
+- 用户只要求边界/规划时不委派 Coding；只有明确实现意图或可执行队列才开始迁移。
 
 ## 安装和验证
 

@@ -1,9 +1,9 @@
 ---
 name: xc881-requirement-analysis
-description: 'Intent-routed. Use with $xc881-requirement-analysis or clear requirement/triage intent such as 分析需求, 定范围, 写验收标准, 分诊 issue/PR, or 拆 PRD issues. Normalize requirements, separate explicit/inferred/assumed needs, define scope/FR/NFR/AC/risks, and hand off. Persist non-trivial work as a resumable queue under dev-notes/req-process. May delegate bounded technical uncertainty to $xc881-solution-research. No code.'
-when_to_use: 'Use for requirement analysis, scope/MVP/user-flow/acceptance criteria, issue tracker triage, Agent Brief, or PRD-to-issues splitting. Apply the requirement-artifact gate when documentation preference is unstated. Use bounded $xc881-solution-research only when technical feasibility or external facts block judgment.'
+description: 'Primary owner for requirements, scope, acceptance criteria, PRDs, and issue/PR triage. Separate explicit/inferred needs, persist task queues when warranted, and delegate only blocking research or reads. Implementation detail alone is not requirement intent.'
+when_to_use: 'Use for scope/AC/tracker deliverables. Persist only when the gate passes; delegate bounded uncertainty, then resume the same owner.'
 display_name: "xc881需求分析"
-version: "2.9.0"
+version: "2.10.0"
 category: "requirements"
 tags:
   - intent-routing
@@ -24,7 +24,9 @@ aliases:
 
 # xc881 Requirement
 
-Intent-routed requirement analysis. Direct `$xc881-requirement-analysis` calls and clear requirement/triage intent both trigger. No code.
+Intent-routed requirement owner. Direct calls select it; implicit use requires
+scope/AC/tracker as the primary outcome. Incidental implementation uncertainty
+stays with the base/current owner. Run only the needed branch. No code.
 
 Goal:
 
@@ -52,11 +54,17 @@ Steps:
 1. Confirm requirement/triage intent from direct invocation, wording, or delegated context.
 2. Spec: `Goal / Inputs / Constraints / Output / Notes`.
 3. Classify: new / existing / review.
-4. Before the artifact gate, resolve whether this changes an existing requirement: prefer an explicit path or one unambiguous conversational artifact; otherwise run the bounded candidate-path search, read only plausible matches, and compare goal/authority semantically. Reuse one match, ask one selection question for multiple matches, or apply the gate only when none match.
+4. Resolve an explicit or unambiguous conversational artifact first. Run bounded
+   candidate-path search only when persistence or implementation handoff is likely;
+   clearly chat-only work does not scan req-process. Reuse one semantic match, ask
+   once for multiple matches, or apply the gate when none match.
 5. If technical uncertainty blocks scope or AC judgment, use bounded `$xc881-solution-research`, then continue without user reconfirmation.
 6. If project code/test/config must be inspected, apply the task+project complexity gate: perform a simple exact/local/low-risk read here, or delegate a complex/tracked `read` to `$xc881-coding-skills`, then resume from evidence.
 7. Produce `ER/IR`, scope, `FR/NFR/AC`, and P0-P3 risks; one blocking question max.
-8. For a new artifact, create dependency-aware vertical queue items self-contained for Coding. For a reused artifact, preserve accepted history, append IDs after the tail, reopen terminal state to `ready`, and set previous/current/next to old-tail/first-new/second-new. Persist verification plans and queue state, never verification results/logs.
+8. If the artifact gate passes, create dependency-aware vertical queue items for
+   Coding. Otherwise keep a compact self-contained chat contract. Reused artifacts
+   preserve history, append IDs after the tail, and reopen from the first new item.
+   Persist verification plans and queue state, never results/logs.
 9. Keep the full structured analysis in req-process when persisted, then report a compact human-readable summary. Chat-only work must remain self-contained.
 10. Validate, then hand every write and selected complex/tracked read to Coding with exact artifact/current/next/blockers. A queued implementation continues across items; after context compaction it resumes the same owner/current automatically. Active ownership returns to this requirement run after bounded delegation, and no second invocation or per-item “continue” is needed unless the user requests stepwise control or a real blocker occurs.
 

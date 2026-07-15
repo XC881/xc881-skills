@@ -1,9 +1,9 @@
 ---
 name: xc881-source-article-style
-description: 'Intent-routed Chinese source-code article writing. Use for 源码导读, 函数级分析, 调用链文章, or 按我的文章风格写. Own prose and evidence-backed explanation; read simple local evidence directly, delegate complex/tracked inspection to Coding, and bounded term research to solution-research.'
-when_to_use: 'Use when producing article prose or outlines from source-code evidence, especially function-level internals analysis. Do not use for code changes unless combined with xc881-coding-skills.'
+description: 'Primary owner for Chinese source-code articles: source guides, function analysis, call-chain chapters, and rewrites. Generic writing or code-reading-only requests do not trigger it; reuse supplied evidence and delegate only blocking inspection or term research.'
+when_to_use: 'Use for source-article prose, not generic code explanation. Reuse supplied evidence and delegate only blocking gaps.'
 display_name: "xc881源码文章风格"
-version: "1.3.0"
+version: "1.4.0"
 category: "writing"
 tags:
   - writing
@@ -16,12 +16,13 @@ aliases:
   - xc881-source-article-style
   - xc881源码文章风格
   - xc881写作
-  - xc811文章规范
 ---
 
 # xc881 Source Article Style
 
-Intent-routed source-article writing. Direct `$xc881-source-article-style` calls and clear source-reading/article intent both trigger.
+Intent-routed source-article owner. Direct calls select it; implicit use requires
+article prose as the primary outcome. Generic writing and code-reading-only work
+stay with the base/current owner. Run only the needed branch.
 
 Write compact Chinese source-reading articles: problem -> evidence -> flow -> function -> conclusion.
 
@@ -40,13 +41,16 @@ Do not assume reference files are located beside `SKILL.md`.
 
 ## Fast Path
 
-1. Ecosystem recon (one line, every article): name the language, build system, package manager, debugger/trace tool, and authoritative doc source for this project. Keep it minimal; only expand when the stack is unfamiliar or a fact is uncertain.
-2. Verify only needed evidence. Apply task+project read complexity: inspect simple exact/local/low-risk evidence directly; delegate complex/tracked evidence to `$xc881-coding-skills`; resume and do not reread provided evidence.
+1. Ecosystem recon only when stack facts affect the article and are not already
+   supplied: one line for language/build/package/debug/docs; expand only on a gap.
+2. Reuse supplied evidence. Inspect only missing simple exact/local/low-risk facts;
+   delegate missing complex/tracked evidence to `$xc881-coding-skills`, then resume.
 3. Think hard before locating: entry-point and call-chain claims must carry a derivation path, never an assertion. Explain why each key branch exists.
 4. Evidence tier: when a debugger/tracer is available, back entry/flow claims with breakpoint/call-stack/runtime output; when it is not, mark the claim as static inference and give the static basis (symbol, reference, build artifact).
 5. Check unexplained terms or possibly-stale authoritative facts in the available context.
    - If a proprietary term, architecture concept, internal mechanism, acronym, domain term, or a version/API fact that may be outdated affects understanding, automatically use `$xc881-solution-research` against official docs / authoritative sources.
-   - Research only that point with code path/function/context; do not ask the user to invoke the research skill.
+   - Research one fact/RQ with code path/function/context; do not start an option
+     comparison or ask the user to invoke the research skill.
    - Treat researched facts as cited context, and mark remaining inference.
 6. Use the function-level spine unless the user asks otherwise:
 
