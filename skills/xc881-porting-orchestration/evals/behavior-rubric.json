@@ -13,6 +13,8 @@
         "no porting action is proposed before linked req-process and cross-process artifacts exist",
         "req-process owns scope and AC while cross-process owns only port-specific magnitude, equivalence and progress",
         "scope, AC and done-criteria are referenced rather than duplicated across artifacts",
+        "normal cross-process creation and checkpoints derive the complete ledger before one write, without a validator-led retry loop",
+        "cross-process validation is reserved for explicit audit, observed-corruption repair and repository/CI maintenance",
         "continuation requires an explicit or unambiguous selected artifact and never scans dev-notes to guess",
         "reads the cross-process ledger plus linked req-process current.md and current item without loading index/previous/next by default",
         "equivalence is stated as behavioral (IO/parity/tests), not structural sameness",

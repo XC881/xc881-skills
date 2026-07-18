@@ -43,6 +43,7 @@ Reference Index:
 - `./references/existing-project-feature-analysis.md`: existing change.
 - `./references/issue-tracker-triage.md`: issue/PR/PRD tracker state, Agent Brief, out-of-scope, and tracker ops.
 - `./references/requirement-process-artifact.md`: artifact gate, req-process queue, resume/update protocol.
+- `./references/design-system-artifact.md`: gated durable visual contract.
 - `./references/requirement-output-contract.md`: output.
 - `./references/requirement-quality-rubric.md`: strict check.
 
@@ -64,9 +65,18 @@ Steps:
 8. If the artifact gate passes, create dependency-aware vertical queue items for
    Coding. Otherwise keep a compact self-contained chat contract. Reused artifacts
    preserve history, append IDs after the tail, and reopen from the first new item.
-   Persist verification plans and queue state, never results/logs.
+   A reusable visual contract passes the design-system gate; otherwise it stays in
+   the current Design Read. Persist verification plans and queue state, never results/logs.
 9. Keep the full structured analysis in req-process when persisted, then report a compact human-readable summary. Chat-only work must remain self-contained.
-10. Validate, then hand every write and selected complex/tracked read to Coding with exact artifact/current/next/blockers. A queued implementation continues across items; after context compaction it resumes the same owner/current automatically. Active ownership returns to this requirement run after bounded delegation, and no second invocation or per-item “continue” is needed unless the user requests stepwise control or a real blocker occurs.
+10. Before artifact creation, reopening, or checkpointing, derive the complete
+    linked write from its template and apply one coherent patch. Validators are
+    explicit audit/repair or repository/CI tools, not normal authoring or
+    handoff loops. Then hand every write and selected complex/tracked read to
+    Coding with exact artifact/current/next/blockers. A queued implementation
+    continues across items; after context compaction it resumes the same
+    owner/current automatically. Active ownership returns here after bounded
+    delegation; no second invocation or per-item “continue” is needed unless
+    the user requests stepwise control or a real blocker occurs.
 
 User-facing output:
 

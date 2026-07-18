@@ -47,9 +47,10 @@ Open only the exact relative path for the active branch.
 1. Classify magnitude and goal/non-goal from supplied or cheap evidence. Delegate
    code reading only when boundary/equivalence judgment lacks repository evidence.
 2. Goal gate: Requirement persists measurable done criteria, exit conditions, and out-of-scope. Vague/missing boundary -> one blocking question; no porting.
-3. For goal/queue work, create the <=3,000-char cross-process ledger linked to
-   req-process; never copy scope/AC/boundary. Small non-goal planning stays
-   chat-only. Ask before changing `.gitignore`.
+3. For goal/queue work, derive and write the <=3,000-char cross-process ledger
+   linked to req-process once; do not use a normal validator loop or copy
+   scope/AC/boundary. Small non-goal planning stays chat-only. Ask before
+   changing `.gitignore`.
 4. Use the understanding reference for language/architecture/library risks; delegate authoritative web research when needed.
 5. Continue only an explicit/unambiguous task: read cross-process plus linked req `current.md + current item`; previous needs an explicit evidence link and next waits until advancement. Never scan or read req index by default.
 6. Planning/boundary-only intent stops with a plan. When implementation is

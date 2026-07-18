@@ -3,8 +3,8 @@
 The source of truth for porting-specific execution state. Requirement scope/AC
 remain authoritative in the linked req-process Artifact.
 
-Keep the active ledger at or below 3,000 characters. Link long logs/reports rather
-than embedding them. Validate with `scripts/validate_cross_process.py <ledger>`.
+Keep the active ledger at or below 3,000 characters; link long logs/reports.
+Validators are for explicit audit, observed-corruption repair, and repository/CI, not normal ledger authoring.
 
 ## Location
 
@@ -23,8 +23,8 @@ to `.gitignore`. The user decides; never assume. Do not port until answered.
   queue item only. Previous requires an explicit current-item evidence link; next
   waits until advancement. Do not read req-process `index.md` by default.
 - Missing or stale linked state -> do not port.
-- After every iteration, update the plan. Read first, update after. The plan, not
-  the conversation, is authoritative. A stale checkpoint is worse than none.
+- After every iteration, derive the next ledger first, then update it once. The
+  plan, not the conversation, is authoritative. A stale checkpoint is worse than none.
 - A checkpoint is a recovery point, not a default confirmation point. After
   advancement, load the new current window and continue automatically until task
   terminal. Stop only for explicit stepwise/pause intent or a real blocker.
@@ -48,8 +48,8 @@ Open risks: <P0-P3, carried across sessions>
 
 ## Rules
 
-- Keep it a ledger, not prose. Update item status, not verification results/logs.
-- Store equivalence method, not its result; report verdict/evidence in chat.
+- Keep it a ledger: derive required fields first, update once, and store the
+  equivalence method, not its result; report verdict/evidence in chat.
 - One file per porting task; `cross-process/` holds many tasks.
 - Scope/AC/boundary are never copied here; they are read from Requirement artifact.
 - The linked req-process + cross-process pair must be resumable without chat memory.

@@ -48,7 +48,7 @@
       "query": "按 dev-notes/req-process/20260713-login/current.md 继续实现",
       "checklist": [
         "classifies the request as queue plus change from the explicit artifact path",
-        "validates the req-process artifact before coding",
+        "uses Requirement's exact write-first handoff without running a normal req-process validator",
         "reads current.md and the named current queue item only",
         "does not read previous or next queue files by default",
         "reads a previous item only when the current item explicitly links required evidence and reads next only after advancement",
@@ -56,8 +56,8 @@
         "returns to Requirement when the local contract is incomplete, conflicts with code, changes scope/AC, or requires replanning",
         "does not change requirement scope or AC inside coding",
         "runs declared verification before marking done and reports results in chat only",
-        "updates queue status, transition history and current pointer without persisting verification results",
-        "revalidates the artifact before reporting progress"
+        "derives queue status, transition history and current pointer before one coherent checkpoint write without persisting verification results",
+        "returns to Requirement when direct reads expose malformed process state; only explicit audit or repair may validate"
       ]
     },
     {
@@ -89,7 +89,7 @@
       "checklist": [
         "enters Coding even though the requested action is read-only",
         "classifies queue before opening project or execution-artifact files, then classifies read",
-        "validates the exact artifact and reads current.md plus the current item only",
+        "uses the exact write-first artifact and reads current.md plus the current item only without a normal validator call",
         "returns evidence without modifying files or inferring change permission"
       ]
     },
@@ -160,6 +160,79 @@
         "keeps the exact current contract, blockers, evidence paths, changed paths and next action recoverable",
         "removes stale tool results only after their decision impact or evidence path is durable",
         "reloads only the selected fast path and exact current window, revalidates, and continues without a continuation prompt"
+      ]
+    },
+    {
+      "query": "给现有 React 产品页做可访问的视觉重设计，保留路由和业务行为，并在桌面和手机截图验证",
+      "checklist": [
+        "classifies the work as instant plus change, automatically loads routing, then automatically loads implementation and redesign/visual QA as their concerns are reached without another user reference request",
+        "does not load image workflow or pattern catalog unless a later asset/reference or non-default-pattern decision requires them",
+        "makes a compact Design Read from the affected route, existing system, audience, and constraints before changing substantial visuals",
+        "audits tokens, components, responsive behavior, states, assets, accessibility, routes, navigation, metadata, and analytics hooks before proposing changes",
+        "preserves route paths, navigation labels, form contracts, brand/legal content, and existing accessibility behavior unless the request explicitly changes them",
+        "verifies the changed flow and inspects desktop and narrow mobile screenshots when browser tooling is available, reporting any unavailable visual evidence honestly"
+      ]
+    },
+    {
+      "query": "把设计参考图实现成响应式营销页，先提取视觉系统再写代码",
+      "checklist": [
+        "automatically loads routing and image workflow for the supplied frames, then automatically loads implementation before coding and visual QA after implementation when visual evidence is needed, without another user reference request",
+        "does not load the pattern catalog unless the selected design actually needs a non-default pattern",
+        "extracts hierarchy, readable copy, type relationships, spacing, media frame, controls, color roles, and responsive constraints before implementation",
+        "uses a fresh focused reference only when the existing frame leaves a material visual decision unresolved, rather than a fixed image count or unreadable crop",
+        "keeps generated media separate from repository assets until it enters the project's actual asset pipeline",
+        "implements an accessible, responsive result that preserves the chosen visual system without fake screenshots, invented social proof, or decorative data"
+      ]
+    },
+    {
+      "query": "检查营销页在手机上的文字溢出和暗色模式，不改代码",
+      "checklist": [
+        "enters Coding as an instant read-only visual review, automatically loads routing and redesign/visual QA as needed without another user reference request, and does not create or scan a task artifact",
+        "does not load image workflow or pattern catalog without an actual asset/reference or non-default-pattern concern",
+        "reads the affected route, styles, tokens, and supported theme behavior, then uses available browser screenshots when possible",
+        "reports observed mobile text fit, overflow, theme contrast, and relevant accessibility evidence without editing files or claiming an unrun visual check"
+      ]
+    },
+    {
+      "query": "修复按钮点击事件，外观保持不变",
+      "checklist": [
+        "uses the ordinary instant change path and does not add a Design Read, image generation, visual reference, or unrelated redesign work",
+        "reads the relevant behavior before changing it and preserves the visual contract",
+        "verifies the action's observable result with the smallest suitable evidence"
+      ]
+    },
+    {
+      "query": "为 Node API 增加分页参数校验",
+      "checklist": [
+        "uses the ordinary instant change path and does not load frontend references",
+        "reads the relevant request boundary and validation behavior before changing it",
+        "keeps UI-specific references, image generation, and visual QA out of a backend-only change"
+      ]
+    },
+    {
+      "query": "为 React 表单补齐加载、空态和错误状态，保持现有视觉系统",
+      "checklist": [
+        "automatically loads frontend routing and implementation standard for visible component/state work without another user reference request",
+        "preserves the existing system and does not load design intelligence, image workflow, redesign/visual QA, or pattern catalog without a concern owned by those references",
+        "verifies the relevant loading, empty, error, focus, and responsive behavior"
+      ]
+    },
+    {
+      "query": "为一个新建的跨页面医疗预约产品确定可复用视觉系统并实现",
+      "checklist": [
+        "routing first inspects user, project, brand, supplied-frame and local-system evidence before design intelligence",
+        "when that evidence leaves the active visual decision unresolved, design intelligence loads automatically and returns no more than three context-specific candidates",
+        "only when the active branch still cannot rank candidates may it run the local selector once; the selector is deterministic, bounded, and has no write side effect",
+        "a reusable multi-surface visual contract automatically delegates to Requirement, which applies the gate and writes only dev-notes/design-system/<slug>/MASTER.md plus needed surface deviations",
+        "Coding consumes the exact handed-off master only when the concern reaches it, never scans dev-notes, writes a project-root design-system directory, or forces an upstream stack/style default"
+      ]
+    },
+    {
+      "query": "给运营看板选择展示订单趋势与构成的图表并实现",
+      "checklist": [
+        "automatically loads design intelligence only for the unresolved data-display decision, then continues to implementation",
+        "chooses a representation from the data question rather than a default chart library or decorative dashboard pattern",
+        "does not load image workflow, visual-family patterns, or a durable design-system artifact unless their separate concerns actually arise"
       ]
     }
   ]

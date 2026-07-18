@@ -1,6 +1,6 @@
 interface:
   display_name: "xc881代码工程规范"
   short_description: "Project writes and complex code reads"
-  default_prompt: "Use for writes or complex/tracked reads. SKILL.md owns workflow. Run the minimum branch, honor bounded delegation, and never infer commit/push."
+  default_prompt: "Use for writes or complex/tracked reads, including frontend design. SKILL.md owns workflow. Auto-load the next-needed frontend ref as its concern arises; never infer commit/push."
 policy:
   allow_implicit_invocation: true

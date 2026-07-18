@@ -26,6 +26,10 @@ if "Intent-routed" not in text: die("missing intent-routing rule")
 cross_text = (root/"references/cross-process-plan.md").read_text(encoding="utf-8")
 for rule in ["Never scan `cross-process/`", "req-process `current.md`", "Do not read req-process `index.md`"]:
     if rule not in cross_text: die(f"missing current-window rule: {rule}")
+for rule in ["not normal ledger authoring", "derive required fields first, update once"]:
+    if rule not in cross_text: die(f"missing write-first ledger rule: {rule}")
+if "do not use a normal validator loop" not in text:
+    die("porting workflow must not use a normal validator loop")
 for rule in ["continue automatically", "task terminal", "explicit stepwise/pause intent"]:
     if rule not in text + cross_text: die(f"missing continuous-run rule: {rule}")
 for rule in ["supplied or cheap evidence", "Small non-goal planning stays", "Planning/boundary-only intent stops"]:

@@ -1,9 +1,9 @@
 ---
 name: xc881-coding-skills
-description: 'Primary owner for project writes and complex/tracked code reads. Use for implementation, review, verification, git work, or evidence spanning paths/modules/runtime/architecture/security/performance/concurrency. Simple exact local reads need no skill; bounded delegates do only their contract.'
+description: 'Primary owner for project writes and complex/tracked reads. Implement, review, verify, and handle explicit git. Simple exact local reads stay direct; delegates stay bounded.'
 when_to_use: 'Use for project writes and complex/tracked reads. Classify instant|queue, then read|change; bounded delegates do only their contract.'
 display_name: "xc881代码工程规范"
-version: "2.2.0"
+version: "2.3.0"
 category: "coding"
 tags:
   - coding
@@ -15,6 +15,7 @@ tags:
   - testability
   - anti-overengineering
   - performance
+  - frontend
   - git-checkpoint
   - xc881
 aliases:
@@ -30,44 +31,61 @@ aliases:
 
 ## Role
 
-Own all project writes and complex engineering reads: inspect real evidence or
-make the smallest maintainable verified change.
-
-Intent-routed execution owner. Direct calls and writes select it; implicit reads
-must pass the complexity gate. Bounded delegates execute only their contract.
-Run only the needed branch and references.
+Own writes/complex reads; run only needed branches; make the smallest sound change.
 
 ## References
 
-- `./references/xc881-code-quality-standard.md`: non-trivial change/review/refactor/performance.
-- `./references/high-constraint-coding-policy.md`: risky/minimal changes and design gate.
+- `./references/xc881-code-quality-standard.md`: quality/performance.
+- `./references/high-constraint-coding-policy.md`: risky change/design gate.
 - `./references/no-code-comments-policy.md`: before editing code.
 - `./references/git-checkpoint-policy.md`: explicit commit/checkpoint/push only.
-- `./references/engineering-quality-rubric.md`: quality review/verification.
-- `./references/project-optimization.md`: legacy/project optimization.
+- `./references/engineering-quality-rubric.md`: review.
+- `./references/project-optimization.md`: optimization.
 - `./references/adaptive-read-routing.md`: decide direct read vs Coding read.
 - `./references/requirement-artifact-execution.md`: task mode and queue checkpoint.
-- `./references/execution-checkpoint-and-tool-policy.md`: queue recovery and tool budget.
+- `./references/execution-checkpoint-and-tool-policy.md`: queue recovery.
+- `./references/frontend-routing-and-design-read.md`: routing/Design Read.
+- `./references/frontend-design-intelligence.md`: unresolved design decisions.
+- `./references/frontend-implementation-standard.md`: implementation.
+- `./references/frontend-image-reference-workflow.md`: image-to-code.
+- `./references/frontend-redesign-and-visual-qa.md`: visual QA.
+- `./references/frontend-pattern-catalog.md`: visual patterns.
 
-Open references only by the exact relative paths above and only for the active branch.
+Open only needed exact paths above.
 
 ## Workflow
 
-1. Read gate: explicit Coding invocation, every write, tracked work, or a relevant
-   task/project complexity trigger -> Coding. Ordinary simple reads stay direct;
-   analysis owners delegate only the complex evidence they need.
-2. Once Coding is selected, before opening project files or execution artifacts classify persistence: `instant` works directly; `queue` needs an exact handoff or one unambiguous active task. Multiple candidates -> one blocking question. Do not scan `dev-notes` or choose latest.
-3. Queue: validate, then load `current.md` and the current queue item only. Previous needs an explicit evidence/dependency link; next waits until advancement. Do not read `index.md` by default.
-4. Classify action independently as `read` or `change`. Inspect real entry points, call/data flow, tests/types/config, and local style in both modes.
-5. Read: report evidence without editing. Change: define one success target, then
-   load only the quality/high-constraint/comment references the risk requires.
-6. For non-trivial/risky changes, use the design gate in high-constraint policy; keep every changed line traceable and avoid unrelated cleanup, speculative flexibility, or one-use abstraction.
-7. Implement the smallest maintainable change; verify observable behavior. Performance mode requires request/measurement/hot path and reports trade-offs.
-8. A delegated `read` returns bounded evidence; it does not silently become a change.
-9. Queue loop: verify current, checkpoint status/history/current, advance, then load the new current item and continue until task terminal. After context compaction, reload the same current window and continue automatically. Never ask the user to say continue at item boundaries. Stop only for explicit stepwise/pause intent or a real blocker/approval/safety/contract-change/no-runnable boundary.
-10. Report verification in chat. Commit/push only on explicit request using the git reference.
+1. Read gate: explicit Coding invocation, every write, tracked work, or a
+   task/project complexity trigger -> Coding. Ordinary simple reads stay direct.
+2. Once selected, before opening project files or execution artifacts classify
+   persistence: `instant` works directly; `queue` needs an exact handoff or one
+   unambiguous active task. Multiple candidates -> one question. Do not scan
+   `dev-notes` or choose latest.
+3. Queue: use the write-first exact handoff; do not validate normally. Load
+   `current.md` and its current item only. Directly observed corruption returns
+   to Requirement; only audit/repair validates.
+4. Classify action independently as `read` or `change`. Inspect real entry
+   points, flow, tests/types/config, and local style.
+5. Frontend design starts with routing. Automatically load each relevant next ref
+   only when its concern is reached: design intelligence, implementation, image,
+   redesign/QA, or pattern. No user handoff/preload; nonvisual or unrelated work
+   loads none. Make a Design Read only for substantial greenfield, visual, or redesign work.
+6. Read reports evidence without editing. Change sets one success target, then
+   loads risk-relevant quality, constraint, and comment references.
+7. For non-trivial/risky changes, use the design gate; keep every changed line
+   traceable and avoid unrelated cleanup or speculative abstraction.
+8. Implement the smallest maintainable change and verify observable behavior.
+   Performance mode needs a request/measurement/hot path and trade-offs.
+9. A delegated `read` returns bounded evidence; it does not silently change.
+10. Queue loop: verify current, checkpoint status/history/current, advance, and
+    continue until task terminal. After context compaction, reload the same
+    current window and continue automatically. Never ask the user to say continue
+    at item boundaries. Stop only for explicit stepwise/pause intent
+    or a real blocker/approval/safety/contract-change/no-runnable boundary.
+11. Report verification in chat. Commit/push only on explicit request using the
+    git reference.
 
-Large output goes to bounded files; chat reports path, progress, and verification.
+Large output uses bounded files; chat reports path, progress, verification.
 
 ## Final response
 
@@ -79,13 +97,12 @@ Always close with exactly:
 风险/假设:
 ```
 
-Append performance trade-off/benchmark or commit/branch/push/remaining fields only
-when those modes were used.
+Append performance or git fields only when those modes were used.
 
 ## Hard rules
 
 - Do not code from guessed paths.
-- Do not force simple bounded reads through Coding or bypass Coding for writes/complex reads.
+- Do not force simple bounded reads through Coding or bypass it for writes/complex reads.
 - Do not scan `dev-notes` to infer an active task.
 - Do not load previous/next queue files by default.
 - Do not read `index.md` by default; contract gaps stop and return to Requirement.

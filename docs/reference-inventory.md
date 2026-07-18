@@ -12,7 +12,13 @@ Only runtime task-execution references should appear below.
 ## xc881-coding-skills
 - `adaptive-read-routing.md`
 - `execution-checkpoint-and-tool-policy.md`
+- `frontend-image-reference-workflow.md`
+- `frontend-implementation-standard.md`
+- `frontend-pattern-catalog.md`
+- `frontend-redesign-and-visual-qa.md`
+- `frontend-routing-and-design-read.md`
 - `engineering-quality-rubric.md`
+- `frontend-design-intelligence.md`
 - `git-checkpoint-policy.md`
 - `high-constraint-coding-policy.md`
 - `no-code-comments-policy.md`
@@ -23,6 +29,7 @@ Only runtime task-execution references should appear below.
 ## xc881-requirement-analysis
 - `english-spec-first-policy.md`
 - `existing-project-feature-analysis.md`
+- `design-system-artifact.md`
 - `implicit-requirement-inference.md`
 - `issue-tracker-triage.md`
 - `requirement-process-artifact.md`

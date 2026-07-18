@@ -57,9 +57,7 @@ Load linked decisions/evidence only when the current item needs them.
 Context compaction never changes the active owner or creates a confirmation point.
 Keep `current.md`, accepted contract changes, blockers, and exact evidence paths
 durable, then resume automatically.
-To reopen, append IDs after the old tail, update its `Next`, preserve completed
-items/history, change terminal task state to `ready`, and set current previous /
-current / next to old-tail / first-new / second-new. Requirement validates, then
-hands Coding the exact `Artifact path / Current / Next / Blockers`; Coding never
-searches or chooses latest. Coding updates status, significant transition history,
-and current in one patch; results stay in chat. Run `scripts/validate_req_process.py <task-dir>` after creation/update.
+To reopen, append IDs after the old tail, update `Next`, preserve completed items/history, set terminal state to `ready`, and set previous/current/next to old-tail/first-new/second-new.
+Before normal creation/reopen/checkpoint, derive every linked field and write one coherent patch; never use Python to discover ordinary omissions.
+Validators are only for explicit audit, observed-corruption repair, or repository/CI maintenance. Then hand Coding the exact `Artifact path / Current / Next / Blockers`.
+Coding never searches or chooses latest; it updates status, significant history, and current in one patch while results stay in chat.

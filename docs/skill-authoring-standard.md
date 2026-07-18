@@ -72,15 +72,20 @@ Principle: accurate, low-token, effective agent reading.
 - Non-terminal queue items must be self-contained with goal, relevant scope/AC, targets, constraints, and verification.
 - Context hard limits: req current 1,200 chars, non-terminal queue item 3,500, index 10,000, cross-process ledger 3,000.
 - Move only bounded requirement research to linked evidence; verification output, pass/fail details, and logs remain in chat.
+- A durable visual contract is created only after its gate passes under
+  `dev-notes/design-system/<slug>/`; Requirement owns writes, Coding consumes an
+  exact master/override handoff, and ordinary one-surface work creates none.
 - Defer unused tools when supported; otherwise expose only the next action's tool
   class, cap results, and keep decision impact instead of raw output.
 - Significant accepted decisions are append-only and superseded rather than rewritten.
 - Progress stores queue/current/blockers, not subjective percentages or validation results. Keep verification plans in artifacts and report actual results/logs in chat.
-- Provide a validator for any artifact state machine or linked-file contract.
+- Provide a validator for any artifact state machine or linked-file contract, but
+  reserve it for explicit audit, recovery, and CI rather than normal authoring.
 
 ## Pruning
 
 - Delete no-op lines that do not change agent behavior.
 - Remove sediment: stale examples, duplicated policy, and old branches that no longer trigger.
 - Push branch-specific reference down to `references/`; pull must-have rules back into `SKILL.md`.
-- Validate after edits and audit trigger/eval coverage.
+- Validate repository/skill edits and audit trigger/eval coverage; never turn
+  normal artifact creation or checkpointing into a validator-led write loop.

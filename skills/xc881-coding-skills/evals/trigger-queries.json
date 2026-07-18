@@ -193,5 +193,50 @@
     "query": "将这个 Go 服务迁移到 Rust；先只判断迁移边界，不写代码",
     "should_trigger": false,
     "workflow": "porting boundary only"
+  },
+  {
+    "query": "给现有 React 产品页做可访问的视觉重设计，保留路由和业务行为，并在桌面和手机截图验证",
+    "should_trigger": true,
+    "workflow": "frontend automatic just-in-time redesign and visual QA"
+  },
+  {
+    "query": "把设计参考图实现成响应式营销页，先提取视觉系统再写代码",
+    "should_trigger": true,
+    "workflow": "image-to-code frontend automatic just-in-time implementation"
+  },
+  {
+    "query": "检查营销页在手机上的文字溢出和暗色模式，不改代码",
+    "should_trigger": true,
+    "workflow": "frontend automatic just-in-time visual review read-only"
+  },
+  {
+    "query": "修复按钮点击事件，外观保持不变",
+    "should_trigger": true,
+    "workflow": "nonvisual UI behavior change"
+  },
+  {
+    "query": "只生成一套移动 app 视觉概念图，不写代码",
+    "should_trigger": false,
+    "workflow": "image generation only"
+  },
+  {
+    "query": "为 Node API 增加分页参数校验",
+    "should_trigger": true,
+    "workflow": "backend coding without frontend pack"
+  },
+  {
+    "query": "为 React 表单补齐加载、空态和错误状态，保持现有视觉系统",
+    "should_trigger": true,
+    "workflow": "frontend automatic implementation just-in-time"
+  },
+  {
+    "query": "为一个新建的跨页面医疗预约产品确定可复用视觉系统并实现",
+    "should_trigger": true,
+    "workflow": "frontend automatic design intelligence and design-system gate"
+  },
+  {
+    "query": "给运营看板选择展示订单趋势与构成的图表并实现",
+    "should_trigger": true,
+    "workflow": "frontend automatic design intelligence data display"
   }
 ]

@@ -24,8 +24,9 @@ searching directories or selecting the newest artifact.
 
 Before work:
 
-1. Run the requirement skill's `scripts/validate_req_process.py <task-dir>` as a
-   mechanical check; validator file access does not expand model context.
+1. Consume the exact write-first handoff; do not run a process validator in
+   normal execution. Directly observed malformed fields or links return to
+   Requirement; explicit audit/repair may validate once.
 2. Read `current.md` and only the current queue item it names. Do not read
    `index.md`, previous, or next by default.
 3. Read a previous item only when the current item explicitly links evidence or a
@@ -69,11 +70,11 @@ Execution:
 After a queue item:
 
 - Run declared verification before `done`, but report results/logs only in chat.
-- Append only the significant state/decision transition to `history.md`.
-- Advance previous/current/next and queue counters in `current.md` in the same patch.
+- Derive status, significant history, pointers, and counters first; update them
+  together in one coherent patch without a normal validator call.
 - If no current item remains, set task `done`. Otherwise advance next to current,
-  re-run the validator, load only the new current item, and continue in the same
-  requirement run without asking the user to say continue.
+  load only the new current item, and continue in the same requirement run
+  without asking the user to say continue.
 - Context compaction resumes from the exact current window and is not a
   stop condition. Stop after a valid checkpoint only for explicit stepwise/pause intent or a real
   blocker, approval/input, safety boundary, contract/scope change, or no runnable

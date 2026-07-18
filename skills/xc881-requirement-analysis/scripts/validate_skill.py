@@ -10,7 +10,7 @@ if not m or m.group(1) != root.name: die("name must match folder")
 for k in ["description:","when_to_use:","display_name:","version:","category:","tags:","aliases:"]:
     if k not in fm: die(f"missing {k}")
 if not re.search(r"^tags:\n(?:  - .+\n)+", fm, re.M): die("tags must be non-empty")
-for ref in ['english-spec-first-policy.md', 'implicit-requirement-inference.md', 'existing-project-feature-analysis.md', 'issue-tracker-triage.md', 'requirement-process-artifact.md', 'requirement-output-contract.md', 'requirement-quality-rubric.md']:
+for ref in ['english-spec-first-policy.md', 'implicit-requirement-inference.md', 'existing-project-feature-analysis.md', 'issue-tracker-triage.md', 'requirement-process-artifact.md', 'design-system-artifact.md', 'requirement-output-contract.md', 'requirement-quality-rubric.md']:
     if not (root/"references"/ref).exists(): die(f"missing {ref}")
 artifact_validator = root/"scripts/validate_req_process.py"
 if not artifact_validator.exists(): die("missing validate_req_process.py")
@@ -40,6 +40,17 @@ for rule in ["Reuse Before Gate", "one semantic match", "Coding never"]:
     if rule not in artifact_text: die(f"artifact contract missing reuse rule: {rule}")
 if "chat-only lightweight analysis does not scan" not in artifact_text:
     die("artifact contract must keep lightweight chat-only work out of candidate search")
+for rule in ["never use Python to discover ordinary omissions", "explicit audit, observed-corruption repair, or repository/CI maintenance"]:
+    if rule not in artifact_text:
+        die(f"artifact contract missing write-first rule: {rule}")
+if not re.search(r"derive the complete\s+linked write.*?one coherent patch", text, re.S):
+    die("requirement workflow must construct one coherent process write")
+if not re.search(r"not normal authoring or\s+handoff loops", text):
+    die("requirement workflow must keep validators out of normal handoffs")
+design_text = (root/"references/design-system-artifact.md").read_text(encoding="utf-8")
+for rule in ["dev-notes/design-system", "MASTER.md", "Coding never scans", "One-surface work"]:
+    if rule not in design_text:
+        die(f"design-system contract missing rule: {rule}")
 output_text = (root/"references/requirement-output-contract.md").read_text(encoding="utf-8")
 for heading in ["需求结论", "这次会做", "完成标准", "下一步", "开发记录"]:
     if heading not in output_text: die(f"human output missing {heading}")

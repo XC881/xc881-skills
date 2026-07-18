@@ -89,6 +89,7 @@ $xc881-solution-research 调研这个技术方案
 - 技术调研、需求分析、bug 诊断、代码执行、源码写作、移植编排的边界更清楚。
 - issue/PR/PRD 分诊能力并入 `$xc881-requirement-analysis`，减少入口数量，保留 tracker 状态机、Agent Brief、PRD 拆 issue、out-of-scope 和 map/child tickets。
 - eval、routing matrix 和 validator 会一起约束触发行为，降低文档和实际路由不一致的风险。
+- 前端设计、视觉 review、重设计和 image-to-code 都在 Coding 内；只有现有证据无法决定当前设计 concern 时才自动加载设计情报 reference，随后按实际环节继续加载对应 reference，不等待用户再次请求，也不新增会误触发的审美 skill。
 - 大输出默认写文件或分段 artifact，聊天里只报告路径、进度和验证，符合低 token 策略。
 - 单事实、仅诊断、聊天内小需求、已有证据写作和仅迁移边界都有轻量分支，不会为形式完整跑满工作流。
 
@@ -117,14 +118,14 @@ dev-notes/req-process/<YYYYMMDD>-<task-slug>/
 
 `index.md` 默认存在，但按角色读取：Requirement 在识别/复用任务、恢复需求分析、修改 Scope/AC/Out-of-scope、全局审计或状态修复时读取；Coding 正常执行不读取。`current.md` 是唯一可变任务状态和活动指针，`index.md` 不重复保存 `State`。
 
-复用已完成任务时，不重建目录或重写历史：新 queue ID 接在旧尾节点之后，任务重开为 `ready`，Requirement 把精确的 artifact、current、next 和 blockers 交给 Coding。Coding 只验证并消费这个 handoff，不负责搜索候选任务。
+复用已完成任务时，不重建目录或重写历史：新 queue ID 接在旧尾节点之后，任务重开为 `ready`，Requirement 把精确的 artifact、current、next 和 blockers 交给 Coding。Coding 只消费这个 handoff；直接读取发现损坏才回到 Requirement，正常路径不靠 validator 搜索候选或试错。
 
 读请求先经过复杂度门槛：简单读取可由当前分析/写作流程直接完成；所有写入、任务读取和复杂读取进入 Coding。Coding 被选中后，在打开实际项目文件或执行 artifact 前，再判断临时还是任务：
 
 | 持久化模式 | 识别条件 | Coding 行为 |
 | --- | --- | --- |
 | `instant` | 用户未提供 artifact/handoff，当前上下文也没有唯一明确的队列任务 | 不扫描、不读取 `dev-notes`，直接读代码或改代码 |
-| `queue` | 用户明确给出 req-process/cross-process 路径或 handoff，或当前对话唯一明确指向一个活动任务 | 机械校验后只读 `current.md` 和当前 queue item，不默认读 `index.md`、previous 或 next |
+| `queue` | 用户明确给出 req-process/cross-process 路径或 handoff，或当前对话唯一明确指向一个活动任务 | 只读 `current.md` 和当前 queue item，不默认读 `index.md`、previous 或 next |
 
 如果同时存在多个可能的 artifact，Coding 只问一个阻塞选择问题，不能扫描目录后猜“最新任务”。`read | change` 是另一条独立维度，因此四种组合都成立：即时读、即时改、队列读、队列改。队列项必须自带当前执行合同；previous 只有被当前项明确引用证据/依赖时才读，next 等推进为 current 后再读。
 
@@ -138,7 +139,9 @@ Requirement、Bugfix 或源码文章保留自己的分析/写作职责：简单�
 
 进度只使用 queue done/total、current 和 blocker，不使用主观百分比或验证结果计数。简单、单轮、单目标任务可以不创建文档，但 Requirement 必须在“开发记录”中说明为什么无需文档。若创建文档，完整工程字段留在文档中，聊天只用人话报告结论、当前工作、下一步和阻塞项。
 
-上下文硬预算：`current.md <= 1,200` 字符、未完成 queue item `<= 3,500`、`index.md <= 10,000`、cross-process ledger `<= 3,000`。有界技术调研可写入 evidence；验证命令输出、通过/失败详情和日志只在聊天报告，不写入 dev-notes。
+上下文硬预算：`current.md <= 1,200` 字符、未完成 queue item `<= 3,500`、`index.md <= 10,000`、cross-process ledger `<= 3,000`、design-system `MASTER.md <= 3,000`、surface override `<= 1,200`。有界技术调研可写入 evidence；验证命令输出、通过/失败详情和日志只在聊天报告，不写入 dev-notes。
+
+视觉系统只有在用户明确要求，或新/重构视觉系统需要跨 2 个以上页面、跨会话复用、或指导队列任务时才创建。Requirement 把它写在 `dev-notes/design-system/<slug>/MASTER.md`，页面差异才追加 `surfaces/<surface>.md`；Coding 只在当前视觉 concern 到达后读取精确 handoff，绝不扫描目录。已有项目 tokens、组件和品牌始终优先，普通单页面设计不创建这类文档。
 
 ### Skill 上下文边界
 
@@ -262,6 +265,19 @@ clear scope
 提交并推送
 ```
 
+前端设计任务同样直接进入 Coding。它会先判断是现有设计系统、产品 UI、营销/编辑页面、移动端、重设计还是 image-to-code；如果当前产品/视觉、色彩字体、图表、移动平台或具体 UX 决策缺少证据，才自动加载设计情报 reference。之后工作推进到实现、图像、重设计/视觉验收或特殊模式这些实际环节时，自动加载下一个需要的 reference，不等待用户再次提出，也不预加载整套规则：
+
+设计情报已经加载但仍无法排序候选时，才可调用一次本地 selector；它按当前 concern 返回不超过 3 个候选，不联网、不写文件、不安装依赖，也不能覆盖已有项目/品牌证据。
+
+```text
+给现有 React 产品页做可访问的视觉重设计，保留路由和业务行为
+把设计参考图实现成响应式营销页，先提取视觉系统再写代码
+检查营销页在手机上的文字溢出和暗色模式，不改代码
+修复按钮点击事件，外观保持不变
+```
+
+只有视觉概念图、且明确不写代码时，不会为了生成图片而启动 Coding。
+
 ### 6. 源码阅读文章
 
 ```text
@@ -379,7 +395,7 @@ tracker 场景补充：
 - tracker 写操作必须区分已经执行、计划执行、因为权限/工具缺失而跳过。
 - 文档 gate 前先解析显式/对话中的已有任务；只有可能持久化或执行且身份不足时才搜索候选，聊天内小分析不扫描目录。
 - 复用终态任务时追加 queue ID 并精确交接 artifact/current/next/blockers，Coding 不搜索任务目录。
-- 复杂需求先通过 artifact gate；持久化后必须生成可验证 queue 并运行 req-process validator。
+- 复杂需求先通过 artifact gate；持久化时先按写前不变量一次性生成关联的 queue/current/history，不能把 req-process validator 当成试错工具。validator 只用于显式审计、已发现损坏后的修复和仓库/CI 维护。
 - req-process 只保存验证计划和 queue/current/blocker 状态，实际验证结果只在聊天报告。
 - Spec、ER/IR、Scope、FR/NFR、AC 和风险分级保存在 req-process，不作为聊天固定标题。
 - 没有 artifact 时，聊天必须把范围、完成标准、风险/假设和下一步说完整。
@@ -439,6 +455,8 @@ Mitigation:
 - 修复 bug
 - 重构
 - 工程质量优化
+- 用户界面实现、视觉 review、重设计和 image-to-code
+- 响应式布局、真实资产、交互状态、可访问性、动效和截图级验证
 - review
 - 测试和验证
 - 显式提交/推送
@@ -468,6 +486,11 @@ Mitigation:
 - Requirement/Bugfix/源码文章可直接完成简单读取；委派的复杂只读证据不自动获得改动权限。
 - 没有明确路径/handoff 或唯一上下文时，不扫描 `dev-notes`，直接执行即时读/改任务。
 - 收到明确 req-process/cross-process handoff 时，只读取 `current.md + 当前项`，不默认读取 `index.md`、previous 或 next；执行验证后只在聊天报告结果，dev-notes 同一 patch 只更新 status、history 和 current。
+- 前端设计先读取真实页面、组件、token、资产和平台约束，并从路由/Design Read 开始；只有当前设计决策证据不足时才加载设计情报 reference，再在实现、图像、重设计/视觉验收或特殊模式的实际关切时自动加载下一个需要的 reference，不等待用户再次提出。规模较大的绿地视觉工作或重设计会先给出简短的 Design Read。明确外观不变的纯事件、数据绑定或 DOM 行为修复不加载前端 reference。
+- 可复用视觉系统不写入业务项目根目录：Requirement 仅在持久化 gate 通过时创建 `dev-notes/design-system/<slug>/MASTER.md` 和必要的页面 override；Coding 按 exact handoff 读取，不扫描、不开新全局默认，也不让上游建议覆盖现有系统。
+- 既有设计系统、品牌、路由、表单、主题、可访问性、内容和用户范围优先于通用审美规则；不因“更好看”而自动安装包、换字体、加暗色模式或改信息架构。
+- image-to-code 会把可靠的设计图当作实现证据，提取排版、间距、媒体和控件逻辑后再编码；缺图时不伪造 div 截图或虚构社交证明。
+- 前端重设计先审计并保护路由、导航、表单契约、logo、legal、analytics/meta 和已有无障碍能力；有浏览器工具时检查桌面和窄屏截图，没有工具时明确未观察到的视觉边界。
 
 ### `$xc881-source-article-style`
 
@@ -543,7 +566,7 @@ bash scripts/install.sh all
 python scripts/validate_all.py
 ```
 
-验证一个需求过程 artifact：
+显式审计或修复已发现损坏的需求过程 artifact（常规创建/推进不运行）：
 
 ```bash
 python skills/xc881-requirement-analysis/scripts/validate_req_process.py dev-notes/req-process/<task>
