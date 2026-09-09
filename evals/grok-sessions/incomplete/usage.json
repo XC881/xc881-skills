@@ -1,0 +1,13 @@
+{
+  "session": {
+    "inputTokens": 50,
+    "outputTokens": 10,
+    "cachedReadTokens": 0,
+    "cacheCreationTokens": 0,
+    "reasoningTokens": 0,
+    "totalTokens": 60,
+    "modelCalls": 1,
+    "usageIsIncomplete": true
+  },
+  "turns": []
+}

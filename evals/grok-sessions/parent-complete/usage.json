@@ -1,0 +1,38 @@
+{
+  "sessionId": "parent-complete",
+  "session": {
+    "inputTokens": 100,
+    "outputTokens": 20,
+    "cachedReadTokens": 40,
+    "cacheCreationTokens": 0,
+    "reasoningTokens": 5,
+    "totalTokens": 165,
+    "modelCalls": 2,
+    "usageIsIncomplete": false,
+    "primaryModelId": "grok-4.6",
+    "modelUsage": {
+      "grok-4.6": {
+        "inputTokens": 100,
+        "outputTokens": 20,
+        "cachedReadTokens": 40,
+        "cacheCreationTokens": 0,
+        "reasoningTokens": 5,
+        "totalTokens": 165,
+        "modelCalls": 2,
+        "usageIsIncomplete": false
+      }
+    }
+  },
+  "turns": [
+    {
+      "turnNumber": 1,
+      "inputTokens": 100,
+      "outputTokens": 20,
+      "cachedReadTokens": 40,
+      "cacheCreationTokens": 0,
+      "reasoningTokens": 5,
+      "totalTokens": 165,
+      "modelCalls": 2
+    }
+  ]
+}

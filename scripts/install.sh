@@ -16,6 +16,7 @@ case "$TARGET" in
   codex) copy "$HOME/.codex/skills" ;;
   cursor) copy "$HOME/.cursor/skills" ;;
   cc-switch) copy "$HOME/.cc-switch/skills" ;;
-  all) copy "$HOME/.agents/skills"; copy "$HOME/.claude/skills"; copy "$HOME/.codex/skills"; copy "$HOME/.cursor/skills"; copy "$HOME/.cc-switch/skills" ;;
-  *) echo "usage: scripts/install.sh agents|claude|codex|cursor|cc-switch|all"; exit 1 ;;
+  grok) copy "$HOME/.grok/skills" ;;
+  all) copy "$HOME/.agents/skills"; copy "$HOME/.claude/skills"; copy "$HOME/.codex/skills"; copy "$HOME/.cursor/skills"; copy "$HOME/.cc-switch/skills"; copy "$HOME/.grok/skills" ;;
+  *) echo "usage: scripts/install.sh agents|claude|codex|cursor|cc-switch|grok|all"; exit 1 ;;
 esac

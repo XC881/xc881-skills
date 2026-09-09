@@ -108,15 +108,27 @@ instead of changing unrelated client/provider configuration or adding a cache.
 `scripts/audit_skill_continuations.py` parses recorded `run.json`/`events.jsonl`.
 Usage is the delta of cumulative `tokenUsage.total`, never the sum of `last`
 notifications. Failed, incomplete, mismatched model/client/case, missing usage
-and character-count comparisons cannot claim savings. Unobserved boundaries
-always include provider request bodies, host injection dedup and child usage.
-`--compare BASELINE CANDIDATE` applies that rule to two independent run
-directories. `item/completed` `contextCompaction` is real host compaction;
+and character-count comparisons cannot claim savings. On Codex, unobserved
+boundaries always include provider request bodies, host injection dedup and
+child usage. `--compare BASELINE CANDIDATE` applies that rule to two independent
+run directories. `item/completed` `contextCompaction` is real host compaction;
 controlled missing-body cases must not set `compact`.
+
+Grok 1.0.24 uses `scripts/run_grok_continuations.py --execute` with the same
+executable cases. First turn `-s UUID` creates only; later turns `-r UUID`.
+Do not treat public docs that say `-s` resumes as the 1.0.24 contract. Observed
+surfaces are session files: `chat_history.jsonl` (appended system/user records
+for injection class repeat/absent/unknown), `usage.json`, `signals.json`,
+`compaction_checkpoints/`, and `subagents/*/meta.json` child dirs. HTTP request
+bytes stay unknown. Host compaction is `compactionCount` or checkpoints, never
+TUI `events.jsonl`. Missing child `usage.json` is missing/unknown, not zero.
+Do not use OTEL as an eval path. SKILL.md stays Anthropic-compatible; extra
+frontmatter keys are ignored.
 
 Each `continuations` row names an `executable` case under `evals/continuations/`
 or `evals/queue-execution/`. Those JSON files are the matched-task inputs for
-`scripts/run_skill_continuations.py --execute`; they do not contain expected
+`scripts/run_skill_continuations.py --execute` and
+`scripts/run_grok_continuations.py --execute`; they do not contain expected
 read counts or intended answers. CI never runs paid turns.
 
 ## Queue State History

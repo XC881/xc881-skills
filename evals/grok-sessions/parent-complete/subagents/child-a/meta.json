@@ -1,0 +1,6 @@
+{
+  "subagent_id": "child-a",
+  "parent_session_id": "parent-complete",
+  "child_session_id": "child-a",
+  "subagent_type": "explore"
+}

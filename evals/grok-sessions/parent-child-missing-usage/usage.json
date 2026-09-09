@@ -1,0 +1,25 @@
+{
+  "sessionId": "parent-child-missing-usage",
+  "session": {
+    "inputTokens": 10,
+    "outputTokens": 2,
+    "cachedReadTokens": 0,
+    "cacheCreationTokens": 0,
+    "reasoningTokens": 0,
+    "totalTokens": 12,
+    "modelCalls": 1,
+    "usageIsIncomplete": false,
+    "modelUsage": {
+      "grok-4.6": {
+        "inputTokens": 10,
+        "outputTokens": 2,
+        "cachedReadTokens": 0,
+        "cacheCreationTokens": 0,
+        "reasoningTokens": 0,
+        "totalTokens": 12,
+        "modelCalls": 1
+      }
+    }
+  },
+  "turns": []
+}

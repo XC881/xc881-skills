@@ -126,6 +126,15 @@ class FrontendDesignTests(unittest.TestCase):
                                     cwd=directory, capture_output=True, text=True, timeout=20)
             self.assertEqual(result.returncode, 0, result.stderr)
             self.assertGreater(json.loads(result.stdout)["count"], 0)
+            subprocess.run(["bash", str(ROOT / "scripts/install.sh"), "grok"],
+                           env=env, check=True, capture_output=True, timeout=20)
+            grok_target = Path(directory) / ".grok/skills"
+            subprocess.run([sys.executable, str(ROOT / "scripts/validate_installed_skills.py"), str(grok_target)],
+                           check=True, capture_output=True, timeout=20)
+            names = sorted(path.name for path in grok_target.glob("xc881-*") if path.is_dir())
+            expected = sorted(path.name for path in (ROOT / "skills").glob("xc881-*") if path.is_dir())
+            self.assertEqual(names, expected)
+            self.assertFalse((Path(directory) / ".claude/skills").exists())
 
     def test_persist_is_explicit_bounded_and_non_overwriting(self):
         with tempfile.TemporaryDirectory() as directory:

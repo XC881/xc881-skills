@@ -183,7 +183,11 @@ xc881 的约束是：每个 description 最多 320 字符、六个合计最多 1
 
 维护时可运行 `python scripts/audit_skill_loads.py --baseline HEAD`，查看六个入口、典型分支体积及有明确前提的多轮预期读取。它报告字符数和声明路径，不运行模型、不证明真实行为；已安装 tiktoken 时可用 `--encoding <编码名>` 单独测文本 token。实际多轮验收须比较相同任务的读取轨迹和输出质量，方法见 `docs/golden-output-tests.md`。
 
-付费的真实多轮/压缩验收是显式 opt-in。同一任务要在独立上下文各跑一次基线与候选：`python scripts/run_skill_continuations.py evals/queue-execution/block-compact-resume.json --skill-root <skills> --out-dir <out> --execute`。解析单次记录用 `python scripts/audit_skill_continuations.py <out>`；对照用 `--compare <baseline-out> <candidate-out>`。用量取累计 `total` 的增量，不把每次 `last` 通知加总，也不把字符数当成 token 节省。只有记录里出现 `contextCompaction` 才算真实宿主压缩。CI 默认不调用模型。看不见提供商请求正文时，不得声称去重或会话级节省。
+付费的真实多轮/压缩验收是显式 opt-in。Codex：同一任务要在独立上下文各跑一次基线与候选：`python scripts/run_skill_continuations.py evals/queue-execution/block-compact-resume.json --skill-root <skills> --out-dir <out> --execute`。解析单次记录用 `python scripts/audit_skill_continuations.py <out>`；对照用 `--compare <baseline-out> <candidate-out>`。用量取累计 `total` 的增量，不把每次 `last` 通知加总，也不把字符数当成 token 节省。只有记录里出现 `contextCompaction` 才算真实宿主压缩。Codex 仍把提供商请求正文、宿主注入去重和子 agent 用量标为未观察。
+
+Grok 1.0.24：`python scripts/run_grok_continuations.py <case.json> --skill-root <skills> --out-dir <out> --execute`，或 `--all` 覆盖全部 executable。首轮 `-s UUID` 只创建、已存在则失败；后续 `-r UUID`，不要把 `-s` 当成 resume。可观察面是 `~/.grok/sessions/<urlencoded-cwd>/<uuid>/` 下的 `chat_history.jsonl`、`usage.json`、`signals.json`、`compaction_checkpoints/` 和 `subagents/*/meta.json`。注入对比只看追加的 system/user 记录；HTTP 请求正文仍未知。宿主压缩看 `compactionCount` 或 checkpoints，不看 TUI `events.jsonl`。子会话缺少 `usage.json` 记 missing/unknown，不当成 0。公开文档若写 `-s` 可 resume，以本地 1.0.24 为准。不用 OTEL 做评测路径。
+
+CI 默认不调用模型。看不见提供商请求正文时，不得声称去重或会话级节省。
 
 具体静态预算和审计方式见 `docs/skill-context-budget.md`。
 
@@ -601,6 +605,7 @@ Mitigation:
 安装到本机 skill 目录：
 
 ```bash
+bash scripts/install.sh grok
 bash scripts/install.sh all
 ```
 

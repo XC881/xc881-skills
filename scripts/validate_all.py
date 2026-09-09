@@ -20,6 +20,8 @@ subprocess.run([sys.executable, str(root/"scripts/test_frontend_design.py")], cw
 subprocess.run([sys.executable, "-B", str(root/"scripts/test_behavior_evaluation.py")], cwd=root, check=True)
 subprocess.run([sys.executable, "-B", str(root/"scripts/test_queue_execution.py")], cwd=root, check=True)
 subprocess.run([sys.executable, "-B", str(root/"scripts/test_skill_continuations.py")], cwd=root, check=True)
+subprocess.run([sys.executable, "-B", str(root/"scripts/test_grok_sessions.py")], cwd=root, check=True)
+subprocess.run([sys.executable, "-B", str(root/"scripts/test_grok_continuations.py")], cwd=root, check=True)
 for s in m:
     p = root/"skills"/s["name"]
     validate_skill_frontmatter(p)
