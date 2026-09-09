@@ -5,9 +5,18 @@
   "note": "Judge or human evaluates output quality. Not run in default CI. Covers the behaviors that cannot be checked structurally: stop-boundary gate, magnitude judgment, behavioral equivalence, and plan-file precondition.",
   "cases": [
     {
+      "query": "同一移植队列继续，Porting 正文仍在上下文，Coding 返回当前片段证据",
+      "checklist": [
+        "reuses available complete entry/ref rules and resumes Porting without rediscovery",
+        "refreshes mutable cross-process/current state when needed rather than treating static-rule reuse as state freshness",
+        "a new or compacted context obtains missing instructions instead of trusting inherited loaded markers",
+        "preserves behavioral equivalence and automatic advancement with no normal process-validator call"
+      ]
+    },
+    {
       "query": "用xc881移植这个 Go 服务到 Rust",
       "checklist": [
-        "magnitude is judged from reading the code, not assumed to be whole-project from wording",
+        "magnitude is judged from supplied or cheap source/target evidence, with code reading only for missing boundary evidence",
         "goal task locks measurable done-criteria + exit conditions before any porting is proposed",
         "a vague boundary is raised as a blocking question, not entered as a loop",
         "no porting action is proposed before linked req-process and cross-process artifacts exist",
@@ -62,6 +71,16 @@
         "keeps linked req current, porting item state, equivalence method, open risks and exact next action durable",
         "reloads only the selected cross-process ledger plus linked current window",
         "continues delegated implementation without weakening the equivalence gate or asking the user to continue"
+      ]
+    },
+    {
+      "query": "边界和语言映射已确认；当前切片的成功输出 golden 一致，但错误路径和副作用尚未比较，能标完成吗？",
+      "checklist": [
+        "reuses revision/scope-matched boundary, mappings and source fixtures without repeating language-wide research",
+        "loads equivalence guidance for the uncovered behavior and only the selected linked current window for queue state",
+        "treats successful golden comparison as evidence for covered outputs, not proof of required errors or side effects",
+        "returns the exact missing parity check to Coding and does not mark the item complete while it remains unresolved",
+        "keeps scope/AC in Requirement, method/status in cross-process, and verification verdict/evidence in chat"
       ]
     }
   ]

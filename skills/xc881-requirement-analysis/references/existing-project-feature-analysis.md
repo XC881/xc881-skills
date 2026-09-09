@@ -1,6 +1,7 @@
 # Existing Change
 
-Add:
+Describe the delta from evidenced current behavior; reuse known contracts and
+inspect only affected paths or dependencies. Add relevant fields:
 
 ```text
 Affected:
@@ -9,7 +10,9 @@ Migration:
 Rollout:
 ```
 
-Check behavior, contracts, data, permissions, tests, compatibility.
+Trace changed AC to behavior, contracts, data, permissions, tests, or compatibility.
+Keep unchanged guarantees explicit; unresolved regression risk drives the next read,
+not an architecture-wide inventory.
 
 Breakdown: prefer vertical slices/tracer bullets that are independently verifiable and dependency-ordered. Avoid file-path implementation scripts in requirement handoff unless the path is part of the public contract.
 

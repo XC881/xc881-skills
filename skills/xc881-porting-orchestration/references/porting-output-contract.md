@@ -1,8 +1,8 @@
 # Porting Output Contract
 
-Keep task class, magnitude, stop boundary, language/library mapping, risk priority,
-equivalence evidence, and execution ledger in req-process/cross-process. Chat
-translates those decisions for the user.
+Keep scope/stop boundary in req-process and magnitude, equivalence method and
+progress in cross-process. Chat reports verification/equivalence evidence and
+translates decisions; results/logs never enter either artifact.
 
 ```text
 迁移结论: <plain decision and whether work may proceed>

@@ -5,6 +5,16 @@
   "note": "Judge or human evaluates output quality. Not run in default CI.",
   "cases": [
     {
+      "query": "已给完整 Coding 正文；连续处理同一表单，之后才涉及动效，再回到错误状态",
+      "checklist": [
+        "makes zero avoidable entry reads when the complete body is available, while obeying higher-priority invocation requirements",
+        "automatically acquires only missing reference rules for each reached concern and reuses them on return",
+        "a fresh delegate or compacted context lacking needed rules obtains them instead of trusting a loaded marker",
+        "explicit rereads and known instruction changes permit targeted reads without per-turn hash polling",
+        "retains project freshness, verification, exact current authority and continuous queue execution"
+      ]
+    },
+    {
       "query": "用xc881写代码实现登录",
       "checklist": [
         "every changed line traces to the request, evidence or verification",
@@ -79,7 +89,7 @@
     {
       "query": "需求分析已复用 dev-notes/req-process/login，并交接 Current Q-070、Next Q-080，继续写代码",
       "checklist": [
-        "uses the exact reopened artifact and current/next handoff after mechanical validation",
+        "consumes the exact write-first reopened artifact/current/next handoff without a process-validator call",
         "does not scan req-process, compare candidates, or select a newer artifact",
         "reads only current.md and the handed-off current item before coding"
       ]
@@ -131,7 +141,7 @@
     {
       "query": "当前需求有三个可运行队列项，开始实现",
       "checklist": [
-        "validates and reads only the initial current window",
+        "consumes only the exact fresh initial current window without a process-validator call",
         "after each item verifies, checkpoints and advances before reading the new current",
         "continues through all runnable items without asking the user to say continue",
         "ends normally only when every queue item is done or skipped and task state is terminal"
@@ -158,8 +168,9 @@
       "checklist": [
         "treats context compaction as an environment event rather than a queue boundary",
         "keeps the exact current contract, blockers, evidence paths, changed paths and next action recoverable",
-        "removes stale tool results only after their decision impact or evidence path is durable",
-        "reloads only the selected fast path and exact current window, revalidates, and continues without a continuation prompt"
+        "preserves decision impact and evidence paths without claiming control of host context removal",
+        "recovers the exact current window, reuses available required rules and reads only missing or known-changed instructions",
+        "continues without a continuation prompt or process-validator call while preserving real code verification and mutable-state freshness"
       ]
     },
     {
@@ -221,8 +232,8 @@
       "query": "为一个新建的跨页面医疗预约产品确定可复用视觉系统并实现",
       "checklist": [
         "routing first inspects user, project, brand, supplied-frame and local-system evidence before design intelligence",
-        "when that evidence leaves the active visual decision unresolved, design intelligence loads automatically and returns no more than three context-specific candidates",
-        "only when the active branch still cannot rank candidates may it run the local selector once; the selector is deterministic, bounded, and has no write side effect",
+        "when substantial new UI has no reusable system, design intelligence loads automatically and runs the real project-specific generator once, not a small fixed profile map",
+        "the full local data and engine remain unread as prompt text; the bounded result preserves source identities, fallbacks and accessibility risk for reconciliation",
         "a reusable multi-surface visual contract automatically delegates to Requirement, which applies the gate and writes only dev-notes/design-system/<slug>/MASTER.md plus needed surface deviations",
         "Coding consumes the exact handed-off master only when the concern reaches it, never scans dev-notes, writes a project-root design-system directory, or forces an upstream stack/style default"
       ]
@@ -233,6 +244,32 @@
         "automatically loads design intelligence only for the unresolved data-display decision, then continues to implementation",
         "chooses a representation from the data question rather than a default chart library or decorative dashboard pattern",
         "does not load image workflow, visual-family patterns, or a durable design-system artifact unless their separate concerns actually arise"
+      ]
+    },
+    {
+      "query": "给现有表单加提交失败状态，沿用组件和视觉规则，这些文件刚才已经读过",
+      "checklist": [
+        "reuses valid in-context evidence and does not repeat discovery or unchanged instruction reads",
+        "loads only implementation and state/accessibility concerns not already available, not layout/content/motion branches without a new concern",
+        "does not generate a new design system, read vendor CSV/Python source, run a catalog listing, or persist a master"
+      ]
+    },
+    {
+      "query": "新做中文运营看板，没有现成设计系统，先给出视觉决策，不写页面",
+      "checklist": [
+        "automatically generates a candidate using the installed real engine and app surface, with agent-translated English terms",
+        "queries a short product/workflow phrase, keeping negative background and implementation instructions out of retrieval terms; a framework mention alone causes no stack query",
+        "does not apply landing-page hero sections or treat a recommended font as verified Chinese glyph coverage",
+        "reconciles style accessibility and catalog constraints against actual requirements instead of claiming compliance",
+        "does not make the user invoke another skill, preload all references, or write a master unless its persistence gate passes"
+      ]
+    },
+    {
+      "query": "目录查询没有匹配，参考结果的代码字段又被省略了，继续完成当前任务",
+      "checklist": [
+        "preserves no-match and fallback uncertainty, not a fabricated ranked profile",
+        "retrieves the exact needed record/field before using omitted code or constraints, without opening the whole dataset",
+        "corrects a demonstrated domain/language/version error at most once, not a synonym loop; bounded research handles a genuinely blocking external fact"
       ]
     }
   ]

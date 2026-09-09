@@ -3,7 +3,7 @@ name: xc881-requirement-analysis
 description: 'Primary owner for requirements, scope, acceptance criteria, PRDs, and issue/PR triage. Separate explicit/inferred needs, persist task queues when warranted, and delegate only blocking research or reads. Implementation detail alone is not requirement intent.'
 when_to_use: 'Use for scope/AC/tracker deliverables. Persist only when the gate passes; delegate bounded uncertainty, then resume the same owner.'
 display_name: "xc881需求分析"
-version: "2.10.0"
+version: "2.10.1"
 category: "requirements"
 tags:
   - intent-routing
@@ -24,59 +24,53 @@ aliases:
 
 # xc881 Requirement
 
-Intent-routed requirement owner. Direct calls select it; implicit use requires
-scope/AC/tracker as the primary outcome. Incidental implementation uncertainty
-stays with the base/current owner. Run only the needed branch. No code.
+Intent-routed scope/AC/tracker owner, not incidental implementation uncertainty.
+Direct calls select it. No code; maintain requirement artifacts here.
 
-Goal:
+## Reference Routes
 
-```text
-request → spec → ER/IR → scope → AC → risk → handoff
-```
+- `./references/english-spec-first-policy.md`: normalize a rough/mixed request.
+- `./references/implicit-requirement-inference.md`: missing prerequisite/decision affects AC.
+- `./references/existing-project-feature-analysis.md`: existing behavior/contract changes.
+- `./references/issue-tracker-triage.md`: tracker state, Agent Brief, or operations.
+- `./references/requirement-process-artifact.md`: artifact identity, persistence gate, queue update/resume.
+- `./references/design-system-artifact.md`: explicit or reusable visual contract.
+- `./references/requirement-output-contract.md`: persisted summary, tracker add-on, or blocking question.
+- `./references/requirement-quality-rubric.md`: requested review or unresolved scope/AC quality risk.
 
-Reference files live under `./references/`.
+Route by intent each turn. Full supplied bodies count; names/paths/markers do not.
+Reuse in-context rules; read needed exact paths automatically only for missing
+rules, known changes or requested rereads. Higher-priority invocation rules win.
 
-Reference Index:
+## Workflow
 
-- `./references/english-spec-first-policy.md`: rough/mixed request.
-- `./references/implicit-requirement-inference.md`: hidden needs.
-- `./references/existing-project-feature-analysis.md`: existing change.
-- `./references/issue-tracker-triage.md`: issue/PR/PRD tracker state, Agent Brief, out-of-scope, and tracker ops.
-- `./references/requirement-process-artifact.md`: artifact gate, req-process queue, resume/update protocol.
-- `./references/design-system-artifact.md`: gated durable visual contract.
-- `./references/requirement-output-contract.md`: output.
-- `./references/requirement-quality-rubric.md`: strict check.
-
-When opening reference files, always use the exact relative path shown above.
-Do not assume reference files are located beside `SKILL.md`.
-
-Steps:
-
-1. Confirm requirement/triage intent from direct invocation, wording, or delegated context.
-2. Spec: `Goal / Inputs / Constraints / Output / Notes`.
-3. Classify: new / existing / review.
-4. Resolve an explicit or unambiguous conversational artifact first. Run bounded
-   candidate-path search only when persistence or implementation handoff is likely;
-   clearly chat-only work does not scan req-process. Reuse one semantic match, ask
-   once for multiple matches, or apply the gate when none match.
-5. If technical uncertainty blocks scope or AC judgment, use bounded `$xc881-solution-research`, then continue without user reconfirmation.
-6. If project code/test/config must be inspected, apply the task+project complexity gate: perform a simple exact/local/low-risk read here, or delegate a complex/tracked `read` to `$xc881-coding-skills`, then resume from evidence.
-7. Produce `ER/IR`, scope, `FR/NFR/AC`, and P0-P3 risks; one blocking question max.
-8. If the artifact gate passes, create dependency-aware vertical queue items for
-   Coding. Otherwise keep a compact self-contained chat contract. Reused artifacts
+1. Classify new / existing / review. Reuse scope/version-matched Spec/ER/IR and
+   evidence; fill scope/AC gaps. Spec:
+   `Goal / Inputs / Constraints / Output / Notes`.
+2. Resolve explicit/unambiguous conversational artifacts first. Bounded candidate
+   search requires likely persistence/handoff; chat-only work never scans.
+   Reuse one semantic match, ask once for multiple, or apply the gate if none.
+3. For missing project facts, perform a simple exact/local/low-risk read here, or delegate a complex/tracked `read` to `$xc881-coding-skills` using task+project complexity.
+   External uncertainty blocking scope/AC goes to `$xc881-solution-research`.
+   Send question/evidence/permissions; receive needed anchors, uncertainty and
+   next step. Resume without repeating discovery.
+4. Produce `ER/IR`, scope, `FR/NFR/AC`, and P0-P3 risks. Link AC to needs and
+   observable results; inferred is not confirmed. Ask one blocking product
+   decision max, with recommendation/fallback; discover facts instead of asking.
+5. If the artifact gate passes, create dependency-aware vertical queue items for
+   Coding; otherwise use a self-contained chat contract. Reused artifacts
    preserve history, append IDs after the tail, and reopen from the first new item.
-   A reusable visual contract passes the design-system gate; otherwise it stays in
-   the current Design Read. Persist verification plans and queue state, never results/logs.
-9. Keep the full structured analysis in req-process when persisted, then report a compact human-readable summary. Chat-only work must remain self-contained.
-10. Before artifact creation, reopening, or checkpointing, derive the complete
-    linked write from its template and apply one coherent patch. Validators are
-    explicit audit/repair or repository/CI tools, not normal authoring or
-    handoff loops. Then hand every write and selected complex/tracked read to
-    Coding with exact artifact/current/next/blockers. A queued implementation
-    continues across items; after context compaction it resumes the same
-    owner/current automatically. Active ownership returns here after bounded
-    delegation; no second invocation or per-item “continue” is needed unless
-    the user requests stepwise control or a real blocker occurs.
+   Visual contracts failing their gate stay in the current Design Read.
+   Persist verification plans and queue state, never results/logs.
+6. Before artifact creation, reopening, or checkpointing, derive the complete
+   linked write from its template and apply one coherent patch. Validators are
+   explicit audit/repair or repository/CI tools, not normal authoring or
+   handoff loops. Outside requirement artifact maintenance, hand every write and selected complex/tracked read
+   to Coding with exact artifact/current/next/blockers, or the chat-only contract.
+7. Queued implementation continues to task terminal; context compaction resumes
+   the same owner/current automatically. Bounded delegates return here;
+   no second invocation or per-item “continue” unless explicit stepwise/pause intent
+   or a real blocker. Persisted progress is authoritative over chat.
 
 User-facing output:
 
@@ -90,4 +84,5 @@ User-facing output:
 开发记录:
 ```
 
-Rules: route only on requirement/triage intent; no code; inferred ≠ confirmed; AC must be testable; persisted documents retain Spec/ER/IR/Scope/FR/NFR/AC/Risk while chat translates decisions into plain language; omit irrelevant empty headings; persisted progress is authoritative over chat; use `$xc881-solution-research` only for bounded technical uncertainty, and return its result to the same requirement run.
+Persist Spec/ER/IR/Scope/FR/NFR/AC/Risk; summarize decisions in chat. Chat-only output
+is self-contained. Omit empty headings.

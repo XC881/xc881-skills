@@ -1,0 +1,11 @@
+{
+  "id": "path-only-activation",
+  "owner": "xc881-coding-skills",
+  "files": {
+    "mod.py": "def n(value):\n    return value\n"
+  },
+  "turns": [
+    {"request": "Use the selected Coding skill to explain the supplied function without edits. def n(value): return value"},
+    {"request": "Continue the same explanation with another supplied input: n(1) returns 1."}
+  ]
+}

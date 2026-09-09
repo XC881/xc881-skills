@@ -1,6 +1,6 @@
 # Cross-Language Understanding
 
-Use before porting to build the source->target model. Keep it minimal; expand only where a real gap exists.
+Use for current-slice source->target mapping gaps affecting behavior or design.
 
 ## Understand
 
@@ -19,7 +19,7 @@ If the target is greenfield (no existing architecture), fall back to target-lang
 
 ## Derive risks (requirement-analysis reasoning)
 
-Enumerate concrete pre/post porting problems, prioritized:
+Select concrete risks evidenced by the current slice, prioritized:
 
 - Semantics: behavior that depends on source-language specifics (int overflow, nil/None, ordering, precision).
 - Concurrency: thread/async model mismatch, shared-state assumptions.
@@ -27,4 +27,7 @@ Enumerate concrete pre/post porting problems, prioritized:
 - Error handling: exception vs value-returned errors, panic boundaries.
 - Ecosystem: missing/immature target libraries, API surface gaps.
 
-Delegate the language-pair convention/pitfall research to `$xc881-solution-research` (broad web search of official docs + authoritative sources).
+For a blocking language/library fact, delegate one bounded RQ to
+`$xc881-solution-research` with the versions, source construct and target constraint.
+Request the supported mapping, limitations and next action from primary sources;
+stop when the mapping decision is supported. Do not launch a language-wide survey.

@@ -1,11 +1,17 @@
 # Forensics
 
-```text
-tight repro loop → minimise → hypotheses → instrumentation → cause → fix plan → verify plan → handoff
-```
+For regressions, include the relevant recent change in the evidence.
 
-Evidence: expected, actual, log/stack, env/version, trigger input, recent change, affected module, tests.
+Rank plausible explanations by evidence fit and a falsifiable prediction; use as
+many as needed to distinguish cause, not a fixed quota. For each live alternative,
+name the observation that would reject it. Choose the smallest discriminating
+read/repro before requesting instrumentation from Coding.
 
-Cause = smallest explanation predicting failure.
+A hypothesis predicts the symptom. A supported cause also has a causal path or
+controlled observation connecting trigger to failure and evidence distinguishing
+the live alternatives. A stack location or successful speculative patch alone
+does not establish cause. Report confidence, supporting anchors and remaining gaps;
+use `unconfirmed` when the discriminating check has not happened.
 
-Hypotheses: list 3-5 ranked, falsifiable predictions before testing. Instrument only to test a prediction. Tag temporary debug output and require cleanup in the coding handoff.
+Temporary debug output is Coding-owned, prediction-specific, and must be removed
+in its handoff. If blocked, return the exact missing observation.

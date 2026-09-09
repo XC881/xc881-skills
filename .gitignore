@@ -8,3 +8,5 @@ __pycache__/
 .pytest_cache/
 dev-notes/
 data/
+!skills/xc881-coding-skills/vendor/ui-ux-pro-max/data/
+!skills/xc881-coding-skills/vendor/ui-ux-pro-max/data/**

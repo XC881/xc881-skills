@@ -10,8 +10,9 @@ automatically, just in time, as active design work reaches their concern.
    substantial visual work.
 2. Existing brand, component system, platform convention, accessibility work,
    supported themes, content, and user scope take precedence.
-3. Frontend routing starts the work. Only unresolved product/visual, type/color,
-   data-display, mobile/platform, or concrete UX decisions load design
+3. Frontend routing starts the work. Substantial new/reworked UI without a reusable
+   system generates a project-specific candidate; otherwise only an unresolved
+   product/visual, type/color, data-display, platform or UX decision loads design
    intelligence. When implementation, image/reference, redesign/visual QA, or
    pattern work is reached, Coding automatically loads that next reference and
    continues without a user handoff. Non-frontend and explicitly nonvisual UI
@@ -36,7 +37,7 @@ automatically, just in time, as active design work reaches their concern.
 | `brutalist-skill` | optional industrial family, grid/semantic discipline, controlled texture | no fake telemetry, decorative status data, or misleading technical content |
 | `stitch-skill` and `DESIGN.md` | optional semantic design brief and visual-system vocabulary | no mandatory Stitch artifact or fixed high-variance recipes |
 | `output-skill` and laziness research | complete deliverables, bounded output chunks, focused references, verification | no unsupported research claims, coercive prompts, host-specific controls, or verbose evidence dumps |
-| `ui-ux-pro-max-skill` | conditional product/style/type/chart/platform/UX decision taxonomy and bounded source mapping | no upstream CLI, full data copy, mandatory generator, root `design-system/`, or global trigger |
+| `ui-ux-pro-max-skill` | full pinned data, real search/generator, bounded xc881 CLI, default candidate for eligible new UI | data is not prompt text; existing project authority, no root `design-system/` or extra global trigger |
 
 ## Runtime References
 
@@ -45,8 +46,10 @@ automatically, just in time, as active design work reaches their concern.
   when its concern is reached.
 - `frontend-design-intelligence.md`: resolve one otherwise-unanswered design
   concern; it may request a gated `dev-notes/design-system` visual contract.
-- `frontend-implementation-standard.md`: component architecture, responsive
-  layout, real assets, states, accessibility, performance, and motion.
+- `frontend-implementation-standard.md`: component architecture and conditional
+  layout/platform, visual/content, states/accessibility, motion/performance refs.
+  Those four branches preserve the original rules without forcing a local state
+  change to load unrelated marketing/assets/motion guidance.
 - `frontend-image-reference-workflow.md`: image-to-code, web/mobile visual
   references, and explicitly requested identity direction.
 - `frontend-redesign-and-visual-qa.md`: audit/preservation and screenshot-level

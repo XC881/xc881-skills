@@ -5,11 +5,20 @@
   "note": "Judge or human evaluates output quality. Not run in default CI.",
   "cases": [
     {
+      "query": "完整 Bugfix 正文和同版本复现已在消息中，连续三轮补充边界观察，只诊断",
+      "checklist": [
+        "reuses the supplied entry and unchanged needed references without duplicate tool reads on any turn",
+        "distinguishes new observations from causal inference and preserves diagnosis-only scope",
+        "loads missing forensics guidance only if new evidence introduces a real causal gap",
+        "does not infer host injection counts or token savings from a notice or the absence of a tool read"
+      ]
+    },
+    {
       "query": "用xc881修复登录 500，先定位原因",
       "checklist": [
-        "a tight red-capable repro loop is planned before confident cause claims",
+        "reuses a valid supplied repro or causal evidence and plans a tight red-capable check only for a remaining causal gap",
         "the repro is minimized or the remaining non-minimized parts are justified",
-        "3-5 falsifiable hypotheses are ranked before instrumentation",
+        "ranks only plausible falsifiable hypotheses, without a count quota, and chooses a discriminating observation before instrumentation",
         "root cause is stated with a confidence level, not as certainty",
         "fact and hypothesis are distinguished",
         "bug tracker handoff includes repro/verify fields when the source is an issue",
@@ -41,6 +50,16 @@
         "context compaction resumes the bounded Coding read without granting change permission",
         "returned evidence continues the same diagnosis instead of restarting or asking the user",
         "confirmed changes are handed to Coding only after cause and scope are clear"
+      ]
+    },
+    {
+      "query": "只诊断：这里是同版本复现和栈，可能是空值，也可能是并发；还没有验证，请给下一步",
+      "checklist": [
+        "reuses the supplied reproducer and stack without claiming they distinguish the two explanations",
+        "labels the cause unconfirmed and names the smallest observation that would separate null handling from concurrency",
+        "loads forensics or reproducer guidance as the uncertainty requires, not web/security references without a relevant external or exposure question",
+        "keeps speculative repair conditional and an unrun verification plan distinct from observed results",
+        "retains Bugfix ownership and returns the exact missing check without granting a Coding change"
       ]
     }
   ]

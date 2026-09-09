@@ -14,6 +14,10 @@ Only runtime task-execution references should appear below.
 - `execution-checkpoint-and-tool-policy.md`
 - `frontend-image-reference-workflow.md`
 - `frontend-implementation-standard.md`
+- `frontend-layout-and-platform.md`
+- `frontend-visual-system-and-content.md`
+- `frontend-states-and-accessibility.md`
+- `frontend-motion-and-performance.md`
 - `frontend-pattern-catalog.md`
 - `frontend-redesign-and-visual-qa.md`
 - `frontend-routing-and-design-read.md`

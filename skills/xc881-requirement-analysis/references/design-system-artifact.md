@@ -1,7 +1,7 @@
 # Design-System Artifact
 
-Use only for a durable visual contract, never as a default UI artifact. Existing
-project tokens, components, brand rules, and user constraints remain authoritative.
+Use only for a durable visual contract. A generated greenfield baseline is a
+candidate, not automatic persistence or a replacement for project/user authority.
 
 ## Gate
 
@@ -31,6 +31,15 @@ Requirement derives the whole master or override, then writes it once under
 directory. When Coding delegates bounded Design Read evidence and the gate passes,
 Requirement creates it without user reconfirmation. A changed scope, brand, or
 existing-code conflict returns here.
+
+Accept bounded generator evidence after checking task fit, locale, accessibility,
+and stack/dependency constraints. Preserve exact sources and unresolved fallback;
+do not copy marketing sections into apps or treat catalog obligations as verified.
+The Coding CLI can explicitly persist a bounded `Status: proposal` master via
+`--design-system --persist --project-root <project> --slug <name>` without overwrite.
+This is optional: normal Requirement authoring writes the accepted contract once,
+not a generated proposal followed by mandatory validator/rewrite cycles. A proposal
+must be reconciled into an accepted contract before handing it to execution.
 
 Requirement hands Coding the exact `MASTER.md` path and optional surface path.
 Coding never scans `dev-notes/design-system/`, loads a surface file only when the

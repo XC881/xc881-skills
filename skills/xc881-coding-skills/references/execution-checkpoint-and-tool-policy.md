@@ -10,13 +10,18 @@ form the durable recovery anchor. Keep accepted contract impact, unresolved
 blockers/approvals, changed paths, evidence paths, and remaining verification plan
 recoverable. Do not persist raw command output or verification results.
 
-After verification, update status/history/current atomically, advance, validate,
-and continue. After context compaction, reload the exact current window, inspect
-durable changed files when needed, and resume the same `read | change` action
-without asking the user to continue.
+After verification, patch item status (never `in-progress`), one history
+transition and current pointers/counts together; resume blocked items as `ready`.
+Advance and continue without a process-validator call. After compaction, recover
+the exact current window and resume the same `read | change` action automatically. Reuse
+available required skill/ref instructions; acquire only missing or known-changed
+rules from exact paths. A summary or loaded marker alone is not the rule body.
+Project files, external evidence and mutable queue state retain their freshness
+checks. If task identity is missing/ambiguous, ask once rather than guess.
 
-Instant work does not create a queue merely for context management. The host must
-retain a bounded continuation summary for the active request and changed paths.
+Instant work does not create a queue for context management. Where the host
+supports continuation summaries, preserve the active request and changed paths;
+the skill cannot guarantee their retention.
 
 ## Tool selection
 
@@ -32,9 +37,13 @@ request focused fields, and cap outputs.
 
 ## Tool-result retention
 
-Keep a result only while it affects the current decision or verification. Before
-it leaves active context, retain the relevant fact, decision impact, durable file
-change, or evidence path. Then old search pages, command logs, repeated file
-bodies, completed item text, and stale tool results may be removed by the host.
+Before a supported checkpoint/compaction, preserve relevant facts, decisions,
+durable changes and evidence paths. Do not copy old pages, logs or unchanged file
+bodies into summaries. Context removal/retention is controlled by the host, not
+this skill; never claim to have removed context merely by writing a summary.
+
+Delegates need sufficient instructions in their own context, supplied or read;
+they cannot inherit a parent's loaded marker. Return bounded evidence to the
+original owner, which reuses its available rules without restarting discovery.
 
 Never summarize secrets into a checkpoint or continuation summary.

@@ -2,6 +2,8 @@
 
 `xc881-skills` 是一组低 token、强边界、可交接的 agent skills。
 
+这里的低 token 指**只补读当前任务缺少的最少充分信息，然后把事情做完整**：已有完整、仍适用的规则直接复用，不因新一轮对话再次读取。它不是删除知识、减少能力，也不是把完整资料库读进上下文。
+
 核心思想：
 
 - 分析和执行分离，先把问题说清楚，再让 coding 层改代码。
@@ -145,15 +147,43 @@ Requirement、Bugfix 或源码文章保留自己的分析/写作职责：简单�
 
 ### Skill 上下文边界
 
-安装多个 Skills 不等于每轮加载全部正文。Codex 官方说明：初始上下文只放每个 skill 的名称、description 和路径，完整 `SKILL.md` 只在被选中后读取；初始 skill 列表还有 2% 上下文或未知窗口时 8,000 字符的上限。Anthropic Agent Skills 同样采用 metadata -> `SKILL.md` -> references/scripts 的逐级按需加载。
+安装多个 Skills 不等于每轮加载全部正文。按 Agent Skills 的分层设计，metadata 用来选择技能，`SKILL.md` 承载选中后的主流程，references/scripts 只在当前任务需要时读取或执行。具体客户端的发现方式和可用工具可能不同，不假定统一的上下文配额。
 
-因此，“每轮都加载所有 Skills 逻辑”不适用于这些官方 progressive disclosure 机制；但误调用、指令冲突和过度流程风险确实存在。真正要控制的是：常驻 description 是否过宽、一次是否选了过多主责、被选中的 `SKILL.md` 是否强迫小任务跑完整链路、以及是否发生无必要委派。
+分层设计不等于保证每个客户端都不会重复注入。应分别观察常驻 description、技能启用提示、工具读取文件和客户端注入正文，不能只看到一次 skill 名称就判定重复消耗。还要控制过宽的触发描述、过多主责、小任务被迫跑完整链路和无必要委派。
 
 xc881 的约束是：每个 description 最多 320 字符、六个合计最多 1,650 字符；只选一个阶段主责；允许零 skill；references 按分支读取；Bugfix、Solution、Requirement、Source、Porting 都有轻量分支；不存在“只要 1% 可能适用就必须调用”的全局启动器。
 
 本仓库只优化自己能够控制的内容：skill 元数据、被选中的 `SKILL.md`、按需 reference/script、agent prompt，以及 req-process/cross-process 的当前窗口。核心方法是 progressive disclosure 和最小充分激活，而不是把所有说明一次性加载。
 
-字符和行数预算只是防止仓库文件膨胀，不代表真实 token 或模型上下文。运行客户端内部机制不属于 xc881-skills，也不在本仓库中模拟或验证。
+字符和行数预算只是防止仓库文件膨胀，不代表真实 token 或模型上下文。客户端内部机制不属于 xc881-skills；可以检查可获得的执行轨迹，但看不到真实请求正文时，不能声称已经验证了客户端去重。
+
+**每轮判断意图，不等于每轮重读正文。** 六个入口采用同一规则：
+
+| 当前情况 | 行为 |
+| --- | --- |
+| 消息已提供完整正文，或所需规则仍在上下文且无已知变化 | 直接复用，不额外读一次文件 |
+| 只有名字、路径、加载标记，或压缩后缺少必要规则 | 沿选中技能的精确路径补读缺失内容 |
+| 做到新 concern，所需 ref 尚未提供 | 自动补读该 ref；返回已覆盖 concern 不重启路由 |
+| 已知规则有相关更新，或用户明确要求重读 | 定向重新读取；更高优先级调用要求始终有效 |
+
+新子任务必须在自己的上下文中得到足够的指令，不能继承父任务的“已加载”标记。返回原任务时复用仍有效的规则和有界证据；`current.md`、代码、外部证据和设计合同的新鲜度另行判断，不因静态规则可复用而省略必要检查。
+
+不新增每轮加载登记文件、哈希轮询、必读公共 ref 或缓存代理。Markdown 只能引导读取行为，不能保证宿主保留上下文、压缩后保留正文或去重注入；即使只有一份正文，后续请求仍可能把它作为输入计算。仓库修改也必须同步到实际使用的安装副本才会生效，核对内容而非仅核对版本号。
+
+六个 skill 共用同一条执行原则：仍有效的证据与上下文内已有规则不重复读取；只补当前决定所缺的部分；委派只返回需要的证据、限制和下一步，然后继续原任务。不同 skill 的强化点是：
+
+| Skill | 更有效的行为 |
+| --- | --- |
+| Coding | 按风险读取工程规则；机械改动不强制设计仪式；真实前端引擎按需执行 |
+| Requirement | 补齐影响范围和验收的缺口，验收关联实际需求与可观察结果 |
+| Solution | 按版本和时效复用证据，问题已足够支撑决定就停止扩搜 |
+| Bugfix | 用最小区分性观察排除假设，不能把“看起来能修”当成根因 |
+| Porting | 先确定输出、错误、状态和副作用如何等价，再迁移当前片段 |
+| Source Article | 重要结论落到源码证据，区分调用存在与运行顺序，不为凑章节编造事实 |
+
+维护时可运行 `python scripts/audit_skill_loads.py --baseline HEAD`，查看六个入口、典型分支体积及有明确前提的多轮预期读取。它报告字符数和声明路径，不运行模型、不证明真实行为；已安装 tiktoken 时可用 `--encoding <编码名>` 单独测文本 token。实际多轮验收须比较相同任务的读取轨迹和输出质量，方法见 `docs/golden-output-tests.md`。
+
+付费的真实多轮/压缩验收是显式 opt-in。同一任务要在独立上下文各跑一次基线与候选：`python scripts/run_skill_continuations.py evals/queue-execution/block-compact-resume.json --skill-root <skills> --out-dir <out> --execute`。解析单次记录用 `python scripts/audit_skill_continuations.py <out>`；对照用 `--compare <baseline-out> <candidate-out>`。用量取累计 `total` 的增量，不把每次 `last` 通知加总，也不把字符数当成 token 节省。只有记录里出现 `contextCompaction` 才算真实宿主压缩。CI 默认不调用模型。看不见提供商请求正文时，不得声称去重或会话级节省。
 
 具体静态预算和审计方式见 `docs/skill-context-budget.md`。
 
@@ -265,9 +295,23 @@ clear scope
 提交并推送
 ```
 
-前端设计任务同样直接进入 Coding。它会先判断是现有设计系统、产品 UI、营销/编辑页面、移动端、重设计还是 image-to-code；如果当前产品/视觉、色彩字体、图表、移动平台或具体 UX 决策缺少证据，才自动加载设计情报 reference。之后工作推进到实现、图像、重设计/视觉验收或特殊模式这些实际环节时，自动加载下一个需要的 reference，不等待用户再次提出，也不预加载整套规则：
+前端设计任务同样直接进入 Coding。已有项目先复用组件、tokens 和品牌；新建或整体重做界面、且没有可复用设计系统时，自动调用 UI/UX Pro Max 引擎生成适合该项目的候选。局部缺口只查对应领域。工作推进到实现、图像、重设计/视觉验收或特殊模式时，再自动加载下一个需要的 reference，不等待用户手动调用，也不预加载整套规则。
 
-设计情报已经加载但仍无法排序候选时，才可调用一次本地 selector；它按当前 concern 返回不超过 3 个候选，不联网、不写文件、不安装依赖，也不能覆盖已有项目/品牌证据。
+已经引入 UI/UX Pro Max **完整开源数据、原生检索/生成引擎和 xc881 本地 CLI**，不是原来的少量固定候选。当前固定快照包含 192 类产品/配色/推理规则、79 个可检索风格、74 组字体配对、1,934 条字体记录、图标/图表/UX/动效资料，以及 22 个技术栈。数据留在磁盘，不作为提示词加载。
+
+CLI 默认只返回 1 个结果，真实比较时最多 3 个；默认结果不超过 4,200 字符，需要代码或规则细节时通过精确记录 ID 展开完整字段，不截断代码。无匹配会明确返回空结果，生成器的补位建议会标明缺失来源。普通调用不联网、不安装依赖、不写文件；仅查询/生成需要 Python 3.9+。
+
+以下命令从本仓库根目录执行；技能安装后由智能体使用该 skill 的实际路径，不要求用户手动输入：
+
+```bash
+python skills/xc881-coding-skills/scripts/frontend_design.py "time series trend" --domain chart
+python skills/xc881-coding-skills/scripts/frontend_design.py "form accessibility react 18" --stack react
+python skills/xc881-coding-skills/scripts/frontend_design.py "healthcare scheduling dashboard" --design-system --surface app
+```
+
+生成结果仍需检查任务适配、可访问性、中文字体覆盖和版本限制。应用界面不继承营销页结构，已有系统不被替换，推荐不等于合规证明。跨页面/会话需要复用的已确认系统由 Requirement 写到 `dev-notes/design-system/`；普通生成只是候选，不强制落文档。CLI 也支持显式 `--persist --project-root <项目> --slug <名称>` 导出 proposal，但不会覆盖旧文件，proposal 不能直接充当已确认执行合同。
+
+上游 npm `uipro` 主要负责安装独立技能；xc881 通过自己的安装脚本分发完整引擎和数据，不另装一个竞争主责的 skill。来源、许可证、更新和验证方式见 [集成说明](docs/ui-ux-pro-max-integration.md)。
 
 ```text
 给现有 React 产品页做可访问的视觉重设计，保留路由和业务行为
@@ -486,7 +530,7 @@ Mitigation:
 - Requirement/Bugfix/源码文章可直接完成简单读取；委派的复杂只读证据不自动获得改动权限。
 - 没有明确路径/handoff 或唯一上下文时，不扫描 `dev-notes`，直接执行即时读/改任务。
 - 收到明确 req-process/cross-process handoff 时，只读取 `current.md + 当前项`，不默认读取 `index.md`、previous 或 next；执行验证后只在聊天报告结果，dev-notes 同一 patch 只更新 status、history 和 current。
-- 前端设计先读取真实页面、组件、token、资产和平台约束，并从路由/Design Read 开始；只有当前设计决策证据不足时才加载设计情报 reference，再在实现、图像、重设计/视觉验收或特殊模式的实际关切时自动加载下一个需要的 reference，不等待用户再次提出。规模较大的绿地视觉工作或重设计会先给出简短的 Design Read。明确外观不变的纯事件、数据绑定或 DOM 行为修复不加载前端 reference。
+- 前端先读取真实页面、组件、token、资产和平台约束；无可复用系统的新建/整体重做 UI 默认生成项目候选，其他情况仅在当前决策缺少证据时查对应领域。实现、图像、视觉验收和特殊模式的 ref 仍按实际关切自动加载。外观不变的事件/数据绑定修复不加载前端规则。
 - 可复用视觉系统不写入业务项目根目录：Requirement 仅在持久化 gate 通过时创建 `dev-notes/design-system/<slug>/MASTER.md` 和必要的页面 override；Coding 按 exact handoff 读取，不扫描、不开新全局默认，也不让上游建议覆盖现有系统。
 - 既有设计系统、品牌、路由、表单、主题、可访问性、内容和用户范围优先于通用审美规则；不因“更好看”而自动安装包、换字体、加暗色模式或改信息架构。
 - image-to-code 会把可靠的设计图当作实现证据，提取排版、间距、媒体和控件逻辑后再编码；缺图时不伪造 div 截图或虚构社交证明。

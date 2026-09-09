@@ -19,19 +19,9 @@ Pick:
 Do not add empty `Options`/`Pick` sections to fact checks, standards lookups, or
 single API/version verification.
 
-Handoff:
-
-```text
-$xc881-requirement-analysis
-Use this as technical context.
-```
-
-or
-
-```text
-$xc881-coding-skills
-Implement selected option Phase 1.
-```
+Handoff: original owner, supported decision, uncertainty and exact next action.
+Delegates return only requested claims/anchors or evidence path; do not start
+another workflow. Implement only when authorized, through Coding.
 
 Large research:
 
@@ -47,4 +37,5 @@ Requirement-delegated evidence:
 Artifact: dev-notes/req-process/<task>/evidence/RQ-NNN-<slug>.md
 Return: same requirement run
 Use: <RQ / scope / AC / decision affected>
+Next: <exact owner action or remaining blocking check>
 ```

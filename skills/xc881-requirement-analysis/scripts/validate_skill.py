@@ -36,7 +36,7 @@ if "Requirement reads it by default" not in artifact_text:
     die("artifact contract must define Requirement's default index.md read")
 if "Coding does not read `index.md`" not in artifact_text:
     die("artifact contract must keep index.md out of normal Coding continuation")
-for rule in ["Reuse Before Gate", "one semantic match", "Coding never"]:
+for rule in ["Reuse Before Gate", "one semantic match", "never scan and guess"]:
     if rule not in artifact_text: die(f"artifact contract missing reuse rule: {rule}")
 if "chat-only lightweight analysis does not scan" not in artifact_text:
     die("artifact contract must keep lightweight chat-only work out of candidate search")

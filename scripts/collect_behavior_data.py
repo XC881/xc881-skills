@@ -1,248 +1,159 @@
 #!/usr/bin/env python3
-"""Offline behavior-data collector.
+"""Score explicitly selected Codex final outputs; no model calls or session scan."""
 
-Walks local Codex rollout sessions, extracts real skill outputs (assistant
-messages carrying a skill's output-contract), runs the structural-layer check
-reused from skill_validation, and reports per-skill sample counts + structural
-pass rate. Read-only over sessions; writes only under data/ (gitignored).
-
-No network, no model. This produces the real denominator: how often each skill
-actually emitted a structurally-complete output in genuine tasks.
-"""
-from pathlib import Path
+import argparse
+from collections import Counter
+import hashlib
 import json
-import sys
+from pathlib import Path
 
-from skill_validation import check_structural_output
-
-ROOT = Path(__file__).resolve().parents[1]
-SESSIONS_DIR = Path.home() / ".codex" / "sessions"
-OUT_DIR = ROOT / "data"
-
-# Distinctive first-line anchor that marks an assistant message as an attempt to
-# emit a given skill's output contract. Analysis anchors are highly distinctive;
-# coding uses its final-response header. Article anchors on its FIRST section
-# (现象/问题), not its last (本章结论): anchoring on the terminal section would
-# only ever see articles that already wrote their conclusion, structurally hiding
-# every tail-truncated article and biasing the denominator toward completions.
-ANCHORS = {
-    "xc881-solution-research": "xc881 Solution:",
-    "xc881-requirement-analysis": "xc881 Req:",
-    "xc881-bugfix-research": "xc881 BugFix:",
-    "xc881-coding-skills": "完成内容",
-    "xc881-source-article-style": "现象/问题",
-}
-
-# A message must show at least this many required sections to count as an output
-# attempt at all; below it, the anchor is almost certainly a quote/meta-mention,
-# not a real output. Kept explicit so the pass-rate denominator is defensible.
-MIN_SECTIONS_TO_COUNT = 2
-
-INJECTION_PREFIXES = (
-    "<", "# AGENTS.md", "# codebase", "@/home", "<!--",
+from skill_validation import (
+    _is_header_of, evaluate_output, output_contract_mode, output_lines,
+    validate_output_contract,
 )
 
-# A genuine skill product leads with its own contract. Session
-# continuation/compaction turns instead lead with a handoff/objective recap that
-# merely quotes contract section names; counting those inflates the denominator
-# with non-outputs. Skip a message whose first non-empty line is such a recap.
+ROOT = Path(__file__).resolve().parents[1]
 CONTINUATION_MARKERS = (
-    "handoff summary",
-    "summary",
-    "goal/current objective",
-    "current objective:",
-    "continue working toward",
-    "continue the active",
-    "continue the long-running",
+    "handoff summary", "summary", "goal/current objective", "current objective:",
+    "continue working toward", "continue the active", "continue the long-running",
     "continue long-running",
 )
 
 
 def is_continuation_artifact(text):
-    for line in text.splitlines():
-        stripped = line.strip().lower()
-        if not stripped:
-            continue
-        # Recap first-lines arrive markdown-wrapped (## Handoff Summary,
-        # **Summary**, - summary:). Strip the same wrappers _norm_header does
-        # before matching, or bold/heading recaps slip through and inflate the
-        # empty-section failure count with non-outputs.
-        stripped = stripped.lstrip("#->*` \t").rstrip("*` ")
-        return stripped.startswith(CONTINUATION_MARKERS)
-    return False
+    first = next((line.strip() for line in text.splitlines() if line.strip()), "")
+    first = first.lstrip("#->*` \t").rstrip("*` ").lower()
+    return first.startswith(CONTINUATION_MARKERS)
 
 
-def load_contracts():
+def load_contracts(root=ROOT):
+    manifest = json.loads((root / "skills-manifest.json").read_text(encoding="utf-8"))
     contracts = {}
-    for skill in ANCHORS:
-        path = ROOT / "skills" / skill / "evals" / "behavior-contract.json"
-        data = json.loads(path.read_text(encoding="utf-8"))
-        contracts[skill] = {
-            "required": data["required_sections"],
-            "forbid": data.get("forbid_impl_code", False),
-        }
+    for skill in manifest["skills"]:
+        name = skill["name"]
+        contract = json.loads((root / "skills" / name / "evals/behavior-contract.json").read_text(encoding="utf-8"))
+        if contract.get("skill") != name:
+            raise ValueError(f"output contract owner mismatch: {name}")
+        validate_output_contract(contract)
+        contracts[name] = contract
     return contracts
 
 
-def message_text(item):
-    if item.get("type") != "message":
-        return None, None
-    role = item.get("role")
-    parts = item.get("content")
-    if role not in ("user", "assistant") or not isinstance(parts, list):
-        return role, None
-    chunks = []
-    for part in parts:
-        if not isinstance(part, dict):
-            continue
-        if part.get("type") in ("input_text", "output_text"):
-            text = part.get("text")
-            if isinstance(text, str) and text.strip():
-                chunks.append(text)
-    return role, "\n".join(chunks) if chunks else None
-
-
-def clean_user_query(text):
-    """Keep the last meaningful user line, dropping injected context blocks."""
-    if not text:
-        return ""
-    kept = [
-        line.strip()
-        for line in text.splitlines()
-        if line.strip() and not line.strip().startswith(INJECTION_PREFIXES)
-    ]
-    joined = " ".join(kept).strip()
-    return joined[:300]
-
-
-def present_section_count(text, required):
-    violations = check_structural_output(text, required, False)
-    missing = sum(1 for v in violations if v.startswith("missing_section:"))
-    return len(required) - missing
-
-
 def classify(text, contracts):
-    """Return (skill, violations) for the best-matching skill, or (None, None)."""
-    best = None
-    for skill, anchor in ANCHORS.items():
-        if anchor not in text:
-            continue
-        required = contracts[skill]["required"]
-        if present_section_count(text, required) < MIN_SECTIONS_TO_COUNT:
-            continue
-        violations = check_structural_output(
-            text, required, contracts[skill]["forbid"]
-        )
-        # Prefer the skill this message most completely satisfies.
-        score = len(violations)
-        if best is None or score < best[2]:
-            best = (skill, violations, score)
-    if best is None:
-        return None, None
-    return best[0], best[1]
+    """Recognize a leading contract, not a quote or a completeness-selected mode."""
+    lines = [(line, allowed) for line, allowed in output_lines(text) if line.strip()]
+    if lines and lines[0][1] and lines[0][0].startswith("# ") and not any(
+        _is_header_of(lines[0][0], anchor)
+        for contract in contracts.values() for anchor in contract["anchors"]
+    ):
+        # A full article may have its own title before the first contract heading.
+        lines = lines[1:]
+    if not lines or not lines[0][1]:
+        return None, "no_leading_contract"
+    first = lines[0][0]
+    matches = [name for name, contract in contracts.items()
+               if any(_is_header_of(first, anchor) for anchor in contract["anchors"])]
+    if len(matches) != 1:
+        return None, "ambiguous_contract" if matches else "no_leading_contract"
+    return matches[0], None
 
 
-def iter_sessions():
-    if not SESSIONS_DIR.exists():
-        return
-    yield from sorted(SESSIONS_DIR.rglob("rollout-*.jsonl"))
+def message_text(item):
+    if item.get("type") != "message" or item.get("role") != "assistant":
+        return None
+    parts = item.get("content")
+    if not isinstance(parts, list):
+        return None
+    return "\n".join(part["text"] for part in parts if isinstance(part, dict)
+                     and part.get("type") == "output_text" and isinstance(part.get("text"), str))
 
 
-def main():
-    contracts = load_contracts()
-    OUT_DIR.mkdir(exist_ok=True)
-
-    samples = []
-    files = 0
-    for path in iter_sessions():
-        files += 1
-        pending_query = ""
-        try:
-            lines = path.read_text(encoding="utf-8").splitlines()
-        except (OSError, UnicodeDecodeError):
-            continue
-        for raw in lines:
-            raw = raw.strip()
-            if not raw:
-                continue
-            try:
-                rec = json.loads(raw)
-            except json.JSONDecodeError:
-                continue
-            if rec.get("type") != "response_item":
-                continue
-            role, text = message_text(rec.get("payload", {}))
-            if text is None:
-                continue
-            if role == "user":
-                q = clean_user_query(text)
-                if q:
-                    pending_query = q
-                continue
-            # assistant
-            if is_continuation_artifact(text):
-                continue
-            skill, violations = classify(text, contracts)
-            if skill is None:
-                continue
-            samples.append(
-                {
-                    "session": path.name,
-                    "skill": skill,
-                    "query": pending_query,
-                    "output_excerpt": text[:500],
-                    "violations": violations,
-                    "structural_clean": not violations,
+def collect(paths, contracts, skill=None, mode=None):
+    samples, excluded = [], Counter()
+    for path in paths:
+        with path.open(encoding="utf-8") as source:
+            for number, raw in enumerate(source, 1):
+                if not raw.strip():
+                    continue
+                try:
+                    record = json.loads(raw)
+                except json.JSONDecodeError:
+                    excluded["malformed_json"] += 1
+                    continue
+                if not isinstance(record, dict) or record.get("type") != "response_item":
+                    continue
+                item = record.get("payload")
+                if not isinstance(item, dict):
+                    excluded["malformed_payload"] += 1
+                    continue
+                text = message_text(item)
+                if text is None:
+                    continue
+                if item.get("channel") not in (None, "final") or item.get("phase") not in (None, "final_answer"):
+                    excluded["nonfinal_assistant"] += 1
+                    continue
+                if is_continuation_artifact(text):
+                    excluded["continuation_artifact"] += 1
+                    continue
+                owner, reason = (skill, None) if skill else classify(text, contracts)
+                result = evaluate_output(text, contracts[owner], mode or "full") if owner else {
+                    "status": "unscored", "reason": reason, "violations": [],
                 }
-            )
+                samples.append({
+                    "session": str(path.resolve()), "line": number, "skill": owner,
+                    "mode": mode or ("full" if owner else None),
+                    "attribution": "explicit" if skill else "leading_contract",
+                    "output_sha256": hashlib.sha256(text.encode()).hexdigest(), **result,
+                })
+    return samples, dict(excluded)
 
-    samples_path = OUT_DIR / "behavior-samples.jsonl"
-    with samples_path.open("w", encoding="utf-8") as fh:
-        for s in samples:
-            fh.write(json.dumps(s, ensure_ascii=False) + "\n")
 
-    summary = {}
-    for s in samples:
-        row = summary.setdefault(s["skill"], {"candidates": 0, "clean": 0})
-        row["candidates"] += 1
-        if s["structural_clean"]:
-            row["clean"] += 1
-    for row in summary.values():
-        c = row["candidates"]
-        row["structural_pass_rate"] = round(row["clean"] / c, 3) if c else None
-
-    report = {
-        "sessions_scanned": files,
-        "total_candidates": len(samples),
-        "min_sections_to_count": MIN_SECTIONS_TO_COUNT,
-        "note": (
-            "candidate = assistant message with a skill's contract anchor and "
-            "at least MIN_SECTIONS_TO_COUNT required sections present. "
-            "structural_pass_rate measures form only (all sections present + "
-            "non-empty, no forbidden impl code); it does NOT measure semantic "
-            "correctness. Candidates may still include meta/quoted outputs."
-        ),
-        "by_skill": summary,
+def summarize(samples, excluded):
+    by_skill = {}
+    for sample in samples:
+        row = by_skill.setdefault(sample["skill"] or "unattributed", {"pass": 0, "fail": 0, "unscored": 0})
+        row[sample["status"]] += 1
+    for row in by_skill.values():
+        row["scored"] = row["pass"] + row["fail"]
+        row["structural_pass_rate"] = round(row["pass"] / row["scored"], 3) if row["scored"] else None
+    return {
+        "eligible_messages": len(samples), "by_skill": by_skill, "excluded": excluded,
+        "collection_complete": not any(excluded.get(reason) for reason in ("malformed_json", "malformed_payload")),
+        "note": "Form only, not task success. The denominator is scored final messages in explicit inputs, not all skill invocations. Prose/unknown modes are unscored; partial recognized contracts are failures. Auto-attributed mode is full; use task-known --skill/--mode for lightweight or decision outputs. No raw queries or output excerpts are stored.",
     }
-    report_path = OUT_DIR / "behavior-report.json"
-    report_path.write_text(
-        json.dumps(report, ensure_ascii=False, indent=2), encoding="utf-8"
-    )
 
-    print(f"sessions scanned: {files}")
-    print(f"samples written : {samples_path}")
-    print(f"report written  : {report_path}")
-    print("--- structural pass by skill ---")
-    for skill in ANCHORS:
-        row = summary.get(skill)
-        if not row:
-            print(f"  {skill}: 0 candidates")
-            continue
-        print(
-            f"  {skill}: {row['clean']}/{row['candidates']} clean "
-            f"({row['structural_pass_rate']})"
-        )
+
+def main(argv=None):
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("sessions", type=Path, nargs="+", help="explicitly authorized rollout JSONL files, never a directory")
+    parser.add_argument("--skill", help="known owner of these test outputs; do not use on mixed-owner sessions")
+    parser.add_argument("--mode", help="known response mode: full, prose, or a contract-defined mode")
+    parser.add_argument("--out-dir", type=Path, default=ROOT / "data")
+    args = parser.parse_args(argv)
+    try:
+        contracts = load_contracts()
+        if args.mode and not args.skill:
+            parser.error("--mode requires task-known --skill")
+        if args.skill:
+            if args.skill not in contracts:
+                parser.error(f"unknown skill: {args.skill}")
+            output_contract_mode(contracts[args.skill], args.mode or "full")
+        paths = list(dict.fromkeys(path.resolve() for path in args.sessions))
+        if any(not path.is_file() for path in paths):
+            parser.error("every session must be an existing explicit file")
+        outputs = [args.out_dir / name for name in ("behavior-samples.jsonl", "behavior-report.json")]
+        if any(output.resolve() in paths for output in outputs):
+            parser.error("output must not overwrite an input session")
+        samples, excluded = collect(paths, contracts, args.skill, args.mode)
+        report = {"sessions_scanned": len(paths), **summarize(samples, excluded)}
+        args.out_dir.mkdir(parents=True, exist_ok=True)
+        outputs[0].write_text("".join(json.dumps(sample, ensure_ascii=False) + "\n" for sample in samples), encoding="utf-8")
+        outputs[1].write_text(json.dumps(report, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+    except (OSError, UnicodeError, ValueError) as exc:
+        parser.error(str(exc))
+    print(json.dumps(report, ensure_ascii=False, indent=2))
+    return 0 if report["collection_complete"] else 1
 
 
 if __name__ == "__main__":
-    sys.exit(main())
+    raise SystemExit(main())

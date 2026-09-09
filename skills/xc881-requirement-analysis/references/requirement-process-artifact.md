@@ -24,7 +24,7 @@ Use `dev-notes/` as the preferred xc881 note root; Requirement artifacts live at
 ```text
 <task>/index.md        stable contract, max 10,000 chars
 <task>/current.md      resume capsule, max 1,200 chars
-<task>/history.md      append-only significant state transitions
+<task>/history.md      append-only completion/block/resume/reopen/terminal transitions
 <task>/queue/Q-NNN-*.md verifiable slice; non-terminal max 3,500 chars
 <task>/decisions/D-NNN-*.md optional append-only significant decisions
 <task>/evidence/RQ-NNN-*.md optional bounded research
@@ -60,4 +60,6 @@ durable, then resume automatically.
 To reopen, append IDs after the old tail, update `Next`, preserve completed items/history, set terminal state to `ready`, and set previous/current/next to old-tail/first-new/second-new.
 Before normal creation/reopen/checkpoint, derive every linked field and write one coherent patch; never use Python to discover ordinary omissions.
 Validators are only for explicit audit, observed-corruption repair, or repository/CI maintenance. Then hand Coding the exact `Artifact path / Current / Next / Blockers`.
-Coding never searches or chooses latest; it updates status, significant history, and current in one patch while results stay in chat.
+Append one history line per item-state change: `Q-ID: old -> new`, next current
+and task state, in the item/current patch. Task-only transitions need a line; never
+replay. Append at EOF (bounded tail only if the tool needs context). Results stay in chat.

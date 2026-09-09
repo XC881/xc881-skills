@@ -3,7 +3,7 @@ name: xc881-bugfix-research
 description: 'Primary owner for bug, regression, vulnerability, or performance diagnosis. Gather evidence, rank hypotheses, identify cause, and plan repair/verification. Use implicitly only when diagnosis is the requested outcome; implementation-only work belongs to Coding.'
 when_to_use: 'Use for diagnosis before repair. Diagnosis-only stops in Bugfix; hand to Coding only when the user or parent owner requested implementation.'
 display_name: "xc881漏洞与Bug诊断"
-version: "2.4.0"
+version: "2.4.1"
 category: "debugging-security"
 tags:
   - intent-routing
@@ -20,43 +20,38 @@ aliases:
 
 # xc881 BugFix
 
-Intent-routed diagnosis owner. Direct calls select it; implicit use requires the
-primary outcome in the description. Incidental errors stay with the base/current
-owner. Run only the needed branch. No code/test/commit.
+Intent-routed diagnosis owner; direct calls select it. Incidental errors stay with
+the current owner. No code/test/commit; Coding performs authorized execution.
 
-Goal:
+## Reference Routes
 
-```text
-symptom → evidence → cause → fix plan → verify plan → handoff
-```
+- `./references/bugfix-forensics-workflow.md`: uncertain cause/competing explanations.
+- `./references/reproducer-verification-plan.md`: missing repro/repair verification plan.
+- `./references/web-research-policy.md`: external/version facts affect diagnosis.
+- `./references/vulnerability-triage-policy.md`: security exposure, severity, or mitigation.
+- `./references/bugfix-output-contract.md`: tracker fields or repair handoff details.
 
-Reference files live under `./references/`.
+Route by intent each turn. Full supplied bodies count; names/paths/markers do not.
+Reuse in-context rules; read needed exact paths automatically only for missing
+rules, known changes or requested rereads. Higher-priority invocation rules win.
 
-Reference Index:
+## Workflow
 
-- `./references/web-research-policy.md`: docs/advisory/forum.
-- `./references/bugfix-forensics-workflow.md`: cause.
-- `./references/vulnerability-triage-policy.md`: security.
-- `./references/reproducer-verification-plan.md`: repro/verify.
-- `./references/bugfix-output-contract.md`: output.
-
-When opening reference files, always use the exact relative path shown above.
-Do not assume reference files are located beside `SKILL.md`.
-
-Steps:
-
-1. Confirm diagnosis is the requested outcome, not an incidental implementation detail.
-2. Classify: bug / regression / stack / dependency vuln / code vuln / perf.
-3. Gather only missing expected/actual, env/version, input, logs, and affected path.
-4. Research only when external/version facts affect the diagnosis.
-5. Plan the smallest repro needed to test cause confidence.
-6. For repository evidence, combine read complexity with project coupling: perform a simple exact/local/low-risk read here, or delegate a complex/tracked `read` to `$xc881-coding-skills`, then resume diagnosis. Bugfix retains cause ownership.
-7. State smallest cause + confidence.
-8. Plan minimal fix + risk + verification.
-9. Hand repair to `$xc881-coding-skills` only when implementation intent is
-   explicit or delegated. Diagnosis-only stops after the plan; `Handoff` states
-   `none` or the evidence needed next. Existing implementation intent needs no
-   second user invocation.
+1. Classify bug / regression / stack / dependency vuln / code vuln / perf.
+   Reuse expected/actual, env/version, inputs, logs and paths; refresh changed or
+   conflicting evidence.
+2. Rank falsifiable explanations without quotas; choose the smallest distinguishing
+   observation. Reuse valid reproductions.
+3. For repository evidence, perform a simple exact/local/low-risk read here, or delegate a complex/tracked `read` to `$xc881-coding-skills` using task+project complexity.
+   Send prediction/evidence; receive anchors, observations, limits and next check.
+   Resume diagnosis.
+4. Cause + confidence needs evidence explaining symptoms and separating alternatives;
+   otherwise report unconfirmed + missing check. A plausible fix/stack is not cause.
+5. Plan minimal fix/risk/verification; stop when evidence supports repair.
+   Unconfirmed repairs stay conditional; retain uncertainty and untested behavior.
+6. Hand repair to `$xc881-coding-skills` when implementation intent is explicit or
+   delegated; no second user invocation. Diagnosis-only stops with `Handoff: none`
+   or missing evidence. Reads never grant changes.
 
 Output:
 
@@ -81,7 +76,4 @@ Exploitability:
 Mitigation:
 ```
 
-Rules: route only on diagnosis intent; no exploit steps; fact ≠ hypothesis; weak
-evidence ≠ certainty; delegated Coding reads never grant change permission; do
-not convert diagnosis-only into a patch. After context compaction, resume the same
-diagnosis owner and evidence/cause loop automatically.
+No exploit steps. Context compaction resumes the same diagnosis/evidence loop automatically.

@@ -9,7 +9,7 @@ a means to hierarchy, feedback, narrative, or workflow clarity, never a default
 decoration.
 
 If the visual family itself remains unresolved after project and brief evidence,
-automatically load `frontend-design-intelligence.md` before selecting a pattern.
+automatically load `./references/frontend-design-intelligence.md` before selecting a pattern.
 
 ## Visual Families
 

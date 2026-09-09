@@ -3,7 +3,7 @@ name: xc881-porting-orchestration
 description: 'Primary owner for cross-language/project porting. Classify magnitude and boundaries, preserve behavioral equivalence, and call only specialists needed by the current migration step. Ordinary refactors, data migrations, and incidental language mentions do not trigger it.'
 when_to_use: 'Use for cross-language/project migration outcomes. Small non-goal work may stay chat-only; goal work locks boundaries and linked state.'
 display_name: "xc881移植编排"
-version: "1.7.0"
+version: "1.7.1"
 category: "orchestration"
 tags:
   - porting
@@ -22,42 +22,51 @@ aliases:
 
 # xc881 Porting Orchestration
 
-Intent-routed migration owner. Direct calls select it; implicit use requires a
-cross-language/project migration outcome. Incidental languages stay with the
-base/current owner. Run only the needed branch; do not re-implement specialists.
+Intent-routed cross-language/project migration owner; direct calls select it.
+Incidental languages stay with the current owner. No code; delegate implementation.
 
-## References
+## Reference Routes
 
-- `./references/goal-boundary-contract.md`: magnitude, goal class, hard stop gate.
-- `./references/cross-language-understanding.md`: language, architecture, library risks.
-- `./references/equivalence-and-idiomatic-porting.md`: equivalence and idiomatic rule.
-- `./references/cross-process-plan.md`: persistent porting ledger.
-- `./references/porting-output-contract.md`: user-facing output.
+- `./references/goal-boundary-contract.md`: unclear magnitude or goal stop boundary.
+- `./references/cross-language-understanding.md`: unresolved semantic/architecture/library mappings.
+- `./references/equivalence-and-idiomatic-porting.md`: parity proof or idiomatic departure.
+- `./references/cross-process-plan.md`: ledger creation/update/resume.
+- `./references/porting-output-contract.md`: persisted progress or blocking/handoff summary.
 
-Open only the exact relative path for the active branch.
+Route by intent each turn. Full supplied bodies count; names/paths/markers do not.
+Reuse in-context rules; read needed exact paths automatically only for missing
+rules, known changes or requested rereads. Higher-priority invocation rules win.
 
 ## Delegation
 
 - Boundary/risk/req-process -> `$xc881-requirement-analysis`.
 - Deep reading, port, equivalence check -> `$xc881-coding-skills`.
-- Language-pair conventions/pitfalls -> `$xc881-solution-research`.
+- Unresolved language/library facts -> `$xc881-solution-research`.
+
+Send current question/slice, evidence, constraints and permissions; receive needed
+anchors, uncertainty and next step. Resume Porting without rediscovery.
 
 ## Workflow
 
-1. Classify magnitude and goal/non-goal from supplied or cheap evidence. Delegate
-   code reading only when boundary/equivalence judgment lacks repository evidence.
-2. Goal gate: Requirement persists measurable done criteria, exit conditions, and out-of-scope. Vague/missing boundary -> one blocking question; no porting.
-3. For goal/queue work, derive and write the <=3,000-char cross-process ledger
-   linked to req-process once; do not use a normal validator loop or copy
-   scope/AC/boundary. Small non-goal planning stays chat-only. Ask before
-   changing `.gitignore`.
-4. Use the understanding reference for language/architecture/library risks; delegate authoritative web research when needed.
-5. Continue only an explicit/unambiguous task: read cross-process plus linked req `current.md + current item`; previous needs an explicit evidence link and next waits until advancement. Never scan or read req index by default.
-6. Planning/boundary-only intent stops with a plan. When implementation is
-   requested or the selected queue is executable, delegate the current port and
-   verification to Coding. Behavioral equivalence remains hard; idioms are
-   subordinate. Use intent fidelity only for true abstract-intent work.
-7. After each item, update status/checkpoints and re-check the stop boundary. After context compaction, preserve Porting ownership and equivalence state. If another runnable current item exists, delegate it automatically and continue to task terminal without asking for “continue”. Stop only for explicit stepwise/pause intent or a real blocker/boundary. Report verification/equivalence in chat only.
+1. Classify magnitude and goal/non-goal from supplied or cheap evidence. Reuse
+   revision/scope-matched mappings; delegate missing boundary/parity gaps only.
+2. Goal gate: reuse a locked boundary or have Requirement persist measurable done
+   criteria, exit conditions and exclusions. Unclear boundary -> one question; no port.
+3. Goal/queue: reuse or derive/write the linked <=3,000-char cross-process ledger;
+   do not use a normal validator loop or copy scope/AC. Small non-goal planning stays
+   chat-only. Ask before changing `.gitignore`.
+4. Explicit/unambiguous task only: read cross-process and linked req
+   `current.md + current item`; previous needs an evidence link, next waits for
+   advancement. Never scan or read req index by default.
+5. Resolve current-slice semantic/library gaps. Select proof of source-observable
+   outputs, errors, state and side effects before porting; tests support only covered behavior.
+6. Planning/boundary-only intent stops with a plan. Requested implementation/executable
+   queue delegates current port/verification to Coding. Behavior outranks target
+   architecture, then idiom; intent fidelity is for abstract-intent work only.
+7. Unresolved parity blocks completion. Checkpoint status/blockers, advance verified
+   items, recheck boundaries and continue automatically to task terminal. Compaction retains Porting
+   ownership/current equivalence state. Stop only for explicit stepwise/pause intent
+   or real blockers/boundaries. Verification/equivalence results stay in chat.
 
 ## User-facing output
 
@@ -74,8 +83,5 @@ Open only the exact relative path for the active branch.
 
 ## Hard rules
 
-- Goal task without a locked stop boundary: do not start porting.
-- Equivalence means behavior, not structure; idiom never overrides correctness.
-- No code in this skill output; delegated Coding performs implementation.
 - Req-process owns scope/AC; cross-process owns magnitude/equivalence/progress.
 - Missing/stale linked state: do not port. Never assume `.gitignore` choice.

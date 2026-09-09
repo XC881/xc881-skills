@@ -1,13 +1,16 @@
 # IR
 
-Check: prerequisite, dependency, consequence, state, permission, data, failure, audit, notification, migration, NFR, abuse case.
+Infer only needs whose omission changes scope, AC, or material risk. Check relevant
+prerequisites/dependencies, consequences, state, permissions, data/failure paths,
+audit, notification, migration, NFRs and abuse cases, not every category.
 
 Fact vs decision:
 
-- If a fact can be found in repo/docs/current research, find it; do not ask the user.
+- Reuse applicable repo/docs/research evidence; inspect only missing or conflicting facts.
 - If it is a product/domain decision, ask at most one blocking question and include the recommended answer.
 - Challenge vague or conflicting terms; propose one canonical term when it affects AC/scope.
-- Do not act on the plan until scope + AC are explicit enough for coding handoff.
+- Tie each IR to its triggering evidence and affected AC/risk. An inference does
+  not authorize scope growth; unresolved consequential choices block Coding handoff.
 
 ```text
 IR-*:

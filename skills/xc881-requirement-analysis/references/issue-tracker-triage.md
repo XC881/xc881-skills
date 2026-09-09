@@ -26,6 +26,8 @@ Category / Summary / Current / Desired / Key interfaces / AC / Out of scope / Ve
 Rules:
 
 - Map canonical roles to real labels before editing.
+- Reuse issue evidence. If readiness depends on an unknown bug cause, delegate
+  only that diagnosis to `$xc881-bugfix-research`, then resume the state decision.
 - Public AI comments disclose AI assistance.
 - Enhancement `wontfix` records/proposes `.out-of-scope/<concept>.md`; bugs never go there.
 - PRD splits become vertical slices/tracer bullets with dependency order and blockers after items exist.

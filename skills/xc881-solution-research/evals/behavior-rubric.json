@@ -5,6 +5,15 @@
   "note": "Judge or human evaluates output quality. Not run in default CI.",
   "cases": [
     {
+      "query": "Solution 完整正文与引用仍在上下文；继续同一有界研究，随后出现来源版本冲突",
+      "checklist": [
+        "reuses available entry/ref instructions without repeating file reads or the research ceremony",
+        "checks evidence freshness independently and acquires missing source/conflict rules when the conflict arises",
+        "returns bounded citations, impact and uncertainty to the original owner without requesting another invocation",
+        "does not claim to control client reinjection, retention or prompt caching"
+      ]
+    },
+    {
       "query": "用xc881调研 Supabase 和 Firebase 的技术方案差异",
       "checklist": [
         "fact, inference and recommendation are clearly separated",
@@ -38,6 +47,16 @@
         "retains the bounded RQ, source/evidence paths and Requirement as active owner",
         "does not restart research broadly or ask the user to invoke Requirement again",
         "returns the result to the same Requirement run automatically"
+      ]
+    },
+    {
+      "query": "Requirement 委派：已有同版本官方资料回答 RQ-1，只补齐 RQ-2 的适用限制后返回",
+      "checklist": [
+        "reuses RQ-1 evidence whose scope, version and freshness still fit and searches only the missing RQ-2 claim",
+        "loads source/conflict guidance when needed but does not load paper or option-comparison references for a fact check",
+        "stops once the bounded decision is supported rather than collecting a source quota",
+        "preserves unresolved applicability conflicts and names an exact blocking check if they can change the decision",
+        "returns only needed claims/citations or the supplied evidence path, impact, uncertainty and exact next Requirement action"
       ]
     }
   ]

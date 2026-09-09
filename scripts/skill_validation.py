@@ -107,8 +107,8 @@ _LANG_HINT = (
     "cs csharp rb ruby php bash sh shell sql kotlin swift scala"
 ).split()
 _IMPL_CODE_RE = re.compile(
-    r"```[ \t]*(" + "|".join(re.escape(lang) for lang in _LANG_HINT) + r")\b",
-    re.IGNORECASE,
+    r"^[ \t]*(?:`{3,}|~{3,})[ \t]*(" + "|".join(re.escape(lang) for lang in _LANG_HINT) + r")\b",
+    re.IGNORECASE | re.MULTILINE,
 )
 
 
@@ -116,7 +116,8 @@ _IMPL_CODE_RE = re.compile(
 # markers (- risk:), backticks, or a full-width colon (：). Normalize those away
 # so header detection matches emitted headers, not just the plain fixture form.
 def _norm_header(line):
-    header = line.strip().lstrip("#->*` \t").rstrip("*` ")
+    header = line.strip().lstrip("#-*` \t").rstrip("*` ")
+    header = re.sub(r"(\*\*|__|`)", "", header)
     return header.replace("：", ":").strip()
 
 
@@ -137,14 +138,31 @@ def _is_any_header(line, sections):
 # a header only if it equals a label or is that label followed by ":". Bodies run
 # until the next such header. Fixture samples must not start body lines with a
 # label, or those lines would be misread as headers.
+def output_lines(text):
+    """Keep fenced/quoted evidence as content, never as contract headings."""
+    fence = None
+    for line in text.splitlines():
+        marker = re.match(r"^ {0,3}(`{3,}|~{3,})(.*)$", line)
+        is_fence = marker is not None
+        if marker:
+            run, suffix = marker.groups()
+            if fence is None:
+                fence = run
+            elif run[0] == fence[0] and len(run) >= len(fence) and not suffix.strip():
+                fence = None
+        yield line, not is_fence and fence is None and not (
+            line.lstrip().startswith(">") or line.startswith(("    ", "\t"))
+        )
+
+
 def _section_body(text, section, sections):
-    lines = text.splitlines()
-    for index, line in enumerate(lines):
-        if _is_header_of(line, section):
+    lines = list(output_lines(text))
+    for index, (line, heading_allowed) in enumerate(lines):
+        if heading_allowed and _is_header_of(line, section):
             inline = _norm_header(line)[len(section) :].lstrip(": ").strip()
             body = [inline] if inline else []
-            for follow in lines[index + 1 :]:
-                if _is_any_header(follow, sections):
+            for follow, allowed in lines[index + 1 :]:
+                if allowed and _is_any_header(follow, sections):
                     break
                 if follow.strip():
                     body.append(follow.strip())
@@ -153,31 +171,98 @@ def _section_body(text, section, sections):
 
 
 def _delete_section(text, section, sections):
-    lines = text.splitlines()
+    lines = list(output_lines(text))
     kept = []
     index = 0
     while index < len(lines):
-        if _is_header_of(lines[index], section):
+        if lines[index][1] and _is_header_of(lines[index][0], section):
             index += 1
-            while index < len(lines) and not _is_any_header(lines[index], sections):
+            while index < len(lines) and not (
+                lines[index][1] and _is_any_header(lines[index][0], sections)
+            ):
                 index += 1
         else:
-            kept.append(lines[index])
+            kept.append(lines[index][0])
             index += 1
     return "\n".join(kept)
 
 
-def check_structural_output(text, required_sections, forbid_impl_code):
+def check_structural_output(text, required_sections, forbid_impl_code, optional_sections=()):
     violations = []
-    for section in required_sections:
-        present, body = _section_body(text, section, required_sections)
-        if not present:
+    sections = [*required_sections, *optional_sections]
+    for section in sections:
+        present, body = _section_body(text, section, sections)
+        if not present and section in required_sections:
             violations.append(f"missing_section:{section}")
-        elif not body:
+        elif present and not body:
             violations.append(f"empty_section:{section}")
+        if sum(allowed and _is_header_of(line, section) for line, allowed in output_lines(text)) > 1:
+            violations.append(f"duplicate_section:{section}")
     if forbid_impl_code and _IMPL_CODE_RE.search(text):
         violations.append("no_impl_code")
     return violations
+
+
+def output_contract_mode(contract, mode="full"):
+    if mode == "full":
+        return contract
+    if mode == "prose":
+        return None
+    if mode not in contract.get("modes", {}):
+        raise ValueError(f"unknown output mode: {contract['skill']}/{mode}")
+    return {**contract, **contract["modes"][mode]}
+
+
+def evaluate_output(text, contract, mode="full"):
+    selected = output_contract_mode(contract, mode)
+    if selected is None:
+        return {"status": "unscored", "reason": "no_fixed_structure", "violations": []}
+    violations = check_structural_output(
+        text, selected["required_sections"], selected.get("forbid_impl_code", False),
+        selected.get("optional_sections", []),
+    )
+    return {"status": "fail" if violations else "pass", "violations": violations}
+
+
+def validate_output_contract(contract):
+    def labels(value, field, nonempty=False):
+        if not isinstance(value, list) or (nonempty and not value) or not all(
+            isinstance(s, str) and s.strip() == s and s for s in value
+        ) or len(set(value)) != len(value):
+            raise ValueError(f"{field} must be unique non-empty strings")
+
+    if contract.get("layer") != "structural":
+        raise ValueError("behavior-contract layer must be structural")
+    labels(contract.get("anchors"), "anchors", True)
+    modes = contract.get("modes", {})
+    if not isinstance(modes, dict) or any(
+        not isinstance(mode, str) or not mode.strip() or mode in {"full", "prose"}
+        or not isinstance(body, dict) for mode, body in modes.items()
+    ):
+        raise ValueError("invalid output modes")
+    for mode in ["full", *modes]:
+        selected = output_contract_mode(contract, mode)
+        required, optional = selected.get("required_sections"), selected.get("optional_sections", [])
+        labels(required, "required_sections", True)
+        labels(optional, "optional_sections")
+        if set(required) & set(optional):
+            raise ValueError("required/optional sections overlap")
+        forbid = selected.get("forbid_impl_code", False)
+        if not isinstance(forbid, bool):
+            raise ValueError("forbid_impl_code must be boolean")
+        sample = selected.get("pass_sample")
+        if not isinstance(sample, str) or not sample.strip():
+            raise ValueError("pass_sample must be non-empty")
+        residual = evaluate_output(sample, contract, mode)["violations"]
+        if residual:
+            raise ValueError(f"{mode} pass_sample violates its contract: {residual}")
+        sections = [*required, *optional]
+        for section in required:
+            mutated = _delete_section(sample, section, sections)
+            if f"missing_section:{section}" not in evaluate_output(mutated, contract, mode)["violations"]:
+                raise ValueError(f"deletion of {section} not detected")
+        if forbid and "no_impl_code" not in evaluate_output(sample + "\n```python\nx = 1\n```\n", contract, mode)["violations"]:
+            raise ValueError("impl-code injection not detected")
 
 
 def validate_behavior_contracts(root, skills):
@@ -192,38 +277,10 @@ def validate_behavior_contracts(root, skills):
         contract = json.loads(contract_path.read_text(encoding="utf-8"))
         if contract.get("skill") != name:
             die("xc881-skills", f"{name} behavior-contract skill mismatch")
-        required = contract.get("required_sections")
-        if not isinstance(required, list) or not required or not all(
-            isinstance(s, str) and s.strip() for s in required
-        ):
-            die("xc881-skills", f"{name} required_sections must be non-empty strings")
-        optional = contract.get("optional_sections", [])
-        if not isinstance(optional, list) or not all(
-            isinstance(s, str) and s.strip() for s in optional
-        ):
-            die("xc881-skills", f"{name} optional_sections must be strings")
-        if set(required) & set(optional):
-            die("xc881-skills", f"{name} required/optional sections overlap")
-        forbid = contract.get("forbid_impl_code", False)
-        if not isinstance(forbid, bool):
-            die("xc881-skills", f"{name} forbid_impl_code must be boolean")
-        sample = contract.get("pass_sample")
-        if not isinstance(sample, str) or not sample.strip():
-            die("xc881-skills", f"{name} pass_sample must be non-empty")
-
-        residual = check_structural_output(sample, required, forbid)
-        if residual:
-            die("xc881-skills", f"{name} pass_sample must satisfy contract, got {residual}")
-        for section in required:
-            mutated = _delete_section(sample, section, required)
-            if f"missing_section:{section}" not in check_structural_output(
-                mutated, required, forbid
-            ):
-                die("xc881-skills", f"{name} deletion of {section} not detected")
-        if forbid:
-            injected = sample + "\n```python\nx = 1\n```\n"
-            if "no_impl_code" not in check_structural_output(injected, required, forbid):
-                die("xc881-skills", f"{name} impl-code injection not detected")
+        try:
+            validate_output_contract(contract)
+        except ValueError as exc:
+            die("xc881-skills", f"{name}: {exc}")
 
         rubric_path = evals_dir / "behavior-rubric.json"
         if not rubric_path.exists():

@@ -19,7 +19,7 @@ the current conversation does not unambiguously identify one active queue task.
 Use only for an explicit artifact/path/handoff or an unambiguous active task in
 the current conversation. If multiple artifacts are plausible, ask one blocking
 selection question. A Requirement handoff for new or reopened work names the
-exact artifact, current item, next item, and blockers; validate and use it without
+exact artifact, current item, next item, and blockers; consume it without
 searching directories or selecting the newest artifact.
 
 Before work:
@@ -27,8 +27,10 @@ Before work:
 1. Consume the exact write-first handoff; do not run a process validator in
    normal execution. Directly observed malformed fields or links return to
    Requirement; explicit audit/repair may validate once.
-2. Read `current.md` and only the current queue item it names. Do not read
-   `index.md`, previous, or next by default.
+2. Read `current.md` and only the current queue item it names. Use an exact fresh
+   window already supplied/read; known advancement, edits or missing context need
+   the current state again. Reusing static rules does not prove queue freshness.
+   Do not read `index.md`, previous, or next by default.
 3. Read a previous item only when the current item explicitly links evidence or a
    dependency detail that its local contract does not contain. Read next only
    after checkpoint advancement makes it current.
@@ -61,8 +63,9 @@ delegate complex read-only evidence while retaining ownership. Execute delegated
 
 Execution:
 
-- `current.md` is the sole active pointer; do not add another in-progress marker.
-- Update task state to `in-progress` when work starts.
+- `current.md` alone marks active work: task `State` becomes `in-progress`.
+  Item `Status` is only `pending | ready | blocked | done | skipped`, never
+  `in-progress`. Resume a blocked item as `ready`; keep activity in `current.md`.
 - Work only the current vertical slice and its declared dependencies.
 - A blocked item records the blocker and sets task state `blocked`; do not skip
   ahead unless the queue explicitly identifies another runnable item.
@@ -70,8 +73,13 @@ Execution:
 After a queue item:
 
 - Run declared verification before `done`, but report results/logs only in chat.
-- Derive status, significant history, pointers, and counters first; update them
-  together in one coherent patch without a normal validator call.
+- Derive item status, current pointers/counts and one `history.md` line per
+  changed item before one coherent patch. Name `Q-ID: old -> new`, next current
+  and task state. Record completion/advancement, block/resume, reopen and task
+  terminal, not results. Task-only transitions also need a line. Never replay an
+  already checkpointed transition or use a normal validator call.
+- Append history at EOF without loading its body; if the edit tool needs an
+  anchor, read only a bounded tail. History is an immutable trail, not authority.
 - If no current item remains, set task `done`. Otherwise advance next to current,
   load only the new current item, and continue in the same requirement run
   without asking the user to say continue.

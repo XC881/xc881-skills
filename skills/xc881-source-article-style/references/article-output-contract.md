@@ -37,7 +37,8 @@ Use for full chapters, rewrites, or publishable sections.
 1. Preserve direct practical voice.
 2. Keep useful screenshot/diagram refs.
 3. Fix ordering/precision before wording.
-4. Replace vague claims with source-backed claims.
+4. Map changed claims and conclusions to supplied source anchors; qualify or omit
+   unsupported claims. Fix evidence conflicts before polishing prose.
 5. Preserve the "研究路线" feel.
 
 ## Conclusion

@@ -4,12 +4,12 @@ Open from routing or implementation when the user wants an art-directed result,
 supplies visual references, asks for image-to-code, or a high-impact asset or
 visual decision remains ambiguous. When this workflow reaches selected-frame
 coding, post-implementation visual evidence, or a non-default pattern,
-automatically load `frontend-implementation-standard.md`,
-`frontend-redesign-and-visual-qa.md`, or `frontend-pattern-catalog.md` and
+automatically load `./references/frontend-implementation-standard.md`,
+`./references/frontend-redesign-and-visual-qa.md`, or `./references/frontend-pattern-catalog.md` and
 continue without another user request.
 
 If the supplied frame or asset still leaves its product/visual, type/color, or
-mobile decision unresolved, automatically load `frontend-design-intelligence.md`
+mobile decision unresolved, automatically load `./references/frontend-design-intelligence.md`
 before generating or selecting another reference. Use it only for that decision.
 
 ## Decide The Source

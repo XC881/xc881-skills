@@ -19,6 +19,8 @@ required_refs = [
     "frontend-design-intelligence.md",
     "frontend-implementation-standard.md", "frontend-image-reference-workflow.md",
     "frontend-redesign-and-visual-qa.md", "frontend-pattern-catalog.md",
+    "frontend-layout-and-platform.md", "frontend-visual-system-and-content.md",
+    "frontend-states-and-accessibility.md", "frontend-motion-and-performance.md",
 ]
 frontend_refs = [
     "frontend-routing-and-design-read.md", "frontend-design-intelligence.md",
@@ -42,6 +44,11 @@ for ref in frontend_refs[1:]:
     if ref not in routing_text: die(f"frontend routing missing {ref}")
     if not re.search(r"automatically\s+load", (root/"references"/ref).read_text(encoding="utf-8"), re.I):
         die(f"{ref} must automatically escalate when its concern is reached")
+implementation = (root/"references/frontend-implementation-standard.md").read_text(encoding="utf-8")
+for ref in ["frontend-layout-and-platform.md", "frontend-visual-system-and-content.md",
+            "frontend-states-and-accessibility.md", "frontend-motion-and-performance.md"]:
+    if f"./references/{ref}" not in implementation:
+        die(f"implementation route missing {ref}")
 for a in ["openai.yaml","claude.yaml"]:
     t = (root/"agents"/a).read_text(encoding="utf-8")
     for k in ["interface:","display_name:","short_description:","default_prompt:","policy:",'allow_implicit_invocation: true']:
@@ -55,23 +62,29 @@ required_rules = [
     "Read gate: explicit Coding invocation", "every write",
     "task/project complexity trigger", "Ordinary simple reads stay direct",
     "before opening project files or execution artifacts", "`read` or `change`",
-    "Frontend design starts with routing", "Automatically load each relevant next ref", "only when its concern is reached", "substantial", "Queue loop:",
-    "After context compaction", "Never ask the user to say continue",
-    "task terminal", "explicit stepwise/pause intent", "Do not scan `dev-notes`",
+    "Frontend design starts with routing", "Automatically load each relevant next ref", "only when its concern is reached", "substantial", "history line",
+    "After compaction", "Never ask the user to say continue",
+    "never `in-progress`", "Resume a blocked item as `ready`",
+    "advance until terminal", "explicit stepwise/pause intent", "Do not scan `dev-notes`",
     "Do not read `index.md` by default", "its current item only",
     "Do not load previous/next", "stop and return to Requirement",
     "run only needed branches",
 ]
 for rule in required_rules:
-    if rule not in text: die(f"missing task-mode rule: {rule}")
+    if rule.lower() not in text.lower(): die(f"missing task-mode rule: {rule}")
 if "use the write-first exact handoff; do not validate normally" not in text:
     die("queue mode must not run a normal process validator")
 execution_text = (root/"references/requirement-artifact-execution.md").read_text(encoding="utf-8")
-for rule in ["do not run a process validator in", "one coherent patch without a normal validator call"]:
+for rule in ["do not run a process validator in", "one coherent patch", "history.md", "old -> new",
+             "Item `Status` is only `pending | ready | blocked | done | skipped`, never"]:
     if rule not in execution_text:
         die(f"requirement execution missing write-first rule: {rule}")
+checkpoint_text = (root/"references/execution-checkpoint-and-tool-policy.md").read_text(encoding="utf-8")
+if "never `in-progress`" not in checkpoint_text or "resume blocked items as `ready`" not in checkpoint_text:
+    die("recovery checkpoint must keep in-progress as task-only")
 design_text = (root/"references/frontend-design-intelligence.md").read_text(encoding="utf-8")
-for rule in ["at most three candidates", "select_frontend_design.py", "never writes files", "Do not retry with synonyms"]:
+for rule in ["at most three candidates", "frontend_design.py", "full pinned upstream data",
+             "Ordinary lookups never write files", "Do not retry with synonyms", "candidate-with-fallback"]:
     if rule not in design_text:
         die(f"design intelligence missing bounded selector rule: {rule}")
 for workflow in ["instant read-only", "queue read-only", "instant change", "requirements then coding", "bugfix then coding"]:
@@ -88,7 +101,7 @@ for workflow in ["frontend automatic just-in-time redesign", "image-to-code fron
         die(f"need positive coding eval: {workflow}")
 if not any(not e["should_trigger"] and "image generation only" in e["workflow"] for e in ev):
     die("need negative image-only eval")
-if text.index("before opening project files or execution artifacts") > text.index("Classify action independently"):
+if text.lower().index("before opening project files or execution artifacts") > text.index("Classify action independently"):
     die("persistence mode must be classified before read/change action")
 rubric_text = (root/"evals/behavior-rubric.json").read_text(encoding="utf-8")
 for case in ["三个可运行队列项", "每完成一个队列项先停下来", "生产环境权限", "视觉重设计", "设计参考图", "文字溢出", "外观保持", "Node API", "React 表单", "跨页面医疗预约", "订单趋势"]:

@@ -3,12 +3,12 @@
 Open from routing or implementation for visual review, redesign, modernization,
 preservation risk, or screenshot-level confirmation. When asset/reference
 ambiguity blocks the review or a proposed non-default pattern needs constraints,
-automatically load `frontend-image-reference-workflow.md` or
-`frontend-pattern-catalog.md` and continue without another user request.
+automatically load `./references/frontend-image-reference-workflow.md` or
+`./references/frontend-pattern-catalog.md` and continue without another user request.
 
 When a concrete UX, data-display, mobile/platform, or visual-direction decision
 is not resolved by the affected system or audit evidence, automatically load
-`frontend-design-intelligence.md`; do not use it for a general review checklist.
+`./references/frontend-design-intelligence.md`; do not use it for a general review checklist.
 
 ## Audit Before Editing
 

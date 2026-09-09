@@ -1,0 +1,12 @@
+{
+  "id": "new-and-returning-concern",
+  "owner": "xc881-coding-skills",
+  "files": {
+    "form.tsx": "export function FieldError({ message }: { message: string }) {\n  return message ? <p role=\"alert\">{message}</p> : null;\n}\nexport function Form() {\n  return <form><button type=\"submit\">Save</button><FieldError message=\"\" /></form>;\n}\n"
+  },
+  "turns": [
+    {"request": "Adjust the existing form error state only. Keep the current components. Do not edit files."},
+    {"request": "Add restrained feedback animation within the existing system. Do not add dependencies."},
+    {"request": "Return to the form error and retry state without other changes."}
+  ]
+}

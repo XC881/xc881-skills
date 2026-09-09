@@ -4,6 +4,7 @@ from pathlib import Path
 
 
 ROOT = Path(__file__).resolve().parents[1]
+FRONTEND_VENDOR = ROOT / "skills/xc881-coding-skills/vendor/ui-ux-pro-max"
 COMPATIBILITY_PROMPT_LIMIT = 700
 
 
@@ -70,16 +71,19 @@ def main():
         "计费",
         "缓存",
     ]
-    public_files = [ROOT / "README.md", ROOT / "AGENTS.md"]
-    for directory in ["docs", "platform-prompts", "skills", "evals", "scripts"]:
-        public_files.extend(
+    # Maintenance docs/evals may discuss client limits without implementing them.
+    runtime_files = [ROOT / "AGENTS.md"]
+    for directory in ["platform-prompts", "skills", "scripts"]:
+        runtime_files.extend(
             path
             for path in (ROOT / directory).rglob("*")
             if path.is_file()
             and path.resolve() != Path(__file__).resolve()
+            and "evals" not in path.relative_to(ROOT).parts
+            and FRONTEND_VENDOR not in path.parents
             and path.suffix in {".md", ".json", ".yaml", ".py"}
         )
-    for path in public_files:
+    for path in runtime_files:
         text = path.read_text(encoding="utf-8").lower()
         for phrase in forbidden_phrases:
             if phrase.lower() in text:

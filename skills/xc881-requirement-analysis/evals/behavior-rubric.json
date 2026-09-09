@@ -5,6 +5,15 @@
   "note": "Judge or human evaluates output quality. Not run in default CI.",
   "cases": [
     {
+      "query": "Requirement 正文与当前方案仍在上下文，补一条验收并在有界 Coding 读取返回后继续",
+      "checklist": [
+        "reuses available complete entry/ref rules without another activation read or full rediscovery",
+        "a delegate receives sufficient instructions or reads its selected skill; a parent loaded marker is not enough",
+        "updates only affected scope/AC under the existing artifact identity and resumes Requirement automatically",
+        "after compaction reacquires missing rules and exact state, not a full reference pack or a process-validator loop"
+      ]
+    },
+    {
       "query": "用xc881分析这个功能验收标准",
       "checklist": [
         "each AC is testable with a decidable pass or fail condition",
@@ -104,6 +113,16 @@
         "Solution resumes only its bounded RQ and returns evidence to the same Requirement run",
         "Requirement completes scope and AC before handing the exact current window to Coding",
         "Coding continues the queue without a second skill invocation or user continuation prompt"
+      ]
+    },
+    {
+      "query": "沿用本轮已确认的 Spec 和同版本接口证据，只补充权限失败的验收标准；不创建文档",
+      "checklist": [
+        "reuses applicable Spec and interface evidence instead of repeating normalization or repository discovery",
+        "loads the inference or existing-change reference only for the unresolved permission contract, without preloading tracker, persistence or design references",
+        "connects each added AC to an explicit need or labeled inference and observable failure behavior",
+        "a blocking delegated read carries the exact question and evidence and returns only relevant anchors, uncertainty and next step to Requirement",
+        "loads any newly needed reference automatically while retaining scope ownership and the no-document boundary"
       ]
     }
   ]

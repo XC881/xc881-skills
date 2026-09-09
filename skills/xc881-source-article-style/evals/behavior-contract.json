@@ -2,6 +2,8 @@
   "skill": "xc881-source-article-style",
   "layer": "structural",
   "forbid_impl_code": false,
+  "anchors": ["现象/问题", "前言", "须知/背景", "方向"],
   "required_sections": ["现象/问题", "入口定位", "调用链/执行流程", "关键源码", "本章结论"],
+  "optional_sections": ["前言", "须知/背景", "方向", "常见疑问", "下一步"],
   "pass_sample": "## 现象/问题\nBrowserWindow 创建后出现白屏\n## 入口定位\n入口在 browser_window.cc 的 Create\n## 调用链/执行流程\nCreate 依次进入 InitWith 与 BuildWebContents\n## 关键源码\nBuildWebContents 中延迟初始化 web_contents_\n## 本章结论\n结论一, 创建统一走 Create 入口\n结论二, WebContents 采用延迟初始化\n结论三, 白屏根因是初始化顺序"
 }

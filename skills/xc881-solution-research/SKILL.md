@@ -3,7 +3,7 @@ name: xc881-solution-research
 description: 'Primary owner for web-backed technical research: feasibility, option decisions, standards/advisories, and stale external facts. Use when external evidence is the outcome or a bounded delegate is blocked; ordinary explanations and incidental terms stay with the current owner.'
 when_to_use: 'Use for external technical evidence or decisions. Single-fact checks skip option comparison; delegated research returns to its owner.'
 display_name: "xc881技术方案联网调研"
-version: "2.3.0"
+version: "2.3.1"
 category: "solution-research"
 tags:
   - intent-routing
@@ -21,41 +21,35 @@ aliases:
 
 # xc881 Solution Research
 
-Intent-routed external-evidence owner. Direct calls select it; implicit use
-requires the primary outcome in the description. Incidental terms stay with the
-base/current owner. Run only the needed branch. No code.
+Intent-routed external-evidence owner; direct calls select it. Incidental terms
+stay with the current owner. No code; bounded delegates return to their owner.
 
-Delegated use: an active `$xc881-source-article-style` run may use this skill automatically for one bounded unexplained term/concept that affects article understanding. An active `$xc881-requirement-analysis` run may use this skill automatically for bounded technical uncertainty that affects requirement judgment, and the result returns to that same owner automatically, including after context compaction.
+## Reference Routes
 
-Goal:
+- `./references/english-spec-and-research-questions.md`: rough request or missing RQ.
+- `./references/source-priority-policy.md`: source/version/conflict checks or evidence artifacts.
+- `./references/paper-first-policy.md`: principle/algorithm evidence.
+- `./references/tech-stack-feasibility-policy.md`: real implementation choices.
+- `./references/solution-output-contract.md`: artifact or specialist handoff details.
 
-```text
-idea → spec → RQ → evidence → options → pick → handoff
-```
+Route by intent each turn. Full supplied bodies count; names/paths/markers do not.
+Reuse in-context rules; read needed exact paths automatically only for missing
+rules, known changes or requested rereads. Higher-priority invocation rules win.
 
-Reference files live under `./references/`.
+## Workflow
 
-Reference Index:
-
-- `./references/english-spec-and-research-questions.md`: rough idea/RQ.
-- `./references/source-priority-policy.md`: source trust/conflict.
-- `./references/paper-first-policy.md`: principles.
-- `./references/tech-stack-feasibility-policy.md`: option compare.
-- `./references/solution-output-contract.md`: output.
-
-When opening reference files, always use the exact relative path shown above.
-Do not assume reference files are located beside `SKILL.md`.
-
-Steps:
-
-1. Confirm technical-research intent from direct invocation, wording, or delegated context.
-2. Spec: `Goal / Inputs / Constraints / Unknowns / Output`.
-3. Make only the explicit/inferred `RQ-*` needed for the decision.
-4. Infer stack candidates.
-5. Search the smallest useful set of primary sources.
-6. If delegated from a req-process Artifact, write bounded evidence under its `evidence/` directory.
-7. Fact check: report evidence, impact, risk, and handoff; do not invent options.
-8. Decision: compare 2-4 real options and pick only when evidence is enough.
+1. Classify fact check / option decision. Reuse spec/RQ; add `RQ-*` only for
+   decision-relevant goals, constraints and unknowns.
+2. Reuse scope/version/freshness-matched citations. Search missing, conflicting or
+   stale claims only, using the smallest useful primary-source set.
+3. Fact check: evidence/impact/risk/handoff; do not invent options. Decision:
+   compare viable choices on binding constraints, explain exclusions and require
+   evidence before picking.
+4. Stop when blocking RQs support the decision. Retain consequential uncertainty;
+   insufficient evidence returns a blocker/next check, not aimless expansion.
+5. Put req-process-delegated findings in the supplied Artifact's `evidence/`.
+   Return needed claims/citations or path, impact, uncertainty and next action to
+   the same owner. Context compaction resumes that RQ/evidence.
 
 Output:
 
@@ -72,7 +66,5 @@ Handoff:
 
 `Options` and `Pick` are decision-only; omit them for a single-fact check.
 
-Rules: route only on external technical evidence/decision intent; no code; papers
-first for principles; cite only used sources; fact ≠ inference ≠ recommendation;
-do not default into Requirement unless requested or delegated. Delegated research
-returns to the same owner automatically.
+Papers first for principles; cite used sources; fact ≠ inference ≠ recommendation.
+Do not default into Requirement unless requested or delegated.

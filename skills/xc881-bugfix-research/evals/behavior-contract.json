@@ -2,6 +2,8 @@
   "skill": "xc881-bugfix-research",
   "layer": "structural",
   "forbid_impl_code": true,
+  "anchors": ["xc881 BugFix", "Context"],
   "required_sections": ["Context", "Evidence", "Cause", "Fix", "Verify", "Risk", "Handoff"],
+  "optional_sections": ["Severity", "CVE-GHSA-OSV-CWE-OWASP", "Affected", "Exploitability", "Mitigation", "Issue state", "Agent Brief bug fields"],
   "pass_sample": "Context: login returns 500 after deploy, production environment\nEvidence: stack trace shows null session token on first request\nCause: hypothesis, session store not initialized on cold start\nFix: initialize store in bootstrap before route mount\nVerify: reproduce on cold start, assert 200 after fix applied\nRisk: low, change isolated to bootstrap path\nHandoff: to coding, apply minimal initialization fix"
 }

@@ -2,6 +2,8 @@
   "skill": "xc881-porting-orchestration",
   "layer": "structural",
   "forbid_impl_code": true,
+  "anchors": ["迁移结论"],
   "required_sections": ["迁移结论", "本次迁移", "如何确认成功", "当前进度", "下一步", "开发记录"],
+  "optional_sections": ["需要注意", "需要确认"],
   "pass_sample": "迁移结论: 这是长期迁移任务，边界已锁定，可以开始第一阶段\n本次迁移: 将已确认范围内的 Go 服务迁入现有 Rust axum 架构，不增加新功能\n如何确认成功: 所有迁移模块通过原有行为测试和 golden 对比\n需要注意: 并发模型和错误处理差异可能造成行为偏差\n当前进度: 边界和验证方法已确定，代码迁移尚未开始\n下一步: 交给 Coding 迁移第一个模块并执行等价性检查\n开发记录: 需求边界见 req-process，迁移进度见对应 cross-process 文件"
 }

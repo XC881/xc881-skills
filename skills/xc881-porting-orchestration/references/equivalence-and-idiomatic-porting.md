@@ -4,15 +4,20 @@
 
 Verify via `$xc881-coding-skills`. Same observable behavior, not same code shape.
 
+Map required inputs/outputs, errors, state, side effects and relevant
+ordering/lifetime/encoding to parity checks. Reuse version/config-matched source
+fixtures; state nondeterminism.
+
 Methods (pick per case, state which):
 
 - IO/behavior parity: same inputs -> same outputs/side effects across source and port.
 - Ported tests: source test suite translated and passing on the port.
 - Golden comparison: recorded source outputs replayed against the port.
 
-Report a consistent/inconsistent verdict with evidence in chat. Dev-notes stores
-the method and item status, not the verification result. Structural difference
-alone is NOT inconsistency.
+Report consistent/inconsistent only for checked behavior, with evidence in chat.
+Missing coverage is unverified, not equivalent; an unresolved required check or
+mismatch blocks completion. Dev-notes stores method and item status, not results.
+Structural difference alone is NOT inconsistency.
 
 ## Three-layer rule (order fixed)
 
@@ -35,11 +40,12 @@ parity to intent/design fidelity. Guardrails:
 
 ## Idiomatic decision record
 
-For each place that departs from line-by-line translation, record:
+For a material semantic/architecture departure, record:
 
 - source paradigm
 - target feature used
 - why it is better (correctness / readability / performance)
-- evidence behavior stays equivalent
+- the parity obligation; report verification evidence in chat, not the ledger
 
-Do not use target features to show off. Idiomatic only for real gains, under the coding skill's anti-over-engineering guard.
+Routine syntax translation needs no separate record. Use idioms for real gains
+under Coding's anti-over-engineering guard, never to bypass a parity obligation.

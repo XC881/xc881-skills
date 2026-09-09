@@ -1,0 +1,13 @@
+{
+  "id": "supplied-body-three-turns",
+  "owner": "xc881-bugfix-research",
+  "supplied": ["SKILL.md"],
+  "files": {
+    "slice.py": "def take(items, limit):\n    return items[:limit + 1]\n"
+  },
+  "turns": [
+    {"request": "Diagnose this pure function from the given observations only. take([1, 2, 3], 1) returns [1, 2]. Do not execute, edit, or invent extra evidence."},
+    {"request": "Explain another boundary observation: take([1, 2, 3], 0) returns [1]. Source and rules are unchanged."},
+    {"request": "Someone claims the extra item is random data rather than a function defect. Assess that claim against the same evidence only."}
+  ]
+}

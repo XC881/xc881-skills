@@ -1,0 +1,17 @@
+{
+  "id": "retained-after-compaction",
+  "owner": "xc881-porting-orchestration",
+  "supplied": ["SKILL.md", "references/equivalence-and-idiomatic-porting.md"],
+  "files": {
+    "dev-notes/req-process/add/current.md": "# Current\n\nTask: `RP-EVAL`\nState: `in-progress`\nUpdated: `2026-09-09`\n\nPrevious: `none`\nCurrent: `queue/Q-010-add.md`\nNext: `none`\n\nProgress:\n\n- Implementation queue: done 0 / total 1\n- Blockers: 0\n\nLast completed:\n\n- Accepted add-function port slice.\n\nNext action:\n\n- Q-010: port add.\n",
+    "dev-notes/req-process/add/history.md": "# History\n\n- 2026-09-09: created the accepted add port queue.\n",
+    "dev-notes/req-process/add/index.md": "# Add Port\n\nPort add from Python to JavaScript with IO parity.\n",
+    "dev-notes/req-process/add/queue/Q-010-add.md": "# Q-010 Add\n\nID: `Q-010`\nStatus: `ready`\nPrevious: `none`\nNext: `none`\nBlocked by: `none`\n\n## Goal\n\nPort add.\n\n## Contract\n\nPreserve add(a, b) numeric IO. Chat-only equivalence check this turn.\n",
+    "dev-notes/cross-process/add.md": "# Porting plan: src.py -> dst.js\n\nRequirement artifact: dev-notes/req-process/add/\nMagnitude: logic-slice\nEquivalence method: IO parity\nItems:\n  - add: not-started\nProgress: done 0 of 1\nOpen risks: none\n",
+    "src.py": "def add(left, right):\n    return left + right\n",
+    "dst.js": "export function add(left, right) {\n  return left + right;\n}\n"
+  },
+  "turns": [
+    {"request": "Continue the current equivalence check after recovery. Exact identities: ledger dev-notes/cross-process/add.md and req current dev-notes/req-process/add/current.md. Do not assume equivalence without evidence. Chat only."}
+  ]
+}

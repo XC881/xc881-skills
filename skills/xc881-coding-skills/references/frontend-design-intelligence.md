@@ -1,61 +1,83 @@
 # Frontend Design Intelligence
 
-Frontend routing automatically loads this reference only after it finds that the
-active decision cannot be made from the user request, existing project system,
-brand, supplied frame, or local surface evidence. It is a bounded decision aid,
-not a second frontend owner, design default, or full catalog.
+Automatically load this reference when substantial new/reworked UI has no reusable
+design system, or an active visual/UX decision remains unresolved after the Design
+Read. Reuse adequate user, brand, frame, token and component evidence first.
 
-## Evidence First
+## Default Baseline
 
-Existing tokens, components, assets, content, product workflow, platform, and
-user constraints win. If they settle the decision, do not open this reference.
-Never replace an existing design system, add a package, or invent an identity
-because this reference exists.
+For eligible new/reworked UI, generate one project-specific candidate by default:
 
-## Select One Concern
+```bash
+python <coding-skill>/scripts/frontend_design.py "appointment scheduling operations dashboard accessible" --design-system --surface app
+```
 
-Load only the branch that is unresolved, then return a compact choice: no more
-than three candidates, the evidence/reason for each, the rejected default, and
-the current decision. Do not read another branch without its concern.
+Resolve `<coding-skill>` from this skill's installed directory, not the project
+working directory. Use `landing` only for an actual landing page, `mobile` for a
+mobile surface; app work must not inherit marketing sections. Translate a short
+product/workflow phrase internally, not the entire brief. Keep negations, framework
+versions and implementation instructions out of the generator query; reconcile
+them against the result. Preserve versions in a version-dependent stack lookup.
+Do not ask the user to translate or manually invoke a skill/tool.
 
-| Concern | Decide | Continue to |
-| --- | --- | --- |
-| Product or visual direction | hierarchy, density, material, signature, anti-default | implementation, image, pattern, or QA as reached |
-| Type or color role | semantic roles, contrast, readable hierarchy | implementation |
-| Data display | comparison, trend, composition, distribution, relationship, or status | implementation; pattern only if non-default |
-| Mobile/platform | native convention, navigation, safe area, touch flow | implementation or QA |
-| UX/QA gap | action hierarchy, feedback, form/recovery, accessibility detail | redesign/visual QA |
+The CLI uses the full pinned upstream data and generator locally. Python 3.9+ is
+needed only for lookup/generation; if unavailable, report the lookup limit and use
+project evidence without installing anything or pretending a database match.
+Existing-system work and narrow evidence-complete changes skip generation.
 
-The current decision records why a candidate fits this surface, not a universal
-style recipe. A source category may inform a choice; it cannot force Tailwind,
-Motion, GSAP, a font, icon family, palette, chart library, or product pattern.
+## Concern Lookup
 
-If this active branch still cannot rank candidates, run the local selector once:
-`scripts/select_frontend_design.py <concern> "<current terms>"`. Its concern is
-`product`, `type-color`, `data`, `mobile`, or `ux`; aliases are accepted for
-visual, data-display, platform, and QA. It returns at most three candidates and
-never writes files; order is deterministic. Do not retry with synonyms or run it when
-project/user evidence already decides the choice.
+For one remaining gap, query its domain or relevant stack. A named framework alone
+is not a gap: query it only for a specific API/pattern compatibility decision.
+After a usable baseline, resolve a font/color/rule gap by its domain, not another
+whole-system generation. Start with one result;
+use `--limit 2` or `3` only for a real comparison (at most three candidates).
 
-## Durable Visual Contract
+```bash
+python <coding-skill>/scripts/frontend_design.py "time series trend" --domain chart
+python <coding-skill>/scripts/frontend_design.py "form accessibility react 18" --stack react
+python <coding-skill>/scripts/frontend_design.py --record 'stacks/react.csv#46' --fields 'Code Good' "Don't"
+```
 
-When the selected decision must coordinate two or more surfaces, survive a
-session, or the user explicitly asks, automatically delegate a bounded visual
-contract request to Requirement. If its design-system gate passes, Requirement
-writes the master and hands back an exact
-`dev-notes/design-system/<slug>/MASTER.md` path. Do not wait for a user handoff,
-scan the directory, write a project-root `design-system/`, or create a contract
-for a one-surface decision.
+Use the record ID returned by the actual query, not the illustrative ID above.
+Supported domains: `product`, `style`, `color`, `typography`, `google-fonts`,
+`chart`, `icons`, `landing`, `ux`, `web`, `react`, `gsap`. Use `--catalog` only
+when the needed domain/stack name is unknown, not at every activation.
+Existing icon/motion libraries win; the icon dataset is Phosphor, not Lucide,
+and `gsap` examples do not authorize adding that package.
 
-With an exact master path, load it only when its current concern is reached.
-Load `surfaces/<surface>.md` only if the handoff/current contract names it; it
-overrides only its stated fields. An implementation/code conflict returns to
-Requirement instead of silently changing the master.
+## Bounded Reads
 
-## Source Boundary
+Run the CLI; never read its Python source, CSVs, full inventory, or vendor docs for
+a normal lookup. Default JSON is <=4,200 characters; omitted fields retain exact
+record locators, never chopped code. Expand only the fields needed to apply a
+rule/snippet safely, especially omitted constraints and applicability.
+For generator detail, repeat the same query/options with `--section colors`,
+`style`, `typography`, `constraints`, `spacing_scale`, or another returned section.
+Reuse the result while its inputs remain valid; do not regenerate at each page.
 
-This compact taxonomy adapts UI/UX Pro Max concern categories and selected
-Vercel, Anthropic, and Microsoft review ideas. The upstream packages, scripts,
-full datasets, global triggers, and mandatory design-system generation are not
-runtime dependencies. Maintenance provenance is recorded in
-`docs/ui-ux-pro-max-integration.md`.
+`no-match` means no evidence, and `candidate-with-fallback` names missing sources.
+Do not retry with synonyms in a loop. Correct a demonstrated language/domain/version
+error once; otherwise use local evidence or bounded Solution research for a
+blocking external fact. Never label fallback as a catalog recommendation.
+
+## Reconcile Before Applying
+
+Check surface/task fit, existing design authority, locale/font coverage,
+accessibility risks, semantic contrast, dependency availability and version
+applicability. Catalog constraints are proposals, not verified obligations or
+compliance. Reject incompatible choices, not the project constraint; a high-risk
+style is not justified by its recommendation rank. Report only the resulting
+decision and a material conflict, not the full generator output.
+
+When reusable decisions need a durable contract, automatically delegate bounded
+evidence to Requirement. It reconciles and writes the accepted master under
+`dev-notes/design-system/<slug>/MASTER.md`, with named surface overrides only.
+Coding consumes exact handoff paths, never scans for masters or creates a second
+authority. Ordinary lookups never write files. The optional CLI `--persist`
+creates a proposal only, requires explicit project root/slug, and never overwrites;
+Requirement's accepted write-first contract remains the execution authority.
+
+Automatically load implementation, image, redesign/QA, or pattern refs only as
+their concern is reached; continue without another user invocation. The legacy
+`scripts/select_frontend_design.py` forwards to the real engine, not a fixed map.

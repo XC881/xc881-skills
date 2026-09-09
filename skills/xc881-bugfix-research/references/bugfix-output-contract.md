@@ -13,6 +13,9 @@ Handoff:
 
 Security add: `Severity / CVE-GHSA-OSV-CWE-OWASP / Affected / Exploitability / Mitigation`.
 
+`Cause`: supported + confidence, or unconfirmed + missing check.
+`Verify`: a plan unless Coding returned observed results.
+
 Tracker add:
 
 ```text
@@ -24,5 +27,6 @@ Use tracker labels/comments through `$xc881-requirement-analysis`; this skill su
 
 For repository evidence, perform a simple exact/local/low-risk read directly or
 hand Coding a complex/tracked read-only question, then resume Bugfix. `Handoff`
-sends a confirmed repair contract to Coding only when implementation was requested
-or delegated; diagnosis-only uses `Handoff: none` or names missing evidence.
+sends cause/evidence anchors, bounded repair, non-regression constraints and exact
+verification step to Coding only when implementation was requested or delegated
+and the repair is supported; diagnosis-only uses `Handoff: none` or names missing evidence.

@@ -5,6 +5,15 @@
   "note": "Judge or human evaluates output quality. Not run in default CI.",
   "cases": [
     {
+      "query": "完整写作正文和本章引用仍在上下文，继续同一源码章节，再处理一个未解释的术语",
+      "checklist": [
+        "reuses complete available entry/ref rules without reopening them merely for a new turn",
+        "keeps source claims revision-scoped and delegates only the genuinely blocking unexplained term",
+        "returns from research to the same prose owner and section without a skill reload ceremony",
+        "a name/path/loaded marker alone never substitutes for missing required instructions after context loss"
+      ]
+    },
+    {
       "query": "用xc881写作 BrowserWindow 创建流程",
       "checklist": [
         "conclusion has 3 to 5 bullets, each backed by a path or function anchor",
@@ -18,7 +27,7 @@
       "checklist": [
         "evidence categories are instantiated for the target stack (crate/module/build), not forced into Chromium terms like GN target",
         "entry and call-chain claims carry a derivation path, not a bare assertion",
-        "each claim is either backed by debugger/runtime output or explicitly marked as static inference with its static basis",
+        "distinguishes direct source facts, explicitly labeled static flow inference, and runtime observations scoped to their input/config",
         "possibly-stale API or version facts are cited from official docs, not asserted from memory"
       ]
     },
@@ -47,6 +56,16 @@
         "resumes the bounded Coding evidence request without expanding into unrelated code",
         "returns path/function/call-chain evidence to the same article run",
         "continues writing automatically without asking the user to re-invoke a skill"
+      ]
+    },
+    {
+      "query": "按给定版本的源码和一次 trace 写函数级章节；术语已解释，不再读仓库或跑调试器，未命中的分支请标清",
+      "checklist": [
+        "reuses the supplied matching source, trace and definitions without new repository reads, runtime execution or term research",
+        "loads function-level, evidence/style and chapter references only as those drafting concerns are reached, without rereading available guidance",
+        "maps important prose claims, diagram edges and conclusions to path/symbol or trace anchors",
+        "does not use one observed trace to assert all execution paths and labels unresolved branch/order claims as inference or unknown",
+        "narrows unsupported prose instead of inventing runtime evidence or exceeding the user's read boundary"
       ]
     }
   ]
