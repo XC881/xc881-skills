@@ -90,7 +90,7 @@
       "query": "把这个需求拆成三个队列项并开始实现，不要每项都问我",
       "checklist": [
         "Requirement hands Coding one exact current window and declares continuous execution",
-        "queue boundaries are recovery checkpoints rather than default user-confirmation points",
+        "queue checkpoints recover state; Coding advances without asking the user to continue",
         "Coding is expected to advance and continue until all items are terminal",
         "only explicit stepwise intent or a genuine blocker permits an intermediate stop"
       ]
@@ -99,9 +99,9 @@
       "query": "这个需求会跨很多轮执行，压缩上下文后也要能继续",
       "checklist": [
         "keeps stable scope and AC in index while current.md remains the bounded execution pointer",
-        "treats context compaction as transparent rather than a user-confirmation or handoff boundary",
+        "after compaction, resumes the same owner and current.md window",
         "keeps accepted contract changes, blockers and exact evidence paths durable",
-        "does not store raw tool output or compaction summaries as requirement authority",
+        "does not store raw tool output as requirement authority",
         "hands Coding a self-contained current item so recovery does not require full history",
         "continues to task terminal without asking the user to say continue after compaction"
       ]

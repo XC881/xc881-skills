@@ -1,8 +1,0 @@
-{
-  "id": "explicit-repeat-invocation",
-  "owner": "xc881-requirement-analysis",
-  "supplied": ["SKILL.md"],
-  "turns": [
-    {"invoke": true, "request": "Chat-only: adjust this acceptance criterion. Clicking save must persist the title. Keep chat-only; do not persist artifacts."}
-  ]
-}

@@ -1,7 +1,7 @@
 # Execution Checkpoint and Tool Policy
 
 Coding owns execution checkpoints and the tools needed for the current read or
-change. Environment context management is outside this skill.
+change.
 
 ## Queue checkpoint
 
@@ -19,9 +19,8 @@ rules from exact paths. A summary or loaded marker alone is not the rule body.
 Project files, external evidence and mutable queue state retain their freshness
 checks. If task identity is missing/ambiguous, ask once rather than guess.
 
-Instant work does not create a queue for context management. Where the host
-supports continuation summaries, preserve the active request and changed paths;
-the skill cannot guarantee their retention.
+Instant work does not create a queue for context management. Preserve the active
+request and changed paths.
 
 ## Tool selection
 
@@ -39,11 +38,10 @@ request focused fields, and cap outputs.
 
 Before a supported checkpoint/compaction, preserve relevant facts, decisions,
 durable changes and evidence paths. Do not copy old pages, logs or unchanged file
-bodies into summaries. Context removal/retention is controlled by the host, not
-this skill; never claim to have removed context merely by writing a summary.
+bodies into summaries.
 
 Delegates need sufficient instructions in their own context, supplied or read;
 they cannot inherit a parent's loaded marker. Return bounded evidence to the
 original owner, which reuses its available rules without restarting discovery.
 
-Never summarize secrets into a checkpoint or continuation summary.
+Never summarize secrets into a checkpoint.

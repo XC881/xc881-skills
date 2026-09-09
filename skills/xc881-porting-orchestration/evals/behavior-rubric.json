@@ -67,7 +67,7 @@
     {
       "query": "迁移中途切换模型并压缩上下文，继续保持行为等价",
       "checklist": [
-        "treats compaction as an environment event and preserves Porting as the active owner",
+        "after compaction, keeps Porting as the active owner and resumes the current window",
         "keeps linked req current, porting item state, equivalence method, open risks and exact next action durable",
         "reloads only the selected cross-process ledger plus linked current window",
         "continues delegated implementation without weakening the equivalence gate or asking the user to continue"

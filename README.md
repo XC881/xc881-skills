@@ -135,7 +135,7 @@ Requirement、Bugfix 或源码文章保留自己的分析/写作职责：简单�
 
 队列 checkpoint 是恢复点，不是默认确认点。Coding 完成当前项后会验证、更新 status/history/current，把 next 推进为 current，再只读取新的 current 窗口并继续，直到整个需求终态。只有用户明确要求逐项确认/每项暂停，或遇到输入、权限、审批、安全、范围变化等真实阻塞时才停止。
 
-自动上下文压缩同样不是确认点。真正的 token 检测、原生/客户端压缩、历史替换和 agent loop 继续由 Codex、Claude Code、API session 或其它宿主负责，不属于 Coding 或任何单一 skill。压缩完成后保留 active owner、被选 skill 和精确 current 窗口，自动继续同一次 Requirement、Solution、Bugfix、文章、Porting 或 Coding 流程，不要求用户说“继续”。
+自动上下文压缩同样不是确认点。压缩完成后保留 active owner、被选 skill 和精确 current 窗口，自动继续同一次 Requirement、Solution、Bugfix、文章、Porting 或 Coding 流程，不要求用户说“继续”。
 
 如果当前 queue item 信息不完整、与实际代码冲突、用户要求改变 Scope/AC，或队列需要重新规划，Coding 不自行读取 `index.md` 或改需求，而是返回 Requirement。Requirement 读取完整合同并生成新的 current 窗口后，再交回 Coding。
 
@@ -149,13 +149,13 @@ Requirement、Bugfix 或源码文章保留自己的分析/写作职责：简单�
 
 安装多个 Skills 不等于每轮加载全部正文。按 Agent Skills 的分层设计，metadata 用来选择技能，`SKILL.md` 承载选中后的主流程，references/scripts 只在当前任务需要时读取或执行。具体客户端的发现方式和可用工具可能不同，不假定统一的上下文配额。
 
-分层设计不等于保证每个客户端都不会重复注入。应分别观察常驻 description、技能启用提示、工具读取文件和客户端注入正文，不能只看到一次 skill 名称就判定重复消耗。还要控制过宽的触发描述、过多主责、小任务被迫跑完整链路和无必要委派。
+约束 skill 自己的读取：控制过宽的触发描述、过多主责、小任务被迫跑完整链路和无必要委派。
 
 xc881 的约束是：每个 description 最多 320 字符、六个合计最多 1,650 字符；只选一个阶段主责；允许零 skill；references 按分支读取；Bugfix、Solution、Requirement、Source、Porting 都有轻量分支；不存在“只要 1% 可能适用就必须调用”的全局启动器。
 
 本仓库只优化自己能够控制的内容：skill 元数据、被选中的 `SKILL.md`、按需 reference/script、agent prompt，以及 req-process/cross-process 的当前窗口。核心方法是 progressive disclosure 和最小充分激活，而不是把所有说明一次性加载。
 
-字符和行数预算只是防止仓库文件膨胀，不代表真实 token 或模型上下文。客户端内部机制不属于 xc881-skills；可以检查可获得的执行轨迹，但看不到真实请求正文时，不能声称已经验证了客户端去重。
+字符和行数预算只是防止仓库文件膨胀，用来约束入口体积，不代表模型上下文。
 
 **每轮判断意图，不等于每轮重读正文。** 六个入口采用同一规则：
 
@@ -168,7 +168,7 @@ xc881 的约束是：每个 description 最多 320 字符、六个合计最多 1
 
 新子任务必须在自己的上下文中得到足够的指令，不能继承父任务的“已加载”标记。返回原任务时复用仍有效的规则和有界证据；`current.md`、代码、外部证据和设计合同的新鲜度另行判断，不因静态规则可复用而省略必要检查。
 
-不新增每轮加载登记文件、哈希轮询、必读公共 ref 或缓存代理。Markdown 只能引导读取行为，不能保证宿主保留上下文、压缩后保留正文或去重注入；即使只有一份正文，后续请求仍可能把它作为输入计算。仓库修改也必须同步到实际使用的安装副本才会生效，核对内容而非仅核对版本号。
+不新增每轮加载登记文件、哈希轮询、必读公共 ref 或缓存代理。仓库修改也必须同步到实际使用的安装副本才会生效，核对内容而非仅核对版本号。
 
 六个 skill 共用同一条执行原则：仍有效的证据与上下文内已有规则不重复读取；只补当前决定所缺的部分；委派只返回需要的证据、限制和下一步，然后继续原任务。不同 skill 的强化点是：
 
@@ -181,13 +181,9 @@ xc881 的约束是：每个 description 最多 320 字符、六个合计最多 1
 | Porting | 先确定输出、错误、状态和副作用如何等价，再迁移当前片段 |
 | Source Article | 重要结论落到源码证据，区分调用存在与运行顺序，不为凑章节编造事实 |
 
-维护时可运行 `python scripts/audit_skill_loads.py --baseline HEAD`，查看六个入口、典型分支体积及有明确前提的多轮预期读取。它报告字符数和声明路径，不运行模型、不证明真实行为；已安装 tiktoken 时可用 `--encoding <编码名>` 单独测文本 token。实际多轮验收须比较相同任务的读取轨迹和输出质量，方法见 `docs/golden-output-tests.md`。
+维护时可运行 `python scripts/audit_skill_loads.py --baseline HEAD`，查看六个入口、典型分支体积及有明确前提的多轮预期读取。它报告字符数和声明路径，用来约束该读什么，不运行模型。已安装 tiktoken 时可用 `--encoding <编码名>` 单独测文本 token。
 
-付费的真实多轮/压缩验收是显式 opt-in。Codex：同一任务要在独立上下文各跑一次基线与候选：`python scripts/run_skill_continuations.py evals/queue-execution/block-compact-resume.json --skill-root <skills> --out-dir <out> --execute`。解析单次记录用 `python scripts/audit_skill_continuations.py <out>`；对照用 `--compare <baseline-out> <candidate-out>`。用量取累计 `total` 的增量，不把每次 `last` 通知加总，也不把字符数当成 token 节省。只有记录里出现 `contextCompaction` 才算真实宿主压缩。Codex 仍把提供商请求正文、宿主注入去重和子 agent 用量标为未观察。
-
-Grok 1.0.24：`python scripts/run_grok_continuations.py <case.json> --skill-root <skills> --out-dir <out> --execute`，或 `--all` 覆盖全部 executable。首轮 `-s UUID` 只创建、已存在则失败；后续 `-r UUID`，不要把 `-s` 当成 resume。可观察面是 `~/.grok/sessions/<urlencoded-cwd>/<uuid>/` 下的 `chat_history.jsonl`、`usage.json`、`signals.json`、`compaction_checkpoints/` 和 `subagents/*/meta.json`。注入对比只看追加的 system/user 记录；HTTP 请求正文仍未知。宿主压缩看 `compactionCount` 或 checkpoints，不看 TUI `events.jsonl`。子会话缺少 `usage.json` 记 missing/unknown，不当成 0。公开文档若写 `-s` 可 resume，以本地 1.0.24 为准。不用 OTEL 做评测路径。
-
-CI 默认不调用模型。看不见提供商请求正文时，不得声称去重或会话级节省。
+CI 默认不调用模型。
 
 具体静态预算和审计方式见 `docs/skill-context-budget.md`。
 

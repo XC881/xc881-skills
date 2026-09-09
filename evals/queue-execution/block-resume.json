@@ -1,5 +1,5 @@
 {
-  "id": "queue-block-compact-resume",
+  "id": "queue-block-resume",
   "owner": "xc881-coding-skills",
   "queue_artifact": "dev-notes/req-process/labels",
   "files": {
@@ -12,7 +12,6 @@
   },
   "turns": [
     {"request": "请完成 ${workspace}/dev-notes/req-process/labels/current.md 指向的需求任务。范围已经确认，可以实现；不要提交或推送。"},
-    {"compact": true},
     {"write_files": {"empty-label-approval.json": "{\"empty_action\":\"raise_value_error\"}\n"}, "request": "外部确认文件 empty-label-approval.json 已经到位，请继续完成同一需求任务。"}
   ]
 }

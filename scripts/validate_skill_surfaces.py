@@ -4,7 +4,6 @@ from pathlib import Path
 
 
 ROOT = Path(__file__).resolve().parents[1]
-FRONTEND_VENDOR = ROOT / "skills/xc881-coding-skills/vendor/ui-ux-pro-max"
 COMPATIBILITY_PROMPT_LIMIT = 700
 
 
@@ -39,57 +38,6 @@ def main():
             )
         checked += 1
 
-    forbidden = [
-        "docs/context-budget-and-cache.md",
-        "docs/provider-capability-matrix.md",
-        "docs/runtime-context-orchestration.md",
-        "evals/context-scenarios.json",
-        "evals/runtime-faults.json",
-        "scripts/audit_runtime_context.py",
-        "scripts/validate_runtime_contracts.py",
-    ]
-    for relative in forbidden:
-        if (ROOT / relative).exists():
-            raise SystemExit(f"out-of-scope runtime artifact exists: {relative}")
-    forbidden_phrases = [
-        "prompt cache",
-        "prompt-cache",
-        "cached input",
-        "cache state",
-        "provider-native",
-        "native compaction",
-        "provider pressure",
-        "host/session/runner",
-        "host compaction",
-        "provider compaction",
-        "provider usage",
-        "input_tokens",
-        "cache_write",
-        "compact_threshold",
-        "responses.compact",
-        "billing",
-        "计费",
-        "缓存",
-    ]
-    # Maintenance docs/evals may discuss client limits without implementing them.
-    runtime_files = [ROOT / "AGENTS.md"]
-    for directory in ["platform-prompts", "skills", "scripts"]:
-        runtime_files.extend(
-            path
-            for path in (ROOT / directory).rglob("*")
-            if path.is_file()
-            and path.resolve() != Path(__file__).resolve()
-            and "evals" not in path.relative_to(ROOT).parts
-            and FRONTEND_VENDOR not in path.parents
-            and path.suffix in {".md", ".json", ".yaml", ".py"}
-        )
-    for path in runtime_files:
-        text = path.read_text(encoding="utf-8").lower()
-        for phrase in forbidden_phrases:
-            if phrase.lower() in text:
-                raise SystemExit(
-                    f"{path.relative_to(ROOT)}: out-of-scope runtime phrase {phrase!r}"
-                )
     readme = (ROOT / "README.md").read_text(encoding="utf-8")
     for required in [
         "docs/skill-context-budget.md",

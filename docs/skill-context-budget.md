@@ -1,6 +1,6 @@
 # Skill Context Budget
 
-xc881-skills controls filesystem-based skill content, not runtime-client internals.
+xc881-skills owns skill files, declared instruction-load paths, and the current execution window.
 
 ## Owned surfaces
 
@@ -36,10 +36,7 @@ A new child receives needed instructions or reads them, not a parent's loaded
 flag. Return bounded evidence to the same owner. Queue/code/evidence freshness
 is independent; static-rule reuse never authorizes acting on stale mutable state.
 
-No runtime loaded ledger, hash polling, mandatory shared ref, cache/proxy or host
-hook. Skills cannot implement host request deduplication or guarantee retention.
-Distinguish metadata, notices, tool reads and injected bodies. Retaining one body
-does not make later requests zero-token; cache statistics do not prove deduplication.
+No runtime loaded ledger, hash polling, mandatory shared ref or cache/proxy.
 
 ## Repository limits
 
@@ -56,8 +53,8 @@ cross-process ledger    3,000 chars
 
 Descriptions are the always-discoverable routing surface; their aggregate limit
 reduces accidental crowding and forces unique ownership to appear first. Other
-limits prevent repository instruction and artifact bloat. They are not token,
-cost, latency, or context-window estimates.
+limits prevent repository instruction and artifact bloat. They are static size
+guards.
 
 ## Checks
 
@@ -72,14 +69,11 @@ window using character counts from files this repository owns.
 
 The skill-load audit reports six entry sizes and declared branch paths separately
 from tool-output bounds and on-disk data. Cases live in
-`evals/skill-load-paths.json`; they are not observed agent execution traces.
-Its `continuations` describe preconditions, per-turn expected tool reads and
-quality criteria across all six owners. The checker validates their shape/paths,
-not model compliance, compaction or client injection. Zero declared reads assumes
-the required body is actually available and no higher-priority reread is required.
+`evals/skill-load-paths.json`. Its `continuations` declare preconditions,
+per-turn expected instruction reads and quality criteria. The checker validates
+shape, paths, and that each scenario omits `executable`.
+Zero declared reads assumes the required body is actually available and no
+higher-priority reread is required.
 Optional `--encoding <name>` uses an already installed tiktoken tokenizer; its
 first encoding load may download vocabulary. There is no automatic installation.
-Without it, report characters only. Neither mode measures full sessions or proves
-behavioral gains; compare matched real tasks and outputs for those claims.
-Use the opt-in procedure in `docs/golden-output-tests.md` for real multi-turn
-comparison. Inspect only authorized evaluation traces, not unrelated sessions.
+Without it, report characters only.

@@ -53,7 +53,7 @@ evidence/dependency link; next loads after advancement makes it current.
 Each non-terminal queue item carries an index-free local contract with `## Goal`,
 `## Contract`, `## Targets`, `## Constraints`, and `## Verification`.
 Load linked decisions/evidence only when the current item needs them.
-Context compaction never changes the active owner or creates a confirmation point.
+After compaction, keep the active owner and resume the same current window.
 Keep `current.md`, accepted contract changes, blockers, and exact evidence paths
 durable, then resume automatically.
 To reopen, append IDs after the old tail, update `Next`, preserve completed items/history, set terminal state to `ready`, and set previous/current/next to old-tail/first-new/second-new.

@@ -9,8 +9,7 @@
       "checklist": [
         "reuses the supplied entry and unchanged needed references without duplicate tool reads on any turn",
         "distinguishes new observations from causal inference and preserves diagnosis-only scope",
-        "loads missing forensics guidance only if new evidence introduces a real causal gap",
-        "does not infer host injection counts or token savings from a notice or the absence of a tool read"
+        "loads missing forensics guidance only if new evidence introduces a real causal gap"
       ]
     },
     {

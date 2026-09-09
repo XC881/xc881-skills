@@ -130,20 +130,14 @@ class CollectorTests(unittest.TestCase):
         self.root = Path(self.tmp.name)
         self.contracts = collector.load_contracts()
 
-    def session(self, texts, filename="rollout-test.jsonl"):
-        records = []
-        for text, channel in texts:
-            records.append({"type": "response_item", "payload": {
-                "type": "message", "role": "assistant", "channel": channel,
-                "content": [{"type": "output_text", "text": text}],
-            }})
+    def write_jsonl(self, texts, filename="outputs.jsonl"):
         path = self.root / filename
-        path.write_text("".join(json.dumps(record) + "\n" for record in records), encoding="utf-8")
+        path.write_text("".join(json.dumps({"text": text}) + "\n" for text in texts), encoding="utf-8")
         return path
 
     def test_explicit_files_only_and_no_raw_content_persisted(self):
-        path = self.session([("完成内容: selected-private-marker", "final")])
-        self.session([("完成内容: unrelated", "final")], "rollout-unrelated.jsonl")
+        path = self.write_jsonl(["完成内容: selected-private-marker"])
+        self.write_jsonl(["完成内容: unrelated"], "extra.jsonl")
         samples, excluded = collector.collect([path], self.contracts)
         self.assertEqual(len(samples), 1)
         self.assertEqual(samples[0]["status"], "pass")
@@ -151,52 +145,53 @@ class CollectorTests(unittest.TestCase):
         self.assertEqual(excluded, {})
 
     def test_scored_unscored_and_excluded_denominators(self):
-        path = self.session([
-            ("完成内容: done", "final"), ("完成内容:", "final"),
-            ("简短回答", "final"), ("完成内容: working", "commentary"),
-            ("## Handoff Summary\n完成内容: quoted", "final"),
-        ])
+        path = self.write_jsonl(["完成内容: done", "完成内容:", "简短回答"])
         samples, excluded = collector.collect([path], self.contracts)
         report = collector.summarize(samples, excluded)
         self.assertEqual(report["eligible_messages"], 3)
         self.assertEqual(report["by_skill"][CODING]["structural_pass_rate"], 0.5)
         self.assertIsNone(report["by_skill"]["unattributed"]["structural_pass_rate"])
-        self.assertEqual(excluded, {"nonfinal_assistant": 1, "continuation_artifact": 1})
+        self.assertEqual(excluded, {})
 
     def test_explicit_prose_attribution_stays_unscored(self):
-        path = self.session([("当前判断还缺少复现证据。", "final")])
+        path = self.write_jsonl(["当前判断还缺少复现证据。"])
         samples, _ = collector.collect([path], self.contracts, CODING, "prose")
         self.assertEqual(samples[0]["skill"], CODING)
         self.assertEqual(samples[0]["status"], "unscored")
 
-    def test_native_phase_field_excludes_progress_messages(self):
-        path = self.session([("完成内容: progress", None), ("完成内容: done", None)])
-        records = [json.loads(line) for line in path.read_text().splitlines()]
-        for record, phase in zip(records, ("commentary", "final_answer")):
-            record["payload"].pop("channel")
-            record["payload"]["phase"] = phase
-        path.write_text("".join(json.dumps(record) + "\n" for record in records), encoding="utf-8")
-        samples, excluded = collector.collect([path], self.contracts)
-        self.assertEqual(len(samples), 1)
-        self.assertEqual(excluded, {"nonfinal_assistant": 1})
-
     def test_malformed_json_marks_incomplete_collection(self):
-        path = self.session([])
+        path = self.write_jsonl([])
         path.write_text("{broken\n", encoding="utf-8")
         samples, excluded = collector.collect([path], self.contracts)
+        self.assertEqual(excluded, {"malformed_json": 1})
+        self.assertFalse(collector.summarize(samples, excluded)["collection_complete"])
+
+    def test_non_text_records_are_malformed(self):
+        path = self.root / "outputs.jsonl"
+        path.write_text(
+            "\n".join(
+                json.dumps(record)
+                for record in ({"payload": "完成内容: done"}, {"text": ""}, {"text": 1})
+            )
+            + "\n",
+            encoding="utf-8",
+        )
+        samples, excluded = collector.collect([path], self.contracts)
+        self.assertEqual(samples, [])
+        self.assertEqual(excluded, {"malformed_record": 3})
         self.assertFalse(collector.summarize(samples, excluded)["collection_complete"])
 
     def test_cli_deduplicates_inputs_and_writes_bounded_report(self):
-        path = self.session([("完成内容: done", "final")])
+        path = self.write_jsonl(["完成内容: done"])
         out = self.root / "out"
         with contextlib.redirect_stdout(io.StringIO()):
             self.assertEqual(collector.main([str(path), str(path), "--out-dir", str(out)]), 0)
         report = json.loads((out / "behavior-report.json").read_text())
-        self.assertEqual(report["sessions_scanned"], 1)
+        self.assertEqual(report["input_files"], 1)
         self.assertEqual(report["eligible_messages"], 1)
 
-    def test_cli_rejects_scan_and_unsafe_arguments(self):
-        path = self.session([], "behavior-samples.jsonl")
+    def test_cli_rejects_unsafe_arguments(self):
+        path = self.write_jsonl([], "behavior-samples.jsonl")
         cases = ([], [str(self.root)], [str(path), "--mode", "prose"],
                  [str(path), "--skill", "missing"], [str(path), "--skill", CODING, "--mode", "typo"],
                  [str(path), "--out-dir", str(self.root)])

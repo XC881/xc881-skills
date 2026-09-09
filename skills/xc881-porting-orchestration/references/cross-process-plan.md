@@ -25,7 +25,7 @@ to `.gitignore`. The user decides; never assume. Do not port until answered.
 - Missing or stale linked state -> do not port.
 - After every iteration, derive the next ledger first, then update it once. The
   plan, not the conversation, is authoritative. A stale checkpoint is worse than none.
-- A checkpoint is a recovery point, not a default confirmation point. After
+- A checkpoint is a recovery point. After
   advancement, load the new current window and continue automatically until task
   terminal. Stop only for explicit stepwise/pause intent or a real blocker.
 - Context compaction preserves Porting ownership. Keep the linked req current,

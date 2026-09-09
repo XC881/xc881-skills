@@ -83,8 +83,8 @@ After a queue item:
 - If no current item remains, set task `done`. Otherwise advance next to current,
   load only the new current item, and continue in the same requirement run
   without asking the user to say continue.
-- Context compaction resumes from the exact current window and is not a
-  stop condition. Stop after a valid checkpoint only for explicit stepwise/pause intent or a real
+- Context compaction resumes from the exact current window. Continue the same
+  read or change. Stop after a valid checkpoint only for explicit stepwise/pause intent or a real
   blocker, approval/input, safety boundary, contract/scope change, or no runnable
   item.
 - Do not persist command output, pass/fail details, or completion evidence.

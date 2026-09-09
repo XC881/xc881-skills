@@ -9,8 +9,7 @@
       "checklist": [
         "reuses available entry/ref instructions without repeating file reads or the research ceremony",
         "checks evidence freshness independently and acquires missing source/conflict rules when the conflict arises",
-        "returns bounded citations, impact and uncertainty to the original owner without requesting another invocation",
-        "does not claim to control client reinjection, retention or prompt caching"
+        "returns bounded citations, impact and uncertainty to the original owner without requesting another invocation"
       ]
     },
     {
@@ -43,7 +42,7 @@
     {
       "query": "Requirement 委派的技术调研中途发生自动上下文压缩",
       "checklist": [
-        "treats compaction as an environment event rather than a Solution action",
+        "after compaction, continues the same Solution research and returns to Requirement",
         "retains the bounded RQ, source/evidence paths and Requirement as active owner",
         "does not restart research broadly or ask the user to invoke Requirement again",
         "returns the result to the same Requirement run automatically"

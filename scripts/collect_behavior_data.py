@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Score explicitly selected Codex final outputs; no model calls or session scan."""
+"""Score selected outputs against structural contracts."""
 
 import argparse
 from collections import Counter
@@ -13,17 +13,6 @@ from skill_validation import (
 )
 
 ROOT = Path(__file__).resolve().parents[1]
-CONTINUATION_MARKERS = (
-    "handoff summary", "summary", "goal/current objective", "current objective:",
-    "continue working toward", "continue the active", "continue the long-running",
-    "continue long-running",
-)
-
-
-def is_continuation_artifact(text):
-    first = next((line.strip() for line in text.splitlines() if line.strip()), "")
-    first = first.lstrip("#->*` \t").rstrip("*` ").lower()
-    return first.startswith(CONTINUATION_MARKERS)
 
 
 def load_contracts(root=ROOT):
@@ -58,16 +47,6 @@ def classify(text, contracts):
     return matches[0], None
 
 
-def message_text(item):
-    if item.get("type") != "message" or item.get("role") != "assistant":
-        return None
-    parts = item.get("content")
-    if not isinstance(parts, list):
-        return None
-    return "\n".join(part["text"] for part in parts if isinstance(part, dict)
-                     and part.get("type") == "output_text" and isinstance(part.get("text"), str))
-
-
 def collect(paths, contracts, skill=None, mode=None):
     samples, excluded = [], Counter()
     for path in paths:
@@ -80,27 +59,16 @@ def collect(paths, contracts, skill=None, mode=None):
                 except json.JSONDecodeError:
                     excluded["malformed_json"] += 1
                     continue
-                if not isinstance(record, dict) or record.get("type") != "response_item":
-                    continue
-                item = record.get("payload")
-                if not isinstance(item, dict):
-                    excluded["malformed_payload"] += 1
-                    continue
-                text = message_text(item)
-                if text is None:
-                    continue
-                if item.get("channel") not in (None, "final") or item.get("phase") not in (None, "final_answer"):
-                    excluded["nonfinal_assistant"] += 1
-                    continue
-                if is_continuation_artifact(text):
-                    excluded["continuation_artifact"] += 1
+                text = record.get("text") if isinstance(record, dict) else None
+                if not isinstance(text, str) or not text:
+                    excluded["malformed_record"] += 1
                     continue
                 owner, reason = (skill, None) if skill else classify(text, contracts)
                 result = evaluate_output(text, contracts[owner], mode or "full") if owner else {
                     "status": "unscored", "reason": reason, "violations": [],
                 }
                 samples.append({
-                    "session": str(path.resolve()), "line": number, "skill": owner,
+                    "source": str(path.resolve()), "line": number, "skill": owner,
                     "mode": mode or ("full" if owner else None),
                     "attribution": "explicit" if skill else "leading_contract",
                     "output_sha256": hashlib.sha256(text.encode()).hexdigest(), **result,
@@ -118,15 +86,15 @@ def summarize(samples, excluded):
         row["structural_pass_rate"] = round(row["pass"] / row["scored"], 3) if row["scored"] else None
     return {
         "eligible_messages": len(samples), "by_skill": by_skill, "excluded": excluded,
-        "collection_complete": not any(excluded.get(reason) for reason in ("malformed_json", "malformed_payload")),
-        "note": "Form only, not task success. The denominator is scored final messages in explicit inputs, not all skill invocations. Prose/unknown modes are unscored; partial recognized contracts are failures. Auto-attributed mode is full; use task-known --skill/--mode for lightweight or decision outputs. No raw queries or output excerpts are stored.",
+        "collection_complete": not any(excluded.get(reason) for reason in ("malformed_json", "malformed_record")),
+        "note": "Structural form against the output contract. The denominator is scored records in the given files. Prose and unknown modes are unscored. Auto-attributed mode is full; use --skill/--mode for lightweight or decision outputs. Samples store locations, hashes and violations.",
     }
 
 
 def main(argv=None):
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("sessions", type=Path, nargs="+", help="explicitly authorized rollout JSONL files, never a directory")
-    parser.add_argument("--skill", help="known owner of these test outputs; do not use on mixed-owner sessions")
+    parser.add_argument("inputs", type=Path, nargs="+", help="explicit JSONL files")
+    parser.add_argument("--skill", help="known owner of these test outputs; do not mix owners in one run")
     parser.add_argument("--mode", help="known response mode: full, prose, or a contract-defined mode")
     parser.add_argument("--out-dir", type=Path, default=ROOT / "data")
     args = parser.parse_args(argv)
@@ -138,14 +106,14 @@ def main(argv=None):
             if args.skill not in contracts:
                 parser.error(f"unknown skill: {args.skill}")
             output_contract_mode(contracts[args.skill], args.mode or "full")
-        paths = list(dict.fromkeys(path.resolve() for path in args.sessions))
+        paths = list(dict.fromkeys(path.resolve() for path in args.inputs))
         if any(not path.is_file() for path in paths):
-            parser.error("every session must be an existing explicit file")
+            parser.error("every input must be an existing file")
         outputs = [args.out_dir / name for name in ("behavior-samples.jsonl", "behavior-report.json")]
         if any(output.resolve() in paths for output in outputs):
-            parser.error("output must not overwrite an input session")
+            parser.error("output must not overwrite an input file")
         samples, excluded = collect(paths, contracts, args.skill, args.mode)
-        report = {"sessions_scanned": len(paths), **summarize(samples, excluded)}
+        report = {"input_files": len(paths), **summarize(samples, excluded)}
         args.out_dir.mkdir(parents=True, exist_ok=True)
         outputs[0].write_text("".join(json.dumps(sample, ensure_ascii=False) + "\n" for sample in samples), encoding="utf-8")
         outputs[1].write_text(json.dumps(report, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")

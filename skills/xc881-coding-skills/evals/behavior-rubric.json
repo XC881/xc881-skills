@@ -166,9 +166,8 @@
     {
       "query": "连续执行二十轮队列，上下文接近限制但不要中断任务",
       "checklist": [
-        "treats context compaction as an environment event rather than a queue boundary",
+        "after compaction, recovers the exact current window and continues the same queue item",
         "keeps the exact current contract, blockers, evidence paths, changed paths and next action recoverable",
-        "preserves decision impact and evidence paths without claiming control of host context removal",
         "recovers the exact current window, reuses available required rules and reads only missing or known-changed instructions",
         "continues without a continuation prompt or process-validator call while preserving real code verification and mutable-state freshness"
       ]

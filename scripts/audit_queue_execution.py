@@ -271,7 +271,7 @@ def _contains_path(command, path):
 
 
 def audit_tool_activity(commands, artifact, required_reads=()):
-    """Check only observable read/write discipline; never claims model quality."""
+    """Check read/write discipline against the current window."""
     violations = []
     normalized = []
     for item in commands:

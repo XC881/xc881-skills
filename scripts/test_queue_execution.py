@@ -251,11 +251,10 @@ class QueueAuditTests(unittest.TestCase):
         self.assertIn("never `in-progress`", skill)
         self.assertIn("never `in-progress`", checkpoint)
         self.assertIn("Item `Status` is only `pending | ready | blocked | done | skipped`, never", execution)
-        case = json.loads((ROOT / "evals/queue-execution/block-compact-resume.json").read_text(encoding="utf-8"))
+        case = json.loads((ROOT / "evals/queue-execution/block-resume.json").read_text(encoding="utf-8"))
         continuous = json.loads((ROOT / "evals/queue-execution/two-item-continuous.json").read_text(encoding="utf-8"))
-        self.assertEqual(case["id"], "queue-block-compact-resume")
+        self.assertEqual(case["id"], "queue-block-resume")
         self.assertEqual(case["owner"], "xc881-coding-skills")
-        self.assertTrue(any(turn.get("compact") for turn in case["turns"]))
         self.assertEqual(continuous["id"], "queue-two-item-continuous")
         q020 = case["files"]["dev-notes/req-process/labels/queue/Q-020-empty.md"]
         self.assertIn("Status: `pending`", q020)

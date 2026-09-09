@@ -1,5 +1,5 @@
 {
-  "kind": "declared-paths-not-model-measurements",
+  "kind": "declared-instruction-paths",
   "cases": [
     {"id": "simple-exact-read", "owner": null, "reads": []},
     {"id": "coding-mechanical-change", "owner": "xc881-coding-skills", "reads": ["SKILL.md"]},
@@ -20,7 +20,6 @@
     {
       "id": "supplied-body-three-turns",
       "owner": "xc881-bugfix-research",
-      "executable": "evals/continuations/supplied-body-three-turns.json",
       "precondition": "Complete entry body and sufficient same-revision diagnosis evidence are supplied. No forced reread.",
       "turns": [
         {"request": "Diagnose the supplied deterministic off-by-one defect only.", "reads": []},
@@ -32,7 +31,6 @@
     {
       "id": "path-only-activation",
       "owner": "xc881-coding-skills",
-      "executable": "evals/continuations/path-only-activation.json",
       "precondition": "Only the selected entry path is supplied; all project facts for a nonvisual bounded explanation are given.",
       "turns": [
         {"request": "Use the selected Coding skill to explain the supplied code without edits.", "reads": ["SKILL.md"]},
@@ -43,8 +41,7 @@
     {
       "id": "explicit-repeat-invocation",
       "owner": "xc881-requirement-analysis",
-      "executable": "evals/continuations/explicit-repeat-invocation.json",
-      "precondition": "Complete current entry remains in context; chat-only scope and no host-mandated manual reread.",
+      "precondition": "Complete current entry remains in context; chat-only scope and no forced reread.",
       "turns": [
         {"request": "Explicitly invoke Requirement again to adjust a supplied acceptance criterion.", "reads": []}
       ],
@@ -53,7 +50,6 @@
     {
       "id": "new-and-returning-concern",
       "owner": "xc881-coding-skills",
-      "executable": "evals/continuations/new-and-returning-concern.json",
       "precondition": "Entry, frontend router, implementation and state/accessibility rules are fully in context. Motion rules are absent; existing project evidence remains valid.",
       "turns": [
         {"request": "Adjust the existing form error state.", "reads": []},
@@ -65,29 +61,26 @@
     {
       "id": "known-instruction-change",
       "owner": "xc881-solution-research",
-      "executable": "evals/continuations/known-instruction-change.json",
       "precondition": "Entry and source-priority rules were read. An authoritative message identifies a relevant source-priority rule change; its replacement body is not supplied.",
       "turns": [
         {"request": "Resolve the pending version conflict under the changed rule.", "reads": ["references/source-priority-policy.md"]},
         {"request": "Continue the same decision with unchanged rules.", "reads": []}
       ],
-      "quality": "No stale-rule reliance, hash polling, unnecessary expansion or unsupported host claims."
+      "quality": "No stale-rule reliance, hash polling or unnecessary expansion."
     },
     {
       "id": "missing-after-compaction",
       "owner": "xc881-coding-skills",
-      "executable": "evals/continuations/missing-after-compaction.json",
-      "precondition": "Controlled context-loss simulation: exact active queue identity and recovery instructions survive, but selected entry body is absent. The slice needs no additional refs.",
+      "precondition": "Exact active queue identity and recovery instructions survive, but selected entry body is absent. The slice needs no additional refs.",
       "turns": [
         {"request": "Resume the exact current queue slice automatically.", "reads": ["SKILL.md"]}
       ],
-      "quality": "Reacquire missing rules and authoritative mutable window, verify the task, no full-pack reload or normal process validator. Simulation is not real host compaction."
+      "quality": "Reacquire missing rules and authoritative mutable window, verify the task, no full-pack reload or normal process validator."
     },
     {
       "id": "retained-after-compaction",
       "owner": "xc881-porting-orchestration",
-      "executable": "evals/continuations/retained-after-compaction.json",
-      "precondition": "Controlled recovery: complete selected entry, cross-process rules and exact ledger/current identities survive; fresh mutable state must still be consumed.",
+      "precondition": "Complete selected entry, cross-process rules and exact ledger/current identities survive; fresh mutable state must still be consumed.",
       "turns": [
         {"request": "Continue the current equivalence check after recovery.", "reads": []}
       ],
@@ -96,7 +89,6 @@
     {
       "id": "fresh-context-loaded-marker",
       "owner": "xc881-bugfix-research",
-      "executable": "evals/continuations/fresh-context-loaded-marker.json",
       "precondition": "A fresh delegated context receives a loaded marker and selected path, not the body; sufficient bounded diagnosis evidence and verification plan are supplied.",
       "turns": [
         {"request": "Diagnose the supplied pure-function defect and return bounded evidence.", "reads": ["SKILL.md"]}
@@ -104,20 +96,18 @@
       "quality": "Acquire required instructions in the child context and return without granting implementation permission."
     },
     {
-      "id": "host-compaction-queue-resume",
+      "id": "queue-resume-same-window",
       "owner": "xc881-coding-skills",
-      "executable": "evals/queue-execution/block-compact-resume.json",
-      "precondition": "Opt-in runner may use real thread/compact. Exact queue identity is in the workspace. Declared reads are instruction files only.",
+      "precondition": "Exact queue identity is in the workspace. Declared reads are instruction files only.",
       "turns": [
         {"request": "Complete the current queue window.", "reads": ["SKILL.md"]},
-        {"request": "Resume the same window after host compaction.", "reads": ["SKILL.md"]}
+        {"request": "Resume the same window after context recovery.", "reads": ["SKILL.md"]}
       ],
-      "quality": "Inspect recorded traces. Item status never in-progress. No request-body dedup or character-count savings claim."
+      "quality": "Item status never in-progress. Continue the same current window."
     },
     {
       "id": "requested-reread",
       "owner": "xc881-source-article-style",
-      "executable": "evals/continuations/requested-reread.json",
       "precondition": "Current entry is available; the user explicitly requests rereading it before continuing a supplied source outline.",
       "turns": [
         {"request": "Reread the selected entry, then continue this outline only.", "reads": ["SKILL.md"]},

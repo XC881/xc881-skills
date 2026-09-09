@@ -1,6 +1,0 @@
-{
-  "checkpoint_id": "cp-1",
-  "prompt_index_at_compaction": 2,
-  "compacted_history": [{"type": "system", "content": "sum"}, {"type": "user", "content": "q"}],
-  "schema_version": 1
-}

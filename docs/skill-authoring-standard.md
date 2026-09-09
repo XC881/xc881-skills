@@ -37,11 +37,8 @@ Principle: accurate, low-token, effective agent reading.
   provider variants behaviorally identical and point execution to `SKILL.md`.
 - Provider custom instructions preserve only global routing/safety boundaries;
   branch workflow belongs to the selected skill and reference.
-- Skills define recovery state only; environment context management is outside
-  this repository.
 - Recovery/delegation reuses available rules and reacquires missing ones in the
-  actual context. Never force an entry reload merely for another turn or claim
-  a Markdown rule guarantees host injection deduplication/context retention.
+  actual context. Never force an entry reload merely for another turn.
 - Compare effective installed content before rollout; equal version strings do
   not prove parity. Preserve independent installed changes and unrelated skills.
 - Split a skill only when it earns a trigger boundary, reduces runtime context, or prevents rushing a fuzzy step.
@@ -75,9 +72,9 @@ Principle: accurate, low-token, effective agent reading.
 - Separate stable contract (`index.md`) from mutable checkpoint (`current.md`).
 - Coding classifies `instant | queue` before project/artifact reads and `read | change` independently.
 - Analysis/writing-delegated Coding reads return only bounded evidence; they never infer change permission or take analysis/prose ownership.
-- Queue checkpoints are recovery points, not confirmation points. After verification, advance current and continue through runnable items to task terminal without asking for “continue”.
-- Context compaction is not a confirmation point: preserve the active owner and
-  exact current window, then resume the same skill chain automatically.
+- Queue checkpoints are recovery points. After verification, advance current and continue through runnable items to task terminal without asking for “continue”.
+- After context compaction, preserve the active owner and exact current window,
+  then resume the same skill chain automatically.
 - Reusing static skill instructions does not establish fresh code, external
   evidence or mutable current state. Genuine missing task identity is a blocker;
   never infer a latest task or trust a loaded marker after context loss.

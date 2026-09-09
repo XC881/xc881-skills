@@ -1,7 +1,0 @@
-{"type":"system","content":"You are Grok 4.6"}
-{"type":"user","content":[{"type":"text","text":"<rules>\nalways_applied_workspace_rules\nAvailable Skills\n- xc881-coding-skills"}]}
-{"type":"user","content":"<user_query>hello</user_query>"}
-{"type":"assistant","content":"ok"}
-{"type":"system","content":"You are Grok 4.6"}
-{"type":"user","content":[{"type":"text","text":"<rules>\nalways_applied_workspace_rules\nAvailable Skills\n- xc881-coding-skills\n<user_query>again</user_query>"}]}
-{"type":"assistant","content":"ok2"}

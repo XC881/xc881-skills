@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Report skill entry and declared branch sizes, not observed agent behavior."""
+"""Report skill entry and declared branch sizes."""
 
 import argparse
 import json
@@ -37,10 +37,8 @@ def validate_continuations(root=ROOT):
         if scenario["id"] in seen or scenario["owner"] not in owners:
             raise ValueError(f"duplicate continuation or unknown owner: {scenario['id']}")
         seen.add(scenario["id"])
-        executable = scenario.get("executable")
-        path = Path(executable) if isinstance(executable, str) else None
-        if path is None or path.is_absolute() or ".." in path.parts or not (root / path).is_file():
-            raise ValueError(f"continuation needs a contained executable case: {scenario['id']}")
+        if "executable" in scenario:
+            raise ValueError(f"continuation must not include executable: {scenario['id']}")
         if not isinstance(scenario.get("turns"), list) or not scenario["turns"]:
             raise ValueError(f"continuation has no turns: {scenario['id']}")
         for turn in scenario["turns"]:
@@ -89,7 +87,7 @@ def main():
         encoding = tiktoken.get_encoding(args.encoding)
         measure = lambda text: len(encoding.encode(text, disallowed_special=()))
         unit = f"tokens ({args.encoding})"
-    print(f"Entry sizes [{unit}]; not whole-session or behavioral measurements")
+    print(f"Entry sizes [{unit}]")
     current_total = before_total = 0
     previous = {}
 
@@ -122,11 +120,10 @@ def main():
                            for relative in case.get("baseline_reads", case["reads"]))
             comparison = f"{baseline:5d} -> "
         print(f"{comparison}{size:5d} {case['id']}{suffix}")
-    print("Declared continuation tool reads under fixture preconditions; not observed executions:")
+    print("Declared continuation tool reads under fixture preconditions:")
     for scenario in validate_continuations():
         counts = " -> ".join(str(len(turn["reads"])) for turn in scenario["turns"])
         print(f"{scenario['id']}: {counts}")
-    print("Metadata, notices and host injections are not file reads; payload duplication remains unmeasured.")
 
 
 if __name__ == "__main__":
