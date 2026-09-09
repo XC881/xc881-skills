@@ -33,7 +33,11 @@ def completed():
     data["current"] = current("done", "none", "none", 2, "queue/Q-020-two.md")
     data["items"]["queue/Q-010-one.md"] = item("Q-010", "done", "Q-020")
     data["items"]["queue/Q-020-two.md"] = item("Q-020", "done")
-    data["history"] += "- Q-010: ready -> done; current Q-020; task in-progress\n- Q-020: pending -> done; current none; task done\n"
+    data["history"] += (
+        "- task ready -> in-progress; current Q-010\n"
+        "- Q-010: ready -> done; current Q-020; task in-progress\n"
+        "- Q-020: pending -> done; current none; task in-progress -> done\n"
+    )
     return data
 
 
@@ -69,12 +73,12 @@ class QueueAuditTests(unittest.TestCase):
         blocked = initial()
         blocked["current"] = current("blocked")
         blocked["items"]["queue/Q-010-one.md"] = item("Q-010", "blocked", "Q-020")
-        blocked["history"] += "- Q-010: ready -> blocked; current Q-010; task blocked; needs user decision\n"
+        blocked["history"] += "- Q-010: ready -> blocked; current Q-010; task ready -> blocked; needs user decision\n"
         self.assertEqual(audit_checkpoint(initial(), blocked), [])
         resumed = copy.deepcopy(blocked)
         resumed["current"] = current("in-progress")
         resumed["items"]["queue/Q-010-one.md"] = item("Q-010", "ready", "Q-020")
-        resumed["history"] += "- Q-010: blocked -> ready; current Q-010; task in-progress\n"
+        resumed["history"] += "- Q-010: blocked -> ready; current Q-010; task blocked -> in-progress\n"
         self.assertEqual(audit_checkpoint(blocked, resumed), [])
 
     def test_reopen_preserves_completed_items(self):
@@ -89,16 +93,43 @@ class QueueAuditTests(unittest.TestCase):
         after = completed()
         after["history"] = after["history"].replace(
             "- Q-020: pending -> done; current none; task done",
-            "- Q-020: pending -> blocked; current Q-020; task blocked\n"
-            "- Q-020: blocked -> ready; current Q-020; task in-progress\n"
-            "- Q-020: ready -> done; current none; task done",
+            "- Q-020: pending -> blocked; current Q-020; task in-progress -> blocked\n"
+            "- Q-020: blocked -> ready; current Q-020; task blocked -> in-progress\n"
+            "- Q-020: ready -> done; current none; task in-progress -> done",
         )
         self.assertEqual(audit_checkpoint(initial(), after), [])
+
+    def test_checkpoint_marker_must_be_the_final_history_row(self):
+        after = completed()
+        after["items"]["queue/Q-020-two.md"] = item("Q-020", "skipped")
+        after["history"] += "- Q-020: done -> skipped; current Q-020; task done\n"
+        self.assertIn("missing_history_current_or_task_state", audit_checkpoint(completed(), after))
+
+    def test_terminal_and_draft_states_need_their_own_shape(self):
+        cancelled = initial()
+        cancelled["current"] = current("cancelled")
+        cancelled["history"] += "- task ready -> cancelled; current Q-010\n"
+        self.assertIn("terminal_task_has_active_pointer", audit_checkpoint(initial(), cancelled))
+
+        draft = initial()
+        draft["current"] = current("draft", "none", "none")
+        draft["history"] += "- task ready -> draft; current none\n"
+        self.assertIn("active_task_without_current", audit_checkpoint(initial(), draft))
+
+    def test_current_item_next_link_cannot_be_dangling(self):
+        after = initial()
+        after["items"]["queue/Q-010-one.md"] = item("Q-010", "ready", "Q-999")
+        after["history"] += "- Q-010: ready -> ready; current Q-010; task ready\n"
+        failures = audit_checkpoint(initial(), after)
+        self.assertIn("current_item_next_missing", failures)
 
     def test_net_unchanged_state_can_have_real_intermediate_edges(self):
         before = initial()
         after = copy.deepcopy(before)
-        after["history"] += "- Q-010: ready -> blocked; current Q-010; task blocked\n- Q-010: blocked -> ready; current Q-010; task ready\n"
+        after["history"] += (
+            "- Q-010: ready -> blocked; current Q-010; task ready -> blocked\n"
+            "- Q-010: blocked -> ready; current Q-010; task blocked -> ready\n"
+        )
         self.assertEqual(audit_checkpoint(before, after), [])
 
     def test_nontransition_does_not_append_duplicate_history(self):
@@ -119,7 +150,9 @@ class QueueAuditTests(unittest.TestCase):
             "duplicate_edge": lambda data: data.update(history=data["history"] + "- Q-020: pending -> done; current none; task done\n"),
             "duplicate_id": lambda data: data["items"].update({"queue/Q-020-two.md": item("Q-010", "done")}),
             "broken_edge_chain": lambda data: data.update(history=data["history"].replace("pending -> done", "blocked -> done")),
-            "stale_task_state": lambda data: data.update(history=data["history"].replace("task done", "task done -> in-progress")),
+            "stale_task_state": lambda data: data.update(
+                history=data["history"].replace("task in-progress -> done", "task ready -> done")
+            ),
         }
         for name, mutate in mutations.items():
             data = completed()
@@ -146,29 +179,30 @@ class QueueAuditTests(unittest.TestCase):
         blocked["items"]["queue/Q-010-one.md"] = item("Q-010", "done", "Q-020")
         blocked["items"]["queue/Q-020-two.md"] = item("Q-020", "blocked")
         blocked["history"] += (
+            "- task ready -> in-progress; current Q-010\n"
             "- Q-010: ready -> done; current Q-020; task in-progress\n"
-            "- Q-020: pending -> blocked; current Q-020; task blocked\n"
+            "- Q-020: pending -> blocked; current Q-020; task in-progress -> blocked\n"
         )
         self.assertEqual(audit_checkpoint(initial(), blocked), [])
         resumed = copy.deepcopy(blocked)
         resumed["current"] = current("in-progress", "queue/Q-020-two.md", "none", 1, "queue/Q-010-one.md")
         resumed["items"]["queue/Q-020-two.md"] = item("Q-020", "in-progress")
-        resumed["history"] += "- Q-020: blocked -> in-progress; current Q-020; task in-progress\n"
+        resumed["history"] += "- Q-020: blocked -> in-progress; current Q-020; task blocked -> in-progress\n"
         finished = copy.deepcopy(resumed)
         finished["current"] = current("done", "none", "none", 2, "queue/Q-020-two.md")
         finished["items"]["queue/Q-020-two.md"] = item("Q-020", "done")
-        finished["history"] += "- Q-020: in-progress -> done; current none; task done\n"
+        finished["history"] += "- Q-020: ready -> done; current none; task in-progress -> done\n"
         failures = audit_snapshots([initial(), blocked, resumed, finished])
         self.assertTrue(any("invalid_item_state:queue/Q-020-two.md" in item for item in failures))
         self.assertTrue(any("item_in_progress_history:Q-020" in item for item in failures))
         correct = copy.deepcopy(blocked)
         correct["current"] = current("in-progress", "queue/Q-020-two.md", "none", 1, "queue/Q-010-one.md")
         correct["items"]["queue/Q-020-two.md"] = item("Q-020", "ready")
-        correct["history"] += "- Q-020: blocked -> ready; current Q-020; task in-progress\n"
+        correct["history"] += "- Q-020: blocked -> ready; current Q-020; task blocked -> in-progress\n"
         done = copy.deepcopy(correct)
         done["current"] = current("done", "none", "none", 2, "queue/Q-020-two.md")
         done["items"]["queue/Q-020-two.md"] = item("Q-020", "done")
-        done["history"] += "- Q-020: ready -> done; current none; task done\n"
+        done["history"] += "- Q-020: ready -> done; current none; task in-progress -> done\n"
         self.assertEqual(audit_snapshots([initial(), blocked, correct, done]), [])
 
     def test_tool_activity_requires_current_window_and_rejects_scans(self):
@@ -201,6 +235,14 @@ class QueueAuditTests(unittest.TestCase):
         self.assertEqual(set(failures), {
             "index_scan", "process_validator_call", "history_body_read", "missing_required_read:current.md",
         })
+        self.assertIn(
+            "missing_required_read:current.md",
+            audit_tool_activity(["rtk read old-current.md"], artifact, required_reads=("current.md",)),
+        )
+        self.assertIn(
+            "malformed_command_record",
+            audit_tool_activity([{"command": None}], artifact),
+        )
 
     def test_entry_and_eval_fixture_forbid_item_in_progress(self):
         skill = (CODING / "SKILL.md").read_text(encoding="utf-8")

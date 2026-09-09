@@ -133,6 +133,9 @@ read counts or intended answers. CI never runs paid turns.
 
 ## Queue State History
 
+Install copies `xc881-*` skills with `scripts/install.sh`. An existing dest is
+replaced only when it is a directory that already contains `SKILL.md`.
+
 `scripts/audit_queue_execution.py` is opt-in maintenance, not a runtime gate.
 It checks append-only item/task transitions and rejects item `in-progress`
 (task-only). `scripts/test_queue_execution.py` covers missing history,

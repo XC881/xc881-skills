@@ -104,7 +104,7 @@ $xc881-solution-research 调研这个技术方案
 
 ## 开发笔记与 Req Process
 
-需求分析不再默认只存在于聊天。Requirement 先判断这是不是已有需求的改动：优先使用用户给出的路径或当前对话唯一明确的任务；只有可能持久化或交给 Coding 执行、且上下文不足时，才用机械脚本返回最多 5 个候选路径，再只读取可能相关的 `index.md` 做语义比较。明确的一轮聊天分析不扫描 `req-process`。唯一匹配就复用，多项匹配只问一个选择问题，不能按最新目录或关键词直接决定。
+需求分析不再默认只存在于聊天。Requirement 先判断这是不是已有需求的改动：优先使用用户给出的路径或当前对话唯一明确的任务；只有可能持久化或交给 Coding 执行、且上下文不足时，才从仓库根运行 `python scripts/find_req_process_candidates.py <root> <identity terms>` 返回最多 5 个候选路径，再只读取可能相关的 `index.md` 做语义比较。该入口转调 skill 内实现，不做语义匹配。明确的一轮聊天分析不扫描 `req-process`。唯一匹配就复用，多项匹配只问一个选择问题，不能按最新目录或关键词直接决定。
 
 只有确认没有匹配后才进入文档 gate。用户未指定时，AI 在跨会话、3 个以上可验证任务、跨模块契约、迁移/数据/权限/安全风险、外部调研或长期实现等情况下，自动创建：
 
@@ -608,6 +608,8 @@ Mitigation:
 bash scripts/install.sh grok
 bash scripts/install.sh all
 ```
+
+`install.sh` 只把 `xc881-*` 技能拷到对应宿主目录。目标根路径不能是空、`/` 或 `$HOME`。若目标技能目录已存在，只有它是含 `SKILL.md` 的目录才会被替换；不是 skill 目录的路径不会删除。这不是备份/还原，确认过的 xc881 目录仍会被覆盖。
 
 验证仓库结构、frontmatter、trigger eval、behavior contract：
 

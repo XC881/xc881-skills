@@ -18,6 +18,7 @@ subprocess.run([sys.executable, str(root/"scripts/validate_frontend_vendor.py")]
 subprocess.run([sys.executable, "-B", str(root/"skills/xc881-coding-skills/vendor/ui-ux-pro-max/scripts/validate_data.py")], cwd=root, check=True)
 subprocess.run([sys.executable, str(root/"scripts/test_frontend_design.py")], cwd=root, check=True)
 subprocess.run([sys.executable, "-B", str(root/"scripts/test_behavior_evaluation.py")], cwd=root, check=True)
+subprocess.run([sys.executable, "-B", str(root/"scripts/test_install.py")], cwd=root, check=True)
 subprocess.run([sys.executable, "-B", str(root/"scripts/test_queue_execution.py")], cwd=root, check=True)
 subprocess.run([sys.executable, "-B", str(root/"scripts/test_skill_continuations.py")], cwd=root, check=True)
 subprocess.run([sys.executable, "-B", str(root/"scripts/test_grok_sessions.py")], cwd=root, check=True)

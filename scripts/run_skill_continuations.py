@@ -14,7 +14,9 @@ import tempfile
 import threading
 import time
 
-from audit_queue_execution import snapshot
+from audit_queue_execution import (
+    audit_snapshots, audit_tool_activity, commands_from_events, field, snapshot,
+)
 from audit_skill_continuations import attach_usage, load_events
 
 
@@ -47,11 +49,19 @@ def retained_event(event):
     return None
 
 
+def is_compaction_event(event):
+    if event.get("method") == "thread/compacted":
+        return True
+    item = (event.get("params") or {}).get("item") or {}
+    return event.get("method") == "item/completed" and item.get("type") == "contextCompaction"
+
+
 class AppServer:
     def __init__(self, cwd, record):
         self.record = record
         self.inbox = queue.Queue()
         self.sequence = 0
+        self.retained_events = []
         self.stderr = tempfile.TemporaryFile()
         self.process = subprocess.Popen(
             ["codex", "app-server", "--listen", "stdio://"], cwd=cwd,
@@ -107,6 +117,7 @@ class AppServer:
                 self.record({"method": "evaluation/unansweredRequest", "params": {"method": event["method"]}})
             selected = retained_event(event)
             if selected:
+                self.retained_events.append(selected)
                 self.record(selected)
             if predicate(event):
                 return event
@@ -154,6 +165,7 @@ def run_case(case, skill_root, out, timeout):
 
     write_files(case.get("files", {}))
     artifact = local_path(workspace, case["queue_artifact"]) if case.get("queue_artifact") else None
+    expected_compactions = sum(1 for turn in case["turns"] if turn.get("compact"))
     state_snapshots = []
 
     def checkpoint():
@@ -189,7 +201,7 @@ def run_case(case, skill_root, out, timeout):
             stream.flush()
             if event.get("method") == "item/completed":
                 item = event["params"].get("item", {})
-                if item.get("type") == "fileChange" or (item.get("type") == "commandExecution" and "apply_patch" in item.get("command", "")):
+                if item.get("type") in {"fileChange", "commandExecution"}:
                     checkpoint()
 
         try:
@@ -218,8 +230,18 @@ def run_case(case, skill_root, out, timeout):
                     row["changed_instruction_sha256"] = changed_instructions
                 report["turns"].append(row)
                 if turn.get("compact"):
+                    compactions_before = sum(
+                        is_compaction_event(event) for event in server.retained_events
+                    )
                     server.request("thread/compact/start", {"threadId": thread_id})
-                    turn_id = None
+                    if len(server.retained_events) <= compactions_before or sum(
+                        is_compaction_event(event) for event in server.retained_events
+                    ) <= compactions_before:
+                        server.wait(is_compaction_event, timeout)
+                    row.update(turn_id=None, status="completed", error=None)
+                    checkpoint()
+                    print(f"{case['id']} turn {index + 1}: {row['status']} ({row['kind']})", flush=True)
+                    continue
                 else:
                     text = expand(turn["request"])
                     if index == 0:
@@ -252,7 +274,25 @@ def run_case(case, skill_root, out, timeout):
                 server.close()
             report["state_snapshots"] = len(state_snapshots)
             if events_path.is_file():
-                report.update(attach_usage(report, load_events(events_path)))
+                events = load_events(events_path)
+                observed_compactions = sum(is_compaction_event(event) for event in events)
+                if report["status"] == "executed" and observed_compactions < expected_compactions:
+                    report["status"] = "incomplete"
+                    report["error"] = (
+                        f"expected_host_compaction_not_observed:{observed_compactions}/{expected_compactions}"
+                    )
+                if artifact and state_snapshots:
+                    current_path = field(state_snapshots[0]["current"], "Current")
+                    required_reads = ["current.md"]
+                    if current_path and current_path != "none":
+                        required_reads.append(current_path)
+                    report["queue_audit"] = audit_snapshots(state_snapshots)
+                    report["tool_audit"] = audit_tool_activity(
+                        commands_from_events(events),
+                        case["queue_artifact"],
+                        required_reads=required_reads,
+                    )
+                report.update(attach_usage(report, events))
             (out / "run.json").write_text(json.dumps(report, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
     return report
 
