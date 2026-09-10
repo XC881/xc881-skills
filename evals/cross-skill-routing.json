@@ -1,75 +1,114 @@
 [
   {
     "query": "用xc881调研 Supabase 和 Firebase 的技术方案差异",
-    "expected_skills": ["xc881-solution-research"]
+    "expected_skills": [
+      "xc881-solution-research"
+    ]
   },
   {
     "query": "用xc881分析这个功能验收标准",
-    "expected_skills": ["xc881-requirement-analysis"]
+    "expected_skills": [
+      "xc881-requirement-analysis"
+    ]
   },
   {
     "query": "用xc881修复登录 500，先定位原因",
-    "expected_skills": ["xc881-bugfix-research"]
+    "expected_skills": [
+      "xc881-bugfix-research"
+    ]
   },
   {
     "query": "用xc881写代码实现登录",
-    "expected_skills": ["xc881-coding-skills"]
+    "expected_skills": [
+      "xc881-coding-skills"
+    ]
   },
   {
     "query": "用xc881写作 BrowserWindow 创建流程",
-    "expected_skills": ["xc881-source-article-style"]
+    "expected_skills": [
+      "xc881-source-article-style"
+    ]
   },
   {
     "query": "用xc881移植这个 Go 服务到 Rust",
-    "expected_skills": ["xc881-porting-orchestration"]
+    "expected_skills": [
+      "xc881-porting-orchestration"
+    ]
   },
   {
     "query": "用xc881分诊 GitHub issue #42",
-    "expected_skills": ["xc881-requirement-analysis"]
+    "expected_skills": [
+      "xc881-requirement-analysis"
+    ]
   },
   {
     "query": "用xc881把这个 PRD 拆成 tracker issues",
-    "expected_skills": ["xc881-requirement-analysis"]
+    "expected_skills": [
+      "xc881-requirement-analysis"
+    ]
   },
   {
     "query": "帮我调研技术方案",
-    "expected_skills": ["xc881-solution-research"]
+    "expected_skills": [
+      "xc881-solution-research"
+    ]
   },
   {
     "query": "帮我分析需求",
-    "expected_skills": ["xc881-requirement-analysis"]
+    "expected_skills": [
+      "xc881-requirement-analysis"
+    ]
   },
   {
     "query": "这个接口 500 帮我看看",
-    "expected_skills": ["xc881-bugfix-research"]
+    "expected_skills": [
+      "xc881-bugfix-research"
+    ]
   },
   {
     "query": "写代码实现登录",
-    "expected_skills": ["xc881-coding-skills"]
+    "expected_skills": [
+      "xc881-coding-skills"
+    ]
   },
   {
     "query": "帮我读一下这个模块的入口和调用链，不要改代码",
-    "expected_skills": ["xc881-coding-skills"]
+    "expected_skills": [
+      "xc881-coding-skills"
+    ]
   },
   {
     "query": "按我的文章风格写一篇 BrowserWindow 创建流程的函数级分析",
-    "expected_skills": ["xc881-source-article-style"]
+    "expected_skills": [
+      "xc881-source-article-style"
+    ]
   },
   {
     "query": "帮我把这个项目改写成另一种语言",
-    "expected_skills": ["xc881-porting-orchestration"]
+    "expected_skills": [
+      "xc881-porting-orchestration"
+    ]
   },
   {
     "query": "先分析登录需求，明确后直接读取代码并实现",
-    "expected_skills": ["xc881-requirement-analysis", "xc881-coding-skills"]
+    "expected_skills": [
+      "xc881-requirement-analysis",
+      "xc881-coding-skills"
+    ]
   },
   {
     "query": "先定位接口 500 根因，明确后直接读取并修复代码",
-    "expected_skills": ["xc881-bugfix-research", "xc881-coding-skills"]
+    "expected_skills": [
+      "xc881-bugfix-research",
+      "xc881-coding-skills"
+    ]
   },
   {
     "query": "先读仓库里的 BrowserWindow 实现，再按我的风格写源码文章",
-    "expected_skills": ["xc881-source-article-style", "xc881-coding-skills"]
+    "expected_skills": [
+      "xc881-source-article-style",
+      "xc881-coding-skills"
+    ]
   },
   {
     "query": "读取小项目 src/version.ts 里的 VERSION 常量，不做其它分析",
@@ -77,7 +116,9 @@
   },
   {
     "query": "在多语言 monorepo 中读取版本常量，并确认它如何影响各包发布",
-    "expected_skills": ["xc881-coding-skills"]
+    "expected_skills": [
+      "xc881-coding-skills"
+    ]
   },
   {
     "query": "简单解释一下 Git rebase 是什么",
@@ -89,22 +130,56 @@
   },
   {
     "query": "根因已经明确，按给定补丁修复并验证",
-    "expected_skills": ["xc881-coding-skills"]
+    "expected_skills": [
+      "xc881-coding-skills"
+    ]
   },
   {
     "query": "只分析这个接口 500 的根因和修复方案，不改代码",
-    "expected_skills": ["xc881-bugfix-research"]
+    "expected_skills": [
+      "xc881-bugfix-research"
+    ]
   },
   {
     "query": "查官方资料确认这个 API 在当前版本是否已弃用",
-    "expected_skills": ["xc881-solution-research"]
+    "expected_skills": [
+      "xc881-solution-research"
+    ]
   },
   {
     "query": "把现有源码证据整理成一篇函数级文章，不再读仓库",
-    "expected_skills": ["xc881-source-article-style"]
+    "expected_skills": [
+      "xc881-source-article-style"
+    ]
   },
   {
     "query": "将这个 Go 服务迁移到 Rust；先只判断迁移边界，不写代码",
-    "expected_skills": ["xc881-porting-orchestration"]
+    "expected_skills": [
+      "xc881-porting-orchestration"
+    ]
+  },
+  {
+    "query": "制定需求，给出范围和完成标准",
+    "expected_skills": [
+      "xc881-requirement-analysis"
+    ]
+  },
+  {
+    "query": "Write scope and acceptance criteria for the coupon feature",
+    "expected_skills": [
+      "xc881-requirement-analysis"
+    ]
+  },
+  {
+    "query": "登录需求已经定了，按现有范围写代码实现",
+    "expected_skills": [
+      "xc881-coding-skills"
+    ]
+  },
+  {
+    "query": "把现有登录需求迁到 Rust，先只定迁移边界",
+    "expected_skills": [
+      "xc881-porting-orchestration"
+    ]
   }
 ]

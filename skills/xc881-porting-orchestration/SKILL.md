@@ -1,7 +1,7 @@
 ---
 name: xc881-porting-orchestration
-description: 'Primary owner for cross-language/project porting. Classify magnitude and boundaries, preserve behavioral equivalence, and call only specialists needed by the current migration step. Ordinary refactors, data migrations, and incidental language mentions do not trigger it.'
-when_to_use: 'Use for cross-language/project migration outcomes. Small non-goal work may stay chat-only; goal work locks boundaries and linked state.'
+description: 'Primary owner for cross-language/project porting. Use when the requested outcome is migration with preserved behavior. Ordinary refactors, data migrations, and incidental language mentions do not trigger it.'
+when_to_use: 'Use when the requested outcome is cross-language/project migration. Small non-goal work may stay chat-only; goal work locks boundaries and linked state.'
 display_name: "xc881移植编排"
 version: "1.7.1"
 category: "orchestration"

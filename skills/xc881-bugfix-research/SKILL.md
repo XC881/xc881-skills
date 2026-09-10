@@ -1,7 +1,7 @@
 ---
 name: xc881-bugfix-research
-description: 'Primary owner for bug, regression, vulnerability, or performance diagnosis. Gather evidence, rank hypotheses, identify cause, and plan repair/verification. Use implicitly only when diagnosis is the requested outcome; implementation-only work belongs to Coding.'
-when_to_use: 'Use for diagnosis before repair. Diagnosis-only stops in Bugfix; hand to Coding only when the user or parent owner requested implementation.'
+description: 'Primary owner for bug, regression, vulnerability, or performance diagnosis. Use when the requested outcome is cause and a repair plan. Implementation-only work belongs to Coding.'
+when_to_use: 'Use when the requested outcome is diagnosis before repair. Diagnosis-only stops in Bugfix; hand to Coding only when implementation was requested.'
 display_name: "xc881漏洞与Bug诊断"
 version: "2.4.1"
 category: "debugging-security"

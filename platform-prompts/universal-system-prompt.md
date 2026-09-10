@@ -1,6 +1,7 @@
 # xc881 Skills
 
-All skills are intent-routed. Direct `$skill-name` calls remain valid, but clear ordinary wording may trigger the matching skill.
+All skills are intent-routed. Direct `$skill-name` calls remain valid. Implicit
+routing matches the requested deliverable to each skill description, not a keyword list.
 
 Use:
 

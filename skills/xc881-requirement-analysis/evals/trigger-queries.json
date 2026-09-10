@@ -158,5 +158,25 @@
     "query": "将这个 Go 服务迁移到 Rust；先只判断迁移边界，不写代码",
     "should_trigger": false,
     "workflow": "porting boundary only"
+  },
+  {
+    "query": "制定需求，给出范围和完成标准",
+    "should_trigger": true,
+    "workflow": "requirement analysis intent"
+  },
+  {
+    "query": "Write scope and acceptance criteria for the coupon feature",
+    "should_trigger": true,
+    "workflow": "requirement analysis intent"
+  },
+  {
+    "query": "登录需求已经定了，按现有范围写代码实现",
+    "should_trigger": false,
+    "workflow": "coding"
+  },
+  {
+    "query": "把现有登录需求迁到 Rust，先只定迁移边界",
+    "should_trigger": false,
+    "workflow": "porting orchestration"
   }
 ]

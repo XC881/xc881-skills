@@ -1,7 +1,7 @@
 ---
 name: xc881-source-article-style
-description: 'Primary owner for Chinese source-code articles: source guides, function analysis, call-chain chapters, and rewrites. Generic writing or code-reading-only requests do not trigger it; reuse supplied evidence and delegate only blocking inspection or term research.'
-when_to_use: 'Use for source-article prose, not generic code explanation. Reuse supplied evidence and delegate only blocking gaps.'
+description: 'Primary owner for Chinese source-code articles: source guides, function analysis, call-chain chapters, and rewrites. Use when that article is the requested outcome. Generic writing or code-reading-only requests do not trigger it.'
+when_to_use: 'Use when the requested outcome is source-article prose, not generic code explanation. Reuse supplied evidence and delegate only blocking gaps.'
 display_name: "xc881源码文章风格"
 version: "1.4.1"
 category: "writing"

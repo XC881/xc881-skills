@@ -1,7 +1,7 @@
 ---
 name: xc881-coding-skills
-description: 'Primary owner for project writes and complex/tracked reads. Implement, review, verify, and handle explicit git. Simple exact local reads stay direct; delegates stay bounded.'
-when_to_use: 'Use for project writes and complex/tracked reads. Classify instant|queue, then read|change; bounded delegates do only their contract.'
+description: 'Primary owner for project writes and complex/tracked reads. Use when the requested outcome is implement, review, verify, or explicit git. Simple exact local reads stay direct. Do not use for scope/AC, diagnosis-only, or research-only outcomes.'
+when_to_use: 'Use when the requested outcome is a project write or complex/tracked read. Classify instant|queue, then read|change; bounded delegates do only their contract.'
 display_name: "xc881代码工程规范"
 version: "2.3.2"
 category: "coding"

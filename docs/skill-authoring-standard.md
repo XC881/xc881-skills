@@ -24,15 +24,17 @@ Principle: accurate, low-token, effective agent reading.
 - Implicit routing chooses the minimum sufficient skill set. A skill earns
   activation only when its unique final outcome or reusable contract changes the
   result; ordinary model capability is not a reason to wrap the task in a skill.
-- Front-load descriptions with the primary outcome and boundaries. Do not spend
-  discovery metadata on `Intent-routed`, invocation boilerplate, or synonym piles.
+- Front-load descriptions with the primary outcome, when to use, and when not.
+  Do not spend discovery metadata on `Intent-routed`, invocation boilerplate, or
+  synonym piles. Docs examples are illustrations, not the match table.
 - One skill owns the active phase. Incidental subtask words never create a second
   owner; bounded delegation returns to the original owner.
 - Route reads from both requested-read complexity and relevant project coupling. Simple exact/local/low-risk reads may stay direct; complex/tracked reads and all writes enter Coding. Project size alone is insufficient.
 - Selected Coding classifies `instant | queue` before opening project/execution-artifact files, then `read | change`.
 - If scope/AC/lifecycle/root cause is unclear, the matching analysis skill retains ownership. It may perform a simple read, delegate a complex Coding read, resume from evidence, and hand confirmed writes back automatically.
 - Requirement artifact maintenance is not project execution and does not recursively trigger Coding.
-- A description is a trigger surface. Use intent words the user actually says; avoid synonym piles.
+- A description is the host discovery surface: requested outcome, when to use,
+  and when not. Avoid synonym piles.
 - Agent prompts are compatibility shims, not a second workflow authority. Keep
   provider variants behaviorally identical and point execution to `SKILL.md`.
 - Provider custom instructions preserve only global routing/safety boundaries;

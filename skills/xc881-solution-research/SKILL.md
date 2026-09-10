@@ -1,7 +1,7 @@
 ---
 name: xc881-solution-research
-description: 'Primary owner for web-backed technical research: feasibility, option decisions, standards/advisories, and stale external facts. Use when external evidence is the outcome or a bounded delegate is blocked; ordinary explanations and incidental terms stay with the current owner.'
-when_to_use: 'Use for external technical evidence or decisions. Single-fact checks skip option comparison; delegated research returns to its owner.'
+description: 'Primary owner for web-backed technical research: feasibility, option decisions, standards/advisories, and stale external facts. Use when external evidence is the requested outcome. Ordinary explanations and incidental terms stay with the current owner.'
+when_to_use: 'Use when external evidence is the requested outcome. Single-fact checks skip option comparison; delegated research returns to its owner.'
 display_name: "xc881技术方案联网调研"
 version: "2.3.1"
 category: "solution-research"

@@ -1,7 +1,7 @@
 ---
 name: xc881-requirement-analysis
-description: 'Primary owner for requirements, scope, acceptance criteria, PRDs, and issue/PR triage. Separate explicit/inferred needs, persist task queues when warranted, and delegate only blocking research or reads. Implementation detail alone is not requirement intent.'
-when_to_use: 'Use for scope/AC/tracker deliverables. Persist only when the gate passes; delegate bounded uncertainty, then resume the same owner.'
+description: 'Primary owner for scope, acceptance criteria, PRDs, and issue/PR triage. Use when that deliverable is requested, in any wording. Persist queues only if the gate passes. Do not use for implementation, diagnosis-only, or research-only outcomes.'
+when_to_use: 'Use when the requested deliverable is scope, AC, a PRD, or tracker triage. Persist only when the gate passes; implementation, diagnosis, and research-only outcomes belong elsewhere.'
 display_name: "xc881需求分析"
 version: "2.10.1"
 category: "requirements"
