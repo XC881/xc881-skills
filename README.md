@@ -465,9 +465,11 @@ xc881 调研:
 
 - 不写代码、不 commit、不跑 exploit。
 - IR 不能伪装成 ER；AC 必须可测试；事实、推断、推荐必须分开。
-- 只问一个阻塞问题；能从仓库、文档、当前技术调研获得的事实，不问用户。
-- 诊断先建立 tight repro loop；假设要可证伪；最小化复现后再给根因。
+- 锁范围/写 AC 之前先用仓库与平台事实核验用户前提（XY 检查）；前提不成立先证伪并给出可行替代，不顺着错误假设写验收。
+- 产品可见数值（比例/阈值/限额/定价/有效期等用户可能有偏好的取值）未决时，即使用户已授权实现，也问一次阻塞问题——带推荐答案与安全兜底，未答复按兜底推进；纯技术决策（栈、结构、持久化方式）记 `Decision:` 直接推进，不打断。除此一处阻塞问题外不问用户；能从仓库、文档、当前技术调研获得的事实，不问用户。
+- 诊断区分上游不变量破坏点（producer）与下游崩溃暴露点（consumer）；不用 `or {}` 式静默兜底掩盖上游违约，并顺手标出同路径邻近隐患。诊断先建立 tight repro loop；假设要可证伪；最小化复现后再给根因。
 - 三套输出共用大白话骨架：结论先行 → 依据 → 做法/对比 → 验证 → 需要注意 → 下一步；内部字段（Spec/RQ/Cause/AC 等）留在 artifact 或 handoff，不直接给用户看。
+- 同一轮自动接力到底时，整轮只由终态/主控 skill 输出一份用户契约：Analysis→Coding 同轮修完只出 `完成内容`，Porting→Coding 同轮迁完只出 `迁移结论`，不连贴多套模板头；中间环节的根因与证据折进终态契约。
 - 调研优先一手资料：官方文档、标准、论文、维护者 issue/PR、vendor advisory；单事实、标准或版本查证只输出证据、影响、风险和 handoff，不制造空的 对比/推荐；证据不足时输出 blocker 和下一步 research，不强行 推荐。
 - 内部分支切换：expected/scope 缺口切 requirement，外部事实缺口切 solution，根因证据缺口切 bugfix，答案回到原分支，不换 owner。
 - tracker 写操作必须区分已经执行、计划执行、因为权限/工具缺失而跳过。
@@ -521,6 +523,7 @@ xc881 调研:
 规则：
 
 - 每个改动行都要能追溯到请求、证据、验证或本次改动造成的清理。
+- review 按 P0-P3 严重度排序，每条给出 `file:line` + 具体触发输入/交错与被破坏的不变量；存在 P0-P2 缺陷时压制纯排版 nit；报告前先查外层调用守卫，不凭猜测报 bug。
 - 不做无关重构。
 - 不加 speculative abstraction。
 - 领域逻辑不泄漏到 UI、SQL、SDK callback、framework handler。
@@ -561,7 +564,9 @@ xc881 调研:
 
 - 入口和调用链必须有推导路径。
 - runtime/debugger/tracer 证据优先于静态推断。
-- 静态推断必须标明依据。
+- 静态推断必须标明依据；未实跑的验证只能写成验证计划，不伪造运行结果。
+- 禁止逐行翻译代码；必须讲清数据所有权、状态不变量与分支/间接层存在的理由。跨异步/IPC/回调须点名注册点、承载结构与执行线程/进程上下文。
+- 禁 AI 公文腔（如“优雅地实现了”“极大地提升了”“综上所述”“值得注意的是”“不言而喻”）；结论必须是读源码前猜不到、带 `path:symbol` 锚点的不变量或边界。
 - 专有术语先介绍，再在后文依赖。
 - 可能过期的 API/版本事实自动用 `$xc881-analysis` 查官方来源。
 - 已提供的源码证据直接复用；只补缺失的简单局部证据，复杂或任务化检查才委派 Coding，返回证据后继续写作。
@@ -593,20 +598,20 @@ xc881 调研:
 规则：
 
 - goal 任务必须先锁 stop boundary。
-- goal/queue 任务必须同时链接 `dev-notes/req-process/<task>/` 和 `dev-notes/cross-process/<task>.md`；小型 non-goal 边界分析可只在聊天完成。
+- goal/queue 任务必须同时链接 `dev-notes/req-process/<task>/` 和 `dev-notes/cross-process/<task>.md`；单函数/单文件/单切片的有界 non-goal 迁移（含落地实现+自测）保持 chat-only，免建双账本。
 - req-process 保存 Scope/AC/边界；cross-process 只保存移植专有执行状态。
 - goal/non-goal、规模、停止边界、技术差异、等价性证据保存在关联文档中，聊天不原样倾倒这些字段。
-- 等价性看行为，不看结构相同。
+- 等价性看行为，不看结构相同；golden 期望值必须由源实现实跑采集，不靠心算；显式检查取模符号/整宽/浮点舍入/Unicode 单位/JSON null 与缺省/顺序/别名/错误传播/取消等静默语义陷阱。
 - 目标项目已有架构时，迁入目标架构，不照搬源架构。
 - 抽象意图移植时，用 intent fidelity，并记录 adopt/adapt/reject。
 - 用户只要求边界/规划时不委派 Coding；只有明确实现意图或可执行队列才开始迁移。
 
 ## 安装和验证
 
-安装到本机 skill 目录：
+安装到本机 skill 目录（目标：`agents|claude|codex|cursor|cc-switch|grok|all`）：
 
 ```bash
-bash scripts/install.sh grok
+bash scripts/install.sh cursor
 bash scripts/install.sh all
 ```
 
