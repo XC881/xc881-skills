@@ -20,9 +20,12 @@ Use for full chapters, rewrites, or publishable sections.
 
 ## 入口定位
 
-## 调用链/执行流程
+## 调用链
 
 ## 关键源码
+
+## 调试验证
+可选；静态分析未实际运行时写验证计划或省略，不伪造运行输出。
 
 ## 常见疑问
 

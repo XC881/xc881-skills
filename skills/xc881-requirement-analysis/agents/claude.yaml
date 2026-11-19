@@ -1,6 +1,0 @@
-interface:
-  display_name: "xc881需求分析"
-  short_description: "Requirement, scope, AC, and tracker owner"
-  default_prompt: "Use only for scope/AC/tracker outcomes. SKILL.md owns workflow. Persist by gate, keep one owner, and delegate only blocking research or reads."
-policy:
-  allow_implicit_invocation: true

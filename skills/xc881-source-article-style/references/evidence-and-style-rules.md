@@ -18,7 +18,7 @@
   and conclusions. Reuse matching evidence; refresh only changed or conflicting
   anchors. Missing evidence narrows the claim instead of being filled from memory.
 - Supplement only unresolved version/API/mechanism facts with primary sources via
-  `$xc881-solution-research`; cite context without treating docs as proof that the
+  `$xc881-analysis`; cite context without treating docs as proof that the
   local implementation follows it. Reuse adequate definitions/citations.
 - Mark inference: "从这里可以推断..." / "更准确地说...".
 - If evidence conflicts with old prose, correct the prose.
@@ -49,8 +49,8 @@
 
 ## Avoid
 
-- long official-documentation summaries
+- long official-documentation summaries or API tutorial tone
 - unverified historical claims
-- API tutorial tone
-- line-by-line narration when block-level intent is clearer
-- vague words like "底层处理了一些逻辑" without naming the logic
+- line-by-line code-to-Chinese paraphrasing instead of block intent and invariants
+- vague hand-waving ("底层处理了一些逻辑") without naming the concrete state/mechanism
+- hollow AI clichés and empty praise (`优雅地实现了` / `极大地提升了` / `综上所述` / `值得注意的是` / `不言而喻`)

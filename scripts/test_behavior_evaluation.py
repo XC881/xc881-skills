@@ -11,8 +11,7 @@ import collect_behavior_data as collector
 from skill_validation import check_structural_output, evaluate_output, validate_output_contract
 
 CODING = "xc881-coding-skills"
-REQ = "xc881-requirement-analysis"
-SOLUTION = "xc881-solution-research"
+ANALYSIS = "xc881-analysis"
 
 
 class StructuralOutputTests(unittest.TestCase):
@@ -20,8 +19,8 @@ class StructuralOutputTests(unittest.TestCase):
     def setUpClass(cls):
         cls.contracts = collector.load_contracts()
 
-    def test_six_current_owners_are_recognized(self):
-        self.assertEqual(len(self.contracts), 6)
+    def test_current_owners_are_recognized(self):
+        self.assertEqual(len(self.contracts), 4)
         for owner, contract in self.contracts.items():
             with self.subTest(owner=owner):
                 self.assertEqual(collector.classify(contract["pass_sample"], self.contracts), (owner, None))
@@ -41,13 +40,13 @@ class StructuralOutputTests(unittest.TestCase):
         self.assertEqual(check_structural_output("完成内容: 已完成。\n验证:", ["完成内容"], False, ["验证"]), ["empty_section:验证"])
 
     def test_optional_sections_are_separate_from_each_other(self):
-        self.assertEqual(check_structural_output("完成内容: 已完成。\n验证:\n风险/假设: 待确认环境。", ["完成内容"], False, ["验证", "风险/假设"]), ["empty_section:验证"])
+        self.assertEqual(check_structural_output("完成内容: 已完成。\n验证:\n需要注意: 待确认环境。", ["完成内容"], False, ["验证", "需要注意"]), ["empty_section:验证"])
 
     def test_duplicate_header_is_reported(self):
         self.assertIn("duplicate_section:完成内容", check_structural_output("完成内容: A\n完成内容: B", ["完成内容"], False))
 
     def test_markdown_and_chinese_colon(self):
-        for heading in ("**完成内容：**", "- **完成内容:**", "## 完成内容", "`完成内容:`"):
+        for heading in ("**完成内容：**", "- **完成内容:**", "## 完成内容", "`完成内容:`", "完成内容（最小改动）:"):
             with self.subTest(heading=heading):
                 self.assertEqual(check_structural_output(heading + "\n已完成。", ["完成内容"], False), [])
 
@@ -58,9 +57,9 @@ class StructuralOutputTests(unittest.TestCase):
                 self.assertIsNone(collector.classify(text, self.contracts)[0])
 
     def test_code_and_quote_can_be_real_evidence(self):
-        text = "Evidence:\n```text\nCause: a literal from the log\n```\nCause: still unconfirmed"
-        self.assertEqual(check_structural_output(text, ["Evidence", "Cause"], False), [])
-        self.assertEqual(check_structural_output("Evidence:\n> observed failure", ["Evidence"], False), [])
+        text = "依据:\n```text\n结论: a literal from the log\n```\n结论: still unconfirmed"
+        self.assertEqual(check_structural_output(text, ["依据", "结论"], False), [])
+        self.assertEqual(check_structural_output("依据:\n> observed failure", ["依据"], False), [])
 
     def test_short_inner_fence_does_not_close_outer_fence(self):
         text = "````text\n```\n完成内容: 示例\n````"
@@ -73,21 +72,32 @@ class StructuralOutputTests(unittest.TestCase):
 
     def test_truncated_recognized_output_counts_as_failure(self):
         owner, reason = collector.classify("需求结论:", self.contracts)
-        self.assertEqual(owner, REQ)
+        self.assertEqual(owner, ANALYSIS)
         self.assertIsNone(reason)
         self.assertEqual(evaluate_output("需求结论:", self.contracts[owner])["status"], "fail")
 
     def test_mode_is_supplied_by_task_not_chosen_for_fewest_errors(self):
         text = "需求结论: 筛选列表\n这次会做: 名称过滤\n完成标准: 只保留匹配项\n下一步: 实现"
-        self.assertEqual(evaluate_output(text, self.contracts[REQ], "chat-only")["status"], "pass")
-        self.assertEqual(evaluate_output(text, self.contracts[REQ], "full")["violations"], ["missing_section:开发记录"])
-        self.assertEqual(collector.classify(text, self.contracts)[0], REQ)
+        self.assertEqual(evaluate_output(text, self.contracts[ANALYSIS], "chat-only")["status"], "pass")
+        self.assertEqual(evaluate_output(text, self.contracts[ANALYSIS], "full")["violations"], ["missing_section:开发记录"])
+        self.assertEqual(collector.classify(text, self.contracts)[0], ANALYSIS)
+
+    def test_anchor_modes_select_branch_contract(self):
+        bugfix = "xc881 诊断: 登录 500\n结论: unconfirmed，疑似冷启动缺少初始化\n背景: 部署后首次请求 500\n依据: 堆栈显示 null token\n修复: bootstrap 初始化\n验证: 冷启动返回 200\n需要注意: 风险低\n下一步: 交给 Coding 修复"
+        contract = self.contracts[ANALYSIS]
+        self.assertEqual(collector.resolve_mode(bugfix, contract), "bugfix")
+        self.assertEqual(evaluate_output(bugfix, contract, collector.resolve_mode(bugfix, contract))["status"], "pass")
+        self.assertEqual(evaluate_output(bugfix, contract, "full")["status"], "fail")
+        coding_read = "代码结论: 并发刷新缺少单飞保护\n依据: auth/session.ts 未合并并发请求\n需要注意: 仅静态确认"
+        self.assertEqual(collector.classify(coding_read, self.contracts), (CODING, None))
+        self.assertEqual(collector.resolve_mode(coding_read, self.contracts[CODING]), "read")
+        self.assertEqual(evaluate_output(coding_read, self.contracts[CODING], "read")["status"], "pass")
 
     def test_decision_mode_requires_both_options_and_pick(self):
-        contract = self.contracts[SOLUTION]
-        fact = contract["pass_sample"]
-        self.assertEqual(evaluate_output(fact, contract)["status"], "pass")
-        self.assertEqual(evaluate_output(fact, contract, "decision")["violations"], ["missing_section:Options", "missing_section:Pick"])
+        contract = self.contracts[ANALYSIS]
+        fact = contract["modes"]["solution"]["pass_sample"]
+        self.assertEqual(evaluate_output(fact, contract, "solution")["status"], "pass")
+        self.assertEqual(evaluate_output(fact, contract, "decision")["violations"], ["missing_section:对比", "missing_section:推荐"])
 
     def test_free_prose_is_not_structurally_clean(self):
         for contract in self.contracts.values():
@@ -100,7 +110,7 @@ class StructuralOutputTests(unittest.TestCase):
     def test_meta_preamble_and_ambiguous_anchor_are_unscored(self):
         self.assertIsNone(collector.classify("格式示例：\n完成内容: 已完成", self.contracts)[0])
         conflicting = copy.deepcopy(self.contracts)
-        conflicting[REQ]["anchors"].append("完成内容")
+        conflicting[ANALYSIS]["anchors"].append("完成内容")
         self.assertEqual(collector.classify("完成内容: 已完成", conflicting), (None, "ambiguous_contract"))
 
     def test_article_title_before_contract(self):

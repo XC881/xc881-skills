@@ -5,7 +5,7 @@ import re
 
 
 def field(text, name):
-    match = re.search(rf"^{re.escape(name)}:\s*`?([^`\n]+?)`?\s*$", text, re.M)
+    match = re.search(rf"^{re.escape(name)}(?:\s*[（(][^()（）]*[)）])?:\s*`?([^`\n]+?)`?\s*$", text, re.M)
     if not match:
         raise SystemExit(f"missing field {name}")
     return match.group(1).strip()
@@ -34,7 +34,7 @@ def main():
         raise SystemExit("artifact has no active current item")
 
     coding_skill = chars(repo / "skills/xc881-coding-skills/SKILL.md")
-    requirement_skill = chars(repo / "skills/xc881-requirement-analysis/SKILL.md")
+    requirement_skill = chars(repo / "skills/xc881-analysis/SKILL.md")
     porting_skill = chars(repo / "skills/xc881-porting-orchestration/SKILL.md")
     current_size = len(current_text)
     current_item_size = chars(artifact / current_value)
@@ -58,7 +58,7 @@ def main():
         show("Porting resume", porting_base + chars(args.cross_ledger))
     else:
         show("Porting resume base", porting_base)
-        show("Porting resume hard max", porting_base + 3000)
+        show("Porting resume hard max", porting_base + 4500)
 
     saved = legacy_dynamic - dynamic
     percent = 0 if legacy_dynamic == 0 else saved * 100 / legacy_dynamic

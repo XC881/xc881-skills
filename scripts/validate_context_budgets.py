@@ -5,9 +5,15 @@ import sys
 
 
 SKILL_CHAR_LIMIT = 5000
+# A merged multi-branch entry may exceed the default: it still replaces up to
+# three per-domain entries that cross-branch tasks would otherwise load.
+SKILL_CHAR_LIMIT_OVERRIDES = {"xc881-analysis": 7000}
 SKILL_DESCRIPTION_CHAR_LIMIT = 320
 TOTAL_DESCRIPTION_CHAR_LIMIT = 1650
 AGENT_PROMPT_CHAR_LIMIT = 180
+# Aliases must carry the xc881 namespace; bare generic terms hijack implicit
+# calls. Distinctive non-generic call signs need explicit allowlisting here.
+ALIAS_ALLOWLIST = {"非屎山代码"}
 
 
 def validate(root, report=False):
@@ -20,11 +26,12 @@ def validate(root, report=False):
         skill_path = skill / "SKILL.md"
         text = skill_path.read_text(encoding="utf-8")
         size = len(text)
-        if size > SKILL_CHAR_LIMIT:
+        limit = SKILL_CHAR_LIMIT_OVERRIDES.get(skill.name, SKILL_CHAR_LIMIT)
+        if size > limit:
             raise SystemExit(
-                f"{skill_path}: {size} chars exceeds limit {SKILL_CHAR_LIMIT}"
+                f"{skill_path}: {size} chars exceeds limit {limit}"
             )
-        rows.append((str(skill_path.relative_to(root)), size, SKILL_CHAR_LIMIT))
+        rows.append((str(skill_path.relative_to(root)), size, limit))
         description_match = re.search(
             r"^description:\s*(['\"])(.*?)\1\s*$", text, re.M
         )
@@ -43,10 +50,15 @@ def validate(root, report=False):
             )
         frontmatter = text.split("---", 2)[1]
         aliases_match = re.search(r"^aliases:\n((?:  - .+\n?)+)", frontmatter, re.M)
-        if aliases_match and re.search(
-            r"^\s{2}- xc881\s*$", aliases_match.group(1), re.M
-        ):
-            raise SystemExit(f"{skill_path}: broad namespace-only alias is forbidden")
+        if aliases_match:
+            if re.search(r"^\s{2}- xc881\s*$", aliases_match.group(1), re.M):
+                raise SystemExit(f"{skill_path}: broad namespace-only alias is forbidden")
+            for alias in re.findall(r"^\s{2}- (.+?)\s*$", aliases_match.group(1), re.M):
+                if "xc881" not in alias and alias not in ALIAS_ALLOWLIST:
+                    raise SystemExit(
+                        f"{skill_path}: bare generic alias {alias!r} lacks the "
+                        f"xc881 namespace; allowlist only distinctive call signs"
+                    )
         description_total += description_size
         rows.append(
             (

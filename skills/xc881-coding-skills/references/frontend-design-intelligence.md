@@ -58,7 +58,7 @@ Reuse the result while its inputs remain valid; do not regenerate at each page.
 
 `no-match` means no evidence, and `candidate-with-fallback` names missing sources.
 Do not retry with synonyms in a loop. Correct a demonstrated language/domain/version
-error once; otherwise use local evidence or bounded Solution research for a
+error once; otherwise use local evidence or bounded `$xc881-analysis` (Solution branch) research for a
 blocking external fact. Never label fallback as a catalog recommendation.
 
 ## Reconcile Before Applying
@@ -71,12 +71,12 @@ style is not justified by its recommendation rank. Report only the resulting
 decision and a material conflict, not the full generator output.
 
 When reusable decisions need a durable contract, automatically delegate bounded
-evidence to Requirement. It reconciles and writes the accepted master under
+evidence to `$xc881-analysis` (Requirement branch). It reconciles and writes the accepted master under
 `dev-notes/design-system/<slug>/MASTER.md`, with named surface overrides only.
 Coding consumes exact handoff paths, never scans for masters or creates a second
 authority. Ordinary lookups never write files. The optional CLI `--persist`
 creates a proposal only, requires explicit project root/slug, and never overwrites;
-Requirement's accepted write-first contract remains the execution authority.
+Analysis's accepted write-first contract remains the execution authority.
 
 Automatically load implementation, image, redesign/QA, or pattern refs only as
 their concern is reached; continue without another user invocation. The legacy

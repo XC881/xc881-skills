@@ -20,7 +20,7 @@ VALIDATOR_RE = re.compile(r"(?:validate_req_process|validate_cross_process)\.py"
 
 def field(text, name):
     matches = re.findall(
-        r"^" + re.escape(name) + r":\s*(?:`([^`\n]+)`|([^\n]+))\s*$",
+        r"^" + re.escape(name) + r"(?:\s*[（(][^()（）]*[)）])?:\s*(?:`([^`\n]+)`|([^\n]+))\s*$",
         text,
         re.MULTILINE,
     )

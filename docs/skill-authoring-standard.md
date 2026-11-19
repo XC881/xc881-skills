@@ -20,7 +20,7 @@ Principle: accurate, low-token, effective agent reading.
 
 ## Invocation
 
-- All skills are intent-routed. Direct `$skill-name` calls remain valid, but clear user intent without `xc881` may trigger the matching skill.
+- Select skills autonomously from both user intent and actual task readiness/direction, not literal phrasing. Direct `$skill-name` calls remain valid, and natural requests without `xc881` route automatically: concrete edits enter Coding directly, while underspecified builds, unconfirmed bugs, or cross-language migrations start in Analysis or Porting and chain into Coding without requiring the user to script steps.
 - Implicit routing chooses the minimum sufficient skill set. A skill earns
   activation only when its unique final outcome or reusable contract changes the
   result; ordinary model capability is not a reason to wrap the task in a skill.
@@ -84,7 +84,7 @@ Principle: accurate, low-token, effective agent reading.
 - Instant Coding never scans task-note directories. Queue Coding requires an explicit path/handoff or one unambiguous active context.
 - Normal Coding continuation reads `current.md` plus its current queue item only; previous requires an explicit evidence/dependency link and next waits until advancement. `index.md` is for requirement creation/audit.
 - Non-terminal queue items must be self-contained with goal, relevant scope/AC, targets, constraints, and verification.
-- Context hard limits: req current 1,200 chars, non-terminal queue item 3,500, index 10,000, cross-process ledger 3,000.
+- Context limits: hot per-resume caps on req `current.md` (1,200 chars) and active queue item (3,500 chars); ceilings on cold `index.md` (20,000 chars) and `cross-process` ledger (4,500 chars, rolling up completed slices).
 - Move only bounded requirement research to linked evidence; verification output, pass/fail details, and logs remain in chat.
 - A durable visual contract is created only after its gate passes under
   `dev-notes/design-system/<slug>/`; Requirement owns writes, Coding consumes an

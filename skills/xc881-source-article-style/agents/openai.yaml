@@ -1,6 +1,6 @@
 interface:
   display_name: "xc881源码文章风格"
   short_description: "Chinese source-code article owner"
-  default_prompt: "Use only for source-article prose. SKILL.md owns workflow. Reuse supplied evidence and delegate only blocking code or external-term gaps."
+  default_prompt: "Select when the needed deliverable is Chinese source-article prose. SKILL.md owns workflow; reuse supplied evidence and chain Coding/Analysis only for blocking gaps."
 policy:
   allow_implicit_invocation: true

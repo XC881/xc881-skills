@@ -34,7 +34,7 @@ Preferred install:
 
 ```bash
 mkdir -p ~/.agents/skills
-cp -r skills/xc881-requirement-analysis ~/.agents/skills/
+cp -r skills/xc881-analysis ~/.agents/skills/
 cp -r skills/xc881-coding-skills ~/.agents/skills/
 ```
 

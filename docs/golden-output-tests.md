@@ -30,13 +30,14 @@ Behavior evaluation separates output form from task quality. Two layers:
 
 ```bash
 python scripts/collect_behavior_data.py /tmp/outputs.jsonl --out-dir /tmp/output-eval
-python scripts/collect_behavior_data.py /tmp/req-chat.jsonl --skill xc881-requirement-analysis --mode chat-only --out-dir /tmp/req-eval
+python scripts/collect_behavior_data.py /tmp/req-chat.jsonl --skill xc881-analysis --mode chat-only --out-dir /tmp/req-eval
 ```
 
 Each input line is `{"text": "<output>"}`. Mixed owners/modes require separate
 known-mode inputs or auto attribution with limits.
-Auto attribution recognizes current leading headings for all six owners and uses
-`full`. An anchored truncated answer counts as failure even if only one heading
+Auto attribution recognizes current leading headings across all four owners and
+resolves `anchor_modes` when an owner defines multiple leading banners (otherwise
+`full`). An anchored truncated answer counts as failure even if only one heading
 survived. Unknown/ambiguous/prose outputs are visible as unscored, never dropped
 or treated as passes.
 The report separates scored/unscored/excluded counts and marks malformed records

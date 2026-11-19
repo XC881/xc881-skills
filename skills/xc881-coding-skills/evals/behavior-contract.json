@@ -2,8 +2,18 @@
   "skill": "xc881-coding-skills",
   "layer": "structural",
   "forbid_impl_code": false,
-  "anchors": ["完成内容"],
+  "anchors": ["完成内容", "代码结论"],
+  "anchor_modes": {
+    "代码结论": "read"
+  },
   "required_sections": ["完成内容"],
-  "optional_sections": ["验证", "风险/假设"],
-  "pass_sample": "完成内容: 扩展校验器,新增结构层断言与自检\n验证: python scripts/validate_all.py 全绿,删除任一契约段落必红\n风险/假设: 语义质量仍需人工或 judge,结构层只消除形式虚假绿灯"
+  "optional_sections": ["验证", "需要注意", "下一步"],
+  "modes": {
+    "read": {
+      "required_sections": ["代码结论", "依据"],
+      "optional_sections": ["需要注意", "下一步"],
+      "pass_sample": "代码结论: 会话刷新的竞态来自并发请求共享同一过期判断且未加单飞锁\n依据: auth/session.ts 的 refreshIfExpired 在 await 远程请求前未写入 inflight 状态\n需要注意: 仅完成静态调用链确认，尚未运行高并发压测\n下一步: 如需修复，可在同一会话存储入口合并并发刷新"
+    }
+  },
+  "pass_sample": "完成内容: 扩展校验器，新增结构层断言与自检\n验证: python scripts/validate_all.py 全绿，删除任一契约段落必红\n需要注意: 语义质量仍需人工或模型评审，结构层只检查形式完整"
 }

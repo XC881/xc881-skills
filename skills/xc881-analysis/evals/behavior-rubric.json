@@ -1,0 +1,248 @@
+{
+  "skill": "xc881-analysis",
+  "layer": "semantic",
+  "ci": false,
+  "note": "Judge or human evaluates output quality. Not run in default CI.",
+  "cases": [
+    {
+      "query": "Analysis 正文与当前方案仍在上下文，补一条验收并在有界 Coding 读取返回后继续",
+      "checklist": [
+        "reuses available complete entry/ref rules without another activation read or full rediscovery",
+        "a delegate receives sufficient instructions or reads its selected skill; a parent loaded marker is not enough",
+        "updates only affected scope/AC under the existing artifact identity and resumes the requirement branch automatically",
+        "after compaction reacquires missing rules and exact state, not a full reference pack or a process-validator loop"
+      ]
+    },
+    {
+      "query": "用xc881分析这个功能验收标准",
+      "checklist": [
+        "each AC is testable with a decidable pass or fail condition",
+        "inferred requirements are marked and not presented as confirmed",
+        "discoverable repo or technical facts are researched instead of asked as user questions",
+        "user decisions are separated from facts/inference and include a recommended answer when blocking",
+        "feature breakdowns prefer independently verifiable vertical slices over implementation checklists",
+        "user-facing output uses plain Chinese conclusions instead of raw Spec/ER/IR/FR/NFR/AC labels",
+        "a persisted response summarizes included work, observable completion, next action and development-record path without repeating the plan",
+        "a chat-only response remains self-contained and explains why no document was created",
+        "at most one blocking question is raised"
+      ]
+    },
+    {
+      "query": "分析一个明确的单目标需求，只在本轮给出范围和完成标准",
+      "checklist": [
+        "uses a compact chat-only contract because persistence and handoff are not needed",
+        "checks explicit or conversational artifact identity but does not scan req-process",
+        "does not create queue files merely to preserve context",
+        "keeps scope and completion criteria self-contained in the response"
+      ]
+    },
+    {
+      "query": "用xc881分诊 GitHub issue #42，判断是否 ready-for-agent",
+      "checklist": [
+        "canonical tracker state transition is justified from issue evidence",
+        "Agent Brief is behavior-oriented with testable AC and out-of-scope boundaries",
+        "AI public comments include an AI-assistance disclosure when planned",
+        "executed tracker mutations are separated from planned/skipped commands",
+        "bug diagnosis is resolved in the bugfix branch instead of guessed inline"
+      ]
+    },
+    {
+      "query": "分析这个跨模块迁移需求并持续跟进实现进度",
+      "checklist": [
+        "creates a task under dev-notes/req-process because hard document triggers apply",
+        "index owns stable scope and AC while current owns the sole active pointer",
+        "the requirement branch reads index.md by default for requirement resume, scope/AC changes, audit or state repair",
+        "queue items are independently verifiable vertical slices with dependencies",
+        "each non-terminal queue item includes goal, relevant scope/AC, targets, constraints and verification",
+        "normal artifact creation, reopening and checkpointing derive every linked field before one coherent write, rather than running a validator and retrying",
+        "process validators remain limited to explicit audit, observed-corruption repair and repository/CI maintenance",
+        "Coding resume instructions load current.md plus the current item only and do not load index/previous/next by default",
+        "current.md provides non-empty last-completed and next-action summaries without validation results",
+        "a reusable visual contract is created only for an explicit or multi-surface/session/queue need, under dev-notes/design-system with a bounded master and needed deviations",
+        "the requirement branch hands Coding the exact master and optional surface path; Coding never scans the design-system directory or changes the contract from code evidence",
+        "instant Coding tasks skip artifact reads while explicit or unambiguous queue tasks use the bounded window",
+        "progress stores queue/current/blockers only and keeps verification results in chat",
+        "chat output translates artifact path, current, next and blockers into a compact human-readable development-record summary instead of repeating the full plan"
+      ]
+    },
+    {
+      "query": "继续修改之前的 req-process 协议需求，并把新增工作交给 Coding",
+      "checklist": [
+        "resolves an explicit or conversational artifact before applying the document gate",
+        "when persistence or implementation handoff is likely and context is insufficient, runs a bounded mechanical search that returns candidate paths only and semantically compares plausible candidates",
+        "does not select by newest directory or keywords alone",
+        "reuses one semantic match, asks one blocking selection question for multiple plausible matches, and creates only when no match survives the normal gate",
+        "reopened work preserves completed history, appends IDs after the old tail and sets task state ready",
+        "hands Coding the exact artifact path, current item, next item and blockers without asking Coding to search"
+      ]
+    },
+    {
+      "query": "先分析登录需求，必要时读现有实现，明确后直接实现",
+      "checklist": [
+        "the requirement branch retains scope and AC ownership",
+        "simple exact/local/low-risk repository reads may stay in the requirement branch while complex/tracked reads are delegated to Coding",
+        "returned code evidence resumes the same analysis run",
+        "the confirmed read/write execution is automatically handed to Coding without another user invocation",
+        "requirement artifact maintenance does not recursively trigger Coding"
+      ]
+    },
+    {
+      "query": "把这个需求拆成三个队列项并开始实现，不要每项都问我",
+      "checklist": [
+        "the requirement branch hands Coding one exact current window and declares continuous execution",
+        "queue checkpoints recover state; Coding advances without asking the user to continue",
+        "Coding is expected to advance and continue until all items are terminal",
+        "only explicit stepwise intent or a genuine blocker permits an intermediate stop"
+      ]
+    },
+    {
+      "query": "这个需求会跨很多轮执行，压缩上下文后也要能继续",
+      "checklist": [
+        "keeps stable scope and AC in index while current.md remains the bounded execution pointer",
+        "after compaction, resumes the same owner and current.md window",
+        "keeps accepted contract changes, blockers and exact evidence paths durable",
+        "does not store raw tool output as requirement authority",
+        "hands Coding a self-contained current item so recovery does not require full history",
+        "continues to task terminal without asking the user to say continue after compaction"
+      ]
+    },
+    {
+      "query": "需求分析中途需要联网调研，随后自动压缩上下文，调研完成后继续实现",
+      "checklist": [
+        "preserves Analysis as the active owner across context compaction",
+        "the solution branch resumes only its bounded RQ and returns evidence to the same requirement run",
+        "the requirement branch completes scope and AC before handing the exact current window to Coding",
+        "Coding continues the queue without a second skill invocation or user continuation prompt"
+      ]
+    },
+    {
+      "query": "沿用本轮已确认的 Spec 和同版本接口证据，只补充权限失败的验收标准；不创建文档",
+      "checklist": [
+        "reuses applicable Spec and interface evidence instead of repeating normalization or repository discovery",
+        "loads the inference or existing-change reference only for the unresolved permission contract, without preloading tracker, persistence or design references",
+        "connects each added AC to an explicit need or labeled inference and observable failure behavior",
+        "a blocking delegated read carries the exact question and evidence and returns only relevant anchors, uncertainty and next step to the requirement branch",
+        "loads any newly needed reference automatically while retaining scope ownership and the no-document boundary"
+      ]
+    },
+    {
+      "query": "完整 Bugfix 正文和同版本复现已在消息中，连续三轮补充边界观察，只诊断",
+      "checklist": [
+        "reuses the supplied entry and unchanged needed references without duplicate tool reads on any turn",
+        "distinguishes new observations from causal inference and preserves diagnosis-only scope",
+        "loads missing forensics guidance only if new evidence introduces a real causal gap"
+      ]
+    },
+    {
+      "query": "用xc881修复登录 500，先定位原因",
+      "checklist": [
+        "reuses a valid supplied repro or causal evidence and plans a tight red-capable check only for a remaining causal gap",
+        "the repro is minimized or the remaining non-minimized parts are justified",
+        "ranks only plausible falsifiable hypotheses, without a count quota, and chooses a discriminating observation before instrumentation",
+        "root cause is stated with a confidence level, not as certainty",
+        "fact and hypothesis are distinguished",
+        "bug tracker handoff includes repro/verify fields when the source is an issue",
+        "no exploit steps are included for security issues"
+      ]
+    },
+    {
+      "query": "先定位接口 500 根因，明确后直接读取并修复代码",
+      "checklist": [
+        "the bugfix branch owns hypotheses, cause confidence, repair plan and verification plan",
+        "simple exact/local/low-risk inspection may stay in the bugfix branch while complex/tracked inspection is delegated to Coding and returns evidence",
+        "the delegated read does not grant change permission",
+        "confirmed repair work is automatically handed back to Coding without requiring another user invocation"
+      ]
+    },
+    {
+      "query": "诊断中途发现 expected 行为没有定义，且还需要比较大范围外部方案",
+      "checklist": [
+        "bounded expected-behavior/scope gaps resolve in the requirement branch and the answer resumes the same diagnosis",
+        "bounded version/advisory fact checks stay inside the bugfix branch while open-ended external research resolves in the solution branch",
+        "internal branch switches retain Analysis ownership without granting change permission or restarting discovery"
+      ]
+    },
+    {
+      "query": "只分析这个接口 500 的根因和修复方案，不改代码",
+      "checklist": [
+        "Analysis remains the only active owner and gathers only evidence needed for diagnosis",
+        "the output distinguishes observed evidence, ranked hypotheses and cause confidence",
+        "下一步 reads 仅诊断 or names missing evidence rather than starting a Coding change",
+        "the explicit no-code boundary is preserved even when a plausible fix is known"
+      ]
+    },
+    {
+      "query": "Analysis 委派 Coding 读日志和调用链时发生自动上下文压缩",
+      "checklist": [
+        "preserves Analysis as owner of hypotheses, cause confidence and repair scope",
+        "context compaction resumes the bounded Coding read without granting change permission",
+        "returned evidence continues the same diagnosis instead of restarting or asking the user",
+        "confirmed changes are handed to Coding only after cause and scope are clear"
+      ]
+    },
+    {
+      "query": "只诊断：这里是同版本复现和栈，可能是空值，也可能是并发；还没有验证，请给下一步",
+      "checklist": [
+        "reuses the supplied reproducer and stack without claiming they distinguish the two explanations",
+        "labels the cause unconfirmed and names the smallest observation that would separate null handling from concurrency",
+        "loads forensics or reproducer guidance as the uncertainty requires, not web/security references without a relevant external or exposure question",
+        "keeps speculative repair conditional and an unrun verification plan distinct from observed results",
+        "retains Analysis ownership and returns the exact missing check without granting a Coding change"
+      ]
+    },
+    {
+      "query": "Solution 完整正文与引用仍在上下文；继续同一有界研究，随后出现来源版本冲突",
+      "checklist": [
+        "reuses available entry/ref instructions without repeating file reads or the research ceremony",
+        "checks evidence freshness independently and acquires missing source/conflict rules when the conflict arises",
+        "returns bounded citations, impact and uncertainty to the active run without requesting another invocation"
+      ]
+    },
+    {
+      "query": "用xc881调研 Supabase 和 Firebase 的技术方案差异",
+      "checklist": [
+        "fact, inference and recommendation are clearly separated",
+        "each cited source is actually used in the reasoning",
+        "large research is written to a bounded artifact and chat output reports path plus decision impact",
+        "推荐 is only made when 依据 is sufficient, else stated as blocker"
+      ]
+    },
+    {
+      "query": "查官方资料确认这个 API 在当前版本是否已弃用",
+      "checklist": [
+        "uses the smallest useful set of version-matched primary sources",
+        "reports the fact, evidence, decision impact and residual risk",
+        "does not create artificial alternatives or empty 对比/推荐 sections",
+        "does not switch to the requirement branch or Coding without a separate requested outcome"
+      ]
+    },
+    {
+      "query": "需求分支切到调研分支：调研 checkpoint 方案，Artifact 是 dev-notes/req-process/20260713-checkpoint/",
+      "checklist": [
+        "writes bounded findings under the provided artifact evidence directory",
+        "returns evidence path and affected RQ/decision to the same requirement run",
+        "does not create a second unrelated artifact or repeat the full evidence in chat",
+        "keeps fact, inference and recommendation distinct"
+      ]
+    },
+    {
+      "query": "需求分支触发的技术调研中途发生自动上下文压缩",
+      "checklist": [
+        "after compaction, continues the same solution-branch research and returns to the requirement branch",
+        "retains the bounded RQ, source/evidence paths and Analysis as active owner",
+        "does not restart research broadly or ask the user to invoke the branch again",
+        "returns the result to the same analysis run automatically"
+      ]
+    },
+    {
+      "query": "需求分支内部查证：已有同版本官方资料回答 RQ-1，只补齐 RQ-2 的适用限制后返回",
+      "checklist": [
+        "reuses RQ-1 evidence whose scope, version and freshness still fit and searches only the missing RQ-2 claim",
+        "loads source/conflict guidance when needed but does not load paper or option-comparison references for a fact check",
+        "stops once the bounded decision is supported rather than collecting a source quota",
+        "preserves unresolved applicability conflicts and names an exact blocking check if they can change the decision",
+        "returns only needed claims/citations or the supplied evidence path, impact, uncertainty and exact next requirement action"
+      ]
+    }
+  ]
+}

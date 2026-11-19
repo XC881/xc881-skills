@@ -2,25 +2,7 @@
   "principle": "accurate, low-token, effective agent reading",
   "skills": [
     {
-      "name": "xc881-solution-research",
-      "trigger": "implicit-allowed",
-      "mode": "analysis",
-      "handoff": [
-        "xc881-requirement-analysis",
-        "xc881-coding-skills"
-      ]
-    },
-    {
-      "name": "xc881-requirement-analysis",
-      "trigger": "implicit-allowed",
-      "mode": "analysis",
-      "handoff": [
-        "xc881-solution-research",
-        "xc881-coding-skills"
-      ]
-    },
-    {
-      "name": "xc881-bugfix-research",
+      "name": "xc881-analysis",
       "trigger": "implicit-allowed",
       "mode": "analysis",
       "handoff": [
@@ -31,14 +13,17 @@
       "name": "xc881-coding-skills",
       "trigger": "implicit-allowed",
       "mode": "execution",
-      "handoff": []
+      "handoff": [
+        "xc881-analysis",
+        "xc881-porting-orchestration"
+      ]
     },
     {
       "name": "xc881-source-article-style",
       "trigger": "implicit-allowed",
       "mode": "writing",
       "handoff": [
-        "xc881-solution-research",
+        "xc881-analysis",
         "xc881-coding-skills"
       ]
     },
@@ -47,8 +32,7 @@
       "trigger": "implicit-allowed",
       "mode": "orchestration",
       "handoff": [
-        "xc881-requirement-analysis",
-        "xc881-solution-research",
+        "xc881-analysis",
         "xc881-coding-skills"
       ]
     }

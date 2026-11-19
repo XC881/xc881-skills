@@ -1,9 +1,9 @@
 # Cross-Process Plan File
 
-The source of truth for porting-specific execution state. Requirement scope/AC
+The source of truth for porting-specific execution state in `goal` / multi-slice migrations (`non-goal` one-shot function/file/slice ports skip both `req-process` and this file). Requirement scope/AC
 remain authoritative in the linked req-process Artifact.
 
-Keep the active ledger at or below 3,000 characters; link long logs/reports.
+Keep the active ledger at or below 4,500 characters; roll up completed slices into one summary line when module lists grow, and link long reports.
 Validators are for explicit audit, observed-corruption repair, and repository/CI, not normal ledger authoring.
 
 ## Location
@@ -41,13 +41,14 @@ Requirement artifact: dev-notes/req-process/<task>/
 Magnitude: whole-project / module / feature / logic-slice / abstract-intent
 Equivalence method: IO parity / ported tests / golden / intent-fidelity
 Items:
-  - <module/feature>: not-started / in-progress / done
+  - <module/feature>: pending | ready | blocked | done | skipped
 Progress: <done N of M> — <last calibrated at>
 Open risks: <P0-P3, carried across sessions>
 ```
 
 ## Rules
 
+- Item status never uses `in-progress`; linked `req-process/current.md` alone names the active slice.
 - Keep it a ledger: derive required fields first, update once, and store the
   equivalence method, not its result; report verdict/evidence in chat.
 - One file per porting task; `cross-process/` holds many tasks.

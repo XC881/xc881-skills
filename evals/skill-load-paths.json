@@ -1,30 +1,140 @@
 {
   "kind": "declared-instruction-paths",
   "cases": [
-    {"id": "simple-exact-read", "owner": null, "reads": []},
-    {"id": "coding-mechanical-change", "owner": "xc881-coding-skills", "reads": ["SKILL.md"]},
-    {"id": "coding-complex-review", "owner": "xc881-coding-skills", "reads": ["SKILL.md", "references/engineering-quality-rubric.md"]},
-    {"id": "frontend-existing-component", "owner": "xc881-coding-skills", "reads": ["SKILL.md", "references/frontend-routing-and-design-read.md", "references/frontend-implementation-standard.md", "references/frontend-states-and-accessibility.md"], "baseline_reads": ["SKILL.md", "references/frontend-routing-and-design-read.md", "references/frontend-implementation-standard.md"]},
-    {"id": "frontend-new-baseline-decision", "owner": "xc881-coding-skills", "reads": ["SKILL.md", "references/frontend-routing-and-design-read.md", "references/frontend-design-intelligence.md"], "tool_output_max_chars": 4200},
-    {"id": "requirement-chat-only", "owner": "xc881-requirement-analysis", "reads": ["SKILL.md"]},
-    {"id": "requirement-existing-queue-change", "owner": "xc881-requirement-analysis", "reads": ["SKILL.md", "references/existing-project-feature-analysis.md", "references/requirement-process-artifact.md"]},
-    {"id": "solution-supplied-fact", "owner": "xc881-solution-research", "reads": ["SKILL.md"]},
-    {"id": "solution-version-conflict", "owner": "xc881-solution-research", "reads": ["SKILL.md", "references/source-priority-policy.md"]},
-    {"id": "bugfix-competing-causes", "owner": "xc881-bugfix-research", "reads": ["SKILL.md", "references/bugfix-forensics-workflow.md"]},
-    {"id": "article-outline-supplied-evidence", "owner": "xc881-source-article-style", "reads": ["SKILL.md"]},
-    {"id": "article-function-analysis", "owner": "xc881-source-article-style", "reads": ["SKILL.md", "references/function-level-source-article.md"]},
-    {"id": "porting-bounded-plan", "owner": "xc881-porting-orchestration", "reads": ["SKILL.md", "references/goal-boundary-contract.md"]},
-    {"id": "porting-parity-gap", "owner": "xc881-porting-orchestration", "reads": ["SKILL.md", "references/equivalence-and-idiomatic-porting.md"]}
+    {
+      "id": "simple-exact-read",
+      "owner": null,
+      "reads": []
+    },
+    {
+      "id": "coding-mechanical-change",
+      "owner": "xc881-coding-skills",
+      "reads": [
+        "SKILL.md"
+      ]
+    },
+    {
+      "id": "coding-complex-review",
+      "owner": "xc881-coding-skills",
+      "reads": [
+        "SKILL.md",
+        "references/engineering-quality-rubric.md"
+      ]
+    },
+    {
+      "id": "frontend-existing-component",
+      "owner": "xc881-coding-skills",
+      "reads": [
+        "SKILL.md",
+        "references/frontend-routing-and-design-read.md",
+        "references/frontend-implementation-standard.md",
+        "references/frontend-states-and-accessibility.md"
+      ],
+      "baseline_reads": [
+        "SKILL.md",
+        "references/frontend-routing-and-design-read.md",
+        "references/frontend-implementation-standard.md"
+      ]
+    },
+    {
+      "id": "frontend-new-baseline-decision",
+      "owner": "xc881-coding-skills",
+      "reads": [
+        "SKILL.md",
+        "references/frontend-routing-and-design-read.md",
+        "references/frontend-design-intelligence.md"
+      ],
+      "tool_output_max_chars": 4200
+    },
+    {
+      "id": "requirement-chat-only",
+      "owner": "xc881-analysis",
+      "reads": [
+        "SKILL.md"
+      ]
+    },
+    {
+      "id": "requirement-existing-queue-change",
+      "owner": "xc881-analysis",
+      "reads": [
+        "SKILL.md",
+        "references/existing-project-feature-analysis.md",
+        "references/requirement-process-artifact.md"
+      ]
+    },
+    {
+      "id": "solution-supplied-fact",
+      "owner": "xc881-analysis",
+      "reads": [
+        "SKILL.md"
+      ]
+    },
+    {
+      "id": "solution-version-conflict",
+      "owner": "xc881-analysis",
+      "reads": [
+        "SKILL.md",
+        "references/source-priority-policy.md"
+      ]
+    },
+    {
+      "id": "bugfix-competing-causes",
+      "owner": "xc881-analysis",
+      "reads": [
+        "SKILL.md",
+        "references/bugfix-forensics-workflow.md"
+      ]
+    },
+    {
+      "id": "article-outline-supplied-evidence",
+      "owner": "xc881-source-article-style",
+      "reads": [
+        "SKILL.md"
+      ]
+    },
+    {
+      "id": "article-function-analysis",
+      "owner": "xc881-source-article-style",
+      "reads": [
+        "SKILL.md",
+        "references/function-level-source-article.md"
+      ]
+    },
+    {
+      "id": "porting-bounded-plan",
+      "owner": "xc881-porting-orchestration",
+      "reads": [
+        "SKILL.md",
+        "references/goal-boundary-contract.md"
+      ]
+    },
+    {
+      "id": "porting-parity-gap",
+      "owner": "xc881-porting-orchestration",
+      "reads": [
+        "SKILL.md",
+        "references/equivalence-and-idiomatic-porting.md"
+      ]
+    }
   ],
   "continuations": [
     {
       "id": "supplied-body-three-turns",
-      "owner": "xc881-bugfix-research",
+      "owner": "xc881-analysis",
       "precondition": "Complete entry body and sufficient same-revision diagnosis evidence are supplied. No forced reread.",
       "turns": [
-        {"request": "Diagnose the supplied deterministic off-by-one defect only.", "reads": []},
-        {"request": "Explain another boundary observation; code and rules are unchanged.", "reads": []},
-        {"request": "Assess a proposed alternative cause against the same evidence.", "reads": []}
+        {
+          "request": "Diagnose the supplied deterministic off-by-one defect only.",
+          "reads": []
+        },
+        {
+          "request": "Explain another boundary observation; code and rules are unchanged.",
+          "reads": []
+        },
+        {
+          "request": "Assess a proposed alternative cause against the same evidence.",
+          "reads": []
+        }
       ],
       "quality": "Correct cause versus given observation; no execution or invented evidence."
     },
@@ -33,17 +143,28 @@
       "owner": "xc881-coding-skills",
       "precondition": "Only the selected entry path is supplied; all project facts for a nonvisual bounded explanation are given.",
       "turns": [
-        {"request": "Use the selected Coding skill to explain the supplied code without edits.", "reads": ["SKILL.md"]},
-        {"request": "Continue the same explanation with another supplied input.", "reads": []}
+        {
+          "request": "Use the selected Coding skill to explain the supplied code without edits.",
+          "reads": [
+            "SKILL.md"
+          ]
+        },
+        {
+          "request": "Continue the same explanation with another supplied input.",
+          "reads": []
+        }
       ],
       "quality": "Acquire missing instructions, preserve instant/read and avoid unrelated artifact/ref discovery."
     },
     {
       "id": "explicit-repeat-invocation",
-      "owner": "xc881-requirement-analysis",
+      "owner": "xc881-analysis",
       "precondition": "Complete current entry remains in context; chat-only scope and no forced reread.",
       "turns": [
-        {"request": "Explicitly invoke Requirement again to adjust a supplied acceptance criterion.", "reads": []}
+        {
+          "request": "Explicitly invoke Requirement again to adjust a supplied acceptance criterion.",
+          "reads": []
+        }
       ],
       "quality": "Respect required invocation tools without an additional manual body read or unsolicited persistence."
     },
@@ -52,19 +173,38 @@
       "owner": "xc881-coding-skills",
       "precondition": "Entry, frontend router, implementation and state/accessibility rules are fully in context. Motion rules are absent; existing project evidence remains valid.",
       "turns": [
-        {"request": "Adjust the existing form error state.", "reads": []},
-        {"request": "Add restrained feedback animation within the existing system.", "reads": ["references/frontend-motion-and-performance.md"]},
-        {"request": "Return to the form error and retry state without other changes.", "reads": []}
+        {
+          "request": "Adjust the existing form error state.",
+          "reads": []
+        },
+        {
+          "request": "Add restrained feedback animation within the existing system.",
+          "reads": [
+            "references/frontend-motion-and-performance.md"
+          ]
+        },
+        {
+          "request": "Return to the form error and retry state without other changes.",
+          "reads": []
+        }
       ],
       "quality": "Preserve accessibility, reduced motion, component authority and no new dependencies."
     },
     {
       "id": "known-instruction-change",
-      "owner": "xc881-solution-research",
+      "owner": "xc881-analysis",
       "precondition": "Entry and source-priority rules were read. An authoritative message identifies a relevant source-priority rule change; its replacement body is not supplied.",
       "turns": [
-        {"request": "Resolve the pending version conflict under the changed rule.", "reads": ["references/source-priority-policy.md"]},
-        {"request": "Continue the same decision with unchanged rules.", "reads": []}
+        {
+          "request": "Resolve the pending version conflict under the changed rule.",
+          "reads": [
+            "references/source-priority-policy.md"
+          ]
+        },
+        {
+          "request": "Continue the same decision with unchanged rules.",
+          "reads": []
+        }
       ],
       "quality": "No stale-rule reliance, hash polling or unnecessary expansion."
     },
@@ -73,7 +213,12 @@
       "owner": "xc881-coding-skills",
       "precondition": "Exact active queue identity and recovery instructions survive, but selected entry body is absent. The slice needs no additional refs.",
       "turns": [
-        {"request": "Resume the exact current queue slice automatically.", "reads": ["SKILL.md"]}
+        {
+          "request": "Resume the exact current queue slice automatically.",
+          "reads": [
+            "SKILL.md"
+          ]
+        }
       ],
       "quality": "Reacquire missing rules and authoritative mutable window, verify the task, no full-pack reload or normal process validator."
     },
@@ -82,16 +227,24 @@
       "owner": "xc881-porting-orchestration",
       "precondition": "Complete selected entry, cross-process rules and exact ledger/current identities survive; fresh mutable state must still be consumed.",
       "turns": [
-        {"request": "Continue the current equivalence check after recovery.", "reads": []}
+        {
+          "request": "Continue the current equivalence check after recovery.",
+          "reads": []
+        }
       ],
       "quality": "Do not conflate retained static rules with fresh ledger/current state or assume equivalence without evidence."
     },
     {
       "id": "fresh-context-loaded-marker",
-      "owner": "xc881-bugfix-research",
+      "owner": "xc881-analysis",
       "precondition": "A fresh delegated context receives a loaded marker and selected path, not the body; sufficient bounded diagnosis evidence and verification plan are supplied.",
       "turns": [
-        {"request": "Diagnose the supplied pure-function defect and return bounded evidence.", "reads": ["SKILL.md"]}
+        {
+          "request": "Diagnose the supplied pure-function defect and return bounded evidence.",
+          "reads": [
+            "SKILL.md"
+          ]
+        }
       ],
       "quality": "Acquire required instructions in the child context and return without granting implementation permission."
     },
@@ -100,8 +253,18 @@
       "owner": "xc881-coding-skills",
       "precondition": "Exact queue identity is in the workspace. Declared reads are instruction files only.",
       "turns": [
-        {"request": "Complete the current queue window.", "reads": ["SKILL.md"]},
-        {"request": "Resume the same window after context recovery.", "reads": ["SKILL.md"]}
+        {
+          "request": "Complete the current queue window.",
+          "reads": [
+            "SKILL.md"
+          ]
+        },
+        {
+          "request": "Resume the same window after context recovery.",
+          "reads": [
+            "SKILL.md"
+          ]
+        }
       ],
       "quality": "Item status never in-progress. Continue the same current window."
     },
@@ -110,8 +273,16 @@
       "owner": "xc881-source-article-style",
       "precondition": "Current entry is available; the user explicitly requests rereading it before continuing a supplied source outline.",
       "turns": [
-        {"request": "Reread the selected entry, then continue this outline only.", "reads": ["SKILL.md"]},
-        {"request": "Refine the same outline; no new reread request or missing rules.", "reads": []}
+        {
+          "request": "Reread the selected entry, then continue this outline only.",
+          "reads": [
+            "SKILL.md"
+          ]
+        },
+        {
+          "request": "Refine the same outline; no new reread request or missing rules.",
+          "reads": []
+        }
       ],
       "quality": "Honor explicit reread intent and source boundaries without loading a full chapter template."
     }

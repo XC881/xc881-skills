@@ -11,14 +11,14 @@ the current conversation does not unambiguously identify one active queue task.
 
 - Do not scan `dev-notes` merely because it exists.
 - Read, explain, trace, review, change, or verify the actual code directly.
-- Do not create/update a queue unless requirement analysis decides persistence is
+- Do not create/update a queue unless `$xc881-analysis` (Requirement branch) decides persistence is
   needed for the task's complexity.
 
 ## Queue mode
 
 Use only for an explicit artifact/path/handoff or an unambiguous active task in
 the current conversation. If multiple artifacts are plausible, ask one blocking
-selection question. A Requirement handoff for new or reopened work names the
+selection question. An Analysis (Requirement branch) handoff for new or reopened work names the
 exact artifact, current item, next item, and blockers; consume it without
 searching directories or selecting the newest artifact.
 
@@ -26,7 +26,7 @@ Before work:
 
 1. Consume the exact write-first handoff; do not run a process validator in
    normal execution. Directly observed malformed fields or links return to
-   Requirement; explicit audit/repair may validate once.
+   `$xc881-analysis`; explicit audit/repair may validate once.
 2. Read `current.md` and only the current queue item it names. Use an exact fresh
    window already supplied/read; known advancement, edits or missing context need
    the current state again. Reusing static rules does not prove queue freshness.
@@ -37,11 +37,11 @@ Before work:
 4. Load a linked decision/evidence file only when the current queue item names it.
 5. Treat `current.md + current item` as goal, scope/AC, targets,
    constraints, and verification contract. Behavior-changing contract gaps return
-   to requirement analysis.
+   to `$xc881-analysis`.
 
-Return to Requirement instead of reading `index.md` when the current item lacks
+Return to `$xc881-analysis` instead of reading `index.md` when the current item lacks
 required contract, actual code conflicts with it, the user changes scope/AC, or
-the queue needs replanning. Requirement owns the full-contract read and produces
+the queue needs replanning. Analysis (Requirement branch) owns the full-contract read and produces
 a refreshed current window before Coding resumes.
 
 For cross-process continuation, read the selected current cross-process ledger,
@@ -57,7 +57,7 @@ Persistence and action are independent:
 - `queue + read`: inspect the current slice, report findings, checkpoint state.
 - `queue + change`: implement the current slice, verify, checkpoint state.
 
-A Requirement/Bugfix/source-article run may perform a simple read directly or
+An Analysis or source-article run may perform a simple read directly or
 delegate complex read-only evidence while retaining ownership. Execute delegated
 `read` in the selected mode, return evidence, and do not infer change permission.
 
@@ -73,6 +73,9 @@ Execution:
 After a queue item:
 
 - Run declared verification before `done`, but report results/logs only in chat.
+- Preserve exact machine fields:
+  - `current.md`: `Task: <index ID>`, `State:`, `Previous|Current|Next: none | queue/Q-NNN-<slug>.md` (relative paths, never bare IDs; terminal `done|cancelled|superseded` sets `Current: none` and `Next: none`), `Progress:`, `Blockers:`, plus non-empty `Last completed:` and `Next action:` while active.
+  - `queue/Q-NNN-*.md`: `ID: Q-NNN`, `Status:`, `Previous|Next: none | Q-NNN` (bare IDs, never paths), `Blocked by: none | Q-NNN,...`.
 - Derive item status, current pointers/counts and one `history.md` line per
   changed item before one coherent patch. Name `Q-ID: old -> new`, next current
   and task state. Record completion/advancement, block/resume, reopen and task

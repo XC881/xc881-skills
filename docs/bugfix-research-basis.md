@@ -2,22 +2,22 @@
 
 Repository-level background, not runtime reference.
 
-`xc881-bugfix-research` is intent-routed and analysis-only.
+The Bugfix branch of `xc881-analysis` is analysis-only and activates both for
+standalone diagnosis requests and before Coding when a bug/regression/vulnerability
+fix request has an unconfirmed root cause.
 
 Reason:
 
-- ordinary bug/error/security words need symptom/diagnosis context to avoid noisy auto-triggering;
-- bug/vulnerability diagnosis can require web research and longer reasoning, so it should only trigger on clear diagnostic intent;
-- implementation and verification remain in `xc881-coding-skills` only when the
-  user or delegating owner requested a change.
+- incidental error words do not trigger diagnosis when cause and patch are already concrete;
+- unconfirmed bugs/vulnerabilities need tight reproducers, falsifiable hypotheses, and bounded version/advisory checks before patching;
+- once root cause and minimal repair are supported and a fix was intended, Analysis chains into `xc881-coding-skills` automatically; diagnosis-only requests stop at the plan.
 
 Flow:
 
 ```text
-bug/vulnerability diagnosis intent
-→ evidence and external research
-→ root-cause hypothesis
-→ repair plan
-→ verification plan
-→ optional handoff to xc881-coding-skills when implementation was requested
+diagnosis intent OR unconfirmed fix request
+-> tight reproducer + bounded repository/advisory evidence
+-> falsifiable hypotheses -> supported cause + confidence
+-> minimal repair + verification plan
+-> automatic chain to xc881-coding-skills when a fix was intended (else 下一步: 仅诊断)
 ```

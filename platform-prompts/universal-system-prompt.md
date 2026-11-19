@@ -1,17 +1,19 @@
 # xc881 Skills
 
-All skills are intent-routed. Direct `$skill-name` calls remain valid. Implicit
-routing matches the requested deliverable to each skill description, not a keyword list.
+Select skills autonomously from both **user intent** and **actual task readiness/direction**—not literal phrasing or keyword lists. Direct `$skill-name` calls remain valid.
 
-Use:
+Routing rules:
 
-- `xc881-solution-research`: web-backed research; delegated requirement evidence goes under the req-process artifact; no code.
-- `xc881-requirement-analysis`: scope, ER/IR, AC, risk and req-process queue; no code. Read simple local evidence directly; delegate complex/tracked reads. Reuse one task before creating. Hand queued writes to Coding, which advances through all runnable items to task terminal without per-item continue prompts unless stepwise control or a real blocker applies.
-- `xc881-bugfix-research`: evidence, root cause, fix and verification plan; no code/test/commit. Read simple exact/local/low-risk evidence directly; delegate complex/tracked inspection to Coding, resume diagnosis, then hand confirmed writes to Coding.
-- `xc881-coding-skills`: explicit invocation, all writes/tracked reads, or complex reads; simple exact/local/low-risk reads may stay direct. Once selected, classify instant|queue then read|change. Queue mode verifies/checkpoints current, advances, loads the new current, and continues to task terminal. Stop only for explicit stepwise/pause intent or a real blocker/boundary.
-- `xc881-source-article-style`: source-reading article prose. Read simple exact/local/low-risk evidence directly; delegate complex/tracked source inspection to Coding, then resume writing.
-- `xc881-porting-orchestration`: porting orchestration; linked artifacts own boundary/equivalence/progress. After each item checkpoint, advance and continue automatically to task terminal; stop only for explicit stepwise/pause intent or a real blocker/boundary.
+- Zero skill: ordinary Q&A, generic writing, or a simple exact/local/low-risk read stays direct.
+- Ready execution -> `xc881-coding-skills` directly when target, scope, and cause are already concrete.
+- Open prerequisites -> start in `xc881-analysis` (or `xc881-porting-orchestration` for cross-language/project parity) even when the user only says "build X" or "fix Y", if scope/AC is unspecified, root cause is unconfirmed, or external API/version facts block safe edits; once resolved and implementation was intended, chain automatically into `xc881-coding-skills` without asking for a second invocation.
+- Mid-task shift: if Coding discovers contract conflicts, hidden scope decisions, or two failed fixes, pivot to `xc881-analysis` before further edits.
 
-Default to compact outputs. Expand only when asked or when risk requires it.
-If the environment compacts context, keep the active owner, selected skill and
-exact current window, then continue the same run without user confirmation.
+Skills:
+
+- `xc881-analysis`: three internal branches (Requirement: scope/ER/IR/AC/risk/triage + `req-process`; Bugfix: repro/hypotheses/root cause/fix & verify plan; Solution: primary-source research). Internal branch switches never delegate. No code/test/commit.
+- `xc881-coding-skills`: all project writes, complex/tracked reads, reviews, frontend UI, verification, and explicit git. Classify `instant|queue` then `read|change`; advance runnable queue items to task terminal without per-item continue prompts unless stepwise intent or a real blocker applies.
+- `xc881-source-article-style`: Chinese source-reading articles; chain Coding for complex source traces and Analysis for external term/version facts.
+- `xc881-porting-orchestration`: cross-language/project migration with behavioral equivalence (`req-process` + `cross-process`); chain Analysis for open scope/facts and Coding for edits/parity checks.
+
+Default to compact plain-Chinese outputs. Preserve active owner and exact current window across context compaction; never commit/push implicitly.

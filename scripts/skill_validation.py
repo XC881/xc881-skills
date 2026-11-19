@@ -113,11 +113,13 @@ _IMPL_CODE_RE = re.compile(
 
 
 # Real agent output wraps section labels in markdown: bold (**risk:**), list
-# markers (- risk:), backticks, or a full-width colon (：). Normalize those away
-# so header detection matches emitted headers, not just the plain fixture form.
+# markers (- risk:), backticks, a full-width colon (：), or a parenthetical
+# qualifier (修复（最小修复）:). Normalize those away so header detection matches
+# emitted headers, not just the plain fixture form.
 def _norm_header(line):
     header = line.strip().lstrip("#-*` \t").rstrip("*` ")
     header = re.sub(r"(\*\*|__|`)", "", header)
+    header = re.sub(r"[（(][^()（）]*[)）]", "", header)
     return header.replace("：", ":").strip()
 
 
@@ -240,6 +242,14 @@ def validate_output_contract(contract):
         or not isinstance(body, dict) for mode, body in modes.items()
     ):
         raise ValueError("invalid output modes")
+    anchor_modes = contract.get("anchor_modes", {})
+    if not isinstance(anchor_modes, dict):
+        raise ValueError("anchor_modes must be a mapping")
+    for anchor, mode in anchor_modes.items():
+        if anchor not in contract["anchors"]:
+            raise ValueError(f"anchor_modes key is not an anchor: {anchor}")
+        if mode not in modes and mode not in {"full", "prose"}:
+            raise ValueError(f"anchor_modes value is not a mode: {mode}")
     for mode in ["full", *modes]:
         selected = output_contract_mode(contract, mode)
         required, optional = selected.get("required_sections"), selected.get("optional_sections", [])
@@ -304,6 +314,80 @@ def validate_behavior_contracts(root, skills):
                 isinstance(item, str) and item.strip() for item in checklist
             ):
                 die("xc881-skills", f"{name} rubric checklist must be non-empty strings")
+
+
+# These passages are duplicated across SKILL.md files on purpose: skills install
+# as standalone directories, so shared policy lives in every copy. This check is
+# the drift alarm; edit the passages in lockstep.
+SHARED_SKILL_PASSAGES = {
+    "*": [
+        "Route each turn by user intent and actual task needs, not literal wording; chain\n"
+        "or switch skills when open scope, cause, facts, parity, or code work requires it.\n"
+        "Full supplied bodies count; names/paths/markers do not. Reuse in-context rules;\n"
+        "read missing/changed or reread-requested exact paths only. Higher-priority rules win.",
+        "simple exact/local/low-risk",
+    ],
+}
+
+
+def validate_shared_passages(root, skills):
+    for skill in skills:
+        name = skill["name"]
+        text = (Path(root) / "skills" / name / "SKILL.md").read_text(encoding="utf-8").lower()
+        for passage in SHARED_SKILL_PASSAGES.get("*", []) + SHARED_SKILL_PASSAGES.get(name, []):
+            if passage.lower() not in text:
+                die(name, f"missing shared passage: {passage.splitlines()[0][:60]}")
+
+
+DESCRIPTION_CHAR_LIMIT = 320
+DESCRIPTION_TOTAL_LIMIT = 1650
+
+
+def validate_description_budgets(root, skills):
+    total = 0
+    for skill in skills:
+        name = skill["name"]
+        text = (Path(root) / "skills" / name / "SKILL.md").read_text(encoding="utf-8")
+        description = parse_frontmatter(text, name)["description"]
+        if len(description) > DESCRIPTION_CHAR_LIMIT:
+            die(name, f"description {len(description)} chars exceeds {DESCRIPTION_CHAR_LIMIT}")
+        total += len(description)
+    if total > DESCRIPTION_TOTAL_LIMIT:
+        die("xc881-skills", f"descriptions total {total} chars exceeds {DESCRIPTION_TOTAL_LIMIT}")
+
+
+def validate_handoffs(skills):
+    names = {skill["name"] for skill in skills}
+    for skill in skills:
+        for target in skill.get("handoff", []):
+            if target not in names:
+                die(skill["name"], f"unknown handoff target {target}")
+            if target == skill["name"]:
+                die(skill["name"], "handoff must not target self")
+
+
+def validate_reference_inventory(root, skills):
+    doc = (Path(root) / "docs" / "reference-inventory.md").read_text(encoding="utf-8")
+    listed = {}
+    section = None
+    for line in doc.splitlines():
+        if line.startswith("## "):
+            section = line[3:].strip()
+        elif line.strip().startswith("- `") and section:
+            listed.setdefault(section, set()).add(line.strip()[3:].rstrip("`"))
+    names = {skill["name"] for skill in skills}
+    for name in names:
+        actual = {p.name for p in (Path(root) / "skills" / name / "references").glob("*.md")}
+        expected = listed.get(name, set())
+        if actual != expected:
+            die(
+                name,
+                "reference-inventory mismatch: "
+                f"unlisted={sorted(actual - expected)} stale={sorted(expected - actual)}",
+            )
+    extra = set(listed) - names
+    if extra:
+        die("reference-inventory", f"unknown skill sections {sorted(extra)}")
 
 
 def validate_routing_matrix(root, skills):

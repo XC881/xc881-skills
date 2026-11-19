@@ -224,7 +224,7 @@ class QueueAuditTests(unittest.TestCase):
             }}},
             {"method": "item/completed", "params": {"item": {
                 "type": "commandExecution",
-                "command": "/bin/bash -lc 'rtk read skills/xc881-requirement-analysis/scripts/validate_req_process.py'",
+                "command": "/bin/bash -lc 'rtk read skills/xc881-analysis/scripts/validate_req_process.py'",
             }}},
             {"method": "item/completed", "params": {"item": {
                 "type": "commandExecution",

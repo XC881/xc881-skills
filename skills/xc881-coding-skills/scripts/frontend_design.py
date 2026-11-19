@@ -157,17 +157,17 @@ def persist_candidate(generated, project_root, slug):
         if part.is_symlink():
             raise ValueError("design-system path must not traverse symlinks")
     data = system_summary(generated)
-    lines = ["# Design-System Candidate", "", "Status: proposal (Requirement reconciles before acceptance)",
+    lines = ["# Design-System Candidate", "", "Status: proposal (Analysis Requirement branch reconciles before acceptance)",
              "Source revision: " + json.loads((VENDOR / "upstream.json").read_text(encoding="utf-8"))["revision"],
              "", "## Authority", generated["authority"], "", "## Decisions"]
     lines.append(f"- request: {encode(generated['request'])}")
     for key in ("project_name", "category", "layout", "style", "colors", "typography", "constraints", "anti_patterns", "fallback_fields", "source_identities", "source_derivations"):
         lines.append(f"- {key}: {encode(data.get(key))}")
     lines.extend(["", "## Boundaries", "No package installation or existing-token replacement is authorized.",
-                  "Requirement supplies project-specific component, state, responsive and asset rules.", ""])
+                  "Analysis Requirement branch supplies project-specific component, state, responsive and asset rules.", ""])
     content = "\n".join(lines)
     if len(content) > 3000:
-        raise ValueError("candidate exceeds master budget; reconcile a bounded contract in Requirement before writing")
+        raise ValueError("candidate exceeds master budget; reconcile a bounded contract in Analysis before writing")
     target.parent.mkdir(parents=True, exist_ok=True)
     with target.open("x", encoding="utf-8") as stream:
         stream.write(content)

@@ -4,7 +4,7 @@ Use to classify the task and lock the anti-loop stop boundary.
 
 ## Magnitude
 
-Judge magnitude from supplied or cheap source/target evidence, not language names:
+Judge magnitude from supplied or simple exact/local/low-risk source/target evidence, not language names:
 
 - whole project
 - subsystem / module
@@ -27,7 +27,7 @@ Only goal tasks can loop forever, so only goal tasks need the hard gate.
 ## Hard gate (goal only)
 
 Before goal porting, reuse a valid locked boundary or have
-`$xc881-requirement-analysis` lock it:
+`$xc881-analysis` lock it:
 
 - Done-criteria: measurable, checkable per iteration (e.g. "all N modules pass the parity suite").
 - Exit conditions: what state ends the loop (success end, and give-up/escalate end).

@@ -95,6 +95,37 @@ class InstallTests(unittest.TestCase):
             self.assertFalse((skill / "stale.txt").exists())
             self.assertEqual((unrelated / "keep.txt").read_text(encoding="utf-8"), "ok")
 
+    def test_copy_prunes_retired_skill_dirs_safely_and_validates_parity(self):
+        with tempfile.TemporaryDirectory() as directory:
+            home = Path(directory)
+            dest_root = home / "skills"
+            for retired in ("xc881-requirement-analysis", "xc881-bugfix-research", "xc881-solution-research"):
+                stale = dest_root / retired
+                stale.mkdir(parents=True)
+                (stale / "SKILL.md").write_text("retired", encoding="utf-8")
+            result = run_copy(str(dest_root), home)
+            self.assertEqual(result.returncode, 0, result.stderr)
+            for retired in ("xc881-requirement-analysis", "xc881-bugfix-research", "xc881-solution-research"):
+                self.assertFalse((dest_root / retired).exists())
+            parity = subprocess.run(
+                [sys.executable, str(ROOT / "scripts/validate_installed_skills.py"), str(dest_root)],
+                capture_output=True, text=True, timeout=20,
+            )
+            self.assertEqual(parity.returncode, 0, parity.stderr)
+
+            rogue = dest_root / "xc881-requirement-analysis"
+            rogue.mkdir()
+            (rogue / "notes.txt").write_text("keep", encoding="utf-8")
+            refused = run_copy(str(dest_root), home)
+            self.assertNotEqual(refused.returncode, 0)
+            self.assertIn("refusing to prune", refused.stderr)
+            self.assertEqual((rogue / "notes.txt").read_text(encoding="utf-8"), "keep")
+            stale_parity = subprocess.run(
+                [sys.executable, str(ROOT / "scripts/validate_installed_skills.py"), str(dest_root)],
+                capture_output=True, text=True, timeout=20,
+            )
+            self.assertNotEqual(stale_parity.returncode, 0)
+
 
 if __name__ == "__main__":
     unittest.main()

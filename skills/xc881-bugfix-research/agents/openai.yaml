@@ -1,6 +1,0 @@
-interface:
-  display_name: "xc881漏洞与Bug诊断"
-  short_description: "Bug and vulnerability diagnosis owner"
-  default_prompt: "Use only for diagnosis outcomes. SKILL.md owns workflow. Stop after diagnosis unless implementation intent is explicit or delegated; never co-own incidental errors."
-policy:
-  allow_implicit_invocation: true

@@ -1,39 +1,29 @@
 # Trigger
 
-All xc881 skills are intent-routed. Direct `$skill-name` calls select that skill.
-Implicit routing matches the requested deliverable to each skill `description`.
-The table below illustrates outcomes; it is not a runtime keyword switch.
+Select skills autonomously from **user intent** AND **actual task readiness/direction**—never from literal phrasing or a keyword list. Direct `$skill-name` calls remain valid; old analysis names (`$xc881-requirement-analysis`, `$xc881-bugfix-research`, `$xc881-solution-research`) remain aliases of `$xc881-analysis`.
 
 ```text
-$xc881-solution-research
-$xc881-requirement-analysis
-$xc881-bugfix-research
+$xc881-analysis
+$xc881-coding-skills
 $xc881-source-article-style
 $xc881-porting-orchestration
 ```
 
-Requested deliverable:
+Two-axis selection (`User Intent × Task Readiness`):
 
 ```text
-external technical evidence or a stack decision -> xc881-solution-research
-scope, acceptance criteria, a PRD, or issue/PR triage -> xc881-requirement-analysis
-cause of a bug, regression, vulnerability, or performance issue -> xc881-bugfix-research
-project write, review, verification, or explicit git -> xc881-coding-skills
-Chinese source-article prose -> xc881-source-article-style
-cross-language or cross-project migration -> xc881-porting-orchestration
+ordinary Q&A, generic writing, or simple exact/local/low-risk read -> no skill
+analysis-only (scope/AC/PRD/triage, bug cause, or external research) -> xc881-analysis
+build/fix with concrete scope and confirmed cause -> xc881-coding-skills directly
+build/fix with open scope/AC, unconfirmed cause, or missing external facts -> xc881-analysis -> xc881-coding-skills
+cross-language or cross-project migration (boundary only or full port) -> xc881-porting-orchestration (+ xc881-coding-skills / xc881-analysis as needed)
+Chinese source-article prose -> xc881-source-article-style (+ xc881-coding-skills / xc881-analysis for gaps)
 ```
 
 Selection rules:
 
-- Choose one primary owner from the user's requested final outcome, not every
-  intermediate verb or noun in the prompt.
-- Incidental errors, code, terms, languages, or research needs do not activate a
-  second skill. The primary owner delegates one bounded subtask only when blocked.
-- Ordinary explanations, generic writing, and simple exact/local/low-risk reads
-  may use no xc881 skill.
-- Ambiguity alone is not requirement intent. Use base-agent judgment when safe,
-  or ask one blocking question when the final outcome truly cannot be inferred.
-- A combined user request may chain skills, but only one owns the active phase;
-  delegated skills return to that owner instead of becoming parallel owners.
-- Do not run a full workflow merely because a skill was plausibly relevant. Run
-  only the branch needed for the requested outcome.
+- Users do not need to script workflow steps ("analyze first, then implement" or "diagnose first, then fix"). When the user says "build X" or "fix Y" and scope, root cause, external facts, or cross-language parity are still open, start in Analysis or Porting and chain into Coding automatically once resolved.
+- Conversely, when scope, target, and cause are already concrete, skip Analysis and enter Coding directly—do not add ceremony to ready work.
+- One skill owns the active phase; mid-task surprises (contract conflicts, hidden scope choices, two failed fixes) pivot back to Analysis instead of guessing.
+- Incidental nouns ("code", "requirement", a language name) do not trigger a skill whose work the task does not actually need. Inside Analysis, cross-branch gaps switch branches without delegation.
+- Run only the branch needed for the current task gap, never the whole workflow for form's sake.

@@ -27,7 +27,7 @@ Read the affected route and its actual system before proposing visual changes:
 
 Classify the request as targeted preservation, approved visual overhaul, or
 greenfield. If that distinction changes routes, content, brand, or acceptance
-criteria and is not clear, ask one blocking question or return to Requirement.
+criteria and is not clear, ask one blocking question or return to `$xc881-analysis`.
 
 ## Preservation Contract
 

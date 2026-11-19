@@ -1,7 +1,7 @@
 # UI/UX Pro Max Integration
 
 The complete open-source dataset and actual search/design generator are vendored
-inside Coding. They are executable resources, not prompt text or a seventh skill.
+inside Coding. They are executable resources, not prompt text or a separate skill.
 The former small hardcoded selector is replaced by a compatibility forwarder.
 
 ## Source And Inventory

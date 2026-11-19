@@ -5,7 +5,7 @@ import sys
 
 SKILL_SCRIPT = (
     Path(__file__).resolve().parents[1]
-    / "skills/xc881-requirement-analysis/scripts/find_req_process_candidates.py"
+    / "skills/xc881-analysis/scripts/find_req_process_candidates.py"
 )
 
 

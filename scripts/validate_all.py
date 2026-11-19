@@ -3,7 +3,11 @@ from pathlib import Path
 import json, subprocess, sys
 from skill_validation import (
     validate_behavior_contracts,
+    validate_description_budgets,
+    validate_handoffs,
+    validate_reference_inventory,
     validate_routing_matrix,
+    validate_shared_passages,
     validate_skill_frontmatter,
 )
 from audit_skill_loads import validate_cases
@@ -32,7 +36,11 @@ for s in m:
         t = (p/"agents"/a).read_text(encoding="utf-8")
         if f"allow_implicit_invocation: {need}" not in t:
             raise SystemExit(f"{s['name']}/{a}: bad trigger policy")
+validate_description_budgets(root, m)
+validate_handoffs(m)
+validate_reference_inventory(root, m)
 validate_routing_matrix(root, m)
+validate_shared_passages(root, m)
 validate_behavior_contracts(root, m)
 validate_cases(root)
 print("xc881-skills OK")

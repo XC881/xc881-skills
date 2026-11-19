@@ -94,8 +94,8 @@ def main():
     def baseline_size(relative):
         if relative not in previous:
             result = subprocess.run(["git", "-C", str(ROOT), "show", f"{args.baseline}:{relative}"],
-                                    capture_output=True, text=True, check=True)
-            previous[relative] = measure(result.stdout)
+                                    capture_output=True, text=True)
+            previous[relative] = measure(result.stdout) if result.returncode == 0 else None
         return previous[relative]
 
     for path in sorted((ROOT / "skills").glob("*/SKILL.md")):
@@ -104,8 +104,9 @@ def main():
         before = None
         if args.baseline:
             before = baseline_size(str(path.relative_to(ROOT)))
-            before_total += before
-        comparison = f"{before:5d} -> " if before is not None else ""
+            if before is not None:
+                before_total += before
+        comparison = f"{before:5d} -> " if before is not None else ("  new -> " if args.baseline else "")
         print(f"{comparison}{current:5d} {path.parent.name}")
     print(f"total: {before_total if args.baseline else '-'} -> {current_total} {unit}")
     print("Declared cold instruction paths; project/artifact reads excluded:")
@@ -116,9 +117,9 @@ def main():
         suffix = f"; tool output <= {output} chars separately" if output else ""
         comparison = ""
         if args.baseline:
-            baseline = sum(baseline_size(f"skills/{case['owner']}/{relative}")
-                           for relative in case.get("baseline_reads", case["reads"]))
-            comparison = f"{baseline:5d} -> "
+            base_sizes = [baseline_size(f"skills/{case['owner']}/{relative}")
+                          for relative in case.get("baseline_reads", case["reads"])]
+            comparison = f"{sum(base_sizes):5d} -> " if all(s is not None for s in base_sizes) else "  new -> "
         print(f"{comparison}{size:5d} {case['id']}{suffix}")
     print("Declared continuation tool reads under fixture preconditions:")
     for scenario in validate_continuations():

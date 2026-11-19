@@ -1,0 +1,6 @@
+interface:
+  display_name: "xc881分析"
+  short_description: "Scope, diagnosis, and external evidence owner"
+  default_prompt: "Select when intent or task gaps need scope/AC, diagnosis, or external facts—standalone or before unconfirmed builds/fixes. SKILL.md owns workflow; chain Coding for writes."
+policy:
+  allow_implicit_invocation: true

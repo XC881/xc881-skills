@@ -49,9 +49,10 @@ Performance-mode checks:
 
 Review mode:
 
-- Standards axis: repo rules + xc881 quality smells.
-- Spec axis: requested behavior / AC / issue / PRD.
-- Keep axes separate; a standards-clean change can still implement the wrong thing.
+- Rank findings by severity: `P0` (security/auth bypass, data loss/corruption, crash, broken wire/public contract) -> `P1` (wrong behavior, race/deadlock, resource leak, missing boundary check) -> `P2` (coupling hazard, missing critical test) -> `P3` (local clarity).
+- Every finding cites `path:line` + concrete trigger input/interleaving -> broken invariant. Trace callers/guards first; do not speculate about impossible paths.
+- Separate `Spec/AC` mismatches from `Standards` smells; a standards-clean change can still implement the wrong thing.
+- Suppress cosmetic nitpicks when P0-P2 defects exist. When no defects are found, state that explicitly and note residual risks or untested paths.
 
 Tracker/PR mode:
 

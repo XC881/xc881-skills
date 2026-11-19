@@ -1,6 +1,6 @@
 interface:
   display_name: "xc881移植编排"
   short_description: "Cross-language/project porting owner"
-  default_prompt: "Use only for migration outcomes. SKILL.md owns workflow. Keep one owner, classify before delegating, and persist state only for goal/queue work."
+  default_prompt: "Select when intent or task direction is cross-language/project migration with parity. SKILL.md owns workflow; chain Analysis for open gaps and Coding for edits/parity."
 policy:
   allow_implicit_invocation: true

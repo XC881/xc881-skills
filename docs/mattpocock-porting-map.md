@@ -9,9 +9,9 @@ Porting mode: abstract-intent. The goal is to preserve useful capabilities while
 | Source capability | xc881 landing point | Porting decision |
 | --- | --- | --- |
 | Predictable skill writing: invocation load, progressive disclosure, leading words, pruning | `docs/skill-authoring-standard.md` | Adopt as maintenance standard, not runtime bloat. |
-| Grilling discipline: ask one decision at a time, discover facts instead of asking, stop before acting | `xc881-requirement-analysis` references | Adapt to xc881's one-blocking-question and intent-routed analysis model. |
-| Primary-source research and cited findings | `xc881-solution-research` references | Adopt; large findings become a bounded Markdown artifact, not a huge chat response. |
-| Tight bug feedback loop before hypothesis | `xc881-bugfix-research` references | Adopt as diagnosis policy; bugfix skill still plans only and hands coding to execution. |
+| Grilling discipline: ask one decision at a time, discover facts instead of asking, stop before acting | `xc881-analysis` requirement-branch references | Adapt to xc881's one-blocking-question and intent-routed analysis model. |
+| Primary-source research and cited findings | `xc881-analysis` solution-branch references | Adopt; large findings become a bounded Markdown artifact, not a huge chat response. |
+| Tight bug feedback loop before hypothesis | `xc881-analysis` bugfix-branch references | Adopt as diagnosis policy; the bugfix branch still plans only and hands coding to execution. |
 | TDD seam discipline, anti-tautology, mock only at system boundaries | `xc881-coding-skills` quality standard | Adopt into coding execution and semantic rubric. |
 | Deep module vocabulary: module/interface/seam/adapter/depth/leverage/locality | `xc881-coding-skills` quality standard and project optimization | Adopt, but keep xc881 dependency-direction rules. |
 | Throwaway prototype as design evidence | `xc881-coding-skills` project optimization | Adapt as optional exploration for uncertain UI/logic, never default production code. |
@@ -41,8 +41,8 @@ Porting mode: abstract-intent. The goal is to preserve useful capabilities while
 | `prototype` | Adapted into optional throwaway evidence for uncertain UI/logic questions. |
 | `handoff` | Already aligned with xc881 handoff; strengthened through artifact/plan-file discipline. |
 | `teach`, `writing-beats`, `writing-fragments`, `writing-shape` | Partly adapted into writing grounding, one-block growth, and raw-material handling; full teaching workspace rejected as out of scope. |
-| `setup-matt-pocock-skills`, `triage`, `ask-matt` | `triage` and tracker setup are adapted into `xc881-requirement-analysis`; `ask-matt` router remains rejected because xc881 uses native intent routing. |
-| `wayfinder`, `loop-me`, `wizard`, `claude-handoff` | `wayfinder` map/ticket ideas are adapted into `xc881-requirement-analysis`; the other direct workflows remain rejected. |
+| `setup-matt-pocock-skills`, `triage`, `ask-matt` | `triage` and tracker setup are adapted into the `xc881-analysis` requirement branch; `ask-matt` router remains rejected because xc881 uses native intent routing. |
+| `wayfinder`, `loop-me`, `wizard`, `claude-handoff` | `wayfinder` map/ticket ideas are adapted into the `xc881-analysis` requirement branch; the other direct workflows remain rejected. |
 | `scaffold-exercises`, `git-guardrails-claude-code`, `migrate-to-shoehorn`, `setup-pre-commit`, `obsidian-vault`, `edit-article` | Rejected as project/personal/tool-specific. |
 | `design-an-interface`, `qa`, `request-refactor-plan`, `ubiquitous-language` | Rejected as deprecated source skills; useful parts are covered by newer adapted capabilities. |
 

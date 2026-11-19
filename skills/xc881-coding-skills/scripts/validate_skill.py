@@ -67,18 +67,24 @@ required_rules = [
     "never `in-progress`", "Resume a blocked item as `ready`",
     "advance until terminal", "explicit stepwise/pause intent", "Do not scan `dev-notes`",
     "Do not read `index.md` by default", "its current item only",
-    "Do not load previous/next", "stop and return to Requirement",
-    "run only needed branches",
+    "Do not load previous/next", "stop and return to Analysis",
+    "run only needed branches", "One final contract per turn",
 ]
 for rule in required_rules:
     if rule.lower() not in text.lower(): die(f"missing task-mode rule: {rule}")
+if "`queue/Q-NNN-*.md|none`" not in text or "bare `Q-NNN`" not in text:
+    die("current.md pointers must be paths while queue items keep bare Q-NNN links")
 if "use the write-first exact handoff; do not validate normally" not in text:
     die("queue mode must not run a normal process validator")
 execution_text = (root/"references/requirement-artifact-execution.md").read_text(encoding="utf-8")
 for rule in ["do not run a process validator in", "one coherent patch", "history.md", "old -> new",
-             "Item `Status` is only `pending | ready | blocked | done | skipped`, never"]:
+             "Item `Status` is only `pending | ready | blocked | done | skipped`, never",
+             "Task:", "Blocked by:", "Current: none"]:
     if rule not in execution_text:
         die(f"requirement execution missing write-first rule: {rule}")
+hc_text = (root/"references/high-constraint-coding-policy.md").read_text(encoding="utf-8")
+if "never dump raw" not in hc_text:
+    die("high-constraint policy must keep internal design-gate labels out of user chat")
 checkpoint_text = (root/"references/execution-checkpoint-and-tool-policy.md").read_text(encoding="utf-8")
 if "never `in-progress`" not in checkpoint_text or "resume blocked items as `ready`" not in checkpoint_text:
     die("recovery checkpoint must keep in-progress as task-only")
@@ -108,6 +114,11 @@ for case in ["三个可运行队列项", "每完成一个队列项先停下来",
     if case not in rubric_text: die(f"missing continuous-run rubric: {case}")
 for assertion in ["automatically loads routing", "another user reference request"]:
     if assertion not in rubric_text: die(f"missing automatic frontend escalation rubric: {assertion}")
+contract = json.loads((root/"evals/behavior-contract.json").read_text(encoding="utf-8"))
+if contract.get("required_sections") != ["完成内容"] or "需要注意" not in contract.get("optional_sections", []):
+    die("coding change contract must require 完成内容 and use plain 需要注意")
+if contract.get("anchor_modes", {}).get("代码结论") != "read" or contract.get("modes", {}).get("read", {}).get("required_sections") != ["代码结论", "依据"]:
+    die("coding contract must define 代码结论 read mode")
 if len(text.splitlines()) > 170: die("SKILL.md too long")
 for ref in (root/"references").glob("*.md"):
     if len(ref.read_text(encoding="utf-8").splitlines()) > 160:

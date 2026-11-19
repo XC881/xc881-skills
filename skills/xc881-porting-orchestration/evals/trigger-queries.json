@@ -75,14 +75,14 @@
     "workflow": "bugfix"
   },
   {
-    "query": "用xc881写作 BrowserWindow 创建流程",
+    "query": "基于已给出的 BrowserWindow 源码笔记，用xc881写作创建流程",
     "should_trigger": false,
-    "workflow": "source article"
+    "workflow": "source article from supplied notes"
   },
   {
-    "query": "按我的文章风格写一篇 BrowserWindow 创建流程的函数级分析",
+    "query": "按我的文章风格写一篇当前仓库 BrowserWindow 创建流程的函数级分析",
     "should_trigger": false,
-    "workflow": "source article"
+    "workflow": "source article with coding trace"
   },
   {
     "query": "帮我读一下这个模块的入口和调用链，不要改代码",
@@ -168,5 +168,45 @@
     "query": "把现有登录需求迁到 Rust，先只定迁移边界",
     "should_trigger": true,
     "workflow": "porting intent"
+  },
+  {
+    "query": "改动后按钮行为变了，判断这是 bug 还是预期行为",
+    "should_trigger": false,
+    "workflow": "expected-behavior scope determination"
+  },
+  {
+    "query": "讲解这个模块的实现思路，不用写成文章",
+    "should_trigger": false,
+    "workflow": "chat explanation complex read"
+  },
+  {
+    "query": "分诊这个登录 500 的 issue，给出根因和最小修复计划",
+    "should_trigger": false,
+    "workflow": "triage with diagnosis (one contract)"
+  },
+  {
+    "query": "线上订单接口偶发 500，原因还不清楚，帮我修好",
+    "should_trigger": false,
+    "workflow": "unscripted bugfix then coding (unconfirmed cause)"
+  },
+  {
+    "query": "帮我做一套多租户权限与角色继承系统，目前只有初步想法",
+    "should_trigger": false,
+    "workflow": "unscripted requirements then coding (underspecified build)"
+  },
+  {
+    "query": "把 src/auth/login.ts 里的请求超时从 3000ms 改成 5000ms 并跑相关单测",
+    "should_trigger": false,
+    "workflow": "direct concrete coding change"
+  },
+  {
+    "query": "把这个 Python 签名校验模块迁移成 Rust 并合入当前仓库跑通测试",
+    "should_trigger": true,
+    "workflow": "unscripted porting then coding"
+  },
+  {
+    "query": "帮我升级这个配置项的写法，但我不确定当前框架版本里旧字段是否已废弃",
+    "should_trigger": false,
+    "workflow": "unscripted fact check then coding"
   }
 ]

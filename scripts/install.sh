@@ -1,6 +1,12 @@
 #!/usr/bin/env bash
 set -euo pipefail
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+RETIRED_SKILLS=(
+  xc881-requirement-analysis
+  xc881-bugfix-research
+  xc881-solution-research
+  xc881-issue-triage
+)
 
 copy(){
   local dest_root="$1"
@@ -28,6 +34,16 @@ copy(){
       rm -rf "$dest"
     fi
     cp -R "$skill" "$dest_root/"
+  done
+  for name in "${RETIRED_SKILLS[@]}"; do
+    dest="$dest_root/$name"
+    if [ -e "$dest" ] || [ -L "$dest" ]; then
+      if [ -L "$dest" ] || [ ! -d "$dest" ] || [ ! -f "$dest/SKILL.md" ]; then
+        echo "install.sh: refusing to prune $dest" >&2
+        return 1
+      fi
+      rm -rf "$dest"
+    fi
   done
 }
 

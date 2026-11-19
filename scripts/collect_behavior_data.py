@@ -47,6 +47,23 @@ def classify(text, contracts):
     return matches[0], None
 
 
+def resolve_mode(text, contract):
+    """Pick the contract mode from the leading anchor, else full."""
+    anchor_modes = contract.get("anchor_modes")
+    if not anchor_modes:
+        return "full"
+    lines = [(line, allowed) for line, allowed in output_lines(text) if line.strip()]
+    if lines and lines[0][1] and lines[0][0].startswith("# ") and not any(
+        _is_header_of(lines[0][0], anchor) for anchor in anchor_modes
+    ):
+        lines = lines[1:]
+    if lines and lines[0][1]:
+        for anchor in anchor_modes:
+            if _is_header_of(lines[0][0], anchor):
+                return anchor_modes[anchor]
+    return "full"
+
+
 def collect(paths, contracts, skill=None, mode=None):
     samples, excluded = [], Counter()
     for path in paths:
@@ -64,12 +81,13 @@ def collect(paths, contracts, skill=None, mode=None):
                     excluded["malformed_record"] += 1
                     continue
                 owner, reason = (skill, None) if skill else classify(text, contracts)
-                result = evaluate_output(text, contracts[owner], mode or "full") if owner else {
+                selected_mode = mode or (resolve_mode(text, contracts[owner]) if owner else None)
+                result = evaluate_output(text, contracts[owner], selected_mode) if owner else {
                     "status": "unscored", "reason": reason, "violations": [],
                 }
                 samples.append({
                     "source": str(path.resolve()), "line": number, "skill": owner,
-                    "mode": mode or ("full" if owner else None),
+                    "mode": selected_mode,
                     "attribution": "explicit" if skill else "leading_contract",
                     "output_sha256": hashlib.sha256(text.encode()).hexdigest(), **result,
                 })

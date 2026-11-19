@@ -1,8 +1,3 @@
 # xc881 Provider Compatibility Shim
 
-Intent-route to one matching xc881 skill by requested deliverable, not a keyword, and load its `SKILL.md`; open references
-only for the active branch. Coding owns writes and complex/tracked reads; analysis
-skills do not code. Queue execution resumes from exact current state and continues
-to terminal unless stepwise intent or a real blocker applies. Keep output compact,
-resume the same owner/current automatically after context compaction, and
-never commit/push implicitly.
+Select xc881 skills autonomously from user intent AND actual task readiness, not keywords, and load the active `SKILL.md` (open references only for the active branch). Enter Coding directly when scope/cause are concrete; run Analysis or Porting first when scope, root cause, external facts, or cross-language parity are open, then chain Coding automatically. Simple exact/local/low-risk reads need no skill. Queue execution advances from exact current state to terminal unless stepwise intent or a real blocker applies. Resume automatically after compaction; never commit/push implicitly.

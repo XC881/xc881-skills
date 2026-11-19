@@ -41,14 +41,14 @@ No runtime loaded ledger, hash polling, mandatory shared ref or cache/proxy.
 ## Repository limits
 
 ```text
-SKILL.md                5,000 chars
+SKILL.md                5,000 chars (xc881-analysis merged 3-branch entry: 7,000)
 skill description        320 chars each
 all descriptions       1,650 chars total
 agent default_prompt      180 chars
-req-process/current.md  1,200 chars
-active queue item       3,500 chars
-req-process/index.md   10,000 chars
-cross-process ledger    3,000 chars
+req-process/current.md  1,200 chars (hot per-resume cap)
+active queue item       3,500 chars (hot slice cap; overflow -> split slice)
+req-process/index.md   20,000 chars (cold ceiling; spill detail to decisions/evidence)
+cross-process ledger    4,500 chars (roll up completed slices; item never in-progress)
 ```
 
 Descriptions are the always-discoverable routing surface; their aggregate limit
@@ -67,7 +67,7 @@ python scripts/audit_skill_loads.py --baseline HEAD
 The audit compares current-only loading with the legacy previous/current/next
 window using character counts from files this repository owns.
 
-The skill-load audit reports six entry sizes and declared branch paths separately
+The skill-load audit reports four entry sizes and declared branch paths separately
 from tool-output bounds and on-disk data. Cases live in
 `evals/skill-load-paths.json`. Its `continuations` declare preconditions,
 per-turn expected instruction reads and quality criteria. The checker validates

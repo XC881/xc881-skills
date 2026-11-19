@@ -25,8 +25,10 @@ Scale verification to the affected states, viewports and themes.
   permissions and data rules stay at application boundaries.
 - In React/Next, keep static layout server-friendly. Isolate client input/browser
   APIs/animation in small leaves with cleanup; no React state per animation frame.
-- Reuse the icon family; if absent, use Lucide. Keep weight, size, accessible
-  names and labels consistent; never hand-draw familiar glyphs.
+- Reuse the project's installed icon family or clean accessible inline SVG; never
+  assume Lucide/Phosphor is installed, and map catalog icon names to the project's
+  actual icon source. Keep weight, size, accessible names and labels consistent;
+  never hand-draw familiar glyphs.
 - Check the manifest before importing a package; assume no Motion, GSAP, Tailwind,
   font, design system or image library. No routine code comments.
 

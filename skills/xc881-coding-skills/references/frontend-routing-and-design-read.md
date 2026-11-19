@@ -57,4 +57,4 @@ infer from the actual brief and code.
 - Consume only an exact handed-off `dev-notes/design-system/.../MASTER.md` when
   needed, plus only named surface overrides. Never scan for one; a note is a
   target contract, not proof that it supersedes real code. Conflicts or missing
-  queue scope/AC return to Requirement, not an invented redesign brief.
+  queue scope/AC return to `$xc881-analysis`, not an invented redesign brief.

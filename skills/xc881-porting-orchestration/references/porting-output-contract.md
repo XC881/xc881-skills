@@ -24,8 +24,8 @@ Rules:
 - `当前进度` uses status-based counts/state, never subjective percentages.
 - `下一步` names automatic continuation only when implementation/queue execution
   was requested. Planning-only work names the bounded next decision or handoff.
-- Chat-only/non-goal work must include enough scope, proof method, assumptions,
-  and next action to stand alone.
+- Chat-only/non-goal work omits `当前进度` and `开发记录`, skips durable ledgers even when shipping code, and includes enough scope, proof, assumptions, and next action to stand alone.
+- In a single-turn Porting -> Coding chain, Porting emits one final `迁移结论` response; delegated Coding/Analysis steps return bounded evidence internally without emitting separate banners.
 - Blocking questions include a recommendation and safe fallback/stop behavior.
 - Omit irrelevant optional headings and do not repeat the full plan.
 - No code here; delegate implementation and equivalence checks to `$xc881-coding-skills`.

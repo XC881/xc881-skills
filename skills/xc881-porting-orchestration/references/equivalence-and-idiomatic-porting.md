@@ -10,9 +10,9 @@ fixtures; state nondeterminism.
 
 Methods (pick per case, state which):
 
-- IO/behavior parity: same inputs -> same outputs/side effects across source and port.
+- IO/behavior parity: same inputs -> same outputs/errors/side effects across source and port.
 - Ported tests: source test suite translated and passing on the port.
-- Golden comparison: recorded source outputs replayed against the port.
+- Golden comparison: when the source code is runnable, execute it on boundary + adversarial vectors (empty, zero/negative, non-ASCII UTF-8, max/boundary, malformed/error input) to capture ground-truth outputs rather than mentally computing expected values, then replay against the port.
 
 Report consistent/inconsistent only for checked behavior, with evidence in chat.
 Missing coverage is unverified, not equivalent; an unresolved required check or

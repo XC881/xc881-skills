@@ -50,7 +50,7 @@
       "checklist": [
         "Coding is the only active owner because diagnosis is already complete",
         "uses instant plus change unless an exact queue handoff exists",
-        "does not invoke Bugfix or Requirement merely because the patch fixes a bug",
+        "does not invoke Analysis merely because the patch fixes a bug",
         "loads only references justified by the patch risk and verifies observable behavior"
       ]
     },
@@ -58,16 +58,16 @@
       "query": "按 dev-notes/req-process/20260713-login/current.md 继续实现",
       "checklist": [
         "classifies the request as queue plus change from the explicit artifact path",
-        "uses Requirement's exact write-first handoff without running a normal req-process validator",
+        "uses Analysis's exact write-first handoff without running a normal req-process validator",
         "reads current.md and the named current queue item only",
         "does not read previous or next queue files by default",
         "reads a previous item only when the current item explicitly links required evidence and reads next only after advancement",
         "does not read index.md by default",
-        "returns to Requirement when the local contract is incomplete, conflicts with code, changes scope/AC, or requires replanning",
+        "returns to Analysis when the local contract is incomplete, conflicts with code, changes scope/AC, or requires replanning",
         "does not change requirement scope or AC inside coding",
         "runs declared verification before marking done and reports results in chat only",
         "derives queue status, transition history and current pointer before one coherent checkpoint write without persisting verification results",
-        "returns to Requirement when direct reads expose malformed process state; only explicit audit or repair may validate"
+        "returns to Analysis when direct reads expose malformed process state; only explicit audit or repair may validate"
       ]
     },
     {
@@ -106,19 +106,19 @@
     {
       "query": "先分析登录需求，明确后直接读取代码并实现",
       "checklist": [
-        "Requirement owns unclear scope and automatically hands actual code reading/writing to Coding",
+        "Analysis (Requirement branch) owns unclear scope and automatically hands actual code reading/writing to Coding",
         "the user is not asked to invoke Coding a second time",
         "Coding classifies instant or queue before opening project or execution-artifact files",
         "Coding independently classifies read or change after persistence mode",
-        "a bounded delegated read returns evidence to Requirement before any unconfirmed change"
+        "a bounded delegated read returns evidence to Analysis before any unconfirmed change"
       ]
     },
     {
       "query": "先定位接口 500 根因，明确后直接读取并修复代码",
       "checklist": [
-        "Bugfix owns diagnosis and delegates bounded repository inspection to Coding read mode",
-        "Coding returns evidence to the same Bugfix run without silently changing code",
-        "after cause and repair scope are clear, Bugfix automatically hands the change back to Coding",
+        "Analysis (Bugfix branch) owns diagnosis and delegates bounded repository inspection to Coding read mode",
+        "Coding returns evidence to the same Analysis run without silently changing code",
+        "after cause and repair scope are clear, Analysis automatically hands the change back to Coding",
         "each Coding entry classifies instant or queue before read or change execution"
       ]
     },
@@ -233,7 +233,7 @@
         "routing first inspects user, project, brand, supplied-frame and local-system evidence before design intelligence",
         "when substantial new UI has no reusable system, design intelligence loads automatically and runs the real project-specific generator once, not a small fixed profile map",
         "the full local data and engine remain unread as prompt text; the bounded result preserves source identities, fallbacks and accessibility risk for reconciliation",
-        "a reusable multi-surface visual contract automatically delegates to Requirement, which applies the gate and writes only dev-notes/design-system/<slug>/MASTER.md plus needed surface deviations",
+        "a reusable multi-surface visual contract automatically delegates to Analysis (Requirement branch), which applies the gate and writes only dev-notes/design-system/<slug>/MASTER.md plus needed surface deviations",
         "Coding consumes the exact handed-off master only when the concern reaches it, never scans dev-notes, writes a project-root design-system directory, or forces an upstream stack/style default"
       ]
     },

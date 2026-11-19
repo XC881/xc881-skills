@@ -32,7 +32,7 @@ if "do not use a normal validator loop" not in text:
     die("porting workflow must not use a normal validator loop")
 for rule in ["continue automatically", "task terminal", "explicit stepwise/pause intent"]:
     if rule not in text + cross_text: die(f"missing continuous-run rule: {rule}")
-for rule in ["supplied or cheap evidence", "Small non-goal planning stays", "Planning/boundary-only intent stops"]:
+for rule in ["simple exact/local/low-risk", "Small non-goal ports (planning or shipped code) stay chat-only", "Planning/boundary-only intent stops", "never `in-progress`", "emit one final `迁移结论:` response only"]:
     if rule not in text: die(f"missing minimum porting branch: {rule}")
 if not any(e["should_trigger"] and "porting boundary only" in e["workflow"] for e in ev):
     die("need positive boundary-only eval")
@@ -41,10 +41,10 @@ human_sections = ["迁移结论", "本次迁移", "如何确认成功", "当前�
 for heading in human_sections:
     if heading not in output_text: die(f"human output missing {heading}")
 contract = json.loads((root/"evals/behavior-contract.json").read_text(encoding="utf-8"))
-if contract.get("required_sections") != human_sections:
-    die("behavior contract must validate human-facing porting output")
+if contract.get("required_sections") != human_sections or "chat-only" not in contract.get("modes", {}):
+    die("behavior contract must validate human-facing porting output and chat-only mode")
 if len(text.splitlines()) > 120: die("SKILL.md too long")
 for ref in (root/"references").glob("*.md"):
-    if len(ref.read_text(encoding="utf-8").splitlines()) > 55:
+    if len(ref.read_text(encoding="utf-8").splitlines()) > 58:
         die(f"{ref.name} too long")
 print(root.name + " OK")

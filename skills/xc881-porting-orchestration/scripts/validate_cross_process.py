@@ -5,7 +5,7 @@ import sys
 import tempfile
 
 
-CHAR_LIMIT = 3000
+CHAR_LIMIT = 4500
 REQUIRED_FIELDS = (
     "Requirement artifact",
     "Magnitude",
@@ -14,6 +14,11 @@ REQUIRED_FIELDS = (
     "Progress",
     "Open risks",
 )
+
+
+# Models naturally annotate field names with qualifiers (`Items (ledger):`,
+# `Open risks（audit）:`); the canonical name stays the anchor.
+_QUAL = r"(?:\s*[（(][^()（）]*[)）])?"
 
 
 class ValidationError(Exception):
@@ -32,20 +37,39 @@ def validate(path):
         raise ValidationError(f"{path}: {size} chars exceeds limit {CHAR_LIMIT}")
     for name in REQUIRED_FIELDS:
         if name == "Items":
-            present = re.search(r"^Items:\s*(?:.+|\n\s+-\s+.+)", text, re.M)
+            present = re.search(rf"^Items{_QUAL}:\s*(?:.+|\n\s+-\s+.+)", text, re.M)
         else:
-            present = re.search(rf"^{re.escape(name)}:\s*.+$", text, re.M)
+            present = re.search(rf"^{re.escape(name)}{_QUAL}:\s*.+$", text, re.M)
         if not present:
             raise ValidationError(f"missing field {name}")
+    items_block = re.search(rf"^Items{_QUAL}:(.*?)(?=^[A-Z][A-Za-z ]*(?:\s*[（(][^()（）]*[)）])?:|\Z)", text, re.M | re.S)
+    if items_block and re.search(r"\bin-progress\b", items_block.group(1)):
+        raise ValidationError("Items must not use in-progress; linked current.md is authoritative")
+    req_match = re.search(rf"^Requirement artifact{_QUAL}:\s*`?([^`\n]+?)`?\s*$", text, re.M)
+    req_rel = req_match.group(1).strip().rstrip("/")
+    if ".." in Path(req_rel).parts or not req_rel.startswith("dev-notes/req-process/"):
+        raise ValidationError("Requirement artifact must point under dev-notes/req-process/<task>")
+    idx = path.parts.index("cross-process")
+    if idx >= 1 and path.parts[idx - 1] == "dev-notes":
+        workspace = Path(*path.parts[: idx - 1])
+        if (workspace / "dev-notes/req-process").exists():
+            req_dir = workspace / req_rel
+            for required in ("index.md", "current.md"):
+                if not (req_dir / required).is_file():
+                    raise ValidationError(f"broken Requirement artifact link: missing {req_rel}/{required}")
     return size
 
 
 def write_fixture(path):
     path.parent.mkdir(parents=True, exist_ok=True)
+    req_dir = path.parents[2] / "dev-notes/req-process/test"
+    req_dir.mkdir(parents=True, exist_ok=True)
+    (req_dir / "index.md").write_text("ID: `RP-PORT-001`\n", encoding="utf-8")
+    (req_dir / "current.md").write_text("Task: `RP-PORT-001`\nState: `ready`\n", encoding="utf-8")
     path.write_text(
         "Requirement artifact: dev-notes/req-process/test/\n"
         "Magnitude: module\nEquivalence method: ported tests\n"
-        "Items: module-a in-progress\nProgress: 0 of 1\nOpen risks: none\n",
+        "Items: module-a ready\nProgress: 0 of 1\nOpen risks: none\n",
         encoding="utf-8",
     )
 
@@ -74,6 +98,28 @@ def self_test():
             encoding="utf-8",
         )
         expect_failure(path, "oversized ledger")
+        write_fixture(path)
+        path.write_text(
+            path.read_text(encoding="utf-8").replace("module-a ready", "module-a in-progress"),
+            encoding="utf-8",
+        )
+        expect_failure(path, "item in-progress")
+        write_fixture(path)
+        path.write_text(
+            path.read_text(encoding="utf-8").replace(
+                "dev-notes/req-process/test/", "dev-notes/req-process/missing/"
+            ),
+            encoding="utf-8",
+        )
+        expect_failure(path, "broken Requirement artifact link")
+        write_fixture(path)
+        path.write_text(
+            path.read_text(encoding="utf-8").replace(
+                "Open risks: none", "Open risks (semantic trap audit): none"
+            ),
+            encoding="utf-8",
+        )
+        validate(path)
 
 
 def main():

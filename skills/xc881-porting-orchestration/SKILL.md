@@ -1,9 +1,9 @@
 ---
 name: xc881-porting-orchestration
-description: 'Primary owner for cross-language/project porting. Use when the requested outcome is migration with preserved behavior. Ordinary refactors, data migrations, and incidental language mentions do not trigger it.'
-when_to_use: 'Use when the requested outcome is cross-language/project migration. Small non-goal work may stay chat-only; goal work locks boundaries and linked state.'
+description: 'Primary owner for cross-language or cross-project migration with preserved behavior, whether planning boundaries or shipping the port (chaining Analysis for open scope/library facts and Coding for edits/parity checks). Ordinary same-stack refactors and incidental language mentions skip it.'
+when_to_use: 'Use when intent or task direction is cross-language/project migration with behavioral parity; chain Analysis for open boundaries/facts and Coding for implementation and equivalence checks.'
 display_name: "xc881移植编排"
-version: "1.7.1"
+version: "3.0.0"
 category: "orchestration"
 tags:
   - porting
@@ -33,33 +33,38 @@ Incidental languages stay with the current owner. No code; delegate implementati
 - `./references/cross-process-plan.md`: ledger creation/update/resume.
 - `./references/porting-output-contract.md`: persisted progress or blocking/handoff summary.
 
-Route by intent each turn. Full supplied bodies count; names/paths/markers do not.
-Reuse in-context rules; read needed exact paths automatically only for missing
-rules, known changes or requested rereads. Higher-priority invocation rules win.
+Route each turn by user intent and actual task needs, not literal wording; chain
+or switch skills when open scope, cause, facts, parity, or code work requires it.
+Full supplied bodies count; names/paths/markers do not. Reuse in-context rules;
+read missing/changed or reread-requested exact paths only. Higher-priority rules win.
 
 ## Delegation
 
-- Boundary/risk/req-process -> `$xc881-requirement-analysis`.
+- Boundary/risk/req-process -> `$xc881-analysis`.
 - Deep reading, port, equivalence check -> `$xc881-coding-skills`.
-- Unresolved language/library facts -> `$xc881-solution-research`.
+- Unresolved language/library facts -> `$xc881-analysis`.
 
 Send current question/slice, evidence, constraints and permissions; receive needed
 anchors, uncertainty and next step. Resume Porting without rediscovery.
 
 ## Workflow
 
-1. Classify magnitude and goal/non-goal from supplied or cheap evidence. Reuse
-   revision/scope-matched mappings; delegate missing boundary/parity gaps only.
-2. Goal gate: reuse a locked boundary or have Requirement persist measurable done
+1. Classify magnitude and `goal` (whole-project/multi-module loop) vs `non-goal`
+   (bounded one-shot function/file/slice) from supplied or simple exact/local/low-risk
+   evidence (known target, 1-2 local files, no flow/risk/write). Reuse revision/scope-matched mappings; delegate missing boundary/parity gaps only.
+2. Goal gate (`goal` only): reuse a locked boundary or have Analysis persist measurable done
    criteria, exit conditions and exclusions. Unclear boundary -> one question; no port.
-3. Goal/queue: reuse or derive/write the linked <=3,000-char cross-process ledger;
-   do not use a normal validator loop or copy scope/AC. Small non-goal planning stays
-   chat-only. Ask before changing `.gitignore`.
+3. Goal/queue (`goal` only): reuse or derive/write the linked <=4,500-char cross-process ledger
+   (roll up completed slices; item status never `in-progress`);
+   do not use a normal validator loop or copy scope/AC. Small non-goal ports (planning or shipped code) stay chat-only, skip ledgers, and run Coding `instant`. Ask before changing `.gitignore`.
 4. Explicit/unambiguous task only: read cross-process and linked req
    `current.md + current item`; previous needs an evidence link, next waits for
    advancement. Never scan or read req index by default.
-5. Resolve current-slice semantic/library gaps. Select proof of source-observable
-   outputs, errors, state and side effects before porting; tests support only covered behavior.
+5. Resolve current-slice semantic/library gaps (numeric sign/overflow/rounding,
+   UTF-8 vs code-unit len/regex, JSON null/omission/order, aliasing, error/cancel).
+   Select proof of observable outputs, errors, state and side effects before
+   porting; when source runs, capture boundary + adversarial golden vectors from
+   source instead of hand-computing expected values. Tests support covered paths only.
 6. Planning/boundary-only intent stops with a plan. Requested implementation/executable
    queue delegates current port/verification to Coding. Behavior outranks target
    architecture, then idiom; intent fidelity is for abstract-intent work only.
@@ -70,15 +75,17 @@ anchors, uncertainty and next step. Resume Porting without rediscovery.
 
 ## User-facing output
 
+Start directly with `迁移结论:` (no preamble); omit empty optionals. Same-turn Analysis/Coding chains emit one final `迁移结论:` response only (fold delegated evidence in; never stack `需求结论`/`完成内容`).
+
 ```text
-迁移结论:
-本次迁移:
-如何确认成功:
+迁移结论: <一句话结论与可否推进>
+本次迁移: <源 -> 目标与有界范围>
+如何确认成功: <等价验证方法与覆盖边界>
 需要注意:        # only when relevant
 需要确认:        # only when blocked; include recommendation + fallback
-当前进度:
-下一步:
-开发记录:
+当前进度: <基于状态的完成/剩余计数>   # goal/persisted only
+下一步: <后续动作>
+开发记录: <req-process + cross-process 路径> # goal/persisted only
 ```
 
 ## Hard rules
